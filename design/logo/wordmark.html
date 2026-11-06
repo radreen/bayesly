@@ -26,6 +26,7 @@
   .avatar svg { width: 60%; height: 60%; overflow: visible; }
   .small { flex: 1; display: flex; gap: 14px; align-items: center; padding: 0 14px; background: var(--paper); color: var(--ink); min-height: 60px; }
   .small svg { overflow: visible; }
+  .avatar .swash, .small div .swash { display: none; }
   .wm text { font: 700 200px "Inter Tight"; letter-spacing: -6px; fill: currentColor; }
   .wm .loop { fill: none; stroke: currentColor; stroke-width: 32; stroke-linecap: butt; stroke-linejoin: round; }
 </style>
@@ -58,6 +59,26 @@
   <g data-part data-gap="10"><path class="loop" d="M0 154 L 0 284 C 30 292, 112 282, 112 245 C 112 210, 72 200, 42 208 C 12 216, -26 240, -46 226 C -62 214, -54 186, -30 186 C -8 186, 0 208, 0 232"></path></g>
 </template>
 
+<!-- v3 -->
+<template id="b-tail">
+  <g data-part data-gap="10"><path class="loop" d="M0 154 L 0 284 C 40 290, 112 282, 112 245 C 112 212, 82 204, 58 206 C 30 208, 2 222, -44 244"></path></g>
+</template>
+<template id="b-liga">
+  <g data-part data-gap="10"><path class="loop" d="M0 154 L 0 300"></path><path class="loop" d="M10 226 C 26 210, 44 206, 62 206 C 92 206, 114 226, 114 248 C 114 270, 96 286, 68 286 L 50 286"></path><path d="M58 250 L 18 286 L 58 322 Z" fill="currentColor"></path></g>
+</template>
+<template id="b-dot">
+  <g data-part data-gap="10"><path class="loop" d="M0 154 L 0 284 L 64 284 C 98 284, 124 268, 124 245 C 124 222, 98 206, 64 206 C 34 206, 12 218, 0 232"></path><circle cx="60" cy="245" r="15" fill="currentColor"></circle></g>
+</template>
+<template id="b-swash">
+  <g data-part data-adv="146"><path class="loop" d="M0 154 L 0 300"></path><path class="loop swash" d="M0 298 L 0 318 C 0 352, 26 372, 72 372 L 420 372"></path><path class="loop" d="M0 232 C 12 218, 34 206, 64 206 C 92 206, 112 224, 112 245 C 112 266, 92 284, 64 284 L 0 284"></path></g>
+</template>
+<template id="b-lean">
+  <g data-part data-gap="10"><path class="loop" d="M-34 150 C -8 172, 0 214, 0 258 C 0 278, 30 284, 62 284 C 92 284, 112 266, 112 245 C 112 224, 92 206, 62 206 C 36 206, 14 220, 0 236"></path></g>
+</template>
+<template id="b-spiral">
+  <g data-part data-gap="10"><path d="M-14 140 L -14 270 L 50 270 C 84 270, 104 252, 104 231 C 104 210, 84 192, 50 192 C 22 192, 2 202, -14 216" fill="none" stroke="currentColor" stroke-width="5"></path><path class="loop" d="M0 154 L 0 284 L 64 284 C 96 284, 116 266, 116 245 C 116 224, 96 206, 64 206 C 34 206, 12 218, 0 232"></path></g>
+</template>
+
 <div class="grid" id="variants"></div>
 
 <script>
@@ -70,7 +91,15 @@
     { id: "crook",   title: "4 · Crook", note: "Stem starts with a curled hook; friendly, compact.", tpl: "b-crook" },
     { id: "open",    title: "5 · Open", note: "Bowl stops short of the stem: an update in progress.", tpl: "b-open" },
     { id: "knot",    title: "6 · Knot", note: "The bowl's stroke ties a small loop left of the stem.", tpl: "b-knot" },
+    { id: "tail",    title: "7 · Tail", note: "The bowl runs through the stem and exits left as a tail.", tpl: "b-tail" },
+    { id: "liga",    title: "8 · Update", note: "The bowl is a refresh arrow returning to the stem: a belief, updated.", tpl: "b-liga" },
+    { id: "dot",     title: "9 · Data point", note: "A dot in the counter: one observation, the start of an update.", tpl: "b-dot" },
+    { id: "swash",   title: "10 · Underline swash", note: "The stem drops below the baseline and underlines the name.", tpl: "b-swash" },
+    { id: "lean",    title: "11 · Lean", note: "The stem starts with a hand-drawn lean, like a pen stroke.", tpl: "b-lean" },
+    { id: "spiral",  title: "12 · Echo", note: "A thin prior b behind the bold posterior b.", tpl: "b-spiral" },
   ];
+  // Show the newest set first.
+  VARIANTS = VARIANTS.slice(6).concat(VARIANTS.slice(0, 6));
 
   function wordmark(tpl, withText) {
     var svg = document.createElementNS(NS, "svg");
@@ -85,9 +114,10 @@
       if (el.tagName === "text") {
         el.setAttribute("x", x);
       } else {
-        // First (and only) drawn letter: next text starts after its ink + gap.
+        // First (and only) drawn letter: next text starts after its ink + gap,
+        // or at a fixed advance for letters whose strokes run under/into the text.
         var bb = el.getBBox();
-        x = bb.x + bb.width + 16 + Number(el.dataset.gap || 8);
+        x = el.dataset.adv ? Number(el.dataset.adv) : bb.x + bb.width + 16 + Number(el.dataset.gap || 8);
       }
     });
     var bb = svg.getBBox(), pad = 20; // getBBox ignores stroke width
