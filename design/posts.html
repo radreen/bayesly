@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayesly post templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Design tokens ===== */
+:root {
+  --ink: #0d0d0e;
+  --paper: #e4e4df;
+  --white: #f5f5f0;
+  --muted: #74746f;
+  --accent: #c6ff2e;      /* brand lime */
+  --on-accent: #0d0d0e;   /* text colour on the accent */
+  --pad: 72px;
+  --s: 0.36;              /* gallery preview scale */
+}
+body[data-palette="blue"] {
+  --accent: #2b2df2;
+  --on-accent: #f5f5f0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #9d9d98; font-family: "Inter Tight", system-ui, sans-serif; color: var(--ink); }
+
+/* ===== Gallery chrome (not part of the posts) ===== */
+.gallery-head { padding: 32px 40px 8px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: baseline; color: var(--ink); }
+.gallery-head h1 { font-weight: 800; font-size: 28px; letter-spacing: -0.03em; }
+.gallery-head p { font: 500 13px "JetBrains Mono", monospace; opacity: .75; }
+.toggle { display: flex; gap: 8px; }
+.toggle button { font: 600 14px "Inter Tight"; padding: 8px 16px; border-radius: 999px; border: 2px solid var(--ink); background: transparent; cursor: pointer; }
+.toggle button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.grid { display: flex; flex-wrap: wrap; gap: 28px; padding: 24px 40px 60px; }
+.frame { width: calc(1080px * var(--s)); }
+.frame .holder { width: calc(1080px * var(--s)); height: calc(1350px * var(--s)); overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,.25); }
+.frame .holder > .post { transform: scale(var(--s)); transform-origin: 0 0; }
+.frame figcaption { margin-top: 12px; font: 500 12px/1.4 "JetBrains Mono", monospace; }
+.frame figcaption b { font: 700 14px "Inter Tight"; display: block; }
+
+/* Export mode: ?slide=<id> shows one post at 1:1 for screenshots */
+body.export { background: transparent; }
+body.export .gallery-head { display: none; }
+body.export .grid { padding: 0; }
+body.export .frame { display: none; width: auto; }
+body.export .frame.show { display: block; }
+body.export .frame .holder { width: 1080px; height: 1350px; box-shadow: none; }
+body.export .frame .holder > .post { transform: none; }
+body.export figcaption { display: none; }
+
+/* ===== Post base ===== */
+.post { width: 1080px; height: 1350px; position: relative; overflow: hidden; }
+.post.ink { background: var(--ink); color: var(--white); }
+.post.paper { background: var(--paper); color: var(--ink); }
+.post.acc { background: var(--accent); color: var(--on-accent); }
+/* film grain, like printed paper */
+.post::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 50;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: .22; mix-blend-mode: overlay;
+}
+.layer { position: absolute; inset: 0; }
+.z { position: relative; z-index: 2; }
+
+/* chrome: wordmark + tag on top, source + page at bottom */
+.top, .bottom { position: absolute; left: var(--pad); right: var(--pad); display: flex; justify-content: space-between; align-items: center; z-index: 5; }
+.top { top: 60px; }
+.bottom { bottom: 56px; font: 500 22px "JetBrains Mono", monospace; letter-spacing: .02em; text-transform: uppercase; }
+.wordmark { font-weight: 900; font-size: 42px; letter-spacing: -0.06em; display: flex; align-items: center; gap: 10px; }
+.wordmark i { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); display: inline-block; }
+.post.acc .wordmark i { background: var(--on-accent); }
+.pill { display: inline-flex; align-items: center; gap: 10px; border: 2.5px solid currentColor; border-radius: 999px; padding: 10px 24px; font: 500 22px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
+.pill.fill { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.pill.solid-ink { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.pill.solid-white { background: var(--white); color: var(--ink); border-color: var(--white); }
+
+/* type */
+.kicker { font: 700 24px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
+.h-xxl { font-weight: 900; font-size: 176px; line-height: .86; letter-spacing: -0.06em; }
+.h-xl  { font-weight: 800; font-size: 128px; line-height: .9;  letter-spacing: -0.055em; }
+.h-l   { font-weight: 800; font-size: 76px;  line-height: .98; letter-spacing: -0.04em; }
+.h-m   { font-weight: 700; font-size: 56px;  line-height: 1.04; letter-spacing: -0.03em; }
+.body  { font-weight: 500; font-size: 40px;  line-height: 1.22; letter-spacing: -0.015em; }
+.hl { background: var(--accent); color: var(--on-accent); padding: 0 .1em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.hl-ink { background: var(--ink); color: var(--white); padding: 0 .1em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+/* arrow-in-circle */
+.arrow { width: 200px; height: 200px; border: 3px solid currentColor; border-radius: 50%; display: grid; place-items: center; }
+.arrow svg { width: 52%; height: 52%; }
+.arrow svg * { stroke: currentColor; stroke-width: 5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* confidence dots (used in strips) */
+.dots { display: inline-flex; gap: 8px; vertical-align: middle; }
+.dots span { width: 34px; height: 18px; border-radius: 9px; border: 2.5px solid currentColor; }
+.dots span.on { background: currentColor; }
+
+/* ===== 01 Cover ===== */
+.cover .wedge { background: var(--accent); clip-path: polygon(0 88%, 100% 54%, 100% 100%, 0 100%); }
+.cover .content { position: absolute; left: var(--pad); right: var(--pad); top: 210px; }
+.cover .lede { margin-top: 44px; opacity: .72; max-width: 760px; }
+.cover .arrow { position: absolute; right: 96px; bottom: 170px; color: var(--on-accent); z-index: 3; }
+.cover .bottom { color: var(--on-accent); }
+
+/* ===== 02 Update (Before -> Now) ===== */
+.update .content { position: absolute; left: var(--pad); right: var(--pad); top: 190px; }
+.update .before { margin-top: 36px; color: var(--muted); }
+.update .before .pill { color: var(--ink); margin-bottom: 26px; }
+.update .down { width: 110px; height: 110px; margin: 34px 0 30px 4px; }
+.update .down * { stroke: var(--ink); stroke-width: 7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.update .now { background: var(--ink); color: var(--white); padding: 48px 56px 56px; clip-path: polygon(0 0, 88% 0, 100% 22%, 100% 100%, 0 100%); }
+.update .now .pill { margin-bottom: 28px; }
+.update .before p { font-size: 64px; }
+.update .now p { font-size: 92px; }
+.update .conf { position: absolute; left: var(--pad); right: var(--pad); bottom: 130px; display: flex; gap: 22px; align-items: center; font: 500 26px "JetBrains Mono", monospace; text-transform: uppercase; }
+
+/* ===== 03 Big number ===== */
+.number .content { position: absolute; left: var(--pad); right: var(--pad); top: 180px; }
+.number .big { font-weight: 900; font-size: 560px; line-height: .78; letter-spacing: -0.08em; margin-left: -20px; }
+.number .cap { margin-top: 36px; max-width: 820px; }
+.number .ink-wedge { background: var(--ink); clip-path: polygon(0 66%, 100% 78%, 100% 100%, 0 100%); }
+.number .take { position: absolute; left: var(--pad); right: 260px; bottom: 140px; color: var(--white); z-index: 3; }
+.number .take .pill { margin-bottom: 22px; color: var(--accent); }
+.number .bottom { color: var(--white); }
+
+/* ===== 04 Confidence ===== */
+.confidence .content { position: absolute; left: var(--pad); right: var(--pad); top: 190px; }
+.confidence .meter { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 64px 0 18px; }
+.confidence .meter div { height: 96px; border: 3px solid var(--white); border-radius: 48px; display: grid; place-items: center; font: 700 26px "JetBrains Mono", monospace; letter-spacing: .06em; }
+.confidence .meter div.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.confidence .rows { margin-top: 64px; display: grid; gap: 18px; }
+.confidence .row { display: flex; align-items: stretch; }
+.confidence .sign { flex: 0 0 96px; height: 96px; border-radius: 50%; background: var(--white); color: var(--ink); display: grid; place-items: center; font-weight: 800; font-size: 56px; z-index: 1; }
+.confidence .bar { flex: 1; margin-left: -48px; padding: 0 40px 0 76px; border-radius: 0 48px 48px 0; display: flex; align-items: center; font-weight: 600; font-size: 34px; letter-spacing: -0.01em; }
+.confidence .row.for .bar { background: var(--accent); color: var(--on-accent); }
+.confidence .row.against .bar { border: 3px solid var(--white); border-left: 0; }
+
+/* ===== 05 Tested ===== */
+.tested .content { position: absolute; left: var(--pad); right: var(--pad); top: 180px; }
+.tested .title { display: flex; justify-content: space-between; align-items: flex-end; }
+.tested table { width: 100%; border-collapse: collapse; margin-top: 54px; }
+.tested td { border-top: 3px solid var(--ink); padding: 26px 0 28px; vertical-align: top; }
+.tested td.k { width: 250px; font: 700 22px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; padding-top: 34px; }
+.tested td.v { font-weight: 600; font-size: 40px; line-height: 1.16; letter-spacing: -0.02em; }
+.tested .verdict { position: absolute; left: var(--pad); right: var(--pad); bottom: 130px; display: flex; gap: 16px; align-items: center; }
+.tested .verdict .pill { font-size: 30px; padding: 16px 34px; }
+.tested .verdict .pill.pick { background: var(--ink); color: var(--white); border-color: var(--ink); transform: rotate(-4deg); font-size: 44px; padding: 22px 46px; font-weight: 700; }
+.tested .verdict .lbl { font: 700 22px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; margin-right: 10px; }
+
+/* ===== 06 We don't know yet ===== */
+.unknown .wedge { background: var(--accent); clip-path: polygon(52% 0, 100% 0, 100% 46%, 70% 30%); }
+.unknown .content { position: absolute; left: var(--pad); right: var(--pad); top: 430px; }
+.unknown .q { margin-top: 70px; }
+.unknown .q .kicker { color: var(--accent); margin-bottom: 26px; }
+.unknown .q li { list-style: none; padding: 22px 0; border-top: 2px solid rgba(245,245,240,.28); }
+.unknown .arrow { position: absolute; right: 110px; top: 150px; color: var(--on-accent); z-index: 3; width: 170px; height: 170px; }
+
+/* ===== 07 Weekly digest ===== */
+.digest .content { position: absolute; left: var(--pad); right: var(--pad); top: 180px; }
+.digest h2 { line-height: 1.02; }
+.digest ol { list-style: none; margin-top: 56px; }
+.digest li { display: grid; grid-template-columns: 84px 1fr auto; gap: 26px; align-items: center; padding: 18px 0; border-top: 3px solid var(--ink); }
+.digest li .n { width: 84px; height: 84px; border-radius: 50%; background: var(--ink); color: var(--white); display: grid; place-items: center; font: 700 30px "JetBrains Mono", monospace; }
+.digest li .t { font-weight: 700; font-size: 38px; line-height: 1.1; letter-spacing: -0.025em; }
+.digest li .pill { font-size: 18px; padding: 8px 16px; }
+
+/* ===== 08 CTA ===== */
+.cta .content { position: absolute; left: var(--pad); right: var(--pad); top: 190px; }
+.cta .ink-wedge { background: var(--ink); clip-path: polygon(0 62%, 100% 50%, 100% 100%, 0 100%); }
+.cta .foot { position: absolute; left: var(--pad); right: var(--pad); bottom: 150px; color: var(--white); z-index: 3; }
+.cta .foot .body { max-width: 760px; margin-bottom: 40px; opacity: .85; }
+.cta .foot .actions { display: flex; gap: 16px; }
+.cta .foot .pill { font-size: 26px; padding: 16px 30px; }
+.cta .arrow { position: absolute; right: 96px; top: 190px; color: var(--on-accent); z-index: 3; width: 180px; height: 180px; }
+.cta .bottom { color: var(--white); }
+</style>
+</head>
+<body>
+
+<header class="gallery-head">
+  <h1>Bayesly — post templates v0.1</h1>
+  <div class="toggle" role="group" aria-label="Accent colour">
+    <button data-pal="lime" aria-pressed="true">Lime (brand)</button>
+    <button data-pal="blue" aria-pressed="false">Blue (reference)</button>
+  </div>
+  <p>1080×1350 (4:5) · sample copy is fictional (Example Lab, ExampleTool) · export one: ?slide=cover</p>
+</header>
+
+<main class="grid">
+
+<!-- 01 COVER -->
+<figure class="frame" data-id="cover">
+<div class="holder"><article class="post ink cover">
+  <div class="layer wedge"></div>
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Models · 06.11.26</span></div>
+  <div class="content z">
+    <h2 class="h-xl">Example Lab releases a <span class="hl">7B open-weights</span> model</h2>
+    <p class="body lede">What changed, and how sure we are.</p>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg></div>
+  <div class="bottom"><span>Source: example.com</span><span>01 / 05</span></div>
+</article></div>
+<figcaption><b>01 · Cover</b>Headline fact, one highlighted phrase. First slide of a carousel or a single image post.</figcaption>
+</figure>
+
+<!-- 02 UPDATE -->
+<figure class="frame" data-id="update">
+<div class="holder"><article class="post paper update">
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">The update</span></div>
+  <div class="content">
+    <div class="before">
+      <span class="pill">Before</span>
+      <p class="h-m">Open models this size trailed closed ones on coding tasks.</p>
+    </div>
+    <svg class="down" viewBox="0 0 100 100"><path d="M50 8 L50 90"/><path d="M18 58 L50 90 L82 58"/></svg>
+    <div class="now">
+      <span class="pill fill">Now</span>
+      <p class="h-l">The lab reports it matches a closed model twice its size.</p>
+    </div>
+  </div>
+  <div class="conf"><span>Confidence</span><span class="dots"><span class="on"></span><span class="on"></span><span></span></span><span>Medium — vendor benchmark only</span></div>
+  <div class="bottom"><span>Source: example.com</span><span>02 / 05</span></div>
+</article></div>
+<figcaption><b>02 · Before → Now</b>The core Bayesian update. Muted "before", solid "now", confidence strip.</figcaption>
+</figure>
+
+<!-- 03 BIG NUMBER -->
+<figure class="frame" data-id="number">
+<div class="holder"><article class="post acc number">
+  <div class="layer ink-wedge"></div>
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">By the numbers</span></div>
+  <div class="content z">
+    <div class="big">2×</div>
+    <p class="h-m cap">smaller than the closed model it is compared with.</p>
+  </div>
+  <div class="take">
+    <span class="pill">Our take · opinion</span>
+    <p class="body">A vendor benchmark is a claim, not a result. We'll wait for independent evals.</p>
+  </div>
+  <div class="bottom"><span>Source: example.com</span><span>03 / 05</span></div>
+</article></div>
+<figcaption><b>03 · Big number</b>One number that carries the story + the marked opinion line.</figcaption>
+</figure>
+
+<!-- 04 CONFIDENCE -->
+<figure class="frame" data-id="confidence">
+<div class="holder"><article class="post ink confidence">
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Confidence</span></div>
+  <div class="content">
+    <h2 class="h-xl">How sure<br>are we?</h2>
+    <div class="meter"><div class="on">LOW</div><div class="on">MEDIUM</div><div>HIGH</div></div>
+    <div class="rows">
+      <div class="row for"><div class="sign">+</div><div class="bar">Primary source: the lab's own release notes</div></div>
+      <div class="row against"><div class="sign">−</div><div class="bar">Benchmarks are self-reported</div></div>
+      <div class="row against"><div class="sign">−</div><div class="bar">No independent replication yet</div></div>
+    </div>
+  </div>
+  <div class="bottom"><span>Source: example.com</span><span>04 / 05</span></div>
+</article></div>
+<figcaption><b>04 · Confidence</b>Low / medium / high meter. Evidence for (+) and against (−).</figcaption>
+</figure>
+
+<!-- 05 TESTED -->
+<figure class="frame" data-id="tested">
+<div class="holder"><article class="post paper tested">
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill solid-ink">Weekly · No. 01</span></div>
+  <div class="content">
+    <div class="title"><h2 class="h-xxl"><span class="hl">Tested</span></h2></div>
+    <table>
+      <tr><td class="k">Claim</td><td class="v">ExampleTool summarises a 40-page PDF in under a minute.</td></tr>
+      <tr><td class="k">What we tried</td><td class="v">Three real reports, same prompt, timed by hand.</td></tr>
+      <tr><td class="k">Result</td><td class="v">2 of 3 under a minute. One summary skipped a key table.</td></tr>
+    </table>
+  </div>
+  <div class="verdict"><span class="lbl">Verdict</span><span class="pill">Worth it</span><span class="pill pick">Wait</span><span class="pill">Skip</span></div>
+  <div class="bottom"><span>Tested by Bayesly · not sponsored</span><span>ExampleTool</span></div>
+</article></div>
+<figcaption><b>05 · Tested</b>Weekly rubric: Claim → What we tried → Result → Verdict.</figcaption>
+</figure>
+
+<!-- 06 WE DON'T KNOW YET -->
+<figure class="frame" data-id="unknown">
+<div class="holder"><article class="post ink unknown">
+  <div class="layer wedge"></div>
+  <div class="top"><div class="wordmark">bayesly<i></i></div></div>
+  <div class="arrow"><svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg></div>
+  <div class="content">
+    <h2 class="h-xxl">We don't<br>know yet.</h2>
+    <div class="q">
+      <p class="kicker">What would change our mind</p>
+      <ul class="h-m">
+        <li>Independent evals on public benchmarks.</li>
+        <li>Usage reports from outside the lab.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom"><span>Source: example.com</span><span>05 / 05</span></div>
+</article></div>
+<figcaption><b>06 · We don't know yet</b>Signature card for honest uncertainty. Ends a carousel.</figcaption>
+</figure>
+
+<!-- 07 WEEKLY DIGEST -->
+<figure class="frame" data-id="digest">
+<div class="holder"><article class="post paper digest">
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Week 45 · 2026</span></div>
+  <div class="content">
+    <h2 class="h-xl">This week,<br><span class="hl-ink">5 updates</span></h2>
+    <ol>
+      <li><span class="n">01</span><span class="t">Example Lab releases a 7B open model</span><span class="pill">Med</span></li>
+      <li><span class="n">02</span><span class="t">ExampleCloud adds GPU sharing for inference</span><span class="pill">High</span></li>
+      <li><span class="n">03</span><span class="t">Preprint: LLMs can imitate an author's style</span><span class="pill">Low</span></li>
+      <li><span class="n">04</span><span class="t">ExampleTool tested: verdict “Wait”</span><span class="pill">Tested</span></li>
+      <li><span class="n">05</span><span class="t">A new long-context benchmark appears</span><span class="pill">Med</span></li>
+    </ol>
+  </div>
+  <div class="bottom"><span>Full digest: newsletter</span><span>bayesly</span></div>
+</article></div>
+<figcaption><b>07 · Weekly digest</b>Five items with a confidence tag each. Teaser for the newsletter.</figcaption>
+</figure>
+
+<!-- 08 CTA -->
+<figure class="frame" data-id="cta">
+<div class="holder"><article class="post acc cta">
+  <div class="layer ink-wedge"></div>
+  <div class="top"><div class="wordmark">bayesly<i></i></div></div>
+  <div class="content z">
+    <h2 class="h-xxl">Before.<br>Now.<br>How sure.</h2>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg></div>
+  <div class="foot">
+    <p class="body">Calm AI news. Every post says what changed and how sure we are.</p>
+    <div class="actions"><span class="pill fill">Follow @bayesly</span><span class="pill">What would change your mind?</span></div>
+  </div>
+  <div class="bottom"><span>bayesly</span><span>Threads · X · Newsletter</span></div>
+</article></div>
+<figcaption><b>08 · Follow / CTA</b>Closing card with the brand promise and a reply question.</figcaption>
+</figure>
+
+</main>
+
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  function setPalette(p) {
+    document.body.dataset.palette = p;
+    document.querySelectorAll(".toggle button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.pal === p));
+    });
+  }
+  document.querySelectorAll(".toggle button").forEach(function (b) {
+    b.addEventListener("click", function () { setPalette(b.dataset.pal); });
+  });
+  setPalette(params.get("palette") === "blue" ? "blue" : "lime");
+
+  var slide = params.get("slide");
+  if (slide) {
+    document.body.classList.add("export");
+    var f = document.querySelector('.frame[data-id="' + slide + '"]');
+    if (f) f.classList.add("show");
+  }
+})();
+</script>
+</body>
+</html>
