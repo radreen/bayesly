@@ -6,242 +6,353 @@
 <title>Bayesly post templates</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-/* ===== Design tokens ===== */
+/* ================= Design tokens ================= */
 :root {
   --ink: #0d0d0e;
   --paper: #e4e4df;
   --white: #f5f5f0;
-  --muted: #74746f;
+  --muted: #77776f;
   --accent: #c6ff2e;      /* brand lime */
   --on-accent: #0d0d0e;   /* text colour on the accent */
   --pad: 72px;
-  --s: 0.36;              /* gallery preview scale */
+  --s: 0.34;              /* gallery preview scale */
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --serif: "Instrument Serif", Georgia, serif;
 }
-body[data-palette="blue"] {
-  --accent: #2b2df2;
-  --on-accent: #f5f5f0;
-}
+body[data-palette="blue"] { --accent: #2b2df2; --on-accent: #f5f5f0; }
+/* Accent used as TEXT on black needs more contrast in the blue palette */
+body[data-palette="blue"] .cover .lede .serif,
+body[data-palette="blue"] .number .take .kicker,
+body[data-palette="blue"] .confidence .readout .v,
+body[data-palette="blue"] .unknown h2 .serif,
+body[data-palette="blue"] .unknown .q .kicker,
+body[data-palette="blue"] .cta .foot .kicker { color: #8c8fff; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #9d9d98; font-family: "Inter Tight", system-ui, sans-serif; color: var(--ink); }
 
-/* ===== Gallery chrome (not part of the posts) ===== */
-.gallery-head { padding: 32px 40px 8px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: baseline; color: var(--ink); }
+/* ================= Gallery chrome (not part of posts) ================= */
+.gallery-head { padding: 32px 40px 0; display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; }
 .gallery-head h1 { font-weight: 800; font-size: 28px; letter-spacing: -0.03em; }
-.gallery-head p { font: 500 13px "JetBrains Mono", monospace; opacity: .75; }
+.gallery-head p { font: 500 13px var(--mono); opacity: .75; width: 100%; }
 .toggle { display: flex; gap: 8px; }
 .toggle button { font: 600 14px "Inter Tight"; padding: 8px 16px; border-radius: 999px; border: 2px solid var(--ink); background: transparent; cursor: pointer; }
 .toggle button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
-.grid { display: flex; flex-wrap: wrap; gap: 28px; padding: 24px 40px 60px; }
+.section-title { padding: 34px 40px 0; font: 700 13px var(--mono); text-transform: uppercase; letter-spacing: .1em; }
+.grid { display: flex; flex-wrap: wrap; gap: 28px; padding: 16px 40px 20px; }
+.grid.carousel { gap: 0; }
 .frame { width: calc(1080px * var(--s)); }
-.frame .holder { width: calc(1080px * var(--s)); height: calc(1350px * var(--s)); overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,.25); }
+.frame .holder { width: calc(1080px * var(--s)); height: calc(1350px * var(--s)); overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,.22); }
 .frame .holder > .post { transform: scale(var(--s)); transform-origin: 0 0; }
-.frame figcaption { margin-top: 12px; font: 500 12px/1.4 "JetBrains Mono", monospace; }
+.frame figcaption { margin-top: 12px; padding-right: 14px; font: 500 12px/1.4 var(--mono); }
 .frame figcaption b { font: 700 14px "Inter Tight"; display: block; }
 
 /* Export mode: ?slide=<id> shows one post at 1:1 for screenshots */
 body.export { background: transparent; }
-body.export .gallery-head { display: none; }
+body.export .gallery-head, body.export .section-title, body.export figcaption { display: none; }
 body.export .grid { padding: 0; }
 body.export .frame { display: none; width: auto; }
 body.export .frame.show { display: block; }
 body.export .frame .holder { width: 1080px; height: 1350px; box-shadow: none; }
 body.export .frame .holder > .post { transform: none; }
-body.export figcaption { display: none; }
 
-/* ===== Post base ===== */
+/* ================= Post base ================= */
 .post { width: 1080px; height: 1350px; position: relative; overflow: hidden; }
 .post.ink { background: var(--ink); color: var(--white); }
 .post.paper { background: var(--paper); color: var(--ink); }
 .post.acc { background: var(--accent); color: var(--on-accent); }
-/* film grain, like printed paper */
+.post.grid-bg { background-image:
+  linear-gradient(rgba(13,13,14,.06) 2px, transparent 2px),
+  linear-gradient(90deg, rgba(13,13,14,.06) 2px, transparent 2px);
+  background-size: 54px 54px; background-position: -2px -2px; }
+/* film grain */
 .post::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 50;
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 60;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   opacity: .22; mix-blend-mode: overlay;
 }
-.layer { position: absolute; inset: 0; }
-.z { position: relative; z-index: 2; }
+.layer, .art { position: absolute; inset: 0; }
+.art { width: 1080px; height: 1350px; overflow: visible; }
+.z { position: relative; z-index: 3; }
 
-/* chrome: wordmark + tag on top, source + page at bottom */
-.top, .bottom { position: absolute; left: var(--pad); right: var(--pad); display: flex; justify-content: space-between; align-items: center; z-index: 5; }
+/* crop marks (injected by JS) */
+.crop i { position: absolute; width: 26px; height: 26px; opacity: .4; z-index: 6; border: 0 solid currentColor; }
+.crop i:nth-child(1) { top: 26px; left: 26px; border-top-width: 2px; border-left-width: 2px; }
+.crop i:nth-child(2) { top: 26px; right: 26px; border-top-width: 2px; border-right-width: 2px; }
+.crop i:nth-child(3) { bottom: 26px; left: 26px; border-bottom-width: 2px; border-left-width: 2px; }
+.crop i:nth-child(4) { bottom: 26px; right: 26px; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* chrome */
+.top, .bottom { position: absolute; left: var(--pad); right: var(--pad); display: flex; justify-content: space-between; align-items: center; z-index: 7; }
 .top { top: 60px; }
-.bottom { bottom: 56px; font: 500 22px "JetBrains Mono", monospace; letter-spacing: .02em; text-transform: uppercase; }
+.meta { position: absolute; left: var(--pad); right: var(--pad); top: 128px; display: flex; gap: 26px; font: 500 17px var(--mono); text-transform: uppercase; letter-spacing: .06em; opacity: .55; z-index: 7; }
+.bottom { bottom: 56px; font: 500 21px var(--mono); letter-spacing: .02em; text-transform: uppercase; }
 .wordmark { font-weight: 900; font-size: 42px; letter-spacing: -0.06em; display: flex; align-items: center; gap: 10px; }
 .wordmark i { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); display: inline-block; }
 .post.acc .wordmark i { background: var(--on-accent); }
-.pill { display: inline-flex; align-items: center; gap: 10px; border: 2.5px solid currentColor; border-radius: 999px; padding: 10px 24px; font: 500 22px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
+.pill { display: inline-flex; align-items: center; gap: 10px; border: 2.5px solid currentColor; border-radius: 999px; padding: 10px 24px; font: 500 21px var(--mono); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
 .pill.fill { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .pill.solid-ink { background: var(--ink); color: var(--white); border-color: var(--ink); }
-.pill.solid-white { background: var(--white); color: var(--ink); border-color: var(--white); }
+.vlabel { position: absolute; right: 30px; top: 50%; transform: translateY(-50%) rotate(90deg); transform-origin: center; font: 500 16px var(--mono); letter-spacing: .14em; text-transform: uppercase; opacity: .5; white-space: nowrap; z-index: 7; }
 
 /* type */
-.kicker { font: 700 24px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
-.h-xxl { font-weight: 900; font-size: 176px; line-height: .86; letter-spacing: -0.06em; }
-.h-xl  { font-weight: 800; font-size: 128px; line-height: .9;  letter-spacing: -0.055em; }
+.kicker { font: 700 22px var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.h-xxl { font-weight: 900; font-size: 172px; line-height: .86; letter-spacing: -0.06em; }
+.h-xl  { font-weight: 800; font-size: 126px; line-height: .9;  letter-spacing: -0.055em; }
 .h-l   { font-weight: 800; font-size: 76px;  line-height: .98; letter-spacing: -0.04em; }
 .h-m   { font-weight: 700; font-size: 56px;  line-height: 1.04; letter-spacing: -0.03em; }
-.body  { font-weight: 500; font-size: 40px;  line-height: 1.22; letter-spacing: -0.015em; }
+.body  { font-weight: 500; font-size: 38px;  line-height: 1.22; letter-spacing: -0.015em; }
+.serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
 .hl { background: var(--accent); color: var(--on-accent); padding: 0 .1em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .hl-ink { background: var(--ink); color: var(--white); padding: 0 .1em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.outline { color: transparent; -webkit-text-stroke: 3px currentColor; }
+sup.fn { font: 700 .22em var(--mono); vertical-align: top; margin-left: .04em; position: relative; top: .25em; letter-spacing: 0; }
 
-/* arrow-in-circle */
+/* arrow in circle */
 .arrow { width: 200px; height: 200px; border: 3px solid currentColor; border-radius: 50%; display: grid; place-items: center; }
 .arrow svg { width: 52%; height: 52%; }
 .arrow svg * { stroke: currentColor; stroke-width: 5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-/* confidence dots (used in strips) */
-.dots { display: inline-flex; gap: 8px; vertical-align: middle; }
-.dots span { width: 34px; height: 18px; border-radius: 9px; border: 2.5px solid currentColor; }
+/* circular text badge (built by JS from data-text) */
+.badge { width: 220px; height: 220px; position: relative; }
+.badge svg { width: 100%; height: 100%; overflow: visible; }
+.badge text { font: 700 12px var(--mono); fill: currentColor; text-transform: uppercase; }
+.badge .center { position: absolute; inset: 0; display: grid; place-items: center; }
+
+/* bell curves */
+.bell-fill { fill: var(--accent); }
+.bell-ink { fill: var(--ink); }
+.bell-dots { fill: url(#dots-ink); opacity: .32; }
+.bell-prior { fill: none; stroke: currentColor; stroke-width: 3; stroke-dasharray: 12 10; }
+.anno line { stroke: currentColor; stroke-width: 2; }
+.anno circle { fill: currentColor; }
+.anno text { font: 700 17px var(--mono); letter-spacing: 1.6px; fill: currentColor; text-transform: uppercase; }
+
+/* carousel ruler: seamless across adjacent slides (1080 is a multiple of 18 and 90) */
+.ruler { position: absolute; left: 0; right: 0; bottom: 110px; height: 48px; z-index: 5; }
+.ruler::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: currentColor; }
+.ruler .t1, .ruler .t2 { position: absolute; left: 0; right: 0; top: 0; }
+.ruler .t1 { height: 12px; opacity: .5; background: repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 18px); }
+.ruler .t2 { height: 24px; background: repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 90px); }
+.ruler .dot { position: absolute; left: 540px; top: -13px; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px var(--ruler-bg, var(--ink)); transform: translateX(-50%); }
+.post.acc .ruler .dot { background: var(--ink); --ruler-bg: var(--accent); }
+.post.paper .ruler .dot { --ruler-bg: var(--paper); background: var(--ink); }
+.ruler .lbl { position: absolute; left: 576px; top: 22px; font: 700 17px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+
+/* confidence mini pills */
+.dots { display: inline-flex; gap: 7px; vertical-align: middle; }
+.dots span { width: 32px; height: 16px; border-radius: 8px; border: 2.5px solid currentColor; }
 .dots span.on { background: currentColor; }
 
-/* ===== 01 Cover ===== */
-.cover .wedge { background: var(--accent); clip-path: polygon(0 88%, 100% 54%, 100% 100%, 0 100%); }
-.cover .content { position: absolute; left: var(--pad); right: var(--pad); top: 210px; }
-.cover .lede { margin-top: 44px; opacity: .72; max-width: 760px; }
-.cover .arrow { position: absolute; right: 96px; bottom: 170px; color: var(--on-accent); z-index: 3; }
-.cover .bottom { color: var(--on-accent); }
+/* ================= 01 Cover ================= */
+.cover .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
+.cover .lede { margin-top: 36px; max-width: 720px; }
+.cover .lede .serif { font-size: 52px; color: var(--accent); }
+.cover .arrow { position: absolute; left: 696px; top: 990px; width: 128px; height: 128px; color: var(--on-accent); z-index: 4; }
 
-/* ===== 02 Update (Before -> Now) ===== */
-.update .content { position: absolute; left: var(--pad); right: var(--pad); top: 190px; }
-.update .before { margin-top: 36px; color: var(--muted); }
-.update .before .pill { color: var(--ink); margin-bottom: 26px; }
-.update .down { width: 110px; height: 110px; margin: 34px 0 30px 4px; }
-.update .down * { stroke: var(--ink); stroke-width: 7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.update .now { background: var(--ink); color: var(--white); padding: 48px 56px 56px; clip-path: polygon(0 0, 88% 0, 100% 22%, 100% 100%, 0 100%); }
-.update .now .pill { margin-bottom: 28px; }
-.update .before p { font-size: 64px; }
-.update .now p { font-size: 92px; }
-.update .conf { position: absolute; left: var(--pad); right: var(--pad); bottom: 130px; display: flex; gap: 22px; align-items: center; font: 500 26px "JetBrains Mono", monospace; text-transform: uppercase; }
+/* ================= 02 Update ================= */
+.update .content { position: absolute; left: var(--pad); right: 110px; top: 200px; }
+.update .before .pill { margin-bottom: 24px; }
+.update .before p { font-weight: 700; font-size: 62px; line-height: 1.04; letter-spacing: -0.03em; color: var(--muted);
+  text-decoration: line-through; text-decoration-thickness: 3px; text-decoration-color: rgba(13,13,14,.55); }
+.update .delta { display: flex; align-items: center; gap: 22px; height: 150px; margin-left: 30px; }
+.update .delta .stem { width: 3px; height: 100%; background: var(--ink); position: relative; }
+.update .delta .stem::after { content: ""; position: absolute; left: 50%; bottom: -4px; width: 22px; height: 22px; border-right: 3px solid var(--ink); border-bottom: 3px solid var(--ink); transform: translateX(-50%) rotate(45deg); }
+.update .delta span { font: 700 22px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.update .delta b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 64px; margin-right: 6px; vertical-align: -6px; }
+.update .now { position: relative; background: var(--ink); color: var(--white); padding: 46px 56px 56px; clip-path: polygon(0 0, 86% 0, 100% 20%, 100% 100%, 0 100%); }
+.update .now .pill { margin-bottom: 26px; }
+.update .now p { font-weight: 800; font-size: 90px; line-height: .96; letter-spacing: -0.045em; }
+.update .now .halftone { position: absolute; right: 0; top: 0; width: 220px; height: 220px; background-image: radial-gradient(circle, var(--accent) 2.4px, transparent 2.8px); background-size: 14px 14px; -webkit-mask-image: linear-gradient(225deg, #000 10%, transparent 60%); mask-image: linear-gradient(225deg, #000 10%, transparent 60%); }
+.update .conf { margin-top: 34px; display: flex; gap: 20px; align-items: center; font: 500 24px var(--mono); text-transform: uppercase; }
 
-/* ===== 03 Big number ===== */
-.number .content { position: absolute; left: var(--pad); right: var(--pad); top: 180px; }
-.number .big { font-weight: 900; font-size: 560px; line-height: .78; letter-spacing: -0.08em; margin-left: -20px; }
-.number .cap { margin-top: 36px; max-width: 820px; }
-.number .ink-wedge { background: var(--ink); clip-path: polygon(0 66%, 100% 78%, 100% 100%, 0 100%); }
-.number .take { position: absolute; left: var(--pad); right: 260px; bottom: 140px; color: var(--white); z-index: 3; }
-.number .take .pill { margin-bottom: 22px; color: var(--accent); }
+/* ================= 03 Big number ================= */
+.number .content { position: absolute; left: var(--pad); right: var(--pad); top: 160px; }
+.number .bigwrap { position: relative; height: 470px; }
+.number .big { position: absolute; left: -24px; top: 0; font-weight: 900; font-size: 560px; line-height: .8; letter-spacing: -0.08em; }
+.number .big.echo { left: -2px; top: 22px; color: transparent; -webkit-text-stroke: 3px var(--on-accent); opacity: .55; }
+.number .cap { max-width: 860px; }
+.number .take { position: absolute; left: var(--pad); right: 120px; top: 880px; color: var(--white); z-index: 4; }
+.number .take .kicker { color: var(--accent); margin-bottom: 14px; }
+.number .take .quote { font-family: var(--serif); font-style: italic; font-size: 58px; line-height: 1.02; }
+.number sup.fn { font-size: .13em; top: .15em; }
+.number .ruler .dot { background: var(--accent); --ruler-bg: var(--ink); }
+.number .footnote { position: absolute; left: var(--pad); right: var(--pad); top: 1140px; color: var(--white); opacity: .7; font: 500 19px var(--mono); z-index: 4; }
 .number .bottom { color: var(--white); }
 
-/* ===== 04 Confidence ===== */
-.confidence .content { position: absolute; left: var(--pad); right: var(--pad); top: 190px; }
-.confidence .meter { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 64px 0 18px; }
-.confidence .meter div { height: 96px; border: 3px solid var(--white); border-radius: 48px; display: grid; place-items: center; font: 700 26px "JetBrains Mono", monospace; letter-spacing: .06em; }
-.confidence .meter div.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-.confidence .rows { margin-top: 64px; display: grid; gap: 18px; }
+/* ================= 04 Confidence ================= */
+.confidence .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
+.confidence .gauge-row { display: flex; align-items: flex-end; gap: 30px; margin-top: 26px; }
+.confidence .gauge { width: 520px; height: 300px; flex: 0 0 520px; }
+.confidence .gauge .zone { fill: none; stroke-width: 54; }
+.confidence .gauge .off { stroke: rgba(245,245,240,.16); }
+.confidence .gauge .on { stroke: var(--accent); }
+.confidence .gauge .tick { stroke: var(--white); stroke-width: 2; opacity: .5; }
+.confidence .gauge .needle { stroke: var(--white); stroke-width: 6; stroke-linecap: round; }
+.confidence .gauge .hub { fill: var(--white); }
+.confidence .gauge text { font: 700 17px var(--mono); letter-spacing: 1.5px; fill: var(--white); }
+.confidence .readout .k { font: 700 20px var(--mono); letter-spacing: .1em; opacity: .6; text-transform: uppercase; }
+.confidence .readout .v { font-weight: 900; font-size: 104px; letter-spacing: -0.06em; line-height: .9; color: var(--accent); margin: 6px 0 12px; }
+.confidence .readout .r { font-family: var(--serif); font-style: italic; font-size: 40px; line-height: 1.05; opacity: .85; }
+.confidence .rows { margin-top: 46px; display: grid; gap: 14px; }
 .confidence .row { display: flex; align-items: stretch; }
-.confidence .sign { flex: 0 0 96px; height: 96px; border-radius: 50%; background: var(--white); color: var(--ink); display: grid; place-items: center; font-weight: 800; font-size: 56px; z-index: 1; }
-.confidence .bar { flex: 1; margin-left: -48px; padding: 0 40px 0 76px; border-radius: 0 48px 48px 0; display: flex; align-items: center; font-weight: 600; font-size: 34px; letter-spacing: -0.01em; }
+.confidence .sign { flex: 0 0 86px; height: 86px; border-radius: 50%; background: var(--white); color: var(--ink); display: grid; place-items: center; font-weight: 800; font-size: 50px; z-index: 1; }
+.confidence .bar { flex: 1; margin-left: -43px; padding: 0 30px 0 70px; border-radius: 0 43px 43px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-weight: 600; font-size: 31px; letter-spacing: -0.01em; }
+.confidence .bar small { font: 700 15px var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .75; white-space: nowrap; }
 .confidence .row.for .bar { background: var(--accent); color: var(--on-accent); }
 .confidence .row.against .bar { border: 3px solid var(--white); border-left: 0; }
 
-/* ===== 05 Tested ===== */
-.tested .content { position: absolute; left: var(--pad); right: var(--pad); top: 180px; }
-.tested .title { display: flex; justify-content: space-between; align-items: flex-end; }
-.tested table { width: 100%; border-collapse: collapse; margin-top: 54px; }
-.tested td { border-top: 3px solid var(--ink); padding: 26px 0 28px; vertical-align: top; }
-.tested td.k { width: 250px; font: 700 22px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; padding-top: 34px; }
-.tested td.v { font-weight: 600; font-size: 40px; line-height: 1.16; letter-spacing: -0.02em; }
-.tested .verdict { position: absolute; left: var(--pad); right: var(--pad); bottom: 130px; display: flex; gap: 16px; align-items: center; }
-.tested .verdict .pill { font-size: 30px; padding: 16px 34px; }
-.tested .verdict .pill.pick { background: var(--ink); color: var(--white); border-color: var(--ink); transform: rotate(-4deg); font-size: 44px; padding: 22px 46px; font-weight: 700; }
-.tested .verdict .lbl { font: 700 22px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; margin-right: 10px; }
+/* ================= 05 We don't know yet ================= */
+.unknown .content { position: absolute; left: var(--pad); right: var(--pad); top: 210px; }
+.unknown h2 .serif { color: var(--accent); font-size: 1.12em; letter-spacing: -0.02em; }
+.unknown .flat { position: relative; margin: 56px 0 0; height: 120px; }
+.unknown .flat svg { width: 100%; height: 100%; overflow: visible; }
+.unknown .q { margin-top: 46px; }
+.unknown .q .kicker { color: var(--accent); margin-bottom: 18px; }
+.unknown .q li { list-style: none; display: flex; gap: 26px; align-items: center; padding: 20px 0; border-top: 2px solid rgba(245,245,240,.25); font-weight: 700; font-size: 46px; letter-spacing: -0.03em; line-height: 1.05; }
+.unknown .q li::before { content: ""; flex: 0 0 38px; height: 38px; border: 3px solid var(--white); border-radius: 6px; }
 
-/* ===== 06 We don't know yet ===== */
-.unknown .wedge { background: var(--accent); clip-path: polygon(52% 0, 100% 0, 100% 46%, 70% 30%); }
-.unknown .content { position: absolute; left: var(--pad); right: var(--pad); top: 430px; }
-.unknown .q { margin-top: 70px; }
-.unknown .q .kicker { color: var(--accent); margin-bottom: 26px; }
-.unknown .q li { list-style: none; padding: 22px 0; border-top: 2px solid rgba(245,245,240,.28); }
-.unknown .arrow { position: absolute; right: 110px; top: 150px; color: var(--on-accent); z-index: 3; width: 170px; height: 170px; }
+/* ================= 06 Tested ================= */
+.tested .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
+.tested .title { display: flex; justify-content: space-between; align-items: flex-start; }
+.tested .title .no { font-weight: 900; font-size: 210px; line-height: .8; letter-spacing: -0.07em; color: transparent; -webkit-text-stroke: 3px var(--ink); margin-top: -6px; }
+.tested .sub { margin-top: 18px; font-family: var(--serif); font-style: italic; font-size: 48px; }
+.tested table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+.tested td { border-top: 3px solid var(--ink); padding: 24px 0 26px; vertical-align: top; }
+.tested td.k { width: 250px; font: 700 20px var(--mono); text-transform: uppercase; letter-spacing: .06em; padding-top: 32px; }
+.tested td.k span { display: block; opacity: .5; margin-bottom: 4px; }
+.tested td.v { font-weight: 600; font-size: 39px; line-height: 1.14; letter-spacing: -0.02em; }
+.tested .verdict { position: absolute; left: var(--pad); bottom: 150px; display: flex; gap: 14px; align-items: center; }
+.tested .verdict .lbl { font: 700 20px var(--mono); text-transform: uppercase; letter-spacing: .08em; margin-right: 8px; }
+.tested .verdict .pill { font-size: 26px; padding: 14px 28px; }
+.tested .verdict .pill.pick { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.tested .stamp { position: absolute; right: 70px; bottom: 96px; width: 270px; height: 270px; color: var(--ink); transform: rotate(-12deg); z-index: 4; }
+.tested .stamp .disc { position: absolute; inset: 34px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font-weight: 900; font-size: 64px; letter-spacing: -0.05em; border: 3px solid var(--ink); }
+.tested .stamp .badge { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-/* ===== 07 Weekly digest ===== */
-.digest .content { position: absolute; left: var(--pad); right: var(--pad); top: 180px; }
-.digest h2 { line-height: 1.02; }
-.digest ol { list-style: none; margin-top: 56px; }
-.digest li { display: grid; grid-template-columns: 84px 1fr auto; gap: 26px; align-items: center; padding: 18px 0; border-top: 3px solid var(--ink); }
-.digest li .n { width: 84px; height: 84px; border-radius: 50%; background: var(--ink); color: var(--white); display: grid; place-items: center; font: 700 30px "JetBrains Mono", monospace; }
-.digest li .t { font-weight: 700; font-size: 38px; line-height: 1.1; letter-spacing: -0.025em; }
-.digest li .pill { font-size: 18px; padding: 8px 16px; }
+/* ================= 07 Digest ================= */
+.digest .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
+.digest .wk { position: absolute; right: 50px; top: 150px; font-weight: 900; font-size: 300px; line-height: .8; letter-spacing: -0.08em; color: transparent; -webkit-text-stroke: 3px rgba(13,13,14,.22); z-index: 0; }
+.digest h2 { line-height: 1.02; position: relative; }
+.digest ol { list-style: none; margin-top: 50px; position: relative; }
+.digest li { display: grid; grid-template-columns: 78px 1fr auto; gap: 24px; align-items: center; padding: 16px 0; border-top: 3px solid var(--ink); }
+.digest li .n { width: 78px; height: 78px; border-radius: 50%; background: var(--ink); color: var(--white); display: grid; place-items: center; font: 700 28px var(--mono); }
+.digest li .c { display: block; font: 700 15px var(--mono); letter-spacing: .1em; text-transform: uppercase; opacity: .55; margin-bottom: 4px; }
+.digest li .t { font-weight: 700; font-size: 35px; line-height: 1.08; letter-spacing: -0.025em; }
+.digest li .conf { text-align: right; font: 700 14px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.digest li .conf .dots { display: flex; margin-top: 6px; }
+.digest li .conf .dots span { width: 26px; height: 14px; }
+.digest li .tag { background: var(--accent); color: var(--on-accent); padding: 8px 14px; border-radius: 999px; }
 
-/* ===== 08 CTA ===== */
-.cta .content { position: absolute; left: var(--pad); right: var(--pad); top: 190px; }
-.cta .ink-wedge { background: var(--ink); clip-path: polygon(0 62%, 100% 50%, 100% 100%, 0 100%); }
-.cta .foot { position: absolute; left: var(--pad); right: var(--pad); bottom: 150px; color: var(--white); z-index: 3; }
-.cta .foot .body { max-width: 760px; margin-bottom: 40px; opacity: .85; }
-.cta .foot .actions { display: flex; gap: 16px; }
-.cta .foot .pill { font-size: 26px; padding: 16px 30px; }
-.cta .arrow { position: absolute; right: 96px; top: 190px; color: var(--on-accent); z-index: 3; width: 180px; height: 180px; }
+/* ================= 08 CTA ================= */
+.cta .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
+.cta h2 .serif { font-size: 1.1em; }
+.cta .badge-wrap { position: absolute; right: 70px; top: 180px; color: var(--on-accent); z-index: 4; }
+.cta .badge-wrap .arrow { width: 120px; height: 120px; border-width: 3px; }
+.cta .foot { position: absolute; left: var(--pad); right: var(--pad); bottom: 150px; color: var(--white); z-index: 4; }
+.cta .foot .kicker { color: var(--accent); margin-bottom: 16px; }
+.cta .foot .body { max-width: 780px; margin-bottom: 34px; }
+.cta .foot .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.cta .foot .pill { font-size: 24px; padding: 15px 28px; }
 .cta .bottom { color: var(--white); }
 </style>
 </head>
 <body>
 
+<!-- Shared SVG defs (patterns referenced by all slides) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="dots-ink" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="2.6" fill="#0d0d0e"/></pattern>
+  </defs>
+</svg>
+
 <header class="gallery-head">
-  <h1>Bayesly — post templates v0.1</h1>
+  <h1>Bayesly — post templates v0.2</h1>
   <div class="toggle" role="group" aria-label="Accent colour">
     <button data-pal="lime" aria-pressed="true">Lime (brand)</button>
     <button data-pal="blue" aria-pressed="false">Blue (reference)</button>
   </div>
-  <p>1080×1350 (4:5) · sample copy is fictional (Example Lab, ExampleTool) · export one: ?slide=cover</p>
+  <p>1080×1350 (4:5) · sample copy is fictional (Example Lab, ExampleTool) · export one: ?slide=cover&amp;palette=blue · facts = grotesk, opinion = serif italic</p>
 </header>
 
-<main class="grid">
+<h2 class="section-title">Carousel — swipe order (ruler runs across slides)</h2>
+<main class="grid carousel">
 
 <!-- 01 COVER -->
 <figure class="frame" data-id="cover">
 <div class="holder"><article class="post ink cover">
-  <div class="layer wedge"></div>
-  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Models · 06.11.26</span></div>
+  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">
+    <path class="bell-prior" data-bell="400,290,250,1192" style="color:var(--white)"/>
+    <path class="bell-fill" data-bell="760,150,440,1192" data-closed/>
+    <path class="bell-dots" data-bell="760,150,440,1192" data-closed/>
+    <g class="anno" style="color:var(--white)">
+      <line x1="232" y1="1010" x2="232" y2="924"/><circle cx="232" cy="1010" r="6"/>
+      <text x="246" y="934">Prior · what we assumed</text>
+    </g>
+    <g class="anno" style="color:var(--white)">
+      <line x1="912" y1="900" x2="984" y2="900"/><circle cx="912" cy="900" r="6"/>
+      <text x="912" y="874" text-anchor="start">Posterior</text>
+    </g>
+  </svg>
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Models</span></div>
+  <div class="meta"><span>N°045</span><span>06.11.2026</span><span>Src: primary</span></div>
   <div class="content z">
     <h2 class="h-xl">Example Lab releases a <span class="hl">7B open-weights</span> model</h2>
-    <p class="body lede">What changed, and how sure we are.</p>
+    <p class="lede"><span class="serif">What changed — and how sure we are.</span></p>
   </div>
   <div class="arrow"><svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg></div>
-  <div class="bottom"><span>Source: example.com</span><span>01 / 05</span></div>
+  <div class="ruler"><div class="t1"></div><div class="t2"></div><div class="dot"></div><div class="lbl">01 · What happened</div></div>
+  <div class="bottom"><span>Source: example.com</span><span>Swipe →</span></div>
 </article></div>
-<figcaption><b>01 · Cover</b>Headline fact, one highlighted phrase. First slide of a carousel or a single image post.</figcaption>
+<figcaption><b>01 · Cover</b>Headline + prior/posterior curves: the brand device.</figcaption>
 </figure>
 
 <!-- 02 UPDATE -->
 <figure class="frame" data-id="update">
-<div class="holder"><article class="post paper update">
+<div class="holder"><article class="post paper grid-bg update">
   <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">The update</span></div>
+  <div class="vlabel">Fig. 02 — Belief update</div>
   <div class="content">
     <div class="before">
       <span class="pill">Before</span>
-      <p class="h-m">Open models this size trailed closed ones on coding tasks.</p>
+      <p>Open models this size trailed closed ones on coding tasks.</p>
     </div>
-    <svg class="down" viewBox="0 0 100 100"><path d="M50 8 L50 90"/><path d="M18 58 L50 90 L82 58"/></svg>
+    <div class="delta"><div class="stem"></div><span><b>Δ</b>New evidence</span></div>
     <div class="now">
+      <div class="halftone"></div>
       <span class="pill fill">Now</span>
-      <p class="h-l">The lab reports it matches a closed model twice its size.</p>
+      <p>The lab reports it matches a closed model twice its size.</p>
     </div>
+    <div class="conf"><span>Confidence</span><span class="dots"><span class="on"></span><span class="on"></span><span></span></span><span>Medium — vendor benchmark only</span></div>
   </div>
-  <div class="conf"><span>Confidence</span><span class="dots"><span class="on"></span><span class="on"></span><span></span></span><span>Medium — vendor benchmark only</span></div>
+  <div class="ruler"><div class="t1"></div><div class="t2"></div><div class="dot"></div><div class="lbl">02 · Before → Now</div></div>
   <div class="bottom"><span>Source: example.com</span><span>02 / 05</span></div>
 </article></div>
-<figcaption><b>02 · Before → Now</b>The core Bayesian update. Muted "before", solid "now", confidence strip.</figcaption>
+<figcaption><b>02 · Before → Now</b>Old belief struck through, Δ evidence, new state.</figcaption>
 </figure>
 
 <!-- 03 BIG NUMBER -->
 <figure class="frame" data-id="number">
 <div class="holder"><article class="post acc number">
-  <div class="layer ink-wedge"></div>
+  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">
+    <path class="bell-ink" d="M0 850 C 300 830, 560 760, 760 800 S 1000 860, 1080 820 L1080 1350 L0 1350 Z"/>
+  </svg>
   <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">By the numbers</span></div>
   <div class="content z">
-    <div class="big">2×</div>
+    <div class="bigwrap"><div class="big echo">2×</div><div class="big">2×<sup class="fn">1</sup></div></div>
     <p class="h-m cap">smaller than the closed model it is compared with.</p>
   </div>
   <div class="take">
-    <span class="pill">Our take · opinion</span>
-    <p class="body">A vendor benchmark is a claim, not a result. We'll wait for independent evals.</p>
+    <p class="kicker">Our take — opinion</p>
+    <p class="quote">“A vendor benchmark is a claim, not a result. We'll wait for independent evals.”</p>
   </div>
+  <div class="footnote">¹ Vendor-reported. Not independently verified.</div>
+  <div class="ruler" style="color:var(--white)"><div class="t1"></div><div class="t2"></div><div class="dot"></div><div class="lbl">03 · The number</div></div>
   <div class="bottom"><span>Source: example.com</span><span>03 / 05</span></div>
 </article></div>
-<figcaption><b>03 · Big number</b>One number that carries the story + the marked opinion line.</figcaption>
+<figcaption><b>03 · Big number</b>Echo outline, footnote marker, opinion in serif.</figcaption>
 </figure>
 
 <!-- 04 CONFIDENCE -->
@@ -250,99 +361,138 @@ body.export figcaption { display: none; }
   <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Confidence</span></div>
   <div class="content">
     <h2 class="h-xl">How sure<br>are we?</h2>
-    <div class="meter"><div class="on">LOW</div><div class="on">MEDIUM</div><div>HIGH</div></div>
+    <div class="gauge-row">
+      <svg class="gauge" viewBox="0 0 520 300" aria-hidden="true">
+        <!-- centre (260,270), r=220; zones 180-120 / 120-60 / 60-0 degrees -->
+        <path class="zone off" d="M40 270 A220 220 0 0 1 150 79.5"/>
+        <path class="zone on"  d="M154 77.3 A220 220 0 0 1 366 77.3"/>
+        <path class="zone off" d="M370 79.5 A220 220 0 0 1 480 270"/>
+        <g class="ticks"></g>
+        <line class="needle" x1="260" y1="270" x2="305" y2="117"/>
+        <circle class="hub" cx="260" cy="270" r="14"/>
+        <text x="40" y="298">LOW</text><text x="260" y="22" text-anchor="middle">MEDIUM</text><text x="480" y="298" text-anchor="end">HIGH</text>
+      </svg>
+      <div class="readout">
+        <div class="k">Reading</div>
+        <div class="v">Medium</div>
+        <div class="r">Strong source, weak proof.</div>
+      </div>
+    </div>
     <div class="rows">
-      <div class="row for"><div class="sign">+</div><div class="bar">Primary source: the lab's own release notes</div></div>
-      <div class="row against"><div class="sign">−</div><div class="bar">Benchmarks are self-reported</div></div>
-      <div class="row against"><div class="sign">−</div><div class="bar">No independent replication yet</div></div>
+      <div class="row for"><div class="sign">+</div><div class="bar">The lab's own release notes<small>Primary</small></div></div>
+      <div class="row against"><div class="sign">−</div><div class="bar">Benchmarks are self-reported<small>Unverified</small></div></div>
+      <div class="row against"><div class="sign">−</div><div class="bar">No independent replication<small>Pending</small></div></div>
     </div>
   </div>
+  <div class="ruler"><div class="t1"></div><div class="t2"></div><div class="dot"></div><div class="lbl">04 · How sure</div></div>
   <div class="bottom"><span>Source: example.com</span><span>04 / 05</span></div>
 </article></div>
-<figcaption><b>04 · Confidence</b>Low / medium / high meter. Evidence for (+) and against (−).</figcaption>
+<figcaption><b>04 · Confidence</b>Instrument dial + evidence ledger (+ / −).</figcaption>
 </figure>
 
-<!-- 05 TESTED -->
-<figure class="frame" data-id="tested">
-<div class="holder"><article class="post paper tested">
-  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill solid-ink">Weekly · No. 01</span></div>
-  <div class="content">
-    <div class="title"><h2 class="h-xxl"><span class="hl">Tested</span></h2></div>
-    <table>
-      <tr><td class="k">Claim</td><td class="v">ExampleTool summarises a 40-page PDF in under a minute.</td></tr>
-      <tr><td class="k">What we tried</td><td class="v">Three real reports, same prompt, timed by hand.</td></tr>
-      <tr><td class="k">Result</td><td class="v">2 of 3 under a minute. One summary skipped a key table.</td></tr>
-    </table>
-  </div>
-  <div class="verdict"><span class="lbl">Verdict</span><span class="pill">Worth it</span><span class="pill pick">Wait</span><span class="pill">Skip</span></div>
-  <div class="bottom"><span>Tested by Bayesly · not sponsored</span><span>ExampleTool</span></div>
-</article></div>
-<figcaption><b>05 · Tested</b>Weekly rubric: Claim → What we tried → Result → Verdict.</figcaption>
-</figure>
-
-<!-- 06 WE DON'T KNOW YET -->
+<!-- 05 WE DON'T KNOW YET -->
 <figure class="frame" data-id="unknown">
 <div class="holder"><article class="post ink unknown">
-  <div class="layer wedge"></div>
-  <div class="top"><div class="wordmark">bayesly<i></i></div></div>
-  <div class="arrow"><svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg></div>
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Open question</span></div>
   <div class="content">
-    <h2 class="h-xxl">We don't<br>know yet.</h2>
+    <h2 class="h-xxl">We don't<br>know <span class="serif">yet.</span></h2>
+    <div class="flat">
+      <svg viewBox="0 0 936 120" aria-hidden="true">
+        <g class="uniform"></g>
+        <line x1="0" y1="118" x2="936" y2="118" stroke="var(--white)" stroke-width="2" opacity=".6"/>
+        <text x="0" y="22" style="font:700 17px var(--mono);letter-spacing:1.6px;fill:var(--accent)">FLAT PRIOR · EVERY OUTCOME EQUALLY LIKELY</text>
+      </svg>
+    </div>
     <div class="q">
       <p class="kicker">What would change our mind</p>
-      <ul class="h-m">
-        <li>Independent evals on public benchmarks.</li>
-        <li>Usage reports from outside the lab.</li>
+      <ul>
+        <li>Independent evals on public benchmarks</li>
+        <li>Usage reports from outside the lab</li>
       </ul>
     </div>
   </div>
-  <div class="bottom"><span>Source: example.com</span><span>05 / 05</span></div>
+  <div class="ruler"><div class="t1"></div><div class="t2"></div><div class="dot"></div><div class="lbl">05 · What's next</div></div>
+  <div class="bottom"><span>Follow for the update</span><span>05 / 05</span></div>
 </article></div>
-<figcaption><b>06 · We don't know yet</b>Signature card for honest uncertainty. Ends a carousel.</figcaption>
+<figcaption><b>05 · We don't know yet</b>Flat prior = honest uncertainty. Checklist of what would change our mind.</figcaption>
+</figure>
+
+</main>
+
+<h2 class="section-title">Singles</h2>
+<section class="grid">
+
+<!-- 06 TESTED -->
+<figure class="frame" data-id="tested">
+<div class="holder"><article class="post paper grid-bg tested">
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill solid-ink">Weekly rubric</span></div>
+  <div class="meta"><span>Lab report</span><span>Tool: ExampleTool</span><span>Not sponsored</span></div>
+  <div class="content">
+    <div class="title"><h2 class="h-xxl"><span class="hl">Tested</span></h2><div class="no">01</div></div>
+    <p class="sub">We tried it by hand, so you don't have to.</p>
+    <table>
+      <tr><td class="k"><span>01</span>Claim</td><td class="v">ExampleTool summarises a 40-page PDF in under a minute.</td></tr>
+      <tr><td class="k"><span>02</span>What we tried</td><td class="v">Three real reports, same prompt, timed by hand.</td></tr>
+      <tr><td class="k"><span>03</span>Result</td><td class="v">2 of 3 under a minute. One summary skipped a key table.</td></tr>
+    </table>
+  </div>
+  <div class="verdict"><span class="lbl">Verdict</span><span class="pill">Worth it</span><span class="pill pick">Wait</span><span class="pill">Skip</span></div>
+  <div class="stamp"><div class="badge" data-text="Tested by Bayesly · not sponsored · "></div><div class="disc">WAIT</div></div>
+  <div class="bottom"><span>Method in the newsletter</span><span>No. 01</span></div>
+</article></div>
+<figcaption><b>06 · Tested</b>Lab-report table + rubber stamp verdict.</figcaption>
 </figure>
 
 <!-- 07 WEEKLY DIGEST -->
 <figure class="frame" data-id="digest">
-<div class="holder"><article class="post paper digest">
+<div class="holder"><article class="post paper grid-bg digest">
+  <div class="wk">45</div>
   <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Week 45 · 2026</span></div>
   <div class="content">
     <h2 class="h-xl">This week,<br><span class="hl-ink">5 updates</span></h2>
     <ol>
-      <li><span class="n">01</span><span class="t">Example Lab releases a 7B open model</span><span class="pill">Med</span></li>
-      <li><span class="n">02</span><span class="t">ExampleCloud adds GPU sharing for inference</span><span class="pill">High</span></li>
-      <li><span class="n">03</span><span class="t">Preprint: LLMs can imitate an author's style</span><span class="pill">Low</span></li>
-      <li><span class="n">04</span><span class="t">ExampleTool tested: verdict “Wait”</span><span class="pill">Tested</span></li>
-      <li><span class="n">05</span><span class="t">A new long-context benchmark appears</span><span class="pill">Med</span></li>
+      <li><span class="n">01</span><span><span class="c">Models</span><span class="t">Example Lab releases a 7B open model</span></span><span class="conf">Med<span class="dots"><span class="on"></span><span class="on"></span><span></span></span></span></li>
+      <li><span class="n">02</span><span><span class="c">Infra</span><span class="t">ExampleCloud adds GPU sharing for inference</span></span><span class="conf">High<span class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></span></span></li>
+      <li><span class="n">03</span><span><span class="c">Research · preprint</span><span class="t">LLMs can imitate an author's style</span></span><span class="conf">Low<span class="dots"><span class="on"></span><span></span><span></span></span></span></li>
+      <li><span class="n">04</span><span><span class="c">Tested</span><span class="t">ExampleTool: verdict “Wait”</span></span><span class="conf"><span class="tag">Tested</span></span></li>
+      <li><span class="n">05</span><span><span class="c">Benchmarks</span><span class="t">A new long-context benchmark appears</span></span><span class="conf">Med<span class="dots"><span class="on"></span><span class="on"></span><span></span></span></span></li>
     </ol>
   </div>
   <div class="bottom"><span>Full digest: newsletter</span><span>bayesly</span></div>
 </article></div>
-<figcaption><b>07 · Weekly digest</b>Five items with a confidence tag each. Teaser for the newsletter.</figcaption>
+<figcaption><b>07 · Weekly digest</b>Category + confidence per item, outlined week number.</figcaption>
 </figure>
 
 <!-- 08 CTA -->
 <figure class="frame" data-id="cta">
 <div class="holder"><article class="post acc cta">
-  <div class="layer ink-wedge"></div>
+  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">
+    <path class="bell-ink" data-bell="940,120,210,900" data-closed data-floor="1350"/>
+    <rect class="bell-ink" x="0" y="899" width="1080" height="451"/>
+  </svg>
   <div class="top"><div class="wordmark">bayesly<i></i></div></div>
   <div class="content z">
-    <h2 class="h-xxl">Before.<br>Now.<br>How sure.</h2>
+    <h2 class="h-xxl">Before.<br>Now.<br><span class="serif">How sure.</span></h2>
   </div>
-  <div class="arrow"><svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg></div>
+  <div class="badge-wrap"><div class="badge" data-text="Update your priors · bayesly · "><div class="center"><div class="arrow"><svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg></div></div></div></div>
   <div class="foot">
-    <p class="body">Calm AI news. Every post says what changed and how sure we are.</p>
+    <p class="kicker">Calm AI news</p>
+    <p class="body">Every post says what changed and how sure we are. No hype.</p>
     <div class="actions"><span class="pill fill">Follow @bayesly</span><span class="pill">What would change your mind?</span></div>
   </div>
   <div class="bottom"><span>bayesly</span><span>Threads · X · Newsletter</span></div>
 </article></div>
-<figcaption><b>08 · Follow / CTA</b>Closing card with the brand promise and a reply question.</figcaption>
+<figcaption><b>08 · Follow / CTA</b>Brand promise, circular badge, reply prompt.</figcaption>
 </figure>
 
-</main>
+</section>
 
 <script>
 (function () {
   var params = new URLSearchParams(location.search);
+  var NS = "http://www.w3.org/2000/svg";
+
+  // Palette toggle
   function setPalette(p) {
     document.body.dataset.palette = p;
     document.querySelectorAll(".toggle button").forEach(function (b) {
@@ -354,6 +504,67 @@ body.export figcaption { display: none; }
   });
   setPalette(params.get("palette") === "blue" ? "blue" : "lime");
 
+  // Gaussian "bell" curves: data-bell="cx,sigma,height,baseline"
+  document.querySelectorAll("[data-bell]").forEach(function (el) {
+    var v = el.dataset.bell.split(",").map(Number), cx = v[0], s = v[1], h = v[2], base = v[3];
+    var floor = el.dataset.floor ? Number(el.dataset.floor) : base;
+    var pts = [];
+    for (var x = 0; x <= 1080; x += 8) {
+      var y = base - h * Math.exp(-0.5 * Math.pow((x - cx) / s, 2));
+      pts.push((x === 0 ? "M" : "L") + x + " " + y.toFixed(1));
+    }
+    var d = pts.join(" ");
+    if (el.hasAttribute("data-closed")) d += " L1080 " + floor + " L0 " + floor + " Z";
+    el.setAttribute("d", d);
+  });
+
+  // Gauge ticks
+  document.querySelectorAll(".gauge .ticks").forEach(function (g) {
+    for (var a = 0; a <= 180; a += 10) {
+      var r = a * Math.PI / 180, c = Math.cos(r), s = Math.sin(r);
+      var l = document.createElementNS(NS, "line");
+      l.setAttribute("class", "tick");
+      l.setAttribute("x1", 260 + 178 * c); l.setAttribute("y1", 270 - 178 * s);
+      l.setAttribute("x2", 260 + (a % 30 ? 166 : 156) * c); l.setAttribute("y2", 270 - (a % 30 ? 166 : 156) * s);
+      g.appendChild(l);
+    }
+  });
+
+  // Uniform histogram for the "flat prior"
+  document.querySelectorAll(".uniform").forEach(function (g) {
+    for (var i = 0; i < 26; i++) {
+      var r = document.createElementNS(NS, "rect");
+      r.setAttribute("x", i * 36 + 3); r.setAttribute("y", 48);
+      r.setAttribute("width", 28); r.setAttribute("height", 68);
+      r.setAttribute("fill", i % 2 ? "var(--accent)" : "none");
+      r.setAttribute("stroke", "var(--accent)"); r.setAttribute("stroke-width", 2.5);
+      g.appendChild(r);
+    }
+  });
+
+  // Circular text badges
+  document.querySelectorAll(".badge[data-text]").forEach(function (el, i) {
+    var id = "circ" + i, txt = el.dataset.text;
+    // Repeat the phrase to roughly fill the circle (~60 mono chars at this size), then fit exactly.
+    var full = txt.repeat(Math.max(1, Math.round(60 / txt.length)));
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 200 200");
+    svg.innerHTML =
+      '<defs><path id="' + id + '" d="M100 100 m-82 0 a82 82 0 1 1 164 0 a82 82 0 1 1 -164 0"/></defs>' +
+      '<circle cx="100" cy="100" r="97" fill="none" stroke="currentColor" stroke-width="2"/>' +
+      '<text><textPath href="#' + id + '" textLength="513" lengthAdjust="spacing">' + full.replace(/&/g, "&amp;") + '</textPath></text>';
+    el.insertBefore(svg, el.firstChild);
+  });
+
+  // Crop marks on every post
+  document.querySelectorAll(".post").forEach(function (p) {
+    var c = document.createElement("div");
+    c.className = "crop";
+    c.innerHTML = "<i></i><i></i><i></i><i></i>";
+    p.appendChild(c);
+  });
+
+  // Export mode
   var slide = params.get("slide");
   if (slide) {
     document.body.classList.add("export");
