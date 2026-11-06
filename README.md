@@ -1,0 +1,74 @@
+# Bayesly
+
+Skeptical, calm, precise AI/tech news. Every post is a Bayesian update:
+**what we thought before → what changed → what we think now.**
+
+Status: **Phase 0** — the pipeline only writes drafts to a local folder.
+Nothing is published automatically. The owner reviews and posts manually.
+
+## Pipeline (Phase 0)
+
+```
+config/sources.yaml ──collect──▶ dedupe ──▶ score ──▶ draft (Gemini) ──▶ out/drafts/YYYY-MM-DD/
+```
+
+| Step    | Module               | What it does |
+|---------|----------------------|--------------|
+| Collect | `bayesly/collect.py` | Fetches RSS/Atom feeds. A broken feed is logged and skipped. |
+| Dedupe  | `bayesly/dedupe.py`  | Same normalized URL, similar titles (Jaccard ≥ 0.8), or already drafted → dropped. Keeps the more reliable source. |
+| Score   | `bayesly/score.py`   | Drops rumour headlines ("reportedly", "leak", …). Score = 0.40·reliability + 0.35·relevance + 0.25·novelty, −0.10 for thin text. |
+| Draft   | `bayesly/prompt.py`, `bayesly/gemini.py` | Builds the prompt from `prompts/draft.md` + `prompts/voice.md` + source text, calls Gemini (Interactions API). |
+| Review  | `bayesly/review.py`  | Writes `<id>-<slug>.md` (for a human) and `.json` (status `pending_review`), plus lint warnings (length, hashtags, hype words, missing link). |
+
+Drafts are grounded only in the text the feed provides (no page scraping yet).
+If a feed only has a title, the draft says so and is flagged `insufficient_source`.
+
+## Setup
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate            # Windows  (macOS/Linux: source .venv/bin/activate)
+pip install -e ".[dev]"
+copy .env.example .env            # then put your GEMINI_API_KEY in .env
+```
+
+## Usage
+
+```bash
+python -m bayesly draft --limit 5
+```
+
+Options:
+- `--limit N` — max drafts per run (default 5).
+- `--sources openai-news,gh-ollama` — only these source ids.
+- `--skip-llm` — no Gemini call; writes review files with source text and score only. Useful to check feeds and ranking. These are not marked as drafted.
+
+Re-running is safe: drafted item ids are stored in `state/drafted.json` and skipped next time.
+Delete that file to start fresh.
+
+Logs are JSON lines on stderr. Set `LOG_LEVEL=DEBUG` in `.env` for more.
+
+## Tests
+
+```bash
+pytest
+```
+
+Tests never call real APIs (HTTP is mocked).
+
+## Layout
+
+```
+bayesly/        pipeline code
+config/         sources.yaml
+prompts/        voice.md (brand voice), draft.md (drafting prompt)
+docs/           platform-notes.md (API limits, checked against official docs)
+tests/          pytest
+out/drafts/     generated review files (gitignored)
+state/          drafted ids (gitignored)
+```
+
+## Not built yet (by design)
+
+- Publish adapters for Threads / X — Phase 2, after the day-14 metrics check. Real publishing will require `--live`.
+- Beehiiv weekly digest, metrics log — later phases.

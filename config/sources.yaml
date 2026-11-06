@@ -1,0 +1,73 @@
+# Source list for the collect step.
+# reliability: 0.0-1.0, our prior on how trustworthy the source is for facts.
+#   1.0 = primary source (the vendor / author itself), 0.6-0.8 = reputable press.
+# kind: official_blog | research | release_notes | press
+# Every URL here should be checked occasionally: feeds move.
+
+sources:
+  - id: openai-news
+    name: OpenAI News
+    url: https://openai.com/news/rss.xml
+    kind: official_blog
+    reliability: 0.95
+
+  - id: google-deepmind
+    name: Google DeepMind Blog
+    url: https://deepmind.google/blog/rss.xml
+    kind: official_blog
+    reliability: 0.95
+
+  - id: google-ai-blog
+    name: Google AI (The Keyword)
+    url: https://blog.google/technology/ai/rss/
+    kind: official_blog
+    reliability: 0.9
+
+  - id: huggingface-blog
+    name: Hugging Face Blog
+    url: https://huggingface.co/blog/feed.xml
+    kind: official_blog
+    reliability: 0.85
+
+  - id: microsoft-research
+    name: Microsoft Research Blog
+    url: https://www.microsoft.com/en-us/research/feed/
+    kind: research
+    reliability: 0.9
+
+  - id: aws-ml-blog
+    name: AWS Machine Learning Blog
+    url: https://aws.amazon.com/blogs/machine-learning/feed/
+    kind: official_blog
+    reliability: 0.85
+
+  - id: nvidia-dev-blog
+    name: NVIDIA Technical Blog
+    url: https://developer.nvidia.com/blog/feed
+    kind: official_blog
+    reliability: 0.85
+
+  - id: arxiv-cs-cl
+    name: arXiv cs.CL (Computation and Language)
+    url: https://rss.arxiv.org/rss/cs.CL
+    kind: research
+    reliability: 0.7   # preprints: not peer reviewed
+    max_items: 15      # arXiv feeds are huge; cap per run
+
+  - id: gh-transformers
+    name: GitHub releases - huggingface/transformers
+    url: https://github.com/huggingface/transformers/releases.atom
+    kind: release_notes
+    reliability: 1.0
+
+  - id: gh-ollama
+    name: GitHub releases - ollama/ollama
+    url: https://github.com/ollama/ollama/releases.atom
+    kind: release_notes
+    reliability: 1.0
+
+  - id: mit-tech-review-ai
+    name: MIT Technology Review - AI
+    url: https://www.technologyreview.com/topic/artificial-intelligence/feed
+    kind: press
+    reliability: 0.75
