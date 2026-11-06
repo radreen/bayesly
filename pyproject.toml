@@ -12,6 +12,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+# Image rendering. Uses the installed Edge/Chrome; no browser download needed on Windows.
+render = ["playwright>=1.45"]
 
 [tool.setuptools]
 packages = ["bayesly"]

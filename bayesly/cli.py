@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import sys
+from pathlib import Path
 
 from bayesly.config import load_settings
 from bayesly.gemini import GeminiClient, GeminiError
@@ -27,6 +29,15 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="don't call Gemini; write review files with source + score only (not marked as drafted)",
     )
+
+    draft.add_argument("--render", action="store_true", help="also render carousel PNGs for new drafts")
+    draft.add_argument("--palette", choices=["lime", "blue"], default="lime", help="accent colour for --render")
+
+    render = sub.add_parser("render", help="render carousel PNGs for drafts in out/drafts/")
+    render.add_argument("paths", nargs="*", help="draft .json files (default: all drafts without images)")
+    render.add_argument("--day", help="only drafts from this folder, e.g. 2026-11-06")
+    render.add_argument("--palette", choices=["lime", "blue"], default="lime")
+    render.add_argument("--force", action="store_true", help="re-render even if images exist")
 
     preview = sub.add_parser("rank", help="print the current ranking; writes nothing, calls no LLM")
     preview.add_argument("--top", type=int, default=20, help="how many rows to print (default 20)")
@@ -56,10 +67,40 @@ def print_ranking(ranked: list[Item], picked: list[Item], top: int) -> None:
     print("\n* = would be drafted with the current --limit / --max-per-source")
 
 
+def find_drafts(out_dir: Path, day: str | None) -> list[Path]:
+    root = out_dir / day if day else out_dir
+    return sorted(p for p in root.rglob("*.json") if p.is_file())
+
+
+def render_paths(paths: list[Path], palette: str, force: bool) -> tuple[int, int]:
+    """Render each draft; a failure is reported and skipped. Returns (ok, failed)."""
+    from bayesly.render import RenderError, render_record
+
+    ok = failed = 0
+    for path in paths:
+        try:
+            record = json.loads(path.read_text(encoding="utf-8"))
+            if not record.get("draft"):
+                continue  # --skip-llm review files: nothing to render
+            images = render_record(path, palette=palette, force=force)
+            print(f"  {path.name}: {len(images)} images")
+            ok += 1
+        except RenderError as exc:
+            print(f"  {path.name}: render failed: {exc}", file=sys.stderr)
+            failed += 1
+    return ok, failed
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     settings = load_settings()
     setup_logging(settings.log_level)
+
+    if args.command == "render":
+        paths = [Path(p) for p in args.paths] or find_drafts(settings.out_dir, args.day)
+        ok, failed = render_paths(paths, args.palette, args.force)
+        print(f"rendered={ok} failed={failed}")
+        return 1 if failed and not ok else 0
 
     if args.max_per_source < 1:
         print("--max-per-source must be >= 1", file=sys.stderr)
@@ -101,5 +142,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         for path in result.written:
             print(f"  {path.with_suffix('.md')}")
+        if args.render and result.written and generator is not None:
+            render_paths(result.written, args.palette, force=False)
         return 1 if result.failed and not result.written else 0
     return 2

@@ -57,6 +57,34 @@ Delete that file to start fresh.
 
 Logs are JSON lines on stderr. Set `LOG_LEVEL=DEBUG` in `.env` for more.
 
+## Images (carousel PNGs)
+
+Each draft can be turned into a 1080×1350 carousel using the templates in `design/`.
+
+```bash
+pip install -e ".[render]"                 # Playwright; uses your installed Edge/Chrome
+python -m bayesly draft --limit 5 --render  # draft + images in one go
+python -m bayesly render                    # images for all drafts that don't have them yet
+python -m bayesly render --day 2026-11-06 --palette blue --force
+```
+
+Images land next to the draft: `<id>-<slug>-01.png`, `-02.png`, … and are listed in the `.md` review file.
+
+Slides are picked from the model's `card` (see `prompts/draft.md`):
+
+| Slide | When |
+|---|---|
+| Cover | always |
+| Before → Now | the card has both `before` and `now` |
+| Big number | the card has a number **and that exact number appears in the source text** (otherwise dropped, with a warning) |
+| Confidence | always (dial + evidence for/against) |
+| Closing ("We don't know yet" / "What to watch") | open questions exist, or the opinion line has no other slide |
+
+Long text is shrunk to fit; if it still doesn't fit, the review file gets a warning.
+Fonts load from Google Fonts, so rendering needs internet (otherwise fallback fonts + a warning).
+
+Design gallery with all templates: open `design/posts.html` in a browser.
+
 ## Tests
 
 ```bash
@@ -71,6 +99,7 @@ Tests never call real APIs (HTTP is mocked).
 bayesly/        pipeline code
 config/         sources.yaml
 prompts/        voice.md (brand voice), draft.md (drafting prompt)
+design/         bayesly.css / bayesly.js (post design system), posts.html (template gallery)
 docs/           platform-notes.md (API limits, checked against official docs)
 tests/          pytest
 out/drafts/     generated review files (gitignored)

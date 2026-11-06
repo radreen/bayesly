@@ -1,0 +1,42 @@
+{
+  "id": "5a3f0c9e1b2d4e6f",
+  "status": "pending_review",
+  "created_at": "2026-11-06T12:00:00+00:00",
+  "model": "fixture (fictional sample, not a real event)",
+  "source": {
+    "id": "example-lab",
+    "name": "Example Lab Blog (fictional)",
+    "kind": "official_blog",
+    "reliability": 0.9,
+    "url": "https://example.com/blog/open-7b",
+    "title": "Example Lab releases a 7B open-weights model",
+    "published": "2026-11-06T09:00:00+00:00",
+    "text": "Example Lab today released Example-7B, an open-weights model with 7 billion parameters. On our internal coding benchmark it matches a closed model that is 2x larger. The weights are available under an open license. Independent evaluations have not been published yet."
+  },
+  "score": 0.9,
+  "score_breakdown": {"reliability": 0.9, "relevance": 1.0, "novelty": 1.0},
+  "draft": {
+    "headline": "Example Lab releases a 7B open-weights model.",
+    "threads_post": "Example Lab released Example-7B, an open-weights model.\n\nBefore: open models this size trailed closed ones.\nNow: the lab says it matches a closed model 2x larger on its own coding benchmark.\nConfidence: medium — vendor benchmark only.\n\nOur take: a benchmark is a claim, not a result.\n\nSource: https://example.com/blog/open-7b",
+    "x_post": "Example Lab released an open 7B model and says it matches a closed model 2x larger. Vendor benchmark only. https://example.com/blog/open-7b",
+    "confidence": "medium",
+    "confidence_reason": "Primary source, but self-reported benchmark.",
+    "opinion_line": "A vendor benchmark is a claim, not a result. We'll wait for independent evals.",
+    "facts_used": ["released Example-7B, an open-weights model", "matches a closed model that is 2x larger", "Independent evaluations have not been published yet"],
+    "insufficient_source": false,
+    "editor_notes": "Fictional fixture for render tests.",
+    "card": {
+      "category": "Models",
+      "headline": "Example Lab releases a 7B open-weights model",
+      "highlight": "7B open-weights",
+      "before": "Open models this size trailed closed ones on coding tasks.",
+      "now": "The lab says it matches a closed model 2x larger on its own benchmark.",
+      "number": {"value": "2x", "caption": "larger: the closed model it is compared with.", "footnote": "Lab's internal coding benchmark. Not independently verified."},
+      "evidence_for": ["The lab's own release notes"],
+      "evidence_against": ["Benchmark is internal", "No independent evals yet"],
+      "open_questions": ["Independent evals on public benchmarks", "Usage reports from outside the lab"]
+    }
+  },
+  "raw_model_output": null,
+  "lint_warnings": []
+}

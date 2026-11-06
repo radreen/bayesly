@@ -41,5 +41,26 @@ Return ONLY a JSON object, no markdown fences, with exactly these keys:
   "opinion_line": "the sentence that is our opinion, copied from the posts",
   "facts_used": ["...", "..."],
   "insufficient_source": false,
-  "editor_notes": "anything the human editor should double-check"
+  "editor_notes": "anything the human editor should double-check",
+  "card": {{
+    "category": "one of: Models, Research, Tools, Infra, Chips, Policy, Safety, Business, Other",
+    "headline": "headline fact for the image, max 70 characters",
+    "highlight": "2-4 consecutive words copied exactly from card.headline to highlight",
+    "before": "previous state in max 90 characters, or null if the source doesn't support it",
+    "now": "what changed in max 90 characters",
+    "number": {{
+      "value": "the single most important number, exactly as written in the source (e.g. 71.2%, 2x, $20), max 6 characters",
+      "caption": "what the number means, max 70 characters",
+      "footnote": "where the number comes from, e.g. Vendor-reported. Not independently verified. Max 70 characters"
+    }},
+    "evidence_for": ["max 2 short reasons to believe it, max 45 characters each"],
+    "evidence_against": ["max 2 short reasons for doubt, max 45 characters each"],
+    "open_questions": ["max 2 things that would change our mind, max 45 characters each"]
+  }}
 }}
+
+Rules for "card":
+- It is for image slides, so keep every field short. Same grounding rules as the posts.
+- "number" must be null unless that exact number appears in the SOURCE TEXT. Never compute or round a number.
+- "before" must be null if you can't ground it in the source.
+- Lists may be empty. Never pad them with generic filler.

@@ -141,6 +141,10 @@ def render_markdown(record: dict[str, Any]) -> str:
     ]
     if record["lint_warnings"]:
         lines += ["## Warnings", *[f"- {w}" for w in record["lint_warnings"]], ""]
+    if record.get("images"):
+        lines += ["## Images (carousel, in order)"]
+        lines += [f"![slide {i}]({Path(p).name})" for i, p in enumerate(record["images"], start=1)]
+        lines += [*[f"- Image warning: {w}" for w in record.get("image_warnings", [])], ""]
     if draft:
         lines += [
             f"## Confidence: {draft.get('confidence', '?')} — {draft.get('confidence_reason', '')}",
