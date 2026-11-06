@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-83.90481567382812 134 215.90481567382812 216">
+<title>Bayesly mark — looped b</title>
+<style>.loop{fill:none;stroke:#0d0d0e;stroke-width:32;stroke-linecap:butt;stroke-linejoin:round}</style>
+
+  <!-- stem down; small loop at the bottom-left; the stroke crosses the stem and rises into the bowl -->
+  <g data-part="" data-gap="10" transform="translate(0 0)">
+    <path class="loop" d="M0 154 L0 250 C 0 296, -14 330, -40 330 C -66 330, -72 294, -52 278 C -36 264, -14 262, 0 262 C 8 236, 36 206, 64 206 C 92 206, 112 224, 112 245 C 112 266, 92 284, 64 284 C 40 284, 16 280, 0 266"></path>
+  </g>
+
+</svg>

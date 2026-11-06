@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayesly wordmark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #0d0d0e; --lime: #c6ff2e; --paper: #e4e4df; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #9d9d98; font-family: "Inter Tight", system-ui, sans-serif; padding: 32px 40px 60px; }
+  h1 { font: 800 28px "Inter Tight"; letter-spacing: -0.03em; }
+  .note { font: 500 13px "JetBrains Mono", monospace; opacity: .75; margin: 6px 0 24px; }
+  .variant { margin-bottom: 36px; }
+  .variant h2 { font: 700 14px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .tile { width: 520px; height: 300px; display: grid; place-items: center; }
+  .tile.lime { background: var(--lime); color: var(--ink); }
+  .tile.ink { background: var(--ink); color: var(--lime); }
+  .tile.paper { background: var(--paper); color: var(--ink); }
+  .tile svg { width: 82%; height: auto; overflow: visible; }
+  .small { display: flex; gap: 22px; align-items: flex-end; padding: 18px 22px; background: var(--paper); }
+  .small svg { overflow: visible; }
+  /* wordmark internals */
+  .wm text { font: 700 200px "Inter Tight"; letter-spacing: -6px; fill: currentColor; }
+  .wm .loop { fill: none; stroke: currentColor; stroke-width: 32; stroke-linecap: butt; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+<h1>Bayesly — wordmark explorations</h1>
+<p class="note">Inter Tight 700 + one hand-drawn looped letter (monoline, same stem weight: 32 @ 200px). Text is live font here; outline in Figma before final use.</p>
+
+<!--
+  Each wordmark is a sequence of parts laid out left to right by the script below:
+    <text data-part>…</text>          measured with getComputedTextLength()
+    <g data-part data-adv="N">…</g>   custom glyph drawn in local coords: baseline y=300,
+                                      x-height y=190, ascender y=154, descender y=341.
+-->
+<template id="loop-b">
+  <!-- stem down; small loop at the bottom-left; the stroke crosses the stem and rises into the bowl -->
+  <g data-part data-gap="10">
+    <path class="loop" d="M0 154 L0 250 C 0 296, -14 330, -40 330 C -66 330, -72 294, -52 278 C -36 264, -14 262, 0 262 C 8 236, 36 206, 64 206 C 92 206, 112 224, 112 245 C 112 266, 92 284, 64 284 C 40 284, 16 280, 0 266"></path>
+  </g>
+</template>
+<template id="loop-l">
+  <!-- cursive l: enters low from the left, loops at the top, drops as a straight stem -->
+  <g data-part data-gap="6">
+    <path class="loop" d="M-20 250 C 10 226, 42 196, 48 168 C 54 140, 34 126, 20 138 C 8 150, 6 176, 6 210 L 6 300"></path>
+  </g>
+</template>
+<template id="loop-y">
+  <!-- y: left arm + right arm whose tail loops back on itself -->
+  <g data-part data-gap="8">
+    <path class="loop" d="M0 190 L 54 298"></path>
+    <path class="loop" d="M108 190 L 60 304 C 48 334, 30 352, 8 352 C -16 352, -22 328, -6 316 C 14 302, 56 304, 96 320"></path>
+  </g>
+</template>
+
+<div id="variants"></div>
+
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  var VARIANTS = [
+    { id: "b", title: "A · Looped b (signature)", parts: [["loop-b"], "ayesly"] },
+    { id: "l", title: "B · Looped l (cursive)", parts: ["bayes", ["loop-l"], "y"] },
+    { id: "y", title: "C · Looped y (flourish)", parts: ["bayesl", ["loop-y"]] },
+  ];
+
+  function wordmark(v) {
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("class", "wm");
+    svg.innerHTML = v.parts.map(function (p) {
+      return typeof p === "string" ? '<text data-part y="300">' + p + "</text>" : document.getElementById(p[0]).innerHTML;
+    }).join("");
+    return svg;
+  }
+
+  function layout(svg) {
+    var x = 0;
+    svg.querySelectorAll("[data-part]").forEach(function (el) {
+      if (el.tagName === "text") {
+        el.setAttribute("x", x);
+        x += el.getComputedTextLength() - 6; // letter-spacing tail
+      } else {
+        // Place by real ink bounds (incl. stroke width) with a side gap that matches the font's spacing.
+        var gap = Number(el.dataset.gap || 8), half = 16;
+        var bb = el.getBBox();
+        var left = bb.x - half;
+        // The first letter's loop may hang left of the origin; only push later letters.
+        var tx = x === 0 ? 0 : x + gap - left;
+        el.setAttribute("transform", "translate(" + tx + " 0)");
+        x = tx + bb.x + bb.width + half + gap;
+      }
+    });
+    var bb = svg.getBBox();
+    var pad = 20; // getBBox ignores stroke width (32 / 2) + breathing room
+    svg.setAttribute("viewBox", [bb.x - pad, bb.y - pad, bb.width + pad * 2, bb.height + pad * 2].join(" "));
+    svg.dataset.w = bb.width; svg.dataset.h = bb.height;
+  }
+
+  var root = document.getElementById("variants");
+  VARIANTS.forEach(function (v) {
+    var sec = document.createElement("section");
+    sec.className = "variant"; sec.dataset.id = v.id;
+    sec.innerHTML = "<h2>" + v.title + "</h2><div class='row'></div>";
+    var row = sec.querySelector(".row");
+    ["lime", "ink", "paper"].forEach(function (bg) {
+      var t = document.createElement("div"); t.className = "tile " + bg;
+      t.appendChild(wordmark(v)); row.appendChild(t);
+    });
+    var small = document.createElement("div"); small.className = "small";
+    [120, 64, 32].forEach(function (w) { var s = wordmark(v); s.style.width = w * 2.2 + "px"; small.appendChild(s); });
+    row.appendChild(small);
+    root.appendChild(sec);
+  });
+
+  // Avatar / favicon: the looped b from variant A on its own.
+  function markSvg() {
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("class", "wm mark");
+    svg.innerHTML = document.getElementById("loop-b").innerHTML;
+    return svg;
+  }
+  var av = document.createElement("section");
+  av.className = "variant";
+  av.innerHTML = "<h2>A · Mark — avatar (Threads / X) &amp; favicon</h2><div class='row avatars'></div>";
+  var avRow = av.querySelector(".row");
+  [["lime", 260], ["ink", 260], ["lime", 96], ["lime", 48], ["lime", 32], ["lime", 16]].forEach(function (c) {
+    var d = document.createElement("div");
+    d.className = "avatar " + c[0];
+    d.style.cssText = "width:" + c[1] + "px;height:" + c[1] + "px;border-radius:50%;display:grid;place-items:center;" +
+      "background:" + (c[0] === "lime" ? "var(--lime)" : "var(--ink)") + ";color:" + (c[0] === "lime" ? "var(--ink)" : "var(--lime)");
+    var s = markSvg(); s.style.width = "58%"; s.style.height = "58%";
+    d.appendChild(s); avRow.appendChild(d);
+  });
+  avRow.style.alignItems = "center";
+  root.insertBefore(av, root.children[1]);
+
+  document.fonts.ready.then(function () {
+    document.querySelectorAll("svg.wm").forEach(layout);
+    document.body.dataset.ready = "1";
+  });
+})();
+</script>
+</body>
+</html>

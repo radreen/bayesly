@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <title>Bayesly mark — concept A "Drop"</title>
+  <defs>
+    <mask id="cut-a">
+      <rect width="1000" height="1000" fill="#fff"/>
+      <!-- teardrop counter: long tail up-left into the stem -->
+      <path d="M414 458 C 566 418, 752 452, 760 618 C 766 744, 676 796, 594 790 C 500 782, 470 700, 466 640 C 462 570, 440 500, 414 458 Z" fill="#000"/>
+      <!-- hairline: flows out of the drop down to the baseline -->
+      <path d="M468 650 C 452 740, 432 820, 420 900" fill="none" stroke="#000" stroke-width="12" stroke-linecap="round"/>
+    </mask>
+  </defs>
+  <g fill="#0d0d0e" mask="url(#cut-a)">
+    <path d="M224 186 L 408 108 L 408 892 L 224 892 Z"/>
+    <path d="M404 432 C 540 350, 724 326, 820 404 C 914 480, 918 728, 826 812 C 752 880, 610 900, 404 892 Z"/>
+  </g>
+</svg>

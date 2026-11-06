@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 86 779.328125 282">
+<title>Bayesly wordmark (loop-l) — live text: outline before production use</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700&amp;display=swap');text{font:700 200px 'Inter Tight',sans-serif;letter-spacing:-6px;fill:#0d0d0e}.loop{fill:none;stroke:#0d0d0e;stroke-width:32;stroke-linecap:butt;stroke-linejoin:round}</style>
+<text data-part="" y="300" x="0">bayes</text>
+  <!-- cursive l: enters low from the left, loops at the top, drops as a straight stem -->
+  <g data-part="" data-gap="6" transform="translate(557.234375 0)">
+    <path class="loop" d="M-20 250 C 10 226, 42 196, 48 168 C 54 140, 34 126, 20 138 C 8 150, 6 176, 6 210 L 6 300"></path>
+  </g>
+<text data-part="" y="300" x="628.328125">y</text>
+</svg>

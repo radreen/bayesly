@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <title>Bayesly mark — concept B "Wedge"</title>
+  <defs>
+    <mask id="cut-b">
+      <rect width="1000" height="1000" fill="#fff"/>
+      <!-- teardrop counter: sharp tail up-right, round bulb down-left -->
+      <path d="M748 440 C 700 500, 700 620, 664 718 C 636 790, 570 826, 518 806 C 466 786, 456 716, 492 660 C 548 574, 640 520, 748 440 Z" fill="#000"/>
+      <!-- hairline: the drop's tail slices out through the bowl -->
+      <path d="M748 440 L 826 342" fill="none" stroke="#000" stroke-width="12"/>
+    </mask>
+  </defs>
+  <g fill="#0d0d0e" mask="url(#cut-b)">
+    <!-- tapered wedge stem, slanted top -->
+    <path d="M306 108 L 402 126 L 440 892 L 192 892 Z"/>
+    <!-- heavy drop bowl -->
+    <path d="M412 466 C 566 370, 848 348, 898 590 C 934 772, 800 904, 606 898 L 430 892 Z"/>
+  </g>
+</svg>
