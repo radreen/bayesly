@@ -15,10 +15,13 @@ from bayesly.config import Settings, load_sources
 from bayesly.dedupe import dedupe, item_key
 from bayesly.gemini import GeminiError, parse_draft_json
 from bayesly.prompt import build_prompt, load_prompts
+from bayesly.models import Item
 from bayesly.review import DraftStore
-from bayesly.score import rank
+from bayesly.score import rank, select
 
 log = logging.getLogger(__name__)
+
+DEFAULT_MAX_PER_SOURCE = 2
 
 
 class TextGenerator(Protocol):
@@ -36,21 +39,15 @@ class RunResult:
     failed: list[str] = field(default_factory=list)
 
 
-def run_draft(
+def collect_and_rank(
     settings: Settings,
+    result: RunResult,
     *,
-    limit: int,
-    generator: TextGenerator | None,
     source_ids: set[str] | None = None,
-    items=None,
-) -> RunResult:
-    """Run the pipeline. `generator=None` means --skip-llm (review files without drafts).
-
-    `items` lets tests inject pre-collected items instead of hitting the network.
-    """
-    result = RunResult()
+    items: list[Item] | None = None,
+) -> list[Item]:
+    """Collect (unless `items` is given), dedupe against earlier drafts, rank."""
     store = DraftStore(settings.out_dir, settings.state_dir)
-
     if items is None:
         sources = load_sources(settings.sources_path)
         if source_ids:
@@ -59,15 +56,33 @@ def run_draft(
             sources, timeout=settings.http_timeout, max_retries=settings.http_max_retries
         )
     result.collected = len(items)
-
     unique = dedupe(items, seen_keys=store.drafted_ids())
     result.unique = len(unique)
     ranked = rank(unique)
     result.ranked = len(ranked)
-    log.info("selected", extra={"collected": result.collected, "unique": result.unique, "ranked": result.ranked})
+    log.info("ranked", extra={"collected": result.collected, "unique": result.unique, "ranked": result.ranked})
+    return ranked
+
+
+def run_draft(
+    settings: Settings,
+    *,
+    limit: int,
+    generator: TextGenerator | None,
+    max_per_source: int = DEFAULT_MAX_PER_SOURCE,
+    source_ids: set[str] | None = None,
+    items: list[Item] | None = None,
+) -> RunResult:
+    """Run the pipeline. `generator=None` means --skip-llm (review files without drafts).
+
+    `items` lets tests inject pre-collected items instead of hitting the network.
+    """
+    result = RunResult()
+    store = DraftStore(settings.out_dir, settings.state_dir)
+    ranked = collect_and_rank(settings, result, source_ids=source_ids, items=items)
 
     voice, template = load_prompts(settings.prompts_dir)
-    for item in ranked[:limit]:
+    for item in select(ranked, limit, max_per_source):
         item_id = item_key(item)
         if generator is None:
             path = store.write(item, item_id, None, "", model="(skipped)", mark=False)

@@ -16,7 +16,7 @@ config/sources.yaml ──collect──▶ dedupe ──▶ score ──▶ draf
 |---------|----------------------|--------------|
 | Collect | `bayesly/collect.py` | Fetches RSS/Atom feeds. A broken feed is logged and skipped. |
 | Dedupe  | `bayesly/dedupe.py`  | Same normalized URL, similar titles (Jaccard ≥ 0.8), or already drafted → dropped. Keeps the more reliable source. |
-| Score   | `bayesly/score.py`   | Drops rumour headlines ("reportedly", "leak", …). Score = 0.40·reliability + 0.35·relevance + 0.25·novelty, −0.10 for thin text. |
+| Score   | `bayesly/score.py`   | Drops rumour headlines ("reportedly", "leak", …) and pre-releases (rc/beta). Score = 0.40·reliability + 0.35·relevance + 0.25·novelty, then: −0.35 patch release (x.y.Z), −0.15 how-to / vendor tutorial / case study, −0.10 thin text, +0.10 announcement wording ("releases", "now available", …). At most 2 picks per source per run. |
 | Draft   | `bayesly/prompt.py`, `bayesly/gemini.py` | Builds the prompt from `prompts/draft.md` + `prompts/voice.md` + source text, calls Gemini (Interactions API). |
 | Review  | `bayesly/review.py`  | Writes `<id>-<slug>.md` (for a human) and `.json` (status `pending_review`), plus lint warnings (length, hashtags, hype words, missing link). |
 
@@ -41,7 +41,16 @@ python -m bayesly draft --limit 5
 Options:
 - `--limit N` — max drafts per run (default 5).
 - `--sources openai-news,gh-ollama` — only these source ids.
-- `--skip-llm` — no Gemini call; writes review files with source text and score only. Useful to check feeds and ranking. These are not marked as drafted.
+- `--max-per-source N` — max picks from one source per run (default 2), so one busy blog can't fill the queue.
+- `--skip-llm` — no Gemini call; writes review files with source text and score only. These are not marked as drafted.
+
+Preview the ranking without writing anything or calling Gemini:
+
+```bash
+python -m bayesly rank --top 20
+```
+
+Rows marked `*` are what `draft` would pick; extra columns show penalties/bonuses.
 
 Re-running is safe: drafted item ids are stored in `state/drafted.json` and skipped next time.
 Delete that file to start fresh.

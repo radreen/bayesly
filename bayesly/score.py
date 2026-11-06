@@ -35,6 +35,45 @@ _RELEVANCE_RES = [re.compile(rf"\b{re.escape(t)}\b", re.IGNORECASE) for t in REL
 
 THIN_TEXT_CHARS = 200
 THIN_TEXT_PENALTY = 0.10
+
+# Release notes: pre-releases are dropped, patch releases (x.y.Z, Z > 0) pushed down.
+# Major/minor releases (x.Y.0) are real news and keep their score.
+_VERSION_RE = re.compile(
+    r"\bv?(\d+)\.(\d+)(?:\.(\d+))?(?:[-.]?(rc|alpha|beta|dev|nightly|pre|preview)\.?\d*)?\b",
+    re.IGNORECASE,
+)
+PATCH_RELEASE_PENALTY = 0.35
+
+# How-to / vendor tutorial posts: useful, but rarely news.
+_HOWTO_RE = re.compile(
+    r"^(how to|getting started|get started|a guide|guide to|introduction to|best practices|"
+    r"build(ing)?|deploy(ing)?|use|using|tutorial)\b"
+    r"|^how [\w.&-]+( [\w.&-]+)? uses\b"  # customer / internal case studies
+    r"|\b(on|with|using) (amazon|aws|azure|google cloud|vertex ai)\b",
+    re.IGNORECASE,
+)
+HOWTO_PENALTY = 0.15
+
+# Title wording that signals an actual announcement.
+_NEWS_RE = re.compile(
+    r"\b(introduc(es|ing)|announc(es|ed|ing)|launch(es|ed)?|releas(es|ed)|unveil(s|ed)?|"
+    r"now available|now supports|open[- ]sources?d?|general availability)\b",
+    re.IGNORECASE,
+)
+NEWS_SIGNAL_BONUS = 0.10
+
+
+def release_kind(item: Item) -> str | None:
+    """For release_notes sources: 'prerelease' | 'patch' | 'minor' | None (no version found)."""
+    if item.source.kind != "release_notes":
+        return None
+    match = _VERSION_RE.search(item.title)
+    if not match:
+        return None
+    if match.group(4):
+        return "prerelease"
+    patch = match.group(3)
+    return "patch" if patch is not None and int(patch) > 0 else "minor"
 UNKNOWN_DATE_NOVELTY = 0.3
 NOVELTY_FULL_HOURS = 24
 NOVELTY_ZERO_HOURS = 24 * 7
@@ -69,17 +108,39 @@ def score_item(item: Item, now: datetime | None = None) -> float:
         "novelty": novelty(item, now),
     }
     total = sum(WEIGHTS[k] * v for k, v in parts.items())
+    adjustments: dict[str, float] = {}
     if len(item.text) < THIN_TEXT_CHARS:
-        parts["thin_text_penalty"] = -THIN_TEXT_PENALTY
-        total -= THIN_TEXT_PENALTY
+        adjustments["thin_text_penalty"] = -THIN_TEXT_PENALTY
+    if release_kind(item) == "patch":
+        adjustments["patch_release_penalty"] = -PATCH_RELEASE_PENALTY
+    if _HOWTO_RE.search(item.title):
+        adjustments["howto_penalty"] = -HOWTO_PENALTY
+    if _NEWS_RE.search(item.title):
+        adjustments["news_signal_bonus"] = NEWS_SIGNAL_BONUS
+    total += sum(adjustments.values())
+    parts.update(adjustments)
     item.score = round(max(total, 0.0), 4)
     item.score_breakdown = {k: round(v, 3) for k, v in parts.items()}
     return item.score
 
 
 def rank(items: list[Item], now: datetime | None = None) -> list[Item]:
-    """Drop rumours, score the rest, return best first."""
-    kept = [i for i in items if not is_rumour(i)]
+    """Drop rumours and pre-releases, score the rest, return best first."""
+    kept = [i for i in items if not is_rumour(i) and release_kind(i) != "prerelease"]
     for item in kept:
         score_item(item, now)
     return sorted(kept, key=lambda i: i.score, reverse=True)
+
+
+def select(ranked: list[Item], limit: int, max_per_source: int) -> list[Item]:
+    """Take the best `limit` items, at most `max_per_source` from any one source."""
+    picked: list[Item] = []
+    per_source: dict[str, int] = {}
+    for item in ranked:
+        if len(picked) >= limit:
+            break
+        if per_source.get(item.source.id, 0) >= max_per_source:
+            continue
+        picked.append(item)
+        per_source[item.source.id] = per_source.get(item.source.id, 0) + 1
+    return picked
