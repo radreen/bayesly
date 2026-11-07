@@ -42,7 +42,7 @@
 </style>
 </head>
 <body>
-<h1>Bayesly — geometric marks v5</h1>
+<h1>Bayesly — marks v6 — concept-driven</h1>
 <p class="note">Symbol + clean wordmark, like Kimaro / Lumin / Offtop. Marks are built from circles, rectangles and arcs (exact geometry, 100×100 grid).</p>
 
 <!-- Marks: 100x100 viewBox, single colour (currentColor). -->
@@ -69,6 +69,37 @@
 <template id="m-shift">
   <!-- A disc split in two; the right half has moved up: the update -->
   <svg viewBox="0 0 100 100"><path fill="currentColor" d="M47 22 A39 39 0 0 0 47 100 Z"/><path fill="currentColor" d="M53 0 A39 39 0 0 1 53 78 Z"/></svg>
+</template>
+
+<!-- v6: concept-driven marks -->
+<template id="m-given">
+  <!-- Bayes notation: ( | ) — the "given" bar of P(A|B) -->
+  <svg viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round"><path d="M30 8 A58 58 0 0 0 30 92"/><path d="M70 8 A58 58 0 0 1 70 92"/><path d="M50 4 L 50 96"/></g></svg>
+</template>
+<template id="m-table">
+  <!-- Bayes' billiard table (1763): a wide table, the line where the first ball stopped, balls left and right -->
+  <svg viewBox="0 0 100 100"><path fill="currentColor" fill-rule="evenodd" d="M12 18 H88 A12 12 0 0 1 100 30 V70 A12 12 0 0 1 88 82 H12 A12 12 0 0 1 0 70 V30 A12 12 0 0 1 12 18 Z
+    M33 27 H38 V73 H33 Z
+    M18 50 m-7 0 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0 Z
+    M56 38 m-7 0 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0 Z
+    M83 46 m-7 0 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0 Z
+    M66 64 m-7 0 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0 Z"/></svg>
+</template>
+<template id="m-errorbar">
+  <!-- A point estimate with its confidence interval -->
+  <svg viewBox="0 0 100 100"><g stroke="currentColor" stroke-width="11" stroke-linecap="round" fill="none"><path d="M8 50 H92"/><path d="M8 28 V72"/><path d="M92 28 V72"/></g><circle cx="58" cy="50" r="20" fill="currentColor"/></svg>
+</template>
+<template id="m-morph">
+  <!-- A belief mid-update: square (prior) becoming a circle (posterior) -->
+  <svg viewBox="0 0 100 100"><g fill="currentColor"><rect x="4.0" y="0" width="92.0" height="14" rx="0.0"/><rect x="4.7" y="17" width="90.7" height="14" rx="1.4"/><rect x="2.7" y="34" width="94.5" height="14" rx="2.8"/><rect x="2.0" y="51" width="96.0" height="14" rx="4.2"/><rect x="6.2" y="68" width="87.7" height="14" rx="5.6"/><rect x="22.9" y="85" width="54.3" height="14" rx="7.0"/></g></svg>
+</template>
+<template id="m-brow">
+  <!-- The skeptic: one eye, one raised eyebrow -->
+  <svg viewBox="0 0 100 100"><circle cx="46" cy="68" r="22" fill="currentColor"/><path d="M14 34 C 34 10, 66 8, 90 20" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round"/></svg>
+</template>
+<template id="m-fill">
+  <!-- Before: hollow (uncertain). Now: solid (known). -->
+  <svg viewBox="0 0 100 100"><path d="M46 9 A41 41 0 0 0 46 91" fill="none" stroke="currentColor" stroke-width="12"/><path d="M54 3 A47 47 0 0 1 54 97 Z" fill="currentColor"/></svg>
 </template>
 
 <!-- v5 -->
@@ -105,16 +136,14 @@
 <script>
 (function () {
   var MARKS = [
-    { id: "overlap", title: "7 · Overlap", note: "Two beliefs overlap; the intersection, where Bayes works, is cut out.", tpl: "m-overlap" },
-    { id: "stack", title: "8 · Stack", note: "A bell curve built from three rounded slabs, nudged right.", tpl: "m-stack" },
-    { id: "delta", title: "9 · Delta", note: "Δ = change. One straight half, one curved half.", tpl: "m-delta" },
-    { id: "pebbles", title: "10 · Pebbles", note: "Evidence accumulates: three soft shapes, each larger.", tpl: "m-pebbles" },
-    { id: "hills", title: "11 · Hills", note: "Two quarter hills: a low prior, a taller posterior.", tpl: "m-hills" },
-    { id: "orbit", title: "12 · Orbit", note: "A belief with an opening; a new data point arrives.", tpl: "m-orbit" },
-    { id: "evidence", title: "2 · Evidence (v4)", note: "Small dot = new evidence, tall hill = the updated belief.", tpl: "m-evidence" },
-    { id: "quarters", title: "3 · Quarters (v4)", note: "A b cut from flat geometric pieces, Kimaro-style.", tpl: "m-quarters" },
-    { id: "sunrise", title: "5 · Sunrise (v4)", note: "Rays sized like a bell curve over a rising half disc.", tpl: "m-sunrise" },
-    { id: "shift", title: "6 · Shift (v4)", note: "One disc, split and shifted: before → after.", tpl: "m-shift" },
+    { id: "given", title: "13 · Given", note: "( | ) — the 'given' bar from P(A|B). Bayes notation as a symbol.", tpl: "m-given" },
+    { id: "table", title: "14 · Bayes' table", note: "Bayes' 1763 billiard-table experiment: a line, balls left and right.", tpl: "m-table" },
+    { id: "errorbar", title: "15 · Error bar", note: "A point estimate with its confidence interval: 'how sure are we'.", tpl: "m-errorbar" },
+    { id: "morph", title: "16 · Morph", note: "A belief mid-update: square prior turning into a round posterior.", tpl: "m-morph" },
+    { id: "brow", title: "17 · Raised brow", note: "The skeptic: one eye, one raised eyebrow. Character, not maths.", tpl: "m-brow" },
+    { id: "fill", title: "18 · Hollow → solid", note: "Before: an outline (uncertain). Now: filled in (known).", tpl: "m-fill" },
+    { id: "overlap", title: "7 · Overlap (v5)", note: "Kept for comparison.", tpl: "m-overlap" },
+    { id: "hills", title: "11 · Hills (v5)", note: "Kept for comparison.", tpl: "m-hills" },
   ];
   function mark(tpl) {
     var t = document.getElementById(tpl).content.firstElementChild.cloneNode(true);
