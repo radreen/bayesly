@@ -42,7 +42,7 @@
 </style>
 </head>
 <body>
-<h1>Bayesly — geometric marks v4</h1>
+<h1>Bayesly — geometric marks v5</h1>
 <p class="note">Symbol + clean wordmark, like Kimaro / Lumin / Offtop. Marks are built from circles, rectangles and arcs (exact geometry, 100×100 grid).</p>
 
 <!-- Marks: 100x100 viewBox, single colour (currentColor). -->
@@ -71,6 +71,32 @@
   <svg viewBox="0 0 100 100"><path fill="currentColor" d="M47 22 A39 39 0 0 0 47 100 Z"/><path fill="currentColor" d="M53 0 A39 39 0 0 1 53 78 Z"/></svg>
 </template>
 
+<!-- v5 -->
+<template id="m-overlap">
+  <!-- Two beliefs overlapping; the intersection (where Bayes lives) is cut out -->
+  <svg viewBox="0 0 100 100"><path fill="currentColor" fill-rule="evenodd" d="M2 56 a34 34 0 1 0 68 0 a34 34 0 1 0 -68 0 Z M30 44 a34 34 0 1 0 68 0 a34 34 0 1 0 -68 0 Z"/></svg>
+</template>
+<template id="m-stack">
+  <!-- A bell curve stacked from three rounded slabs, nudged right: the posterior -->
+  <svg viewBox="0 0 100 100"><g fill="currentColor"><rect x="0" y="70" width="100" height="30" rx="15"/><rect x="14" y="36" width="76" height="30" rx="15"/><rect x="32" y="2" width="50" height="30" rx="15"/></g></svg>
+</template>
+<template id="m-delta">
+  <!-- Delta = change: one straight half, one curved half -->
+  <svg viewBox="0 0 100 100"><path fill="currentColor" d="M47 4 L 0 96 L 47 96 Z"/><path fill="currentColor" d="M53 4 A47 92 0 0 1 100 96 L 53 96 Z"/></svg>
+</template>
+<template id="m-pebbles">
+  <!-- Evidence accumulates: three soft pebbles, each larger -->
+  <svg viewBox="0 0 100 100"><g fill="currentColor"><circle cx="9" cy="89" r="9"/><ellipse cx="33" cy="76" rx="12" ry="22" transform="rotate(-12 33 76)"/><ellipse cx="72" cy="52" rx="24" ry="47" transform="rotate(-12 72 52)"/></g></svg>
+</template>
+<template id="m-hills">
+  <!-- Two quarter hills: a low prior, a taller posterior -->
+  <svg viewBox="0 0 100 100"><path fill="currentColor" d="M0 100 A46 46 0 0 1 46 54 L 46 100 Z"/><path fill="currentColor" d="M54 100 L 54 4 A46 96 0 0 1 100 100 Z"/></svg>
+</template>
+<template id="m-orbit">
+  <!-- A belief (ring) with an opening; a new data point is coming in -->
+  <svg viewBox="0 0 100 100"><path fill="none" stroke="currentColor" stroke-width="22" d="M80.6 30.4 A38 38 0 1 1 64.2 16.2"/><circle cx="84" cy="15" r="13" fill="currentColor"/></svg>
+</template>
+
 <div class="grid" id="variants"></div>
 
 <h3>Wordmark: font comparison (no mark)</h3>
@@ -79,12 +105,16 @@
 <script>
 (function () {
   var MARKS = [
-    { id: "blob", title: "1 · Soft b", note: "Rounded stem + disc; the counter is a single data point.", tpl: "m-blob" },
-    { id: "evidence", title: "2 · Evidence", note: "Small dot = new evidence, tall hill = the updated belief.", tpl: "m-evidence" },
-    { id: "quarters", title: "3 · Quarters", note: "A b cut from flat geometric pieces, Kimaro-style.", tpl: "m-quarters" },
-    { id: "histogram", title: "4 · Histogram", note: "Five bars draw a posterior. Data, not adjectives.", tpl: "m-histogram" },
-    { id: "sunrise", title: "5 · Sunrise", note: "Rays sized like a bell curve over a rising half disc.", tpl: "m-sunrise" },
-    { id: "shift", title: "6 · Shift", note: "One disc, split and shifted: before → after.", tpl: "m-shift" },
+    { id: "overlap", title: "7 · Overlap", note: "Two beliefs overlap; the intersection, where Bayes works, is cut out.", tpl: "m-overlap" },
+    { id: "stack", title: "8 · Stack", note: "A bell curve built from three rounded slabs, nudged right.", tpl: "m-stack" },
+    { id: "delta", title: "9 · Delta", note: "Δ = change. One straight half, one curved half.", tpl: "m-delta" },
+    { id: "pebbles", title: "10 · Pebbles", note: "Evidence accumulates: three soft shapes, each larger.", tpl: "m-pebbles" },
+    { id: "hills", title: "11 · Hills", note: "Two quarter hills: a low prior, a taller posterior.", tpl: "m-hills" },
+    { id: "orbit", title: "12 · Orbit", note: "A belief with an opening; a new data point arrives.", tpl: "m-orbit" },
+    { id: "evidence", title: "2 · Evidence (v4)", note: "Small dot = new evidence, tall hill = the updated belief.", tpl: "m-evidence" },
+    { id: "quarters", title: "3 · Quarters (v4)", note: "A b cut from flat geometric pieces, Kimaro-style.", tpl: "m-quarters" },
+    { id: "sunrise", title: "5 · Sunrise (v4)", note: "Rays sized like a bell curve over a rising half disc.", tpl: "m-sunrise" },
+    { id: "shift", title: "6 · Shift (v4)", note: "One disc, split and shifted: before → after.", tpl: "m-shift" },
   ];
   function mark(tpl) {
     var t = document.getElementById(tpl).content.firstElementChild.cloneNode(true);
