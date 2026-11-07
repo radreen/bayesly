@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayesly marks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Manrope:wght@700;800&family=Plus+Jakarta+Sans:wght@700;800&family=Sora:wght@600;700&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #0d0d0e; --lime: #c6ff2e; --paper: #e4e4df; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #9d9d98; font-family: "Inter Tight", system-ui, sans-serif; padding: 32px 40px 60px; }
+  h1 { font: 800 28px "Inter Tight"; letter-spacing: -0.03em; }
+  .note { font: 500 13px "JetBrains Mono", monospace; opacity: .75; margin: 6px 0 26px; }
+  h3 { font: 700 13px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .1em; margin: 34px 0 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(780px, 1fr)); gap: 24px; }
+  .variant h2 { font: 700 14px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
+  .variant p { font: 500 12px "JetBrains Mono", monospace; opacity: .75; margin: 3px 0 10px; }
+  .row { display: flex; gap: 10px; }
+  .tile { flex: none; width: 430px; height: 230px; display: grid; place-items: center; }
+  .lime { background: var(--lime); color: var(--ink); }
+  .ink { background: var(--ink); color: var(--white, #f5f5f0); }
+  .paper { background: var(--paper); color: var(--ink); }
+  .side { display: flex; flex-direction: column; gap: 10px; }
+  .avatar { width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center; }
+  .avatar svg { width: 54%; height: 54%; }
+  .tiny { display: flex; gap: 10px; align-items: center; padding: 10px; background: var(--paper); flex: 1; }
+  .tiny .c { border-radius: 50%; display: grid; place-items: center; background: var(--lime); color: var(--ink); }
+  .tiny svg { width: 56%; height: 56%; }
+
+  /* Lockup: mark height ~ ascender height, tight gap, like the references */
+  .lockup { display: flex; align-items: center; gap: .26em; font-size: 74px; line-height: 1; }
+  .lockup svg { height: .80em; width: auto; flex: none; transform: translateY(-.02em); }
+  .lockup .word { font-weight: 700; letter-spacing: -0.045em; }
+  .lockup.sm { font-size: 30px; }
+
+  .fonts { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 10px; }
+  .fonts .tile { width: auto; height: 150px; }
+  .fonts .tile > div { text-align: center; }
+  .fonts small { display: block; margin-top: 12px; font: 500 12px "JetBrains Mono", monospace; opacity: .6; }
+</style>
+</head>
+<body>
+<h1>Bayesly — geometric marks v4</h1>
+<p class="note">Symbol + clean wordmark, like Kimaro / Lumin / Offtop. Marks are built from circles, rectangles and arcs (exact geometry, 100×100 grid).</p>
+
+<!-- Marks: 100x100 viewBox, single colour (currentColor). -->
+<template id="m-blob">
+  <!-- Soft b: rounded stem + disc, one round "data point" counter -->
+  <svg viewBox="0 0 100 100"><defs><mask id="blob-hole"><rect width="100" height="100" fill="#fff"/><circle cx="58" cy="64" r="13" fill="#000"/></mask></defs><g fill="currentColor" mask="url(#blob-hole)"><rect x="0" y="0" width="34" height="100" rx="17"/><circle cx="58" cy="64" r="36"/><rect x="17" y="64" width="41" height="36"/></g></svg>
+</template>
+<template id="m-evidence">
+  <!-- Offtop-like pair: a small dot (evidence) and a tall leaning hill (updated belief) -->
+  <svg viewBox="0 0 100 100"><circle cx="13" cy="86" r="13" fill="currentColor"/><path fill="currentColor" d="M34 100 C 34 52, 50 2, 74 2 C 92 2, 100 26, 100 52 L 100 100 Z"/></svg>
+</template>
+<template id="m-quarters">
+  <!-- Kimaro-like b from flat pieces: quarter-round stem + half disc, split by a gap -->
+  <svg viewBox="0 0 100 100"><path fill="currentColor" d="M0 36 A36 36 0 0 1 36 0 L36 100 L0 100 Z"/><path fill="currentColor" d="M44 34 A33 33 0 0 1 44 100 Z"/><rect x="44" y="34" width="0" height="0"/></svg>
+</template>
+<template id="m-histogram">
+  <!-- A posterior drawn as five rounded bars -->
+  <svg viewBox="0 0 100 100"><g fill="currentColor"><rect x="0" y="70" width="16" height="30" rx="8"/><rect x="21" y="36" width="16" height="64" rx="8"/><rect x="42" y="0" width="16" height="100" rx="8"/><rect x="63" y="22" width="16" height="78" rx="8"/><rect x="84" y="58" width="16" height="42" rx="8"/></g></svg>
+</template>
+<template id="m-sunrise">
+  <!-- Lumin-like: half disc with rays whose lengths follow a bell curve -->
+  <svg viewBox="0 0 100 100"><g fill="currentColor" class="rays"></g><path fill="currentColor" d="M24 100 A26 26 0 0 1 76 100 Z"/></svg>
+</template>
+<template id="m-shift">
+  <!-- A disc split in two; the right half has moved up: the update -->
+  <svg viewBox="0 0 100 100"><path fill="currentColor" d="M47 22 A39 39 0 0 0 47 100 Z"/><path fill="currentColor" d="M53 0 A39 39 0 0 1 53 78 Z"/></svg>
+</template>
+
+<div class="grid" id="variants"></div>
+
+<h3>Wordmark: font comparison (no mark)</h3>
+<div class="fonts" id="fonts"></div>
+
+<script>
+(function () {
+  var MARKS = [
+    { id: "blob", title: "1 · Soft b", note: "Rounded stem + disc; the counter is a single data point.", tpl: "m-blob" },
+    { id: "evidence", title: "2 · Evidence", note: "Small dot = new evidence, tall hill = the updated belief.", tpl: "m-evidence" },
+    { id: "quarters", title: "3 · Quarters", note: "A b cut from flat geometric pieces, Kimaro-style.", tpl: "m-quarters" },
+    { id: "histogram", title: "4 · Histogram", note: "Five bars draw a posterior. Data, not adjectives.", tpl: "m-histogram" },
+    { id: "sunrise", title: "5 · Sunrise", note: "Rays sized like a bell curve over a rising half disc.", tpl: "m-sunrise" },
+    { id: "shift", title: "6 · Shift", note: "One disc, split and shifted: before → after.", tpl: "m-shift" },
+  ];
+  function mark(tpl) {
+    var t = document.getElementById(tpl).content.firstElementChild.cloneNode(true);
+    var rays = t.querySelector(".rays");
+    if (rays) {
+      // 7 rays from 180° to 0°, length ~ gaussian around the vertical one; small gap from the disc.
+      for (var i = 0; i < 5; i++) {
+        var len = 14 + 52 * Math.exp(-0.5 * Math.pow((i - 2) / 1.0, 2));
+        var r0 = 32, cx = 50, cy = 100;
+        var g = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        g.setAttribute("x", r0); g.setAttribute("y", -8); g.setAttribute("width", len); g.setAttribute("height", 16); g.setAttribute("rx", 0);
+        g.setAttribute("transform", "translate(" + cx + " " + cy + ") rotate(" + (-180 + 180 * i / 4) + ")");
+        rays.appendChild(g);
+      }
+      t.setAttribute("viewBox", "-4 -4 108 104");
+    }
+    return t;
+  }
+  function lockup(tpl, word, cls) {
+    var d = document.createElement("div"); d.className = "lockup " + (cls || "");
+    d.appendChild(mark(tpl));
+    var w = document.createElement("span"); w.className = "word"; w.textContent = word; d.appendChild(w);
+    return d;
+  }
+  var root = document.getElementById("variants");
+  MARKS.forEach(function (m) {
+    var s = document.createElement("section"); s.className = "variant"; s.dataset.id = m.id;
+    s.innerHTML = "<h2>" + m.title + "</h2><p>" + m.note + "</p>";
+    var row = document.createElement("div"); row.className = "row";
+    var t = document.createElement("div"); t.className = "tile lime"; t.appendChild(lockup(m.tpl, "bayesly")); row.appendChild(t);
+    var side = document.createElement("div"); side.className = "side";
+    var av = document.createElement("div"); av.className = "avatar lime"; av.appendChild(mark(m.tpl)); side.appendChild(av);
+    row.appendChild(side); s.appendChild(row);
+    var row2 = document.createElement("div"); row2.className = "row"; row2.style.marginTop = "10px";
+    var t2 = document.createElement("div"); t2.className = "tile ink"; t2.style.height = "110px"; t2.appendChild(lockup(m.tpl, "bayesly", "sm")); row2.appendChild(t2);
+    var tiny = document.createElement("div"); tiny.className = "tiny";
+    var sm = lockup(m.tpl, "bayesly"); sm.style.fontSize = "22px"; tiny.appendChild(sm);
+    [48, 32, 16].forEach(function (px) { var c = document.createElement("div"); c.className = "c"; c.style.width = c.style.height = px + "px"; c.appendChild(mark(m.tpl)); tiny.appendChild(c); });
+    row2.appendChild(tiny); s.appendChild(row2);
+    root.appendChild(s);
+  });
+
+  var FONTS = [
+    ["Inter Tight", 700, "-0.045em", "neutral grotesk (current)"],
+    ["Manrope", 800, "-0.05em", "geometric, open"],
+    ["Plus Jakarta Sans", 800, "-0.05em", "soft, Offtop-like"],
+    ["Sora", 700, "-0.05em", "wide geometric"],
+    ["Space Grotesk", 700, "-0.04em", "quirky details, Lumin-like"],
+  ];
+  var fr = document.getElementById("fonts");
+  FONTS.forEach(function (f) {
+    var t = document.createElement("div"); t.className = "tile lime";
+    t.innerHTML = '<div><div style="font:' + f[1] + ' 64px \'' + f[0] + '\';letter-spacing:' + f[2] + '">bayesly</div><small>' + f[0] + ' ' + f[1] + ' · ' + f[3] + '</small></div>';
+    fr.appendChild(t);
+  });
+
+  document.fonts.ready.then(function () { document.body.dataset.ready = "1"; });
+})();
+</script>
+</body>
+</html>
