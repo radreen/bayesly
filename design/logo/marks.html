@@ -42,7 +42,7 @@
 </style>
 </head>
 <body>
-<h1>Bayesly — marks v7 — abstract, technical</h1>
+<h1>Bayesly — marks v8 — built from your references</h1>
 <p class="note">Symbol + clean wordmark, like Kimaro / Lumin / Offtop. Marks are built from circles, rectangles and arcs (exact geometry, 100×100 grid).</p>
 
 <!-- Marks: 100x100 viewBox, single colour (currentColor). -->
@@ -71,6 +71,25 @@
   <svg viewBox="0 0 100 100"><path fill="currentColor" d="M47 22 A39 39 0 0 0 47 100 Z"/><path fill="currentColor" d="M53 0 A39 39 0 0 1 53 78 Z"/></svg>
 </template>
 
+<!-- v8: derived from the owner's references -->
+<template id="m-lumin1">
+  <svg viewBox="0 0 100 100"><defs><mask id="lu1"><rect width="100" height="100" fill="#fff"/><circle cx="44" cy="56" r="5" fill="#000"/></mask></defs><g fill="currentColor" mask="url(#lu1)"><circle cx="44" cy="56" r="25"/><circle cx="50.47" cy="80.15" r="7"/><circle cx="33.43" cy="78.66" r="7"/><circle cx="21.34" cy="66.57" r="7"/><circle cx="19.85" cy="49.53" r="7"/><circle cx="29.66" cy="35.52" r="7"/><rect x="30" y="-6.0" width="40" height="12" transform="translate(44 56) rotate(-90)"/><rect x="30" y="-6.0" width="30" height="12" transform="translate(44 56) rotate(-60)"/><rect x="30" y="-6.0" width="44" height="12" transform="translate(44 56) rotate(-30)"/><rect x="30" y="-6.0" width="34" height="12" transform="translate(44 56) rotate(0)"/><rect x="30" y="-6.0" width="22" height="12" transform="translate(44 56) rotate(30)"/></g></svg>
+</template>
+<template id="m-lumin2">
+  <svg viewBox="0 0 100 100"><defs><mask id="lu2"><rect width="100" height="100" fill="#fff"/><path d="M46 54 L52.95 14.61 A40 40 0 0 1 85.39 60.95 Z" fill="#000"/></mask></defs><g fill="currentColor"><g mask="url(#lu2)"><circle cx="46" cy="54" r="27"/><circle cx="66.68" cy="71.36" r="6.5"/><circle cx="50.69" cy="80.59" r="6.5"/><circle cx="32.50" cy="77.38" r="6.5"/><circle cx="20.63" cy="63.23" r="6.5"/><circle cx="20.63" cy="44.77" r="6.5"/><circle cx="32.50" cy="30.62" r="6.5"/></g><rect x="10" y="-5.5" width="50" height="11" transform="translate(46 54) rotate(-70)"/><rect x="10" y="-5.5" width="54" height="11" transform="translate(46 54) rotate(-35)"/><rect x="10" y="-5.5" width="46" height="11" transform="translate(46 54) rotate(0)"/></g></svg>
+</template>
+<template id="m-kimaro1">
+  <svg viewBox="0 0 100 100"><g fill="currentColor"><path d="M0 30 A30 30 0 0 1 30 0 L40 0 L40 100 L0 100 Z"/><path d="M47 0 A45 45 0 0 1 92 45 L47 45 Z"/><path d="M47 52 L100 52 A53 48 0 0 1 47 100 Z"/></g></svg>
+</template>
+<template id="m-kimaro2">
+  <svg viewBox="0 0 100 100"><g fill="currentColor"><path d="M48 0 L48 48 L0 48 A48 48 0 0 1 48 0 Z"/><path d="M52 0 A48 48 0 0 1 100 48 L52 48 Z"/><rect x="0" y="52" width="48" height="48"/><path d="M52 52 L100 52 L100 100 A48 48 0 0 1 52 52 Z"/></g></svg>
+</template>
+<template id="m-offtop1">
+  <svg viewBox="0 0 100 100"><g fill="currentColor"><ellipse cx="17" cy="50" rx="16" ry="49" transform="rotate(-6 17 50)"/><circle cx="62" cy="29" r="25"/><circle cx="64" cy="70" r="30"/><rect x="40" y="30" width="30" height="42"/></g></svg>
+</template>
+<template id="m-offtop2">
+  <svg viewBox="0 0 100 100"><defs><mask id="of2"><rect width="100" height="100" fill="#fff"/><circle cx="30" cy="20" r="17" fill="#000"/></mask></defs><g fill="currentColor"><ellipse cx="60" cy="54" rx="38" ry="45" transform="rotate(-14 60 54)" mask="url(#of2)"/><ellipse cx="14" cy="86" rx="11" ry="12" transform="rotate(-14 14 86)"/></g></svg>
+</template>
 <!-- v7: abstract, technical (Lumin mood) -->
 <template id="m-aperture">
   <svg viewBox="0 0 100 100"><defs><mask id="ap"><rect width="100" height="100" fill="#fff"/><line x1="62.56" y1="53.36" x2="44.44" y2="120.98" stroke="#000" stroke-width="4.2"/><line x1="53.36" y1="62.56" x2="-14.25" y2="80.67" stroke="#000" stroke-width="4.2"/><line x1="40.81" y1="59.19" x2="-8.69" y2="9.69" stroke="#000" stroke-width="4.2"/><line x1="37.44" y1="46.64" x2="55.56" y2="-20.98" stroke="#000" stroke-width="4.2"/><line x1="46.64" y1="37.44" x2="114.25" y2="19.33" stroke="#000" stroke-width="4.2"/><line x1="59.19" y1="40.81" x2="108.69" y2="90.31" stroke="#000" stroke-width="4.2"/><polygon points="64.49,53.88 53.88,64.49 39.39,60.61 35.51,46.12 46.12,35.51 60.61,39.39" fill="#000"/></mask></defs><circle cx="50" cy="50" r="49" fill="currentColor" mask="url(#ap)"/></svg>
@@ -155,12 +174,12 @@
 <script>
 (function () {
   var MARKS = [
-    { id: "aperture", title: "19 · Aperture", note: "Six tangent cuts around a hexagonal opening.", tpl: "m-aperture" },
-    { id: "slotted", title: "20 · Slotted disc", note: "Solid on one side, a fan of slots on the other.", tpl: "m-slotted" },
-    { id: "tickring", title: "21 · Tick ring", note: "Forty radial ticks of varied length around a core.", tpl: "m-tickring" },
-    { id: "notched", title: "22 · Notched block", note: "A machined square: corner bites, pin hole, slits.", tpl: "m-notched" },
-    { id: "splitstar", title: "23 · Split star", note: "Eight-point star with one quadrant pulled out.", tpl: "m-splitstar" },
-    { id: "scanner", title: "24 · Scanner", note: "Three arcs of different sweep around a pin.", tpl: "m-scanner" },
+    { id: "lumin1", title: "25 · Lumin: sun-gear", note: "Disc + asymmetric rays upper-right + round nubs lower-left.", tpl: "m-lumin1", style: "lumin" },
+    { id: "lumin2", title: "26 · Lumin: notched burst", note: "Wedge cut from a nubbed disc; three long rays leave through it.", tpl: "m-lumin2", style: "lumin" },
+    { id: "kimaro1", title: "27 · Kimaro: quarter B", note: "Capital B from a quarter-rounded stem and two quarter discs.", tpl: "m-kimaro1", style: "kimaro" },
+    { id: "kimaro2", title: "28 · Kimaro: quarter tile", note: "Abstract 2×2 tile of quarter discs and one square.", tpl: "m-kimaro2", style: "kimaro" },
+    { id: "offtop1", title: "29 · Offtop: pebble B", note: "B from two soft pebbles: a stem and a double lobe.", tpl: "m-offtop1", style: "offtop" },
+    { id: "offtop2", title: "30 · Offtop: bite", note: "A big pebble with a bite; the small dot is the bite.", tpl: "m-offtop2", style: "offtop" },
   ];
   function mark(tpl) {
     var t = document.getElementById(tpl).content.firstElementChild.cloneNode(true);
@@ -179,14 +198,20 @@
     }
     return t;
   }
+  var STYLES = { lumin: ["bayesly", "700 1em 'Space Grotesk'", "-0.035em"], kimaro: ["Bayesly", "700 1em 'Inter Tight'", "-0.04em"], offtop: ["Bayesly", "800 1em 'Plus Jakarta Sans'", "-0.045em"] };
+  var CURRENT = null;
   function lockup(tpl, word, cls) {
+    var st = CURRENT && STYLES[CURRENT];
     var d = document.createElement("div"); d.className = "lockup " + (cls || "");
     d.appendChild(mark(tpl));
-    var w = document.createElement("span"); w.className = "word"; w.textContent = word; d.appendChild(w);
+    var w = document.createElement("span"); w.className = "word"; w.textContent = st ? st[0] : word;
+    if (st) { w.style.font = st[1]; w.style.letterSpacing = st[2]; }
+    d.appendChild(w);
     return d;
   }
   var root = document.getElementById("variants");
   MARKS.forEach(function (m) {
+    CURRENT = m.style || null;
     var s = document.createElement("section"); s.className = "variant"; s.dataset.id = m.id;
     s.innerHTML = "<h2>" + m.title + "</h2><p>" + m.note + "</p>";
     var row = document.createElement("div"); row.className = "row";
