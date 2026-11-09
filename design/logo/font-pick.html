@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayesly wordmark — font pick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Gloock&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #0d0d0e; --lime: #c6ff2e; --paper: #f5f5f0; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #9d9d98; padding: 32px 40px 60px; }
+  h1 { font: 700 15px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 18px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .card { position: relative; height: 400px; display: grid; place-items: center; padding-bottom: 70px; }
+  .lime { background: var(--lime); color: var(--ink); }
+  .ink { background: var(--ink); color: var(--lime); }
+  .paper { background: var(--paper); color: var(--ink); }
+  .meta { position: absolute; left: 18px; top: 16px; font: 700 11px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .1em; opacity: .7; }
+  .word { line-height: 1; white-space: nowrap; }
+  .sizes { position: absolute; left: 18px; bottom: 16px; display: flex; gap: 18px; align-items: flex-end; }
+  .av { position: absolute; right: 18px; bottom: 16px; display: flex; gap: 10px; align-items: flex-end; }
+  .av i { font-style: inherit; border-radius: 50%; display: grid; place-items: center; line-height: 1; }
+  .lime .av i { background: var(--ink); color: var(--lime); }
+  .ink .av i, .paper .av i { background: var(--lime); color: var(--ink); }
+</style>
+</head>
+<body>
+<h1>bayesly — Fraunces, tuned (and Gloock for comparison)</h1>
+<div id="root"></div>
+<script>
+  // [label, css for the word, background class]
+  var V = [
+    ["A · Fraunces Black Italic · soft 100 · wonk", "font-family:Fraunces;font-weight:900;font-style:italic;font-variation-settings:'SOFT' 100,'WONK' 1,'opsz' 144;letter-spacing:-0.03em", "lime"],
+    ["B · Fraunces Black · soft 100 · wonk (upright)", "font-family:Fraunces;font-weight:900;font-style:normal;font-variation-settings:'SOFT' 100,'WONK' 1,'opsz' 144;letter-spacing:-0.035em", "lime"],
+    ["C · Fraunces Black Italic · soft 0 (sharper)", "font-family:Fraunces;font-weight:900;font-style:italic;font-variation-settings:'SOFT' 0,'WONK' 1,'opsz' 144;letter-spacing:-0.03em", "ink"],
+    ["D · Fraunces SemiBold Italic · soft 50 (calmer)", "font-family:Fraunces;font-weight:600;font-style:italic;font-variation-settings:'SOFT' 50,'WONK' 1,'opsz' 144;letter-spacing:-0.02em", "paper"],
+    ["E · Fraunces Black Italic on ink", "font-family:Fraunces;font-weight:900;font-style:italic;font-variation-settings:'SOFT' 100,'WONK' 1,'opsz' 144;letter-spacing:-0.03em", "ink"],
+    ["F · Gloock (editorial, for comparison)", "font-family:Gloock;font-weight:400;letter-spacing:-0.02em", "lime"]
+  ];
+  var root = document.getElementById("root"), row;
+  V.forEach(function (v, i) {
+    if (i % 2 === 0) { row = document.createElement("div"); row.className = "row"; root.appendChild(row); }
+    var c = document.createElement("div"); c.className = "card " + v[2];
+    c.innerHTML = '<div class="meta">' + v[0] + '</div>' +
+      '<div class="word" style="' + v[1] + ';font-size:150px">bayesly</div>' +
+      '<div class="sizes"><span style="' + v[1] + ';font-size:40px">bayesly</span><span style="' + v[1] + ';font-size:22px">bayesly</span><span style="' + v[1] + ';font-size:14px">bayesly</span></div>' +
+      '<div class="av"><i style="' + v[1] + ';width:72px;height:72px;font-size:50px">b</i><i style="' + v[1] + ';width:40px;height:40px;font-size:28px">b</i><i style="' + v[1] + ';width:24px;height:24px;font-size:17px">b</i></div>';
+    row.appendChild(c);
+  });
+  document.fonts.ready.then(function () { document.body.dataset.ready = "1"; });
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayesly wordmark fonts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@800&family=Fraunces:ital,opsz,wght,SOFT,WONK@1,144,900,100,1&family=Syne:wght@800&family=Bricolage+Grotesque:opsz,wght@96,800&family=Young+Serif&family=Gloock&family=Schibsted+Grotesk:wght@900&family=Familjen+Grotesk:wght@700&family=Instrument+Serif:ital@1&family=Unbounded:wght@800&family=Big+Shoulders+Display:wght@900&family=Gabarito:wght@900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #0d0d0e; --lime: #c6ff2e; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #9d9d98; padding: 32px 40px 60px; font-family: "JetBrains Mono", monospace; }
+  h1 { font: 700 15px "JetBrains Mono"; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card { position: relative; height: 250px; display: grid; place-items: center; }
+  .card.lime { background: var(--lime); color: var(--ink); }
+  .card.ink { background: var(--ink); color: var(--lime); }
+  .word { font-size: 96px; line-height: 1; white-space: nowrap; }
+  .meta { position: absolute; left: 16px; top: 14px; font: 700 11px "JetBrains Mono"; text-transform: uppercase; letter-spacing: .1em; opacity: .7; }
+  .av { position: absolute; right: 16px; bottom: 16px; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; font-size: 34px; line-height: 1; }
+  .lime .av { background: var(--ink); color: var(--lime); }
+  .ink .av { background: var(--lime); color: var(--ink); }
+  .missing { outline: 4px solid red; }
+</style>
+</head>
+<body>
+<h1>bayesly — wordmark font candidates (Google Fonts, OFL)</h1>
+<div class="grid" id="grid"></div>
+<script>
+  // [n, family, css font, letter-spacing, note]
+  // [n, family, weight, style, size(px), letter-spacing, note]
+  var FONTS = [
+    [1, "Funnel Display", 800, "normal", 100, "-0.03em", "funnel-cut terminals"],
+    [2, "Fraunces", 900, "italic", 104, "-0.03em", "soft, wonky serif italic"],
+    [3, "Syne", 800, "normal", 84, "-0.02em", "wide, quirky, art-school"],
+    [4, "Bricolage Grotesque", 800, "normal", 104, "-0.03em", "ink-trap grotesk"],
+    [5, "Young Serif", 400, "normal", 100, "-0.02em", "heavy friendly serif"],
+    [6, "Gloock", 400, "normal", 108, "-0.02em", "high-contrast display serif"],
+    [7, "Schibsted Grotesk", 900, "normal", 104, "-0.04em", "news-house grotesk"],
+    [8, "Familjen Grotesk", 700, "normal", 108, "-0.03em", "squarish, warm"],
+    [9, "Instrument Serif", 400, "italic", 128, "-0.01em", "editorial italic"],
+    [10, "Unbounded", 800, "normal", 78, "-0.01em", "wide, round, loud"],
+    [11, "Big Shoulders Display", 900, "normal", 124, "0.01em", "condensed, industrial"],
+    [12, "Gabarito", 900, "normal", 108, "-0.04em", "geometric, compact"]
+  ];
+  var grid = document.getElementById("grid");
+  FONTS.forEach(function (f, i) {
+    var c = document.createElement("div");
+    c.className = "card " + (i % 2 ? "ink" : "lime");
+    c.dataset.family = f[1];
+    var st = "font-family:'" + f[1] + "';font-weight:" + f[2] + ";font-style:" + f[3] + ";";
+    c.innerHTML = '<div class="meta">' + String(f[0]).padStart(2, "0") + " · " + f[1] + " — " + f[6] + "</div>" +
+      '<div class="word" style="' + st + "font-size:" + f[4] + "px;letter-spacing:" + f[5] + '">bayesly</div>' +
+      '<div class="av" style="' + st + 'font-size:36px">b</div>';
+    grid.appendChild(c);
+  });
+  document.fonts.ready.then(function () {
+    document.querySelectorAll(".card").forEach(function (c) {
+      if (!document.fonts.check("40px '" + c.dataset.family + "'")) c.classList.add("missing");
+    });
+    document.body.dataset.ready = "1";
+  });
+</script>
+</body>
+</html>
