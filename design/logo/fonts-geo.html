@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayesly wordmark — geometric fonts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;700&family=Funnel+Sans:wght@600;700&family=Geist:wght@600&family=Instrument+Sans:wght@600&family=Host+Grotesk:wght@600&family=Hanken+Grotesk:wght@600&family=Onest:wght@600&family=Figtree:wght@600&family=Outfit:wght@600&family=Manrope:wght@700&family=Albert+Sans:wght@600&family=Mona+Sans:wght@600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #0d0d0e; --lime: #c6ff2e; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #9d9d98; padding: 32px 40px 60px; }
+  h1 { font: 700 15px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card { position: relative; height: 270px; overflow: hidden; }
+  .card.ink { background: var(--ink); color: #f5f5f0; --guide: rgba(198, 255, 46, .45); }
+  .card.lime { background: var(--lime); color: var(--ink); --guide: rgba(13, 13, 14, .35); }
+  .meta { position: absolute; left: 16px; top: 14px; font: 700 11px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .1em; opacity: .75; z-index: 2; }
+  .stage { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+  .word { position: absolute; white-space: nowrap; line-height: 1; }
+  .g { position: absolute; left: 14px; right: 14px; height: 1px; background: var(--guide); }
+  .v { position: absolute; top: 40px; bottom: 30px; width: 1px; background: var(--guide); }
+  .av { position: absolute; right: 16px; bottom: 14px; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 30px; line-height: 1; z-index: 2; }
+  .ink .av { background: var(--lime); color: var(--ink); }
+  .lime .av { background: var(--ink); color: var(--lime); }
+  .missing { outline: 4px solid red; }
+</style>
+</head>
+<body>
+<h1>bayesly — even, geometric grotesks (Google Fonts, OFL) · guides: ascender / x-height / baseline / descender</h1>
+<div class="grid" id="grid"></div>
+<script>
+  // [n, family, weight, letter-spacing, note]
+  var F = [
+    [1, "Funnel Display", 700, "-0.035em", "your pick: funnel-cut joins"],
+    [2, "Funnel Sans", 600, "-0.035em", "Funnel's calmer text sibling"],
+    [3, "Geist", 600, "-0.04em", "Vercel's neo-grotesk, very even"],
+    [4, "Instrument Sans", 600, "-0.035em", "compact, crisp"],
+    [5, "Host Grotesk", 600, "-0.035em", "neutral, slightly squared"],
+    [6, "Hanken Grotesk", 600, "-0.035em", "Swiss, closest to 'impulse'"],
+    [7, "Onest", 600, "-0.035em", "geometric, open apertures"],
+    [8, "Figtree", 600, "-0.03em", "geometric, friendly"],
+    [9, "Outfit", 600, "-0.03em", "pure geometric, round"],
+    [10, "Manrope", 700, "-0.035em", "geometric-grotesk hybrid"],
+    [11, "Albert Sans", 600, "-0.035em", "Scandinavian geometric"],
+    [12, "Mona Sans", 600, "-0.035em", "GitHub's grotesk"]
+  ];
+  var SIZE = 104, grid = document.getElementById("grid");
+  F.forEach(function (f, i) {
+    var c = document.createElement("div");
+    c.className = "card " + (i % 2 ? "lime" : "ink");
+    c.dataset.family = f[1];
+    var st = "font-family:'" + f[1] + "';font-weight:" + f[2] + ";";
+    c.innerHTML = '<div class="meta">' + String(f[0]).padStart(2, "0") + " · " + f[1] + " " + f[2] + " — " + f[4] + "</div>" +
+      '<div class="stage"><span class="word" style="' + st + "font-size:" + SIZE + "px;letter-spacing:" + f[3] + '">bayesly</span></div>' +
+      '<div class="av" style="' + st + '">b</div>';
+    grid.appendChild(c);
+  });
+  document.fonts.ready.then(function () {
+    var ctx = document.createElement("canvas").getContext("2d");
+    document.querySelectorAll(".card").forEach(function (c) {
+      var fam = c.dataset.family;
+      if (!document.fonts.check(getComputedStyle(c.querySelector(".word")).fontWeight + " 40px '" + fam + "'")) c.classList.add("missing");
+      var w = c.querySelector(".word"), stage = c.querySelector(".stage");
+      var cs = getComputedStyle(w);
+      ctx.font = cs.fontWeight + " " + SIZE + "px '" + fam + "'";
+      var xh = ctx.measureText("x").actualBoundingBoxAscent;
+      var asc = ctx.measureText("b").actualBoundingBoxAscent;
+      var desc = ctx.measureText("y").actualBoundingBoxDescent;
+      var cw = c.clientWidth, ch = c.clientHeight;
+      var ww = w.getBoundingClientRect().width;
+      // place so the ascender..descender block is centred vertically (below the meta line)
+      var block = asc + desc, top = 30 + (ch - 30 - block) / 2, base = top + asc;
+      // span box: baseline sits at fontBoundingBoxAscent from the span top
+      // with line-height:1 the baseline sits at halfLeading + fontAscent inside the span
+      var mt = ctx.measureText("bayesly");
+      var fa = mt.fontBoundingBoxAscent, fd = mt.fontBoundingBoxDescent;
+      var baselineInSpan = (SIZE - (fa + fd)) / 2 + fa;
+      w.style.left = ((cw - ww) / 2) + "px";
+      w.style.top = (base - baselineInSpan) + "px";
+      [base - asc, base - xh, base, base + desc].forEach(function (y) {
+        var g = document.createElement("div"); g.className = "g"; g.style.top = Math.round(y) + "px"; stage.appendChild(g);
+      });
+      [(cw - ww) / 2, (cw + ww) / 2].forEach(function (x) {
+        var v = document.createElement("div"); v.className = "v"; v.style.left = Math.round(x) + "px"; stage.appendChild(v);
+      });
+    });
+    document.body.dataset.ready = "1";
+  });
+</script>
+</body>
+</html>
