@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayesly wordmark — construction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #0d0d0e; --lime: #c6ff2e; --paper: #f5f5f0; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--ink); }
+  .board { position: relative; width: 1600px; height: 900px; overflow: hidden; }
+  .board.ink { background: var(--ink); color: var(--paper); --line: rgba(245,245,240,.28); --sq: var(--lime); --sq2: rgba(198,255,46,.45); }
+  .board.lime { background: var(--lime); color: var(--ink); --line: rgba(13,13,14,.3); --sq: var(--ink); --sq2: rgba(13,13,14,.4); }
+  .word { position: absolute; font-family: 'Funnel Display'; font-weight: 700; font-size: 300px; letter-spacing: -0.035em; line-height: 1; white-space: nowrap; }
+  .h, .v { position: absolute; background: var(--line); }
+  .h { height: 1px; } .v { width: 1px; }
+  .sq { position: absolute; background: var(--sq); }
+  .sq.b { background: var(--sq2); }
+  .lbl { position: absolute; font: 500 15px 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .12em; opacity: .7; }
+</style>
+</head>
+<body>
+<div class="board ink" id="b1"></div>
+<div class="board lime" id="b2"></div>
+<script>
+  var SIZE = 300, LS = -0.035;
+  function build(board) {
+    var w = document.createElement("span"); w.className = "word"; w.textContent = "bayesly"; board.appendChild(w);
+    var ctx = document.createElement("canvas").getContext("2d");
+    ctx.font = "700 " + SIZE + "px 'Funnel Display'";
+    var m = ctx.measureText("bayesly");
+    var mb = ctx.measureText("b"), my = ctx.measureText("y");
+    var asc = mb.actualBoundingBoxAscent;                        // ascender of b / l
+    var xh = ctx.measureText("x").actualBoundingBoxAscent;      // x-height
+    var desc = my.actualBoundingBoxDescent;                      // descender of y
+    // Horizontal ink from the real (tracked) DOM run: span box minus side bearings,
+    // and CSS adds letter-spacing after the last glyph too, so add it back.
+    w.style.left = "0px"; w.style.top = "0px";
+    var spanW = w.getBoundingClientRect().width;
+    var lsb = -mb.actualBoundingBoxLeft;                         // b's left side bearing
+    var rsb = my.width - my.actualBoundingBoxRight;              // y's right side bearing
+    var inkL = lsb, inkR = spanW - (LS * SIZE) - rsb;
+    var W = 1600, H = 900;
+    var inkW = inkR - inkL, inkH = asc + desc;
+    var x0 = (W - inkW) / 2 - inkL;            // span x so the INK is centred
+    var base = (H - inkH) / 2 + asc;           // baseline y so ascender..descender is centred
+    var fa = m.fontBoundingBoxAscent, fd = m.fontBoundingBoxDescent;
+    var spanBase = (SIZE - (fa + fd)) / 2 + fa; // baseline inside a line-height:1 span
+    w.style.left = x0 + "px"; w.style.top = (base - spanBase) + "px";
+    var L = x0 + inkL, R = x0 + inkR, T = base - asc, X = base - xh, B = base + desc;
+    var u = Math.round(xh / 2);
+    function H_(y, x1, x2) { var e = document.createElement("div"); e.className = "h"; e.style.top = Math.round(y) + "px"; e.style.left = Math.round(x1) + "px"; e.style.width = Math.round(x2 - x1) + "px"; board.appendChild(e); }
+    function V_(x, y1, y2) { var e = document.createElement("div"); e.className = "v"; e.style.left = Math.round(x) + "px"; e.style.top = Math.round(y1) + "px"; e.style.height = Math.round(y2 - y1) + "px"; board.appendChild(e); }
+    function S_(x, y, cls) { var e = document.createElement("div"); e.className = "sq " + (cls || ""); e.style.left = Math.round(x) + "px"; e.style.top = Math.round(y) + "px"; e.style.width = e.style.height = u + "px"; board.appendChild(e); }
+    // clear-space frame (u around the ink) + metric lines across it
+    [T - u, T, X, base, B, B + u].forEach(function (y) { H_(y, L - u, R + u); });
+    [L - u, L, R, R + u].forEach(function (x) { V_(x, T - u, B + u); });
+    // clear-space modules: outer (solid) + inner (tint) at x-height and baseline, both sides
+    S_(L - u, X, ""); S_(L - u, base - u, "");
+    S_(R, X, ""); S_(R, base - u, "");
+    S_(L, T - u, "b"); S_(R - u, B, "b");
+    S_(L - u, T - u, ""); S_(R, B, "");
+    // labels
+    var l1 = document.createElement("div"); l1.className = "lbl"; l1.textContent = "Bayesly — wordmark · Funnel Display Bold · tracking −35"; l1.style.left = "64px"; l1.style.top = "56px"; board.appendChild(l1);
+    var l2 = document.createElement("div"); l2.className = "lbl"; l2.textContent = "u = ½ x-height · clear space = 1u"; l2.style.right = "64px"; l2.style.bottom = "56px"; board.appendChild(l2);
+  }
+  // Load the face explicitly: fonts.ready alone resolves before a not-yet-used face is fetched.
+  Promise.all([document.fonts.load("700 300px 'Funnel Display'"), document.fonts.load("500 15px 'JetBrains Mono'")])
+    .then(function () { return document.fonts.ready; })
+    .then(function () { build(document.getElementById("b1")); build(document.getElementById("b2")); document.body.dataset.ready = "1"; });
+</script>
+</body>
+</html>

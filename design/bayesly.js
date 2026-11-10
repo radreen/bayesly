@@ -87,7 +87,15 @@
 
   function run() {
     decorate();
-    var fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+    // Request every face explicitly: fonts.ready alone can resolve before a face the
+    // page uses has even been fetched, and fitText would then measure a fallback font.
+    var faces = ["700 44px 'Funnel Display'", "900 100px 'Inter Tight'", "800 100px 'Inter Tight'",
+                 "700 40px 'Inter Tight'", "600 40px 'Inter Tight'", "500 20px 'JetBrains Mono'",
+                 "700 20px 'JetBrains Mono'", "italic 400 40px 'Instrument Serif'"];
+    var fonts = document.fonts
+      ? Promise.all(faces.map(function (f) { return document.fonts.load(f).catch(function () {}); }))
+          .then(function () { return document.fonts.ready; })
+      : Promise.resolve();
     fonts.then(function () {
       fitText();
       document.body.dataset.ready = "1";

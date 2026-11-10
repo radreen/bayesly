@@ -55,9 +55,9 @@ body { background: #9d9d98; font-family: "Inter Tight", system-ui, sans-serif; c
 .top { top: 60px; }
 .meta { position: absolute; left: var(--pad); right: var(--pad); top: 128px; display: flex; gap: 26px; font: 500 17px var(--mono); text-transform: uppercase; letter-spacing: .06em; opacity: .55; z-index: 7; }
 .bottom { bottom: 56px; font: 500 21px var(--mono); letter-spacing: .02em; text-transform: uppercase; }
-.wordmark { font-weight: 900; font-size: 42px; letter-spacing: -0.06em; display: flex; align-items: center; gap: 10px; }
-.wordmark i { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); display: inline-block; }
-.post.acc .wordmark i { background: var(--on-accent); }
+/* Logo: "bayesly" in Funnel Display Bold, tracking -35 (see design/logo/final/). The old dot is retired. */
+.wordmark { font-family: "Funnel Display", "Inter Tight", sans-serif; font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: -0.035em; display: flex; align-items: center; }
+.wordmark i { display: none; }
 .pill { display: inline-flex; align-items: center; gap: 10px; border: 2.5px solid currentColor; border-radius: 999px; padding: 10px 24px; font: 500 21px var(--mono); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
 .pill.fill { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .pill.solid-ink { background: var(--ink); color: var(--white); border-color: var(--ink); }

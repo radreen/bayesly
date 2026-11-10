@@ -26,7 +26,8 @@ log = logging.getLogger(__name__)
 DESIGN_DIR = ROOT / "design"
 FONTS_URL = (
     "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900"
-    "&family=JetBrains+Mono:wght@500;700&family=Instrument+Serif:ital@0;1&display=swap"
+    "&family=JetBrains+Mono:wght@500;700&family=Instrument+Serif:ital@0;1"
+    "&family=Funnel+Display:wght@700&display=swap"
 )
 PALETTES = {"lime", "blue"}
 ARROW = '<svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg>'
