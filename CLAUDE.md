@@ -64,7 +64,7 @@ Once a week one post/newsletter section where a tool or claim is actually tested
 - Communicate with the owner in Ukrainian or Russian; all public-facing content, prompts and code comments in English.
 
 ## Open items (owner does manually)
-- Verify and register handles/domain on the same day: Threads/Instagram @bayesly, X @bayesly, bayesly.com/.ai/.co, bayesly.beehiiv.com (fallbacks: @bayesly.ai, @readbayesly).
+- Handles registered: Threads/Instagram **@bayesly.ai**, X **@bayesly_ai** (see docs/accounts.md). Still open: domain (bayesly.com/.ai/.co) and bayesly.beehiiv.com.
 - Logo/brand mark is being designed separately (lime-green, bold single-colour style).
 - Day-14 metrics check decides whether to move to Phase 2.
 

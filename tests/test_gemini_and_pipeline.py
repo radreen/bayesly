@@ -121,3 +121,12 @@ def test_pipeline_writes_review_files_and_is_idempotent(tmp_path, make_item):
     second = run_draft(settings, limit=5, generator=gen, items=items)
     assert len(second.written) == 1
     assert len(gen.prompts) == 3
+
+
+def test_client_falls_back_to_next_model_when_busy(monkeypatch):
+    monkeypatch.setattr("bayesly.net.time.sleep", lambda s: None)
+    session = FakeSession([FakeResponse(503, {}), FakeResponse(503, {}), FakeResponse(200, {"output_text": "ok"})])
+    c = GeminiClient("k", "busy-model", "r", timeout=5, max_retries=1, session=session, fallback_models=["spare-model"])
+    assert c.generate("p") == "ok"
+    assert c.model == "spare-model"
+    assert [call[2]["json"]["model"] for call in session.calls] == ["busy-model", "busy-model", "spare-model"]

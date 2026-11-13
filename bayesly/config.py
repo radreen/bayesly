@@ -19,7 +19,9 @@ class Settings:
     gemini_api_key: str
     gemini_model: str
     gemini_api_revision: str
+    gemini_fallback_models: list
     http_timeout: float
+    gemini_timeout: float
     http_max_retries: int
     log_level: str
     sources_path: Path
@@ -32,9 +34,11 @@ def load_settings() -> Settings:
     load_dotenv(ROOT / ".env")
     return Settings(
         gemini_api_key=os.getenv("GEMINI_API_KEY", "").strip(),
-        gemini_model=os.getenv("GEMINI_MODEL", "gemini-3.8-flash").strip(),
+        gemini_model=os.getenv("GEMINI_MODEL", "gemini-3.5-flash").strip(),
+        gemini_fallback_models=[m.strip() for m in os.getenv("GEMINI_FALLBACK_MODELS", "gemini-3.8-flash,gemini-2.5-flash").split(",") if m.strip()],
         gemini_api_revision=os.getenv("GEMINI_API_REVISION", "2026-05-20").strip(),
         http_timeout=float(os.getenv("HTTP_TIMEOUT_SECONDS", "20")),
+        gemini_timeout=float(os.getenv("GEMINI_TIMEOUT_SECONDS", "120")),
         http_max_retries=int(os.getenv("HTTP_MAX_RETRIES", "3")),
         log_level=os.getenv("LOG_LEVEL", "INFO"),
         sources_path=ROOT / "config" / "sources.yaml",

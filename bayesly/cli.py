@@ -123,7 +123,8 @@ def main(argv: list[str] | None = None) -> int:
                     settings.gemini_api_key,
                     settings.gemini_model,
                     settings.gemini_api_revision,
-                    timeout=settings.http_timeout,
+                    timeout=settings.gemini_timeout,
+                    fallback_models=settings.gemini_fallback_models,
                     max_retries=settings.http_max_retries,
                 )
             except GeminiError as exc:

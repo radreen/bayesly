@@ -12,7 +12,7 @@ Write one Threads post and one X post about the SOURCE ITEM below.
 
 ## Grounding rules (most important)
 - Use ONLY facts that appear in the SOURCE TEXT. Do not use outside knowledge to add numbers, dates, names, prices, benchmarks or quotes.
-- The "Before:" line may describe the general previous state only if the source text implies it. If you can't ground it, write "Before: unclear from the source." — do not guess.
+- The "Before:" line may describe the general previous state only if the source text implies it. If you can't ground it, do not guess and do not write "unclear": drop the Before/Now labels and write a plain update instead (what changed, then the confidence line). Set card.before to null.
 - If the source text is too thin to write an honest post (e.g. only a title), set "insufficient_source" to true, set confidence to "low", and keep the posts minimal and explicit about what we don't know.
 - List every factual claim you used in "facts_used", each as a short quote or close paraphrase from the source text.
 - The opinion line is the only place for our view, and it must be clearly marked as opinion.

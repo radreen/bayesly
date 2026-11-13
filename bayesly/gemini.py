@@ -9,13 +9,16 @@ Text is read from the last step's content; `output_text` is used if present.
 from __future__ import annotations
 
 import json
+import logging
 import re
 from typing import Any
 
 from bayesly import net
 
+log = logging.getLogger(__name__)
+
 ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/interactions"
-MAX_OUTPUT_TOKENS = 2048
+MAX_OUTPUT_TOKENS = 8192  # thinking tokens share this budget
 
 
 class GeminiError(RuntimeError):
@@ -32,19 +35,21 @@ class GeminiClient:
         timeout: float,
         max_retries: int,
         session: Any = None,
+        fallback_models: list[str] | None = None,
     ) -> None:
         if not api_key:
             raise GeminiError("GEMINI_API_KEY is empty. Copy .env.example to .env and set it.")
         self.api_key = api_key
-        self.model = model
+        self.model = model                      # the model that produced the last answer
+        self.models = [model] + [m for m in (fallback_models or []) if m and m != model]
         self.api_revision = api_revision
         self.timeout = timeout
         self.max_retries = max_retries
         self.session = session
 
-    def generate(self, prompt: str) -> str:
+    def _call(self, model: str, prompt: str) -> str:
         body = {
-            "model": self.model,
+            "model": model,
             "input": prompt,
             "generation_config": {"max_output_tokens": MAX_OUTPUT_TOKENS},
             "store": False,  # stateless: we don't need server-side history
@@ -67,6 +72,19 @@ class GeminiClient:
             # Never leak the key into logs: it's only in headers, but be explicit.
             raise GeminiError(str(exc).replace(self.api_key, "***")) from exc
         return extract_text(resp.json())
+
+    def generate(self, prompt: str) -> str:
+        """Try the main model, then each fallback (busy models answer 503 or time out)."""
+        errors = []
+        for model in self.models:
+            try:
+                text = self._call(model, prompt)
+                self.model = model
+                return text
+            except GeminiError as exc:
+                errors.append(f"{model}: {exc}")
+                log.warning("gemini model failed, trying next", extra={"model": model, "error": str(exc)[:200]})
+        raise GeminiError(" | ".join(errors))
 
 
 def extract_text(data: dict[str, Any]) -> str:
