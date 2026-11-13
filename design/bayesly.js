@@ -11,6 +11,14 @@
   }
 
   function decorate() {
+    // Logo: replace the text fallback with the outlined [b]ayesly SVG (design/logo.js).
+    if (window.BAYESLY_LOGO) {
+      document.querySelectorAll(".wordmark").forEach(function (el) {
+        el.innerHTML = window.BAYESLY_LOGO;
+        el.setAttribute("aria-label", "bayesly");
+      });
+    }
+
     // Gaussian "bell" curves: data-bell="cx,sigma,height,baseline"
     document.querySelectorAll("[data-bell]").forEach(function (el) {
       var v = el.dataset.bell.split(",").map(Number), cx = v[0], s = v[1], h = v[2], base = v[3];
@@ -89,7 +97,7 @@
     decorate();
     // Request every face explicitly: fonts.ready alone can resolve before a face the
     // page uses has even been fetched, and fitText would then measure a fallback font.
-    var faces = ["700 44px 'Funnel Display'", "900 100px 'Inter Tight'", "800 100px 'Inter Tight'",
+    var faces = ["900 100px 'Inter Tight'", "800 100px 'Inter Tight'",
                  "700 40px 'Inter Tight'", "600 40px 'Inter Tight'", "500 20px 'JetBrains Mono'",
                  "700 20px 'JetBrains Mono'", "italic 400 40px 'Instrument Serif'"];
     var fonts = document.fonts

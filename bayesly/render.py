@@ -26,8 +26,7 @@ log = logging.getLogger(__name__)
 DESIGN_DIR = ROOT / "design"
 FONTS_URL = (
     "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900"
-    "&family=JetBrains+Mono:wght@500;700&family=Instrument+Serif:ital@0;1"
-    "&family=Funnel+Display:wght@700&display=swap"
+    "&family=JetBrains+Mono:wght@500;700&family=Instrument+Serif:ital@0;1&display=swap"
 )
 PALETTES = {"lime", "blue"}
 ARROW = '<svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg>'
@@ -261,6 +260,7 @@ def build_page(slides: list[str], palette: str = "lime") -> str:
         raise RenderError(f"unknown palette {palette!r}; use one of {sorted(PALETTES)}")
     css = (DESIGN_DIR / "bayesly.css").as_uri()
     js = (DESIGN_DIR / "bayesly.js").as_uri()
+    logo_js = (DESIGN_DIR / "logo.js").as_uri()
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>Bayesly slides</title>
 <link rel="stylesheet" href="{FONTS_URL}"><link rel="stylesheet" href="{css}">
@@ -270,6 +270,7 @@ def build_page(slides: list[str], palette: str = "lime") -> str:
 <pattern id="dots-ink" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="2.6" fill="#0d0d0e"/></pattern>
 </defs></svg>
 {"".join(slides)}
+<script src="{logo_js}"></script>
 <script src="{js}"></script>
 </body></html>"""
 

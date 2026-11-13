@@ -128,6 +128,9 @@ VARIANTS = {
     "r2_split": dict(asc=200, delta=8, top_fillet=22, gap=14),
     "r3_matched": dict(asc=165, delta=8, top_fillet=22, neck=16),
     "r4_matched_split": dict(asc=165, delta=8, top_fillet=22, gap=14),
+    # FINAL: R1 (optical weight + fused neck) with the ascender matched to Host Grotesk's l
+    # (ascender = 0.4375 x-height above the bowl -> 175 units on a 400-unit x-height).
+    "final_host": dict(asc=168, delta=8, top_fillet=22, neck=16),
 }
 
 if __name__ == "__main__":
