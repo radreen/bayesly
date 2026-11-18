@@ -6,3 +6,8 @@ __pycache__/
 *.egg-info/
 out/
 state/
+# CI queue: keep the JSON state, never the rendered images
+ci-state/**/*.png
+ci-state/**/*.jpg
+ci-state/**/*.slides.html
+ci-state/**/*.tmp

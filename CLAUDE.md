@@ -46,6 +46,7 @@ Once a week one post/newsletter section where a tool or claim is actually tested
 - **Phase 1 (days 1–14):** owner posts manually from drafts; we only improve draft quality and log what was posted.
 - **Phase 2 (after the day-14 metrics check):** semi-automation — publish adapters with approval step.
 - **Phase 3:** full automation only if quality and metrics justify it. Keep a kill switch.
+- **Update 2026-11-19 (owner decision):** the owner wants ~90% autonomous posting to Threads, Instagram and X (X posts without links, ~$0.015 each). Built: `python -m bayesly autopost` with a quality gate (doubtful posts go to the owner's Telegram with Publish/Skip), kill switch (`pause`, `/pause`, `BAYESLY_PAUSED`), idempotent ledger, GitHub Actions schedule. Still dry-run until the owner sets `BAYESLY_LIVE=true`; the first live post needs his explicit OK. Setup: `docs/autopost-setup.md`.
 
 ## Tech preferences
 - Language: Python 3.11+ (unless the owner says otherwise). Keep dependencies minimal and boring.

@@ -1,0 +1,113 @@
+# Bayesly autoposting on GitHub Actions.
+#
+# SAFE BY DEFAULT: runs in dry-run until the repository variable BAYESLY_LIVE is set to "true"
+# (Settings -> Secrets and variables -> Actions -> Variables). Kill switch: set BAYESLY_PAUSED=1
+# as a variable, send /pause to the Telegram bot, or commit a ci-state/PAUSED file.
+#
+# State (what was drafted / posted / held) lives in ci-state/ and is committed back after each run,
+# so re-runs never double-post. Slide images are re-rendered on demand and never committed.
+
+name: autopost
+
+on:
+  schedule:
+    - cron: "0 7,13,19 * * *"     # autopost: 3 posts/day (UTC). Edit to change the rhythm.
+    - cron: "30 6-21 * * *"       # telegram-sync: apply Publish/Skip taps hourly during the day
+    - cron: "15 5 * * 1"          # refresh-tokens: weekly (Meta tokens live 60 days)
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "autopost or telegram-sync"
+        default: autopost
+        type: choice
+        options: [autopost, telegram-sync, refresh-tokens]
+
+permissions:
+  contents: write                 # to commit ci-state/ back
+
+concurrency:
+  group: bayesly-state            # never two runs writing state at once
+  cancel-in-progress: false
+
+env:
+  OUT_DIR: ci-state/queue
+  STATE_DIR: ci-state
+  PLATFORMS: ${{ vars.PLATFORMS || 'threads,instagram,x' }}
+  POSTS_PER_RUN: ${{ vars.POSTS_PER_RUN || '1' }}
+  BAYESLY_PAUSED: ${{ vars.BAYESLY_PAUSED || '0' }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash' }}
+  GEMINI_TIMEOUT_SECONDS: "90"
+  HTTP_MAX_RETRIES: "2"
+  THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+  THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+  INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+  INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+  X_API_KEY: ${{ secrets.X_API_KEY }}
+  X_API_SECRET: ${{ secrets.X_API_SECRET }}
+  X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+  X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+  MEDIA_GITHUB_REPO: ${{ vars.MEDIA_GITHUB_REPO }}
+  MEDIA_GITHUB_TOKEN: ${{ secrets.MEDIA_GITHUB_TOKEN }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  LIVE_FLAG: ${{ vars.BAYESLY_LIVE == 'true' && '--live' || '' }}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Pick command
+        id: cmd
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "name=${{ inputs.command }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "30 6-21 * * *" ]; then
+            echo "name=telegram-sync" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "15 5 * * 1" ]; then
+            echo "name=refresh-tokens" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=autopost" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install
+        run: |
+          pip install -e .
+          if [ "${{ steps.cmd.outputs.name }}" = "autopost" ]; then
+            pip install -e ".[render]"
+            python -m playwright install --with-deps chromium
+          fi
+
+      - name: Telegram sync
+        if: steps.cmd.outputs.name == 'telegram-sync'
+        run: |
+          if [ -n "$LIVE_FLAG" ]; then python -m bayesly telegram-sync --live; else echo "dry-run: skipping telegram-sync"; fi
+
+      - name: Refresh Meta tokens
+        if: steps.cmd.outputs.name == 'refresh-tokens'
+        env:
+          GH_TOKEN: ${{ secrets.SECRETS_PAT }}   # fine-grained PAT: this repo, "Secrets: read and write"
+        run: |
+          if [ -n "$LIVE_FLAG" ]; then python -m bayesly refresh-tokens --live --github-secrets; else echo "dry-run: skipping refresh"; fi
+
+      - name: Autopost
+        if: steps.cmd.outputs.name == 'autopost'
+        run: python -m bayesly autopost --draft 3 $LIVE_FLAG
+
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name "bayesly-bot"
+          git config user.email "bayesly-bot@users.noreply.github.com"
+          git add ci-state
+          if git diff --cached --quiet; then echo "no state changes"; exit 0; fi
+          git commit -m "state: ${{ steps.cmd.outputs.name }} run ${{ github.run_id }}"
+          git pull --rebase --quiet && git push --quiet
