@@ -1,13 +1,14 @@
 [project]
 name = "bayesly"
 version = "0.0.1"
-description = "Bayesly: skeptical AI/tech news drafts (Phase 0, dry-run only)"
+description = "Bayesly: skeptical AI/tech news drafts (dry-run by default; autopost with --live)"
 requires-python = ">=3.11"
 dependencies = [
   "requests>=2.31",
   "feedparser>=6.0",
   "PyYAML>=6.0",
   "python-dotenv>=1.0",
+  "requests-oauthlib>=1.3",  # X API: OAuth 1.0a user context
 ]
 
 [project.optional-dependencies]
@@ -16,7 +17,7 @@ dev = ["pytest>=8.0"]
 render = ["playwright>=1.45"]
 
 [tool.setuptools]
-packages = ["bayesly"]
+packages = ["bayesly", "bayesly.publish"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
