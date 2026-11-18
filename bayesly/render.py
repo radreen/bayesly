@@ -286,13 +286,15 @@ def _launch(playwright):
                       + "\n".join(errors))
 
 
-def screenshot(page_path: Path, out_base: Path, timeout_ms: int = 30000) -> tuple[list[Path], list[str]]:
+def screenshot(page_path: Path, out_base: Path, timeout_ms: int = 30000) -> tuple[list[Path], list[str], list[Path]]:
+    """Returns (png paths, warnings, jpeg paths). JPEGs are for Instagram (JPEG only) and X."""
     try:
         from playwright.sync_api import sync_playwright
     except ImportError as exc:
         raise RenderError('Playwright is not installed. Run: pip install -e ".[render]"') from exc
 
     paths: list[Path] = []
+    jpegs: list[Path] = []
     warnings: list[str] = []
     with sync_playwright() as p:
         browser = _launch(p)
@@ -308,9 +310,12 @@ def screenshot(page_path: Path, out_base: Path, timeout_ms: int = 30000) -> tupl
                 path = out_base.with_name(f"{out_base.name}-{i:02d}.png")
                 post.screenshot(path=str(path), timeout=timeout_ms)
                 paths.append(path)
+                jpg = path.with_suffix(".jpg")
+                post.screenshot(path=str(jpg), type="jpeg", quality=92, timeout=timeout_ms)
+                jpegs.append(jpg)
         finally:
             browser.close()
-    return paths, warnings
+    return paths, warnings, jpegs
 
 
 def render_record(json_path: Path, palette: str = "lime", force: bool = False) -> list[Path]:
@@ -318,7 +323,8 @@ def render_record(json_path: Path, palette: str = "lime", force: bool = False) -
     record = json.loads(json_path.read_text(encoding="utf-8"))
     if not record.get("draft"):
         raise RenderError(f"{json_path.name}: no parsed draft to render (was it --skip-llm?)")
-    if record.get("images") and not force and all(Path(p).exists() for p in record["images"]):
+    have = record.get("images") and record.get("images_jpg")
+    if have and not force and all(Path(p).exists() for p in record["images"] + record["images_jpg"]):
         log.info("render skipped (images exist)", extra={"path": str(json_path)})
         return [Path(p) for p in record["images"]]
 
@@ -326,9 +332,10 @@ def render_record(json_path: Path, palette: str = "lime", force: bool = False) -
     base = json_path.with_suffix("")
     page_path = base.with_name(base.name + ".slides.html")
     page_path.write_text(build_page(build_slides(card, record), palette), encoding="utf-8")
-    images, warnings = screenshot(page_path, base)
+    images, warnings, jpegs = screenshot(page_path, base)
 
     record["images"] = [str(p) for p in images]
+    record["images_jpg"] = [str(p) for p in jpegs]
     record["image_warnings"] = card.warnings + warnings
     record["palette"] = palette
     json_path.write_text(json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8")

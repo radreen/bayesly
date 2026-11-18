@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import yaml
@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 @dataclass(frozen=True)
 class Settings:
-    gemini_api_key: str
+    gemini_api_key: str = field(repr=False)  # never print secrets in logs/tracebacks
     gemini_model: str
     gemini_api_revision: str
     gemini_fallback_models: list
@@ -28,6 +28,14 @@ class Settings:
     prompts_dir: Path
     out_dir: Path
     state_dir: Path
+
+
+def _dir(env: str, default: Path) -> Path:
+    raw = os.getenv(env, "").strip()
+    if not raw:
+        return default
+    path = Path(raw)
+    return path if path.is_absolute() else ROOT / path
 
 
 def load_settings() -> Settings:
@@ -43,8 +51,9 @@ def load_settings() -> Settings:
         log_level=os.getenv("LOG_LEVEL", "INFO"),
         sources_path=ROOT / "config" / "sources.yaml",
         prompts_dir=ROOT / "prompts",
-        out_dir=ROOT / "out" / "drafts",
-        state_dir=ROOT / "state",
+        # CI keeps the queue inside state/ so it survives between GitHub Actions runs.
+        out_dir=_dir("OUT_DIR", ROOT / "out" / "drafts"),
+        state_dir=_dir("STATE_DIR", ROOT / "state"),
     )
 
 
