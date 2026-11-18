@@ -18,6 +18,9 @@ from bayesly.models import Item
 
 THREADS_MAX_CHARS = 500
 X_MAX_CHARS = 280
+INSTAGRAM_MAX_CHARS = 2200
+# X charges 13x more for a post with a URL, so X text must carry no link and no bare domain.
+_URL_OR_DOMAIN_RE = re.compile(r"https?://|www\.|\b[a-z0-9-]+\.(com|ai|io|org|net|dev|co|app|gov|edu)\b", re.IGNORECASE)
 HYPE_WORDS = [
     "revolutionary", "game-changer", "game changer", "insane", "mind-blowing",
     "groundbreaking", "unprecedented", "crazy", "this changes everything",
@@ -35,21 +38,32 @@ def lint_draft(draft: dict[str, Any], source_url: str) -> list[str]:
     warnings: list[str] = []
     threads = draft.get("threads_post", "") or ""
     x_post = draft.get("x_post", "") or ""
+    insta = draft.get("instagram_caption", "") or ""
     if len(threads) > THREADS_MAX_CHARS:
         warnings.append(f"Threads post is {len(threads)} chars (> {THREADS_MAX_CHARS}).")
     if len(x_post) > X_MAX_CHARS:
         warnings.append(f"X post is {len(x_post)} chars (> {X_MAX_CHARS}).")
+    if len(insta) > INSTAGRAM_MAX_CHARS:
+        warnings.append(f"Instagram caption is {len(insta)} chars (> {INSTAGRAM_MAX_CHARS}).")
     if _HASHTAG_RE.search(threads):
         warnings.append("Threads post contains a hashtag (rule: none on Threads).")
     if len(_HASHTAG_RE.findall(x_post)) > 2:
         warnings.append("X post has more than 2 hashtags.")
-    for name, text in (("Threads", threads), ("X", x_post)):
+    if len(_HASHTAG_RE.findall(insta)) > 3:
+        warnings.append("Instagram caption has more than 3 hashtags.")
+    for name, text in (("Threads", threads), ("X", x_post), ("Instagram", insta)):
         lowered = text.lower()
         for word in HYPE_WORDS:
             if word in lowered:
                 warnings.append(f"{name} post uses hype word: '{word}'.")
-        if source_url and source_url not in text:
-            warnings.append(f"{name} post does not include the source link.")
+    if source_url and source_url not in threads:
+        warnings.append("Threads post does not include the source link.")
+    if _URL_OR_DOMAIN_RE.search(x_post):
+        warnings.append("X post contains a link or domain (costs $0.20 instead of $0.015).")
+    if not x_post.strip():
+        warnings.append("X post is empty.")
+    if not insta.strip():
+        warnings.append("Instagram caption is empty.")
     if draft.get("confidence") not in {"low", "medium", "high"}:
         warnings.append("Confidence is missing or not one of low/medium/high.")
     if draft.get("insufficient_source"):
@@ -157,6 +171,11 @@ def render_markdown(record: dict[str, Any]) -> str:
             "## X",
             "```",
             draft.get("x_post", ""),
+            "```",
+            "",
+            "## Instagram",
+            "```",
+            draft.get("instagram_caption", ""),
             "```",
             "",
             f"**Opinion line:** {draft.get('opinion_line', '')}",

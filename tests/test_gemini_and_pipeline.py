@@ -13,7 +13,8 @@ from bayesly.review import lint_draft
 GOOD_DRAFT = {
     "headline": "A model API was released.",
     "threads_post": "A model API was released.\n\nConfidence: medium\n\nSource: https://example.com/post",
-    "x_post": "A model API was released. Source: https://example.com/post",
+    "x_post": "A model API was released. Source: Example Lab",
+    "instagram_caption": "A model API was released. Source: Example Lab — link in our Threads.",
     "confidence": "medium",
     "confidence_reason": "vendor claim",
     "opinion_line": "Our take: wait for independent tests.",
@@ -90,6 +91,12 @@ def test_lint_flags_hashtags_hype_and_length():
     warnings = " ".join(lint_draft(bad, "https://example.com/post"))
     assert "hashtag" in warnings and "hype" in warnings and "chars" in warnings
     assert lint_draft(GOOD_DRAFT, "https://example.com/post") == []
+
+
+def test_lint_flags_links_in_x_post():
+    for bad_x in ("Read more https://a.com/x", "Details on openai.com today", "see www.example.org"):
+        warnings = " ".join(lint_draft(dict(GOOD_DRAFT, x_post=bad_x), "https://example.com/post"))
+        assert "X post contains a link" in warnings, bad_x
 
 
 class FakeGenerator:

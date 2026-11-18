@@ -27,5 +27,6 @@ def build_prompt(item: Item, voice: str, template: str) -> str:
         published=item.published.isoformat() if item.published else "unknown",
         title=item.title,
         url=item.url,
+        url_len=len(item.url),
         source_text=text or EMPTY_SOURCE_MARKER,
     )
