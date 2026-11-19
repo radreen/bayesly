@@ -1,0 +1,37 @@
+{
+  "0f531b5b0f649592": {
+    "threads": {
+      "platform": "threads",
+      "ok": false,
+      "dry_run": false,
+      "post_id": null,
+      "url": null,
+      "error": "POST https://graph.threads.com/v1.0/29331122679840419/threads_publish -> HTTP 400: {\"error\":{\"message\":\"The requested resource does not exist\",\"code\":24,\"type\":\"OAuthException\",\"error_subcode\":4279009,\"is_transient\":false,\"error_user_msg\":\"The media with id 18033033275716392 cannot be found.\",\"error_user_title\":\"Media Not Found\",\"fbtrace_id\":\"Af105VkfBL9VMOw1gWFwHIF\"}}",
+      "detail": null,
+      "attempts": 1,
+      "at": "2026-11-19T21:52:24+00:00"
+    },
+    "instagram": {
+      "platform": "instagram",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "17972069301198241",
+      "url": "https://www.instagram.com/p/Df8FxQkjVr6/",
+      "error": null,
+      "detail": null,
+      "attempts": 1,
+      "at": "2026-11-19T21:53:09+00:00"
+    },
+    "x": {
+      "platform": "x",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "2123535076969398750",
+      "url": "https://x.com/bayesly_ai/status/2123535076969398750",
+      "error": null,
+      "detail": null,
+      "attempts": 1,
+      "at": "2026-11-19T21:53:10+00:00"
+    }
+  }
+}
