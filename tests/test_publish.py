@@ -318,3 +318,10 @@ def test_token_refresh_returns_new_token_and_scrubs_errors():
     with pytest.raises(PublishError) as exc:
         refresh_token("threads", "OLD", session=bad)
     assert "OLD" not in str(exc.value)
+
+
+def test_cli_imports_and_status_runs(env, capsys):
+    from bayesly.cli import main
+
+    assert main(["status"]) == 0
+    assert "paused:" in capsys.readouterr().out

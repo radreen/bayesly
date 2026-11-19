@@ -51,6 +51,7 @@ def build_parser() -> argparse.ArgumentParser:
     rt.add_argument("--live", action="store_true", help="required: really calls the refresh endpoints")
     rt.add_argument("--github-secrets", action="store_true",
                     help="store the new tokens as GitHub Actions secrets via `gh secret set` (CI only)")
+    sub.add_parser("accounts", help="read-only: show which Threads/Instagram accounts the tokens in .env belong to")
     sub.add_parser("pause", help="kill switch: stop all publishing (creates state/PAUSED)")
     sub.add_parser("resume", help="remove the kill switch")
     sub.add_parser("status", help="paused?, held posts, what was posted")
@@ -118,6 +119,31 @@ def make_generator(settings) -> GeminiClient:
     )
 
 
+def show_accounts() -> int:
+    """Read-only GETs that print account ids/usernames (never tokens), for filling *_USER_ID."""
+    from bayesly import net
+    from bayesly.publish.base import load_publish_config, scrub
+
+    cfg = load_publish_config()
+    checks = [
+        ("threads", cfg.threads_token, f"{cfg.threads_base}/me", {"fields": "id,username"}),
+        ("instagram", cfg.instagram_token, f"{cfg.instagram_base}/me/assigned_instagram_accounts", {"fields": "id,username"}),
+    ]
+    for name, token, url, params in checks:
+        if not token:
+            print(f"{name}: no token in .env")
+            continue
+        try:
+            data = net.request("GET", url, timeout=20, max_retries=1, params={**params, "access_token": token}).json()
+        except (net.ExternalCallError, ValueError) as exc:
+            print(f"{name}: error: {scrub(str(exc), token)[:300]}")
+            continue
+        rows = data.get("data", [data])
+        for row in rows:
+            print(f"{name}: id={row.get('id')} username={row.get('username')}")
+    return 0
+
+
 def refresh_tokens(args) -> int:
     """Never prints a token. Locally: tells you to update .env; in CI: writes GitHub secrets."""
     import subprocess
@@ -151,18 +177,13 @@ def refresh_tokens(args) -> int:
             env_path = Path(".env")
             text = env_path.read_text(encoding="utf-8") if env_path.exists() else ""
             lines = [l for l in text.splitlines() if not l.startswith(f"{env_name}=")] + [f"{env_name}={new}"]
-            env_path.write_text("
-".join(lines) + "
-", encoding="utf-8")
+            env_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
             print(f"{platform}: refreshed, valid {expires // 86400} days, written to .env")
     if problems:
-        print("
-".join(problems), file=sys.stderr)
+        print("\n".join(problems), file=sys.stderr)
         try:
             Telegram(cfg.telegram_token, cfg.telegram_chat_id).send(
-                "Bayesly: token refresh FAILED. Posting stops when the token expires.
-" + "
-".join(problems))
+                "Bayesly: token refresh FAILED. Posting stops when the token expires.\n" + "\n".join(problems))
         except TelegramError:
             pass
         return 1
@@ -228,6 +249,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "refresh-tokens":
         return refresh_tokens(args)
+    if args.command == "accounts":
+        return show_accounts()
     if args.command in {"autopost", "telegram-sync", "pause", "resume", "status"}:
         return run_publishing(args, settings)
 
