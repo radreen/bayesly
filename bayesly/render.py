@@ -9,8 +9,12 @@ render_record()     writes <base>.slides.html and screenshots each slide with a 
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
+import math
+import random
+from dataclasses import dataclass, field
 from datetime import datetime
 from html import escape
 from pathlib import Path
@@ -91,35 +95,247 @@ def _ruler_style(kind: str) -> str:
     return ' style="color:var(--white)"' if kind == "number" else ""
 
 
-def slide_cover(card: Card, record: dict[str, Any], idx: int, total: int) -> str:
+# ---------------------------------------------------------------------------------------------
+# Variation: one brand, many layouts. Each post gets a Style derived from its id (stable across
+# re-renders) and its content (confidence shapes the curves; a number can take over the cover).
+# The cover layout avoids the layouts of the two previous posts so the feed never looks cloned.
+# ---------------------------------------------------------------------------------------------
+COVERS = ("curve", "split", "editorial", "stamp", "figure")
+COVER_BG = {"curve": "ink", "split": "acc", "editorial": "paper", "stamp": "ink", "figure": "acc"}
+# kind -> (background of variant "a", background of variant "b")
+INNER_BG = {"update": ("paper", "ink"), "number": ("acc", "paper"), "confidence": ("ink", "paper"), "closing": ("ink", "acc")}
+CONF_TITLES = (
+    "How sure<br>are we?",
+    'Weighing the<br><span class="serif">evidence.</span>',
+    "Confidence<br>check.",
+)
+CLOSE_TITLES = {
+    "high": ('What to<br><span class="serif">watch.</span>', 'Next<br><span class="serif">to watch.</span>'),
+    "other": ("We don't<br>know <span class=\"serif\">yet.</span>", 'Still<br><span class="serif">open.</span>',
+              "What we<br><span class=\"serif\">can't say.</span>"),
+}
+LEDES = (
+    "What changed — and how sure we are.",
+    "Update your priors.",
+    "The evidence, sized honestly.",
+    "Before → now. Read the evidence.",
+)
+# posterior (sigma, height) per confidence: sure = narrow and tall, unsure = wide and flat
+SHAPE = {"high": (105, 470), "medium": (150, 410), "low": (230, 290)}
+
+
+@dataclass(frozen=True)
+class Style:
+    cover: str = "curve"
+    seed: int = 0
+    variants: dict[str, str] = field(default_factory=dict)
+    lede: str = LEDES[0]
+    flip: bool = False
+
+
+def post_seed(record: dict[str, Any]) -> int:
+    return int(hashlib.sha1(str(record.get("id", "")).encode()).hexdigest()[:12], 16)
+
+
+def choose_style(card: Card, record: dict[str, Any], recent: tuple[str, ...] | list[str] = ()) -> Style:
+    """Pick a cover layout + inner-slide variants. Deterministic for a given post and history."""
+    seed = post_seed(record)
+    cover = record.get("layout") if record.get("layout") in COVERS else None
+    if cover == "figure" and not card.number:
+        cover = None
+    if cover is None:
+        options = ["curve", "split", "editorial", "stamp"]
+        if card.number:
+            options = ["figure", "figure"] + options   # a real number is the strongest cover we have
+        fresh = [o for o in options if o not in list(recent)[:2]] or options
+        cover = fresh[seed % len(fresh)]
+    variants: dict[str, str] = {}
+    prev_bg = COVER_BG[cover]
+    for i, kind in enumerate(plan_slides(card, cover)[1:]):
+        pick = "a" if (seed >> (8 + i)) & 1 else "b"
+        if INNER_BG[kind][pick == "b"] == prev_bg:      # neighbours never share a background
+            pick = "b" if pick == "a" else "a"
+        variants[kind] = pick
+        prev_bg = INNER_BG[kind][pick == "b"]
+    return Style(cover=cover, seed=seed, variants=variants, lede=LEDES[(seed >> 5) % len(LEDES)],
+                 flip=bool((seed >> 3) & 1))
+
+
+def _bell_y(x: float, cx: float, s: float, h: float, base: float) -> float:
+    return base - h * math.exp(-0.5 * ((x - cx) / s) ** 2)
+
+
+def _meta(record: dict[str, Any]) -> str:
     published = (record["source"].get("published") or record.get("created_at") or "")[:10]
     try:
         date = datetime.fromisoformat(published).strftime("%d.%m.%Y")
     except ValueError:
         date = ""
     meta = [f"ID {record['id'][:6]}", date, f"Src: {source_label(record)}"]
+    return f'<div class="meta">{"".join(f"<span>{e(m)}</span>" for m in meta if m)}</div>'
+
+
+def _curves(card: Card, style: Style, base: float = 1192, label_color: str = "var(--white)") -> tuple[str, float, float]:
+    """Prior (dashed) + posterior (filled) bells shaped by confidence and placed by the seed."""
+    sd = style.seed
+    s, h = SHAPE.get(card.confidence, SHAPE["medium"])
+    post_cx = 640 + (sd >> 12) % 181
+    prior_cx = 300 + (sd >> 20) % 161
+    ps, ph = 290, 250
+    if style.flip:
+        post_cx, prior_cx = 1080 - post_cx, 1080 - prior_cx
+    # prior annotation: a point on the outer slope of the prior
+    ax = prior_cx - 0.75 * ps if not style.flip else prior_cx + 0.75 * ps
+    ay = _bell_y(ax, prior_cx, ps, ph, base)
+    # posterior annotation: a point on the outer slope of the posterior
+    bx = post_cx + 1.0 * s if not style.flip else post_cx - 1.0 * s
+    by = _bell_y(bx, post_cx, s, h, base)
+    tx_end = 1080 - 72
+    if not style.flip:
+        prior_txt = f'<text x="{ax + 14:.0f}" y="{ay - 76:.0f}">Prior · what we assumed</text>'
+        post_txt = f'<line x1="{bx:.0f}" y1="{by:.0f}" x2="{min(bx + 72, tx_end):.0f}" y2="{by:.0f}"/><text x="{bx:.0f}" y="{by - 26:.0f}">Posterior</text>'
+    else:
+        prior_txt = f'<text x="{ax - 14:.0f}" y="{ay - 76:.0f}" text-anchor="end">Prior · what we assumed</text>'
+        post_txt = f'<line x1="{bx:.0f}" y1="{by:.0f}" x2="{max(bx - 72, 72):.0f}" y2="{by:.0f}"/><text x="{bx:.0f}" y="{by - 26:.0f}" text-anchor="end">Posterior</text>'
+    svg = f"""
+    <path class="bell-prior" data-bell="{prior_cx},{ps},{ph},{base:.0f}" style="color:{label_color}"/>
+    <path class="bell-fill" data-bell="{post_cx},{s},{h},{base:.0f}" data-closed/>
+    <path class="bell-dots" data-bell="{post_cx},{s},{h},{base:.0f}" data-closed/>
+    <g class="anno" style="color:{label_color}"><line x1="{ax:.0f}" y1="{ay:.0f}" x2="{ax:.0f}" y2="{ay - 70:.0f}"/><circle cx="{ax:.0f}" cy="{ay:.0f}" r="6"/>{prior_txt}</g>
+    <g class="anno" style="color:{label_color}"><circle cx="{bx:.0f}" cy="{by:.0f}" r="6"/>{post_txt}</g>"""
+    return svg, post_cx, base - h * 0.36
+
+
+def slide_cover(card: Card, record: dict[str, Any], idx: int, total: int, style: Style | None = None) -> str:
+    style = style or Style()
+    builder = {"curve": _cover_curve, "split": _cover_split, "editorial": _cover_editorial,
+               "stamp": _cover_stamp, "figure": _cover_figure}[style.cover]
+    return builder(card, record, idx, total, style)
+
+
+def _cover_curve(card: Card, record: dict[str, Any], idx: int, total: int, style: Style) -> str:
+    curves, ax, ay = _curves(card, style)
     return f"""
-<article class="post ink cover" data-kind="cover">
-  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">
-    <path class="bell-prior" data-bell="400,290,250,1192" style="color:var(--white)"/>
-    <path class="bell-fill" data-bell="760,150,440,1192" data-closed/>
-    <path class="bell-dots" data-bell="760,150,440,1192" data-closed/>
-    <g class="anno" style="color:var(--white)"><line x1="232" y1="1010" x2="232" y2="924"/><circle cx="232" cy="1010" r="6"/><text x="246" y="934">Prior · what we assumed</text></g>
-    <g class="anno" style="color:var(--white)"><line x1="912" y1="900" x2="984" y2="900"/><circle cx="912" cy="900" r="6"/><text x="912" y="874">Posterior</text></g>
-  </svg>
-  <div class="meta">{"".join(f"<span>{e(m)}</span>" for m in meta if m)}</div>
+<article class="post ink cover" data-kind="cover" data-layout="curve">
+  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">{curves}</svg>
+  {_meta(record)}
   <div class="content z">
     <h2 class="h-xl" data-fit="470">{_headline_html(card)}</h2>
-    <p class="lede"><span class="serif">What changed — and how sure we are.</span></p>
+    <p class="lede"><span class="serif">{e(style.lede)}</span></p>
   </div>
-  <div class="arrow">{ARROW}</div>
+  <div class="arrow" style="left:{ax - 64:.0f}px;top:{ay - 64:.0f}px">{ARROW}</div>
   {_chrome("cover", idx, total, card.category, domain(record["source"]["url"]))}
 </article>"""
 
 
-def slide_update(card: Card, record: dict[str, Any], idx: int, total: int) -> str:
+def _cover_split(card: Card, record: dict[str, Any], idx: int, total: int, style: Style) -> str:
+    s, h = SHAPE.get(card.confidence, SHAPE["medium"])
+    k = 0.42                                    # mini diagram scale
+    left, right = (300, 780) if not style.flip else (780, 300)
+    prior = f'<path class="bell-prior" data-bell="{left},{290 * k:.0f},{250 * k:.0f},1150" style="color:var(--white)"/>'
+    post = (f'<path class="bell-fill" data-bell="{right},{s * k * 1.4:.0f},{h * k * 1.2:.0f},1150" data-closed/>'
+            f'<path class="bell-dots" data-bell="{right},{s * k * 1.4:.0f},{h * k * 1.2:.0f},1150" data-closed/>')
+    a1, a2 = (left + 150, right - 150) if not style.flip else (left - 150, right + 150)
+    head = "M{0} 1080 L{1} 1080".format(a1, a2)
+    tip = (f"M{a2 - 18} 1066 L{a2} 1080 L{a2 - 18} 1094" if not style.flip else f"M{a2 + 18} 1066 L{a2} 1080 L{a2 + 18} 1094")
     return f"""
-<article class="post paper grid-bg update" data-kind="update">
+<article class="post acc split" data-kind="cover" data-layout="split">
+  <div class="panel"></div>
+  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">
+    {prior}{post}
+    <g class="shift"><path d="{head}"/><path d="{tip}"/></g>
+    <g class="anno" style="color:var(--white)">
+      <text x="{left}" y="1186" text-anchor="middle">Before</text>
+      <text x="{right}" y="1186" text-anchor="middle">Now · {e(card.confidence)} confidence</text>
+      <text x="{(left + right) // 2}" y="1058" text-anchor="middle">Δ new evidence</text>
+    </g>
+  </svg>
+  {_meta(record)}
+  <div class="content z">
+    <h2 class="h-xl" data-fit="520">{_headline_html(card)}</h2>
+    <p class="lede"><span class="serif">{e(style.lede)}</span></p>
+  </div>
+  {_chrome("cover", idx, total, card.category, domain(record["source"]["url"]))}
+</article>"""
+
+
+def _cover_editorial(card: Card, record: dict[str, Any], idx: int, total: int, style: Style) -> str:
+    s, h = SHAPE.get(card.confidence, SHAPE["medium"])
+    k = 0.36
+    cx = 190 + (style.seed >> 14) % 40
+    word = card.category.upper()
+    return f"""
+<article class="post paper grid-bg editorial" data-kind="cover" data-layout="editorial">
+  <div class="ghost" aria-hidden="true">{e(word)}</div>
+  {_meta(record)}
+  <div class="content z">
+    <p class="kicker">Fig. 01 — the update</p>
+    <h2 class="h-xl" data-fit="520">{_headline_html(card)}</h2>
+    <p class="lede"><span class="serif">{e(style.lede)}</span></p>
+  </div>
+  <figure class="fig z">
+    <svg viewBox="0 0 400 230" aria-hidden="true">
+      <path class="bell-prior" data-bellw="{cx - 60},{290 * k:.0f},{250 * k:.0f},200,400" style="color:var(--ink)"/>
+      <path class="bell-fill" data-bellw="{cx + 50},{s * k:.0f},{h * k:.0f},200,400" data-closed/>
+      <line x1="0" y1="200" x2="400" y2="200" stroke="var(--ink)" stroke-width="2"/>
+    </svg>
+    <figcaption>Posterior · {e(card.confidence)} confidence {_dots(card.confidence)}</figcaption>
+  </figure>
+  {_chrome("cover", idx, total, card.category, domain(record["source"]["url"]))}
+</article>"""
+
+
+def _cover_stamp(card: Card, record: dict[str, Any], idx: int, total: int, style: Style) -> str:
+    rng = random.Random(style.seed)
+    spread = {"high": 70, "medium": 120, "low": 190}.get(card.confidence, 120)
+    cx, cy = (720, 1000) if not style.flip else (360, 1000)
+    dots = []
+    for _ in range(170):
+        x, y = rng.gauss(cx, spread * 1.5), rng.gauss(cy, spread)
+        if 0 < x < 1080 and 760 < y < 1170:
+            r = rng.choice((3, 3, 4, 6))
+            cls = "o" if rng.random() < 0.25 else "f"
+            dots.append(f'<circle class="{cls}" cx="{x:.0f}" cy="{y:.0f}" r="{r}"/>')
+    level = {"low": "LOW", "medium": "MED", "high": "HIGH"}.get(card.confidence, "MED")
+    side = "right:72px" if not style.flip else "left:72px"
+    return f"""
+<article class="post ink stamp" data-kind="cover" data-layout="stamp">
+  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true"><g class="cloud">{"".join(dots)}</g></svg>
+  {_meta(record)}
+  <div class="content z">
+    <h2 class="h-xl" data-fit="470">{_headline_html(card)}</h2>
+    <p class="lede"><span class="serif">{e(style.lede)}</span></p>
+  </div>
+  <div class="seal" style="{side}"><div class="badge" data-text="Confidence · {e(card.confidence)} · bayesly · "><div class="center"><div class="disc">{level}</div></div></div></div>
+  {_chrome("cover", idx, total, card.category, domain(record["source"]["url"]))}
+</article>"""
+
+
+def _cover_figure(card: Card, record: dict[str, Any], idx: int, total: int, style: Style) -> str:
+    num = card.number
+    assert num is not None
+    size = min(420, int(960 / (0.62 * max(len(num.value), 1))))
+    return f"""
+<article class="post acc figure" data-kind="cover" data-layout="figure">
+  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">
+    <path class="bell-ink" data-bell="{860 if not style.flip else 220},150,120,1050" data-closed data-floor="1350"/>
+    <rect class="bell-ink" x="0" y="1049" width="1080" height="301"/>
+  </svg>
+  {_meta(record)}
+  <div class="content z">
+    <h2 class="h-l" data-fit="250">{e(card.headline)}</h2>
+    <div class="bigwrap" style="height:{int(size * 0.84)}px"><div class="big echo" style="font-size:{size}px">{e(num.value)}</div><div class="big" style="font-size:{size}px">{e(num.value)}<sup class="fn">1</sup></div></div>
+    <p class="h-m cap" data-fit="120">{e(num.caption)}</p>
+  </div>
+  <div class="footnote">¹ {e(num.footnote)}</div>
+  {_chrome("cover", idx, total, card.category, domain(record["source"]["url"]))}
+</article>"""
+
+
+def slide_update(card: Card, record: dict[str, Any], idx: int, total: int, variant: str = "a") -> str:
+    bg = "paper grid-bg" if variant == "a" else "ink"
+    return f"""
+<article class="post {bg} update" data-kind="update">
   <div class="vlabel">Fig. {idx:02d} — Belief update</div>
   <div class="content">
     <div class="before"><span class="pill">Before</span><p data-fit="140">{e(card.before)}</p></div>
@@ -131,7 +347,7 @@ def slide_update(card: Card, record: dict[str, Any], idx: int, total: int) -> st
 </article>"""
 
 
-def slide_number(card: Card, record: dict[str, Any], idx: int, total: int) -> str:
+def slide_number(card: Card, record: dict[str, Any], idx: int, total: int, variant: str = "a") -> str:
     num = card.number
     assert num is not None
     size = min(560, int(1000 / (0.62 * max(len(num.value), 1))))
@@ -141,7 +357,7 @@ def slide_number(card: Card, record: dict[str, Any], idx: int, total: int) -> st
         if card.opinion else ""
     )
     return f"""
-<article class="post acc number" data-kind="number">
+<article class="post {'acc' if variant == 'a' else 'paper'} number" data-kind="number">
   <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">
     <path class="bell-ink" d="M0 850 C 300 830, 560 760, 760 800 S 1000 860, 1080 820 L1080 1350 L0 1350 Z"/>
   </svg>
@@ -155,8 +371,8 @@ def slide_number(card: Card, record: dict[str, Any], idx: int, total: int) -> st
 </article>"""
 
 
-def slide_confidence(card: Card, record: dict[str, Any], idx: int, total: int) -> str:
-    import math
+def slide_confidence(card: Card, record: dict[str, Any], idx: int, total: int, variant: str = "a",
+                     seed: int = 0) -> str:
 
     zone, angle = GAUGE[card.confidence]
     rad = math.radians(angle)
@@ -177,9 +393,9 @@ def slide_confidence(card: Card, record: dict[str, Any], idx: int, total: int) -
         for cls, sign, text, tag in rows[:3]
     )
     return f"""
-<article class="post ink confidence" data-kind="confidence">
+<article class="post {'ink' if variant == 'a' else 'paper'} confidence" data-kind="confidence">
   <div class="content">
-    <h2 class="h-xl">How sure<br>are we?</h2>
+    <h2 class="h-xl">{CONF_TITLES[(seed >> 24) % len(CONF_TITLES)]}</h2>
     <div class="gauge-row">
       <svg class="gauge" viewBox="0 0 520 300" aria-hidden="true">
         {zone_html}<g class="ticks"></g>
@@ -195,11 +411,10 @@ def slide_confidence(card: Card, record: dict[str, Any], idx: int, total: int) -
 </article>"""
 
 
-def slide_closing(card: Card, record: dict[str, Any], idx: int, total: int, show_opinion: bool) -> str:
-    if card.confidence == "high":
-        title = 'What to<br><span class="serif">watch.</span>'
-    else:
-        title = 'We don\'t<br>know <span class="serif">yet.</span>'
+def slide_closing(card: Card, record: dict[str, Any], idx: int, total: int, show_opinion: bool,
+                  variant: str = "a", seed: int = 0) -> str:
+    titles = CLOSE_TITLES["high" if card.confidence == "high" else "other"]
+    title = titles[(seed >> 28) % len(titles)]
     prior = ""
     if card.confidence != "high" and not show_opinion:
         prior = """<div class="flat"><svg viewBox="0 0 936 120" aria-hidden="true"><g class="uniform"></g>
@@ -216,7 +431,7 @@ def slide_closing(card: Card, record: dict[str, Any], idx: int, total: int, show
             f'<p class="quote" data-fit="190">“{e(card.opinion)}”</p></div>'
         )
     return f"""
-<article class="post ink unknown" data-kind="closing">
+<article class="post {'ink' if variant == 'a' else 'acc'} unknown" data-kind="closing">
   <div class="content">
     <h2 class="h-xxl">{title}</h2>
     {prior}{opinion}{questions}
@@ -225,34 +440,52 @@ def slide_closing(card: Card, record: dict[str, Any], idx: int, total: int, show
 </article>"""
 
 
-def plan_slides(card: Card) -> list[str]:
+def plan_slides(card: Card, cover: str = "curve") -> list[str]:
+    number_slide = bool(card.number) and cover != "figure"   # a "figure" cover already shows the number
     kinds = ["cover"]
     if card.before and card.now:
         kinds.append("update")
-    if card.number:
+    if number_slide:
         kinds.append("number")
     kinds.append("confidence")
-    if card.open_questions or (card.opinion and not card.number):
+    if card.open_questions or (card.opinion and not number_slide):
         kinds.append("closing")
     return kinds
 
 
-def build_slides(card: Card, record: dict[str, Any]) -> list[str]:
-    kinds = plan_slides(card)
+def build_slides(card: Card, record: dict[str, Any], style: Style | None = None) -> list[str]:
+    style = style or choose_style(card, record)
+    kinds = plan_slides(card, style.cover)
     total = len(kinds)
     out = []
     for i, kind in enumerate(kinds, start=1):
+        v = style.variants.get(kind, "a")
         if kind == "cover":
-            out.append(slide_cover(card, record, i, total))
+            out.append(slide_cover(card, record, i, total, style))
         elif kind == "update":
-            out.append(slide_update(card, record, i, total))
+            out.append(slide_update(card, record, i, total, v))
         elif kind == "number":
-            out.append(slide_number(card, record, i, total))
+            out.append(slide_number(card, record, i, total, v))
         elif kind == "confidence":
-            out.append(slide_confidence(card, record, i, total))
+            out.append(slide_confidence(card, record, i, total, v, style.seed))
         else:
-            out.append(slide_closing(card, record, i, total, show_opinion=card.number is None))
+            out.append(slide_closing(card, record, i, total, show_opinion="number" not in kinds, variant=v, seed=style.seed))
     return out
+
+
+def recent_layouts(json_path: Path, created_at: str, limit: int = 2) -> list[str]:
+    """Cover layouts of the posts drafted just before this one (same output folder tree)."""
+    rows = []
+    for p in json_path.parent.parent.rglob("*.json"):
+        if p == json_path:
+            continue
+        try:
+            r = json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if r.get("layout") and (r.get("created_at") or "") <= created_at:
+            rows.append((r.get("created_at") or "", r["layout"]))
+    return [layout for _, layout in sorted(rows, reverse=True)[:limit]]
 
 
 def build_page(slides: list[str], palette: str = "lime") -> str:
@@ -308,6 +541,10 @@ def screenshot(page_path: Path, out_base: Path, timeout_ms: int = 30000) -> tupl
                 warnings.append("Some text was too long to fit a slide even after shrinking. Shorten it.")
             for i, post in enumerate(page.locator(".post").all(), start=1):
                 path = out_base.with_name(f"{out_base.name}-{i:02d}.png")
+                # Scroll first and let the compositor paint: capturing an off-screen slide right
+                # away can return unpainted (white) tiles on pages with several big slides.
+                post.scroll_into_view_if_needed(timeout=timeout_ms)
+                page.wait_for_timeout(150)
                 post.screenshot(path=str(path), timeout=timeout_ms)
                 paths.append(path)
                 jpg = path.with_suffix(".jpg")
@@ -329,15 +566,17 @@ def render_record(json_path: Path, palette: str = "lime", force: bool = False) -
         return [Path(p) for p in record["images"]]
 
     card = build_card(record)
+    style = choose_style(card, record, recent_layouts(json_path, record.get("created_at") or ""))
     base = json_path.with_suffix("")
     page_path = base.with_name(base.name + ".slides.html")
-    page_path.write_text(build_page(build_slides(card, record), palette), encoding="utf-8")
+    page_path.write_text(build_page(build_slides(card, record, style), palette), encoding="utf-8")
     images, warnings, jpegs = screenshot(page_path, base)
 
     record["images"] = [str(p) for p in images]
     record["images_jpg"] = [str(p) for p in jpegs]
     record["image_warnings"] = card.warnings + warnings
     record["palette"] = palette
+    record["layout"] = style.cover
     json_path.write_text(json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8")
     json_path.with_suffix(".md").write_text(render_markdown(record), encoding="utf-8")
     log.info("rendered", extra={"path": str(json_path), "images": len(images), "warnings": len(record["image_warnings"])})

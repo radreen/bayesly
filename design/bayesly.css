@@ -231,3 +231,94 @@ sup.fn { font: 700 .22em var(--mono); vertical-align: top; margin-left: .04em; p
 .unknown .take-block .kicker { color: var(--accent); margin-bottom: 16px; }
 .unknown .take-block .quote { font-family: var(--serif); font-style: italic; font-size: 58px; line-height: 1.04; }
 body[data-palette="blue"] .unknown .take-block .kicker { color: #8c8fff; }
+
+/* =====================================================================================
+   VARIATION LAYER — one brand, many layouts (chosen per post by bayesly/render.py Style)
+   ===================================================================================== */
+
+/* ---- cover: curve (position of the arrow is set inline from the curve) ---- */
+.cover .arrow { left: auto; top: auto; }
+
+/* ---- cover: split (lime top, ink bottom with a "before -> now" shift) ---- */
+.split .panel { position: absolute; left: 0; right: 0; top: 900px; bottom: 0; background: var(--ink); z-index: 1; }
+.split .art { z-index: 2; }
+.split .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
+.split .lede { margin-top: 30px; }
+.split .lede .serif { font-size: 52px; }
+.split .shift path { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.split .shift path:first-child { stroke-dasharray: 2 12; }
+.split .ruler, .split .bottom { color: var(--white); }
+.split .ruler .dot { background: var(--accent); --ruler-bg: var(--ink); }
+
+/* ---- cover: editorial (paper, giant outlined category, framed figure) ---- */
+.editorial .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
+.editorial .content .kicker { margin-bottom: 26px; opacity: .6; }
+.editorial .lede { margin-top: 30px; }
+.editorial .lede .serif { font-size: 50px; }
+.editorial .ghost { position: absolute; left: 50px; bottom: 150px; font-weight: 900; font-size: 300px; line-height: .8; letter-spacing: -0.07em;
+  color: transparent; -webkit-text-stroke: 3px rgba(13,13,14,.16); white-space: nowrap; z-index: 1; }
+.editorial .fig { position: absolute; right: var(--pad); bottom: 200px; width: 420px; border: 3px solid var(--ink); background: var(--paper); padding: 18px 18px 14px; }
+.editorial .fig svg { width: 100%; height: auto; display: block; overflow: visible; }
+.editorial .fig figcaption { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font: 700 15px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.editorial .fig .dots span { width: 24px; height: 12px; }
+
+/* ---- cover: stamp (confidence seal + data cloud) ---- */
+.stamp .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
+.stamp .lede { margin-top: 36px; }
+.stamp .lede .serif { font-size: 52px; color: var(--accent); }
+.stamp .cloud .f { fill: var(--accent); opacity: .75; }
+.stamp .cloud .o { fill: none; stroke: var(--white); stroke-width: 2; opacity: .45; }
+.stamp .seal { position: absolute; top: 790px; width: 330px; height: 330px; color: var(--white); transform: rotate(-11deg); z-index: 4; }
+.stamp .seal .badge { width: 100%; height: 100%; }
+.stamp .seal .badge text { font-size: 13px; }
+.stamp .seal .disc { width: 200px; height: 200px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center;
+  font-weight: 900; font-size: 74px; letter-spacing: -0.05em; }
+
+/* ---- cover: figure (the number is the cover) ---- */
+.figure .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
+.figure h2 { max-width: 900px; margin-bottom: 30px; }
+.figure .bigwrap { position: relative; }
+.figure .big { position: absolute; left: -18px; top: 0; font-weight: 900; line-height: .8; letter-spacing: -0.08em; }
+.figure .big.echo { left: 2px; top: 18px; color: transparent; -webkit-text-stroke: 3px var(--on-accent); opacity: .5; }
+.figure .big sup.fn { font-size: .13em; top: .15em; }
+.figure .cap { max-width: 880px; margin-top: 18px; }
+.figure .footnote { position: absolute; left: var(--pad); right: var(--pad); top: 1100px; color: var(--white); opacity: .7; font: 500 19px var(--mono); z-index: 4; }
+.figure .ruler, .figure .bottom { color: var(--white); }
+.figure .ruler .dot { background: var(--accent); --ruler-bg: var(--ink); }
+
+/* ---- update, variant b: ink ---- */
+.post.ink.update .before p { color: rgba(245,245,240,.45); text-decoration-color: rgba(245,245,240,.6); }
+.post.ink.update .delta .stem { background: var(--white); }
+.post.ink.update .delta .stem::after { border-color: var(--white); }
+.post.ink.update .now { background: var(--accent); color: var(--on-accent); }
+.post.ink.update .now .halftone { background-image: radial-gradient(circle, var(--ink) 2.4px, transparent 2.8px); }
+.post.ink.update .now .pill.fill { background: var(--ink); color: var(--accent); border-color: var(--ink); }
+.post.ink.update .vlabel { color: var(--white); }
+
+/* ---- number, variant b: paper (ink shape at the bottom stays) ---- */
+.post.paper.number .big.echo { -webkit-text-stroke-color: var(--ink); opacity: .35; }
+.post.paper.number .big { color: var(--ink); }
+.post.number .ruler .dot { background: var(--accent); --ruler-bg: var(--ink); }
+
+/* ---- confidence, variant b: paper ---- */
+.post.paper.confidence .gauge .off { stroke: rgba(13,13,14,.12); }
+.post.paper.confidence .gauge .tick { stroke: var(--ink); }
+.post.paper.confidence .gauge .needle { stroke: var(--ink); }
+.post.paper.confidence .gauge .hub { fill: var(--ink); }
+.post.paper.confidence .gauge text { fill: var(--ink); }
+.post.paper.confidence .readout .v { color: var(--ink); background: var(--accent); display: inline-block; padding: 0 .08em; }
+.post.paper.confidence .sign { background: var(--ink); color: var(--white); }
+.post.paper.confidence .row.against .bar { border-color: var(--ink); }
+
+/* ---- closing, variant b: lime ---- */
+.post.acc.unknown h2 .serif { color: var(--ink); }
+.post.acc.unknown .q .kicker, .post.acc.unknown .take-block .kicker { color: var(--ink); opacity: .7; }
+.post.acc.unknown .q li { border-top-color: rgba(13,13,14,.3); }
+.post.acc.unknown .q li::before { border-color: var(--ink); }
+.post.acc.unknown .flat line { stroke: var(--ink); }
+.post.acc.unknown .flat text { fill: var(--ink) !important; }
+.post.acc.unknown .uniform rect { stroke: var(--ink); }
+.post.acc.unknown .uniform rect[fill="var(--accent)"] { fill: var(--ink); }
+
+/* highlight on lime covers: lime-on-lime is invisible, so invert it */
+.split .hl, .figure .hl { background: var(--ink); color: var(--accent); }

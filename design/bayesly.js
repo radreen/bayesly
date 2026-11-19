@@ -33,6 +33,16 @@
       el.setAttribute("d", d);
     });
 
+    // Bell curves sized to their own viewBox width: data-bellw="cx,sigma,height,baseline,width"
+    document.querySelectorAll("[data-bellw]").forEach(function (el) {
+      var v = el.dataset.bellw.split(",").map(Number), cx = v[0], s = v[1], h = v[2], base = v[3], w = v[4];
+      var pts = [];
+      for (var x = 0; x <= w; x += 4) pts.push((x ? "L" : "M") + x + " " + (base - h * Math.exp(-0.5 * Math.pow((x - cx) / s, 2))).toFixed(1));
+      var d = pts.join(" ");
+      if (el.hasAttribute("data-closed")) d += " L" + w + " " + base + " L0 " + base + " Z";
+      el.setAttribute("d", d);
+    });
+
     // Gauge ticks
     document.querySelectorAll(".gauge .ticks").forEach(function (g) {
       for (var a = 0; a <= 180; a += 10) {
