@@ -21,6 +21,14 @@ on:
         default: autopost
         type: choice
         options: [autopost, telegram-sync, refresh-tokens]
+      live:
+        description: "REALLY publish this one run (ignores BAYESLY_LIVE; default: dry-run)"
+        type: boolean
+        default: false
+      draft:
+        description: "How many NEW drafts to write first (0 = publish from the existing queue)"
+        type: string
+        default: "3"
 
 permissions:
   contents: write                 # to commit ci-state/ back
@@ -51,7 +59,7 @@ env:
   MEDIA_GITHUB_TOKEN: ${{ secrets.MEDIA_GITHUB_TOKEN }}
   TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
   TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-  LIVE_FLAG: ${{ vars.BAYESLY_LIVE == 'true' && '--live' || '' }}
+  LIVE_FLAG: ${{ (vars.BAYESLY_LIVE == 'true' || inputs.live == true) && '--live' || '' }}
 
 jobs:
   run:
@@ -100,7 +108,7 @@ jobs:
 
       - name: Autopost
         if: steps.cmd.outputs.name == 'autopost'
-        run: python -m bayesly autopost --draft 3 $LIVE_FLAG
+        run: python -m bayesly autopost --draft ${{ inputs.draft || '3' }} $LIVE_FLAG
 
       - name: Save state
         if: always()
