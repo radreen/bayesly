@@ -1,0 +1,14 @@
+{
+  "ebd75882b3d9e79b": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/ebd75882b3d9e79b-amazon-bedrock-agentcore-harness-adds-strands-harn.json",
+    "drafted_at": "2026-11-19T21:46:39+00:00"
+  },
+  "0f531b5b0f649592": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/0f531b5b0f649592-keep-inference-running-through-regional-capacity-s.json",
+    "drafted_at": "2026-11-19T21:47:23+00:00"
+  },
+  "31618e0c886ff009": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/31618e0c886ff009-reducing-rollout-bottlenecks-in-reinforcement-lear.json",
+    "drafted_at": "2026-11-19T21:47:43+00:00"
+  }
+}

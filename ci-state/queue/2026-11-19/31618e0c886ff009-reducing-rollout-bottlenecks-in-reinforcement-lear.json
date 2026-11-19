@@ -1,0 +1,75 @@
+{
+  "id": "31618e0c886ff009",
+  "status": "pending_review",
+  "created_at": "2026-11-19T21:47:43+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "nvidia-dev-blog",
+    "name": "NVIDIA Technical Blog",
+    "kind": "official_blog",
+    "reliability": 0.85,
+    "url": "https://developer.nvidia.com/blog/reducing-rollout-bottlenecks-in-reinforcement-learning-with-nvidia-dynamo/",
+    "title": "Reducing Rollout Bottlenecks in Reinforcement Learning with NVIDIA Dynamo",
+    "published": "2026-11-19T20:28:13+00:00",
+    "text": "Reinforcement learning (RL) uses rewards to train models to solve problems and complete tasks more successfully. Inference drives this process. Workers generate... Reinforcement learning (RL) uses rewards to train models to solve problems and complete tasks more successfully. Inference drives this process. Workers generate rollouts: sequences of model outputs, actions, and environment interactions. The RL framework scores the results, updates model weights, and sends those weights back to the workers for the next round. As RL training scales… Source"
+  },
+  "score": 0.94,
+  "score_breakdown": {
+    "reliability": 0.85,
+    "relevance": 1.0,
+    "novelty": 1.0
+  },
+  "draft": {
+    "headline": "NVIDIA introduced NVIDIA Dynamo to reduce rollout bottlenecks in reinforcement learning.",
+    "threads_post": "NVIDIA posted about NVIDIA Dynamo, aimed at reducing rollout bottlenecks in reinforcement learning.\n\nThe source text describes worker rollout mechanics but provides no concrete benchmark figures.\n\nConfidence: low — snippet lacks detailed performance metrics.\n\nOur take: We need independent benchmarks before evaluating performance claims.\n\nSource: https://developer.nvidia.com/blog/reducing-rollout-bottlenecks-in-reinforcement-learning-with-nvidia-dynamo/",
+    "x_post": "NVIDIA introduced Dynamo to cut RL rollout bottlenecks.\n\nThe source text outlines standard worker rollouts but gives no benchmark metrics.\n\nConfidence: low — missing data.\n\nOur take: We need independent benchmarks before evaluating performance claims.\n\nSource: NVIDIA Technical Blog",
+    "instagram_caption": "NVIDIA published a post introducing NVIDIA Dynamo, aimed at reducing rollout bottlenecks in reinforcement learning (RL) training.\n\nIn RL training, workers generate rollouts—sequences of model outputs and environment interactions—that are scored to update model weights. NVIDIA claims Dynamo streamlines this bottleneck, but the source text lacks benchmark numbers or system specifications.\n\nConfidence: low — snippet is thin and omits technical performance metrics.\n\nOur take: We need independent benchmarks before evaluating performance claims.\n\nSource: NVIDIA Technical Blog — link in our Threads.",
+    "confidence": "low",
+    "confidence_reason": "Thin source text snippet with no benchmark metrics or details.",
+    "opinion_line": "Our take: We need independent benchmarks before evaluating performance claims.",
+    "facts_used": [
+      "NVIDIA published a blog post titled 'Reducing Rollout Bottlenecks in Reinforcement Learning with NVIDIA Dynamo'.",
+      "Reinforcement learning uses rewards to train models, driven by inference.",
+      "Workers generate rollouts: sequences of model outputs, actions, and environment interactions.",
+      "The RL framework scores results, updates model weights, and sends them back to workers."
+    ],
+    "insufficient_source": true,
+    "editor_notes": "The source snippet cuts off mid-sentence and lacks any performance figures or detailed explanation of NVIDIA Dynamo. Set confidence to low and insufficient_source to true.",
+    "card": {
+      "category": "Tools",
+      "headline": "NVIDIA aims to cut RL rollout bottlenecks with Dynamo",
+      "highlight": "cut RL rollout bottlenecks",
+      "before": null,
+      "now": "NVIDIA announced Dynamo to address bottlenecks in reinforcement learning rollouts",
+      "number": null,
+      "evidence_for": [
+        "Official NVIDIA technical blog title"
+      ],
+      "evidence_against": [
+        "Snippet cuts off mid-sentence",
+        "No benchmark metrics provided in text"
+      ],
+      "open_questions": [
+        "What hardware does Dynamo require?",
+        "What are the measured speedup numbers?"
+      ]
+    }
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "X post is 282 chars (> 280).",
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/31618e0c886ff009-reducing-rollout-bottlenecks-in-reinforcement-lear-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/31618e0c886ff009-reducing-rollout-bottlenecks-in-reinforcement-lear-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/31618e0c886ff009-reducing-rollout-bottlenecks-in-reinforcement-lear-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/31618e0c886ff009-reducing-rollout-bottlenecks-in-reinforcement-lear-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/31618e0c886ff009-reducing-rollout-bottlenecks-in-reinforcement-lear-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/31618e0c886ff009-reducing-rollout-bottlenecks-in-reinforcement-lear-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime"
+}
