@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Bayesly profile kit</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="../bayesly.css">
+<style>
+  body { background: #2a2a2a; margin: 0; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: flex-start; }
+  .grain::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 60; opacity: .22; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  /* ---------- X header 1500x500 ---------- */
+  .xh { width: 1500px; height: 500px; position: relative; overflow: hidden; background: var(--ink); color: var(--white); }
+  .xh .art { width: 1500px; height: 500px; }
+  .xh .meta2 { position: absolute; left: 96px; top: 74px; font: 700 18px var(--mono); letter-spacing: .12em; text-transform: uppercase; opacity: .6; z-index: 3; display: flex; gap: 28px; }
+  .xh h1 { position: absolute; left: 92px; top: 118px; font-weight: 800; font-size: 112px; line-height: .92; letter-spacing: -0.05em; z-index: 3; }
+  .xh h1 .serif { color: var(--accent); font-size: 1.12em; }
+  .xh .base { position: absolute; left: 0; right: 0; top: 432px; height: 2px; background: currentColor; opacity: .9; z-index: 4; }
+  .xh .ticks { position: absolute; left: 0; right: 0; top: 432px; height: 14px; opacity: .45; z-index: 4;
+    background: repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 20px); }
+  .xh .pin { position: absolute; left: 1170px; top: 419px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px var(--ink); z-index: 5; }
+  .xh .corner { position: absolute; right: 70px; top: 66px; z-index: 5; }
+
+  /* ---------- intro slides ---------- */
+  .read .content, .rules .content { position: absolute; left: var(--pad); right: var(--pad); top: 210px; z-index: 3; }
+  .read .content { top: 240px; }
+  .read h2, .rules h2 { margin-bottom: 54px; }
+  .read .row { display: grid; grid-template-columns: 250px 1fr; gap: 24px; align-items: baseline; padding: 40px 0; border-top: 2.5px solid currentColor; }
+  .read .row:last-child { border-bottom: 2.5px solid currentColor; }
+  .read .row .pill { justify-self: start; }
+  .read .row p { font-weight: 600; font-size: 48px; line-height: 1.08; letter-spacing: -0.025em; }
+  .rules .item { display: grid; grid-template-columns: 110px 1fr; gap: 18px; align-items: baseline; padding: 30px 0; border-top: 2px solid rgba(245,245,240,.25); }
+  .rules .item .n { font: 700 30px var(--mono); color: var(--accent); }
+  .rules .item p { font-weight: 700; font-size: 58px; line-height: 1.0; letter-spacing: -0.035em; }
+  .rules .item p .serif { color: var(--accent); font-size: 1.08em; white-space: nowrap; }
+
+  /* ---------- highlight covers 1080x1920 ---------- */
+  .hlc { width: 1080px; height: 1920px; position: relative; overflow: hidden; background: var(--accent); color: var(--ink); display: grid; place-items: center; }
+  .hlc .disc { width: 640px; height: 640px; border-radius: 50%; border: 6px solid var(--ink); display: grid; place-items: center; position: relative; }
+  .hlc .disc .w { font: 700 64px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+  .hlc .disc .glyph { position: absolute; top: 120px; left: 50%; transform: translateX(-50%); }
+  .hlc .bmark svg { height: 210px; width: auto; display: block; }
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<pattern id="dots-ink" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="2.6" fill="#0d0d0e"/></pattern>
+</defs></svg>
+
+<!-- ================= X HEADER ================= -->
+<section id="x-header" class="xh grain">
+  <svg class="art" viewBox="0 0 1500 500" aria-hidden="true">
+    <path class="bell-prior" data-bellw="930,190,170,432,1500" style="color:var(--white)"/>
+    <path class="bell-fill" data-bellw="1182,96,330,432,1500" data-closed/>
+    <path class="bell-dots" data-bellw="1182,96,330,432,1500" data-closed/>
+    <g class="anno" style="color:var(--white)">
+      <line x1="842" y1="290" x2="842" y2="236"/><circle cx="842" cy="290" r="6"/>
+      <text x="856" y="246">Prior</text>
+    </g>
+    <g class="anno" style="color:var(--white)">
+      <line x1="1300" y1="196" x2="1372" y2="196"/><circle cx="1300" cy="196" r="6"/>
+      <text x="1300" y="172">Posterior</text>
+    </g>
+  </svg>
+  <div class="meta2"><span>AI &amp; tech news</span><span>Primary sources</span><span>No hype</span></div>
+  <h1>Before. Now.<br><span class="serif">How sure.</span></h1>
+  <div class="ticks"></div><div class="base"></div><div class="pin"></div>
+</section>
+
+<!-- ================= INTRO 01 · COVER ================= -->
+<article id="intro-01" class="post ink cover">
+  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">
+    <path class="bell-prior" data-bell="400,290,250,1192" style="color:var(--white)"/>
+    <path class="bell-fill" data-bell="760,150,440,1192" data-closed/>
+    <path class="bell-dots" data-bell="760,150,440,1192" data-closed/>
+    <g class="anno" style="color:var(--white)">
+      <line x1="232" y1="1010" x2="232" y2="924"/><circle cx="232" cy="1010" r="6"/>
+      <text x="246" y="934">Prior · what we assumed</text>
+    </g>
+    <g class="anno" style="color:var(--white)">
+      <line x1="912" y1="900" x2="984" y2="900"/><circle cx="912" cy="900" r="6"/>
+      <text x="912" y="874" text-anchor="start">Posterior</text>
+    </g>
+  </svg>
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Start here</span></div>
+  <div class="meta"><span>N°000</span><span>Pinned</span><span>About us</span></div>
+  <div class="content z">
+    <h2 class="h-xl" data-fit="560" style="line-height:1.0">AI news, written as a <span class="hl">Bayesian update</span></h2>
+    <p class="lede"><span class="serif">What changed — and how sure we are.</span></p>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg></div>
+  <div class="ruler"><div class="t1"></div><div class="t2"></div><div class="dot"></div><div class="lbl">01 · What we do</div></div>
+  <div class="bottom"><span>Threads · Instagram · X</span><span>Swipe →</span></div>
+</article>
+
+<!-- ================= INTRO 02 · HOW TO READ ================= -->
+<article id="intro-02" class="post paper grid-bg read">
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill solid-ink">How to read</span></div>
+  <div class="content">
+    <h2 class="h-l" style="font-size:84px">Every post is one update.</h2>
+    <div class="row"><span class="pill">Before</span><p>What most people assumed.</p></div>
+    <div class="row"><span class="pill fill">Now</span><p>What changed, with the number if there is one.</p></div>
+    <div class="row"><span class="pill solid-ink">Confidence</span><p>Low, medium or high — and&nbsp;why.</p></div>
+    <div class="row"><span class="pill">Our take</span><p>One line of opinion, marked as opinion.</p></div>
+  </div>
+  <div class="ruler"><div class="t1"></div><div class="t2"></div><div class="dot"></div><div class="lbl">02 · How to read</div></div>
+  <div class="bottom"><span>Source on every post</span><span>Swipe →</span></div>
+</article>
+
+<!-- ================= INTRO 03 · RULES ================= -->
+<article id="intro-03" class="post ink rules">
+  <div class="top"><div class="wordmark">bayesly<i></i></div><span class="pill">Our rules</span></div>
+  <div class="content">
+    <h2 class="kicker" style="color:var(--accent)">What we promise</h2>
+    <div class="item"><span class="n">01</span><p>Primary sources. <span class="serif">Always linked.</span></p></div>
+    <div class="item"><span class="n">02</span><p>Vendor claims stay <span class="serif">claims.</span></p></div>
+    <div class="item"><span class="n">03</span><p>No hype words. No invented numbers.</p></div>
+    <div class="item"><span class="n">04</span><p>“We don't know yet” <span class="serif">when it's true.</span></p></div>
+    <div class="item"><span class="n">05</span><p>AI drafts. Rules check. <span class="serif">A human on doubt.</span></p></div>
+  </div>
+  <div class="ruler"><div class="t1"></div><div class="t2"></div><div class="dot"></div><div class="lbl">03 · Our rules</div></div>
+  <div class="bottom"><span>Calm AI news</span><span>Swipe →</span></div>
+</article>
+
+<!-- ================= INTRO 04 · FOLLOW ================= -->
+<article id="intro-04" class="post acc cta">
+  <svg class="art" viewBox="0 0 1080 1350" aria-hidden="true">
+    <path class="bell-ink" data-bell="940,120,210,900" data-closed data-floor="1350"/>
+    <rect class="bell-ink" x="0" y="899" width="1080" height="451"/>
+  </svg>
+  <div class="top"><div class="wordmark">bayesly<i></i></div></div>
+  <div class="content z">
+    <h2 class="h-xxl">Before.<br>Now.<br><span class="serif">How sure.</span></h2>
+  </div>
+  <div class="badge-wrap"><div class="badge" data-text="Update your priors · bayesly · "><div class="center"><div class="arrow"><svg viewBox="0 0 100 100"><path d="M24 24 L76 76"/><path d="M76 34 L76 76 L34 76"/></svg></div></div></div></div>
+  <div class="foot">
+    <p class="kicker">Calm AI news</p>
+    <p class="body">Every post says what changed and how sure we are. No hype.</p>
+    <div class="actions"><span class="pill fill">Follow @bayesly.ai</span><span class="pill">X · @bayesly_ai</span></div>
+  </div>
+  <div class="bottom"><span>bayesly</span><span>Threads · Instagram · X</span></div>
+</article>
+
+<!-- ================= HIGHLIGHT COVERS ================= -->
+<section id="highlight-about" class="hlc"><div class="disc"><div class="glyph bmark"></div><span class="w" style="margin-top:240px">About</span></div></section>
+<section id="highlight-updates" class="hlc"><div class="disc">
+  <svg class="glyph" viewBox="0 0 240 120" width="300" height="150" aria-hidden="true">
+    <path d="M4 112 C 70 112, 82 10, 120 10 S 170 112, 236 112" fill="none" stroke="#0d0d0e" stroke-width="10" stroke-linecap="round"/><line x1="0" y1="116" x2="240" y2="116" stroke="#0d0d0e" stroke-width="6"/>
+    <circle cx="240" cy="10" r="0"/></svg>
+  <span class="w" style="margin-top:240px">Updates</span></div></section>
+<section id="highlight-tested" class="hlc"><div class="disc">
+  <svg class="glyph" viewBox="0 0 100 100" width="170" height="170" aria-hidden="true">
+    <circle cx="50" cy="50" r="44" fill="none" stroke="#0d0d0e" stroke-width="7"/>
+    <path d="M28 52 L44 67 L73 35" fill="none" stroke="#0d0d0e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <span class="w" style="margin-top:240px">Tested</span></div></section>
+
+<script>
+  // Bell curves for widths other than 1080: data-bellw="cx,sigma,height,baseline,width"
+  document.querySelectorAll("[data-bellw]").forEach(function (el) {
+    var v = el.dataset.bellw.split(",").map(Number), cx = v[0], s = v[1], h = v[2], base = v[3], w = v[4];
+    var d = [];
+    for (var x = 0; x <= w; x += 8) d.push((x ? "L" : "M") + x + " " + (base - h * Math.exp(-0.5 * Math.pow((x - cx) / s, 2))).toFixed(1));
+    d = d.join(" ");
+    if (el.hasAttribute("data-closed")) d += " L" + w + " " + base + " L0 " + base + " Z";
+    el.setAttribute("d", d);
+  });
+</script>
+<script src="../logo.js"></script>
+<script>
+  // The [b] mark alone for the About cover (first path of the logo).
+  (function () {
+    var m = /<path transform="([^"]+)" d="([^"]+)"\/>/.exec(window.BAYESLY_LOGO || "");
+    if (!m) return;
+    document.querySelectorAll(".bmark").forEach(function (el) {
+      el.innerHTML = '<svg viewBox="95 125 410 580"><path fill="#0d0d0e" d="' + m[2] + '"/></svg>';
+    });
+  })();
+</script>
+<script src="../bayesly.js"></script>
+</body></html>
