@@ -81,7 +81,7 @@ def load_publish_config() -> PublishConfig:
         threads_token=g("THREADS_ACCESS_TOKEN"),
         instagram_user_id=g("INSTAGRAM_USER_ID"),
         instagram_token=g("INSTAGRAM_ACCESS_TOKEN"),
-        instagram_base=g("INSTAGRAM_API_BASE", "https://graph.instagram.com"),
+        instagram_base=g("INSTAGRAM_API_BASE", "https://graph.facebook.com/v27.0"),
         x_api_key=g("X_API_KEY"),
         x_api_secret=g("X_API_SECRET"),
         x_access_token=g("X_ACCESS_TOKEN"),

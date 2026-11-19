@@ -1,7 +1,8 @@
 """Threads and Instagram publishers (Meta Graph APIs, container -> publish flow).
 
 Threads:   https://graph.threads.com/v1.0  (host per docs, checked 2026-11-19: developers.facebook.com/docs/threads/posts)
-Instagram: https://graph.instagram.com     (Instagram API with Instagram Login; JPEG only)
+Instagram: https://graph.facebook.com/v27.0 (Instagram API with Unified login, system-user token; JPEG only).
+           New apps can't use the older Instagram-Login setup (graph.instagram.com). Checked 2026-11-20.
 Both fetch images from public URLs. See docs/platform-notes.md.
 """
 
@@ -108,11 +109,16 @@ class ThreadsPublisher(_MetaPublisher):
 
 class InstagramPublisher(_MetaPublisher):
     name = "instagram"
-    base = "https://graph.instagram.com"
+    base = "https://graph.facebook.com/v27.0"
     container_path = "{uid}/media"
     publish_path = "{uid}/media_publish"
     text_param = "caption"
     status_field = "status_code"
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        kwargs.setdefault("poll_every", 15)   # docs: check status_code ~once a minute, up to 5 minutes
+        kwargs.setdefault("poll_max", 20)
+        super().__init__(*args, **kwargs)
 
     def _build(self, text: str, urls: list[str]) -> str:
         if not urls:
@@ -126,11 +132,11 @@ class InstagramPublisher(_MetaPublisher):
 
 
 # -- token refresh ------------------------------------------------------------------
-# Long-lived tokens live 60 days; a refresh (token >= 24h old, not expired) returns a NEW
+# Threads long-lived tokens live 60 days (Instagram uses a system-user token; its expiry is set in
+# the app's login configuration, so it is not refreshed here); a refresh (token >= 24h old, not expired) returns a NEW
 # token valid 60 days. Docs checked 2026-11-19.
 REFRESH = {
     "threads": ("https://graph.threads.com/refresh_access_token", "th_refresh_token"),
-    "instagram": ("https://graph.instagram.com/refresh_access_token", "ig_refresh_token"),
 }
 
 

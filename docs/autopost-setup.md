@@ -40,10 +40,10 @@
 
 ## 3. Instagram (безкоштовно)
 1. Instagram @bayesly.ai має бути **професійним** акаунтом: Settings → Account type → Professional (Creator або Business). Facebook-сторінка не потрібна.
-2. У тому ж Meta-застосунку додай use case **"Manage messaging & content on Instagram"** → API setup with **Instagram login**.
-3. Дозволи: **instagram_business_basic**, **instagram_business_content_publish**.
-4. Згенеруй токен для @bayesly.ai (кнопка Generate token). Він уже long-lived, діє 60 днів.
-5. `INSTAGRAM_USER_ID`: `GET https://graph.instagram.com/v24.0/me?fields=user_id,username&access_token=...`. Сам ID видно і на тій же сторінці налаштувань.
+2. У застосунку Bayesly use case **"Manage messaging & content on Instagram"** → **API setup with Unified login** (старий варіант "Instagram login" для нових застосунків уже недоступний).
+3. @bayesly.ai має роль **Instagram Tester** (запрошення приймається в Instagram: Settings → Apps and websites).
+4. Крок **"Generate access tokens"**: додай @bayesly.ai і згенеруй токен (system-user token, належить портфоліо bayesly.ai). Термін дії: обирай "Never", якщо пропонують.
+5. `INSTAGRAM_USER_ID`: `GET https://graph.facebook.com/v27.0/me/assigned_instagram_accounts?fields=id,username&access_token=...` → поле `id`.
 
 ## 4. X (платно, але копійки)
 1. Зайди на console.x.com під @bayesly_ai і створи App.

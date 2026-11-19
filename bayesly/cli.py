@@ -47,7 +47,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     tg = sub.add_parser("telegram-sync", help="apply Publish/Skip taps and /pause /resume from Telegram")
     tg.add_argument("--live", action="store_true", help="required: consumes updates and changes state")
-    rt = sub.add_parser("refresh-tokens", help="renew the 60-day Threads/Instagram tokens")
+    rt = sub.add_parser("refresh-tokens", help="renew the 60-day Threads token")
     rt.add_argument("--live", action="store_true", help="required: really calls the refresh endpoints")
     rt.add_argument("--github-secrets", action="store_true",
                     help="store the new tokens as GitHub Actions secrets via `gh secret set` (CI only)")
@@ -130,8 +130,8 @@ def refresh_tokens(args) -> int:
         print("refresh-tokens calls Meta and replaces tokens; run it with --live", file=sys.stderr)
         return 2
     cfg = load_publish_config()
-    targets = {"threads": ("THREADS_ACCESS_TOKEN", cfg.threads_token),
-               "instagram": ("INSTAGRAM_ACCESS_TOKEN", cfg.instagram_token)}
+    # Instagram (Unified login) uses a system-user token: nothing to refresh here.
+    targets = {"threads": ("THREADS_ACCESS_TOKEN", cfg.threads_token)}
     problems = []
     for platform, (env_name, token) in targets.items():
         if platform not in cfg.platforms or not token:

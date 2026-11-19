@@ -28,12 +28,18 @@ Record what was checked, when, and the link.
 - Rate limit: 250 posts per rolling 24 h per profile; a carousel counts as one.
 - Cost: free.
 
-## Instagram — checked 2026-11-19
+## Instagram — checked 2026-11-20 (re-checked against the live App Dashboard)
 
-- Docs: https://developers.facebook.com/docs/instagram-platform/content-publishing
-- Use **Instagram API with Instagram Login** (`graph.instagram.com`, Instagram User token): needs a **professional**
-  (business or creator) account; **no Facebook Page needed**.
-- Permissions: `instagram_business_basic`, `instagram_business_content_publish`.
+- Docs: https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-unified-login
+  and https://developers.facebook.com/documentation/instagram-platform/content-publishing
+- **New apps can't use "API setup with Instagram login"** (dashboard: "not available for newer apps"); they use
+  **Unified login**: host `graph.facebook.com` (docs examples v27.0), a **system-user access token (SUAT)** that
+  belongs to the business portfolio; its expiry is chosen in the login configuration. **No Facebook Page needed.**
+- IG account id: `GET graph.facebook.com/v27.0/me/assigned_instagram_accounts?fields=id,username` (`/me` returns the
+  system user, not the IG account).
+- Permissions for publishing: `instagram_basic`, `instagram_content_publish`. Standard Access is enough for accounts
+  that have a role on the app (we add @bayesly.ai as Instagram Tester); Advanced Access + Live mode only for others.
+- Container status: poll `status_code` (docs: about once a minute, max 5 minutes).
 - Carousel: up to 20 items. Item containers (`is_carousel_item=true`) → `media_type=CAROUSEL` container with `children`
   + `caption` → `POST /<IG_ID>/media_publish` with `creation_id`.
 - Images: **JPEG only**, public URL at publishing time; all carousel images are cropped to the first image's ratio
@@ -46,7 +52,7 @@ Record what was checked, when, and the link.
 ## Tokens (Threads + Instagram) — checked 2026-11-19
 - Threads host in current docs is **graph.threads.com** (code default; override with THREADS_API_BASE).
 - Short-lived token: 1 hour. Long-lived: **60 days**. Exchange: `GET graph.threads.com/access_token?grant_type=th_exchange_token&client_secret=..&access_token=..` (server-side).
-- Refresh (token ≥ 24 h old, not expired): Threads `GET graph.threads.com/refresh_access_token?grant_type=th_refresh_token`, Instagram `GET graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token`. Returns a **new** `access_token` + `expires_in` (~60 days). An expired token can't be refreshed.
+- Refresh (token ≥ 24 h old, not expired): Threads `GET graph.threads.com/refresh_access_token?grant_type=th_refresh_token`. (Instagram now uses a system-user token from Unified login: no 60-day refresh.) Returns a **new** `access_token` + `expires_in` (~60 days). An expired token can't be refreshed.
 - Threads permission grants last 90 days; refreshing extends them only for public profiles (keep @bayesly.ai public).
 - We refresh weekly in CI (`refresh-tokens --live --github-secrets`) and write the new token to GitHub Secrets; failures go to Telegram.
 

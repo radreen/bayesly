@@ -316,5 +316,5 @@ def test_token_refresh_returns_new_token_and_scrubs_errors():
     assert s.calls[0][2]["params"]["grant_type"] == "th_refresh_token"
     bad = FakeSession([(("GET", "refresh_access_token"), FakeResp({"error": "OLD expired"}, status=400))])
     with pytest.raises(PublishError) as exc:
-        refresh_token("instagram", "OLD", session=bad)
+        refresh_token("threads", "OLD", session=bad)
     assert "OLD" not in str(exc.value)
