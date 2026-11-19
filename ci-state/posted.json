@@ -2,14 +2,14 @@
   "0f531b5b0f649592": {
     "threads": {
       "platform": "threads",
-      "ok": false,
+      "ok": true,
       "dry_run": false,
-      "post_id": null,
-      "url": null,
-      "error": "POST https://graph.threads.com/v1.0/29331122679840419/threads_publish -> HTTP 400: {\"error\":{\"message\":\"The requested resource does not exist\",\"code\":24,\"type\":\"OAuthException\",\"error_subcode\":4279009,\"is_transient\":false,\"error_user_msg\":\"The media with id 18033033275716392 cannot be found.\",\"error_user_title\":\"Media Not Found\",\"fbtrace_id\":\"Af105VkfBL9VMOw1gWFwHIF\"}}",
+      "post_id": "18153227053479987",
+      "url": "https://www.threads.com/@bayesly.ai/post/Df8GMURknvT",
+      "error": null,
       "detail": null,
-      "attempts": 1,
-      "at": "2026-11-19T21:52:24+00:00"
+      "attempts": 2,
+      "at": "2026-11-19T21:57:11+00:00"
     },
     "instagram": {
       "platform": "instagram",
