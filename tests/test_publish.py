@@ -325,3 +325,22 @@ def test_cli_imports_and_status_runs(env, capsys):
 
     assert main(["status"]) == 0
     assert "paused:" in capsys.readouterr().out
+
+
+def test_threads_waits_before_publish_and_retries_media_not_found():
+    publish_calls = iter([
+        FakeResp({"error": {"code": 24, "error_subcode": 4279009, "error_user_msg": "Media Not Found"}}, status=400),
+        FakeResp({"id": "post1"}),
+    ])
+    s = FakeSession([
+        (("POST", "/threads_publish"), lambda kw: next(publish_calls)),
+        (("POST", "/threads"), FakeResp({"id": "c1"})),
+        (("GET", "post1"), FakeResp({"permalink": "https://threads.com/p/1"})),
+        (("GET", "/"), FakeResp({"status": "FINISHED"})),
+    ])
+    slept = []
+    one = replace(POST, image_urls=["https://img/1.jpg"])
+    r = ThreadsPublisher("u1", "t", live=True, session=s, sleep=slept.append).publish(one)
+    assert r.ok and r.post_id == "post1"
+    assert 30 in slept          # docs: ~30 s between container and publish
+    assert len([c for c in s.calls if c[1].endswith("/threads_publish")]) == 2

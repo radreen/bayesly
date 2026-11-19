@@ -24,6 +24,9 @@ class _MetaPublisher:
     publish_path = ""         # e.g. "{uid}/threads_publish" or "{uid}/media_publish"
     text_param = ""           # "text" (Threads) or "caption" (Instagram)
     status_field = ""         # "status" (Threads) or "status_code" (Instagram)
+    publish_delay = 0         # seconds to wait after FINISHED before *_publish
+    not_found_retries = 3     # extra publish attempts on "Media Not Found" (subcode 4279009)
+    not_found_wait = 20
 
     def __init__(self, user_id: str, token: str, *, live: bool, timeout: float = 30, max_retries: int = 2,
                  session: Any = None, sleep: Callable[[float], None] = time.sleep,
@@ -71,7 +74,9 @@ class _MetaPublisher:
         try:
             parent = self._build(text, urls)
             self._wait(parent)
-            data = self._req("POST", self.publish_path.format(uid=self.user_id), creation_id=parent)
+            if self.publish_delay:
+                self.sleep(self.publish_delay)
+            data = self._publish_container(parent)
             post_id = data.get("id")
             if not post_id:
                 raise PublishError(f"publish returned no id: {data}")
@@ -84,6 +89,18 @@ class _MetaPublisher:
         except (net.ExternalCallError, PublishError, ValueError, KeyError) as exc:
             return PublishResult(self.name, ok=False, error=scrub(str(exc), self.token)[:500])
 
+    def _publish_container(self, container_id: str) -> dict:
+        """POST .../*_publish. A "Media Not Found" (subcode 4279009) right after the container reports
+        FINISHED means Meta isn't ready yet: wait and try again a few times."""
+        for attempt in range(1, self.not_found_retries + 2):
+            try:
+                return self._req("POST", self.publish_path.format(uid=self.user_id), creation_id=container_id)
+            except net.ExternalCallError as exc:
+                if "4279009" not in str(exc) or attempt > self.not_found_retries:
+                    raise
+                self.sleep(self.not_found_wait)
+        raise PublishError("unreachable")
+
     def _build(self, text: str, urls: list[str]) -> str:
         raise NotImplementedError
 
@@ -95,6 +112,9 @@ class ThreadsPublisher(_MetaPublisher):
     publish_path = "{uid}/threads_publish"
     text_param = "text"
     status_field = "status"
+    # Threads docs: wait ~30 s after creating a container before publishing it. Our first live post
+    # (2026-11-19) failed with "Media Not Found" when publishing right after status FINISHED.
+    publish_delay = 30
 
     def _build(self, text: str, urls: list[str]) -> str:
         if len(urls) >= 2:
