@@ -16,7 +16,7 @@ name: autopost
 
 on:
   schedule:
-    - cron: "*/15 * * * *"        # check -> autopost only when worth it
+    - cron: "7,22,37,52 * * * *"  # check -> autopost only when worth it (off the :00 rush: GitHub drops those)
     - cron: "15 5 * * 1"          # refresh-tokens: weekly (Meta tokens live 60 days)
   workflow_dispatch:
     inputs:
