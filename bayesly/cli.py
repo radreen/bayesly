@@ -51,6 +51,10 @@ def build_parser() -> argparse.ArgumentParser:
     rt.add_argument("--live", action="store_true", help="required: really calls the refresh endpoints")
     rt.add_argument("--github-secrets", action="store_true",
                     help="store the new tokens as GitHub Actions secrets via `gh secret set` (CI only)")
+    vid = sub.add_parser("video", help="render a vertical MP4 (1080x1920) for a draft")
+    vid.add_argument("paths", nargs="+", help="draft .json files")
+    vid.add_argument("--no-voice", action="store_true", help="silent video (no TTS calls)")
+    vid.add_argument("--force", action="store_true", help="re-render even if the MP4 exists")
     sub.add_parser("telegram-setup", help="set the bot's command menu and short description (one-off)")
     sub.add_parser("accounts", help="read-only: show which Threads/Instagram accounts the tokens in .env belong to")
     sub.add_parser("pause", help="kill switch: stop all publishing (creates state/PAUSED)")
@@ -252,6 +256,18 @@ def main(argv: list[str] | None = None) -> int:
         return refresh_tokens(args)
     if args.command == "accounts":
         return show_accounts()
+    if args.command == "video":
+        from bayesly.render import RenderError
+        from bayesly.video import render_video
+        failed = 0
+        for raw in args.paths:
+            try:
+                out = render_video(Path(raw), settings, voice=not args.no_voice, force=args.force)
+                print(f"  {out}")
+            except RenderError as exc:
+                print(f"  {raw}: video failed: {exc}", file=sys.stderr)
+                failed += 1
+        return 1 if failed else 0
     if args.command == "telegram-setup":
         from bayesly import notify
         from bayesly.publish.base import load_publish_config
