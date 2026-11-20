@@ -16,6 +16,8 @@ class PublishPost:
     texts: dict[str, str]                         # platform -> text
     image_urls: list[str] = field(default_factory=list)  # public JPEG URLs, slide order
     source_url: str = ""
+    video_url: str = ""      # public MP4 URL (Instagram Reels, Threads)
+    video_path: str = ""     # local MP4 for platforms that take an upload (X)
 
 
 @dataclass
@@ -69,6 +71,8 @@ class PublishConfig:
     telegram_chat_id: str
     posts_per_run: int
     paused_env: bool
+    video_platforms: list[str] = field(default_factory=list)
+    video_voice: bool = True
 
 
 def load_publish_config() -> PublishConfig:
@@ -95,6 +99,10 @@ def load_publish_config() -> PublishConfig:
         telegram_chat_id=g("TELEGRAM_CHAT_ID"),
         posts_per_run=int(g("POSTS_PER_RUN", "1") or 1),
         paused_env=g("BAYESLY_PAUSED", "0").lower() in {"1", "true", "yes"},
+        # Which networks get the vertical video instead of the carousel (empty = no video).
+        video_platforms=[p.strip().lower() for p in g("VIDEO_PLATFORMS", "instagram,x").split(",")
+                         if p.strip() and p.strip().lower() != "none"],
+        video_voice=g("VIDEO_VOICE", "1").lower() not in {"0", "false", "no"},
     )
 
 

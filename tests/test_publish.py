@@ -377,3 +377,69 @@ def test_telegram_url_buttons_are_links():
     from bayesly.telegram import Telegram
     m = Telegram._markup([[("Go", "https://a.b"), ("Ok", "pub:1")]])
     assert m == {"inline_keyboard": [[{"text": "Go", "url": "https://a.b"}, {"text": "Ok", "callback_data": "pub:1"}]]}
+
+
+# -- video --------------------------------------------------------------------------------------
+def test_instagram_posts_reel_when_video_given():
+    s = FakeSession([
+        (("POST", "/media_publish"), FakeResp({"id": "reel1"})),
+        (("POST", "/media"), FakeResp({"id": "c1"})),
+        (("GET", "reel1"), FakeResp({"permalink": "https://instagram.com/reel/1"})),
+        (("GET", "/"), FakeResp({"status_code": "FINISHED"})),
+    ])
+    post = replace(POST, video_url="https://cdn.jsdelivr.net/gh/a/b@sha/v.mp4")
+    r = InstagramPublisher("u1", "t", live=True, session=s, sleep=lambda _: None, use_video=True).publish(post)
+    assert r.ok and r.detail == "video"
+    params = [kw["params"] for m, u, kw in s.calls if m == "POST" and u.endswith("/u1/media")][0]
+    assert params["media_type"] == "REELS" and params["video_url"].endswith("v.mp4")
+
+
+def test_video_error_falls_back_to_carousel_same_run():
+    ids = iter(["vid", "c1", "c2", "parent"])
+    def status(kw):
+        return FakeResp({"status": "ERROR"}) if False else FakeResp({"status": "FINISHED"})
+    s = FakeSession([
+        (("POST", "/threads_publish"), lambda kw: FakeResp({"id": "p9"}) if kw["params"]["creation_id"] == "parent"
+         else FakeResp({"error": {"message": "bad video"}}, status=400)),
+        (("POST", "/threads"), lambda kw: FakeResp({"id": next(ids)})),
+        (("GET", "p9"), FakeResp({"permalink": "https://threads.com/p/9"})),
+        (("GET", "/"), status),
+    ])
+    post = replace(POST, video_url="https://cdn/v.mp4")
+    r = ThreadsPublisher("u1", "t", live=True, session=s, sleep=lambda _: None, use_video=True).publish(post)
+    assert r.ok and r.post_id == "p9" and r.detail.startswith("video failed, posted images")
+
+
+def test_x_uploads_video_in_chunks(tmp_path):
+    pytest.importorskip("requests_oauthlib")
+    mp4 = tmp_path / "v.x.mp4"
+    mp4.write_bytes(b"0" * (5 * 1024 * 1024))           # 5 MB -> 2 chunks of <= 4 MB
+    s = FakeSession([
+        (("POST", "/media/upload/initialize"), FakeResp({"data": {"id": "m7"}})),
+        (("POST", "/media/upload/m7/append"), FakeResp({})),
+        (("POST", "/media/upload/m7/finalize"), FakeResp({"data": {"processing_info": {"state": "pending", "check_after_secs": 1}}})),
+        (("GET", "/media/upload"), FakeResp({"data": {"processing_info": {"state": "succeeded"}}})),
+        (("POST", "/2/tweets"), FakeResp({"data": {"id": "t9"}})),
+    ])
+    post = replace(POST, video_path=str(mp4))
+    r = XPublisher("a", "b", "c", "d", live=True, session=s, use_video=True, sleep=lambda _: None).publish(post)
+    assert r.ok and r.detail == "video"
+    appends = [kw for m, u, kw in s.calls if u.endswith("/append")]
+    assert [a["data"]["segment_index"] for a in appends] == ["0", "1"]
+    body = [kw["json"] for m, u, kw in s.calls if u.endswith("/2/tweets")][0]
+    assert body["media"] == {"media_ids": ["m7"]}
+
+
+def test_autopost_hands_video_to_video_platforms(env, monkeypatch):
+    settings, day, jpg = env
+    monkeypatch.setenv("VIDEO_PLATFORMS", "x")
+    mp4 = day / "abc.mp4"; mp4.write_bytes(b"v")
+    xmp4 = day / "abc.x.mp4"; xmp4.write_bytes(b"v")
+    write(day, good_record(images_jpg=[str(jpg)], video=str(mp4), video_x=str(xmp4)))
+    pubs = {"threads": SpyPublisher("threads"), "x": SpyPublisher("x")}
+    poster = Autoposter(settings, load_publish_config(), pubs, media_upload=lambda p, d: f"https://img/{d}",
+                        telegram=SpyTelegram(), live=True, render_video=lambda p: None,
+                        video_upload=lambda p, d: "https://cdn/" + d)
+    poster.run(1)
+    assert pubs["x"].posts[0].video_path == str(xmp4)
+    assert pubs["x"].posts[0].video_url == ""            # X uploads the file; no hosting needed for it alone

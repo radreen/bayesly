@@ -24,6 +24,35 @@ class GitHubMediaHost:
     def url_for(self, dest: str) -> str:
         return f"https://raw.githubusercontent.com/{self.repo}/{self.branch}/{dest}"
 
+    def cdn_url(self, sha: str, dest: str) -> str:
+        # jsDelivr serves .mp4 as video/mp4 (GitHub raw says application/octet-stream); pinning the
+        # commit sha makes the very first request fresh (checked with curl -I, 2026-11-20).
+        return f"https://cdn.jsdelivr.net/gh/{self.repo}@{sha}/{dest}"
+
+    def upload_video(self, local: Path, dest: str) -> str:
+        """Upload an MP4 and return a jsDelivr URL pinned to the commit (Meta needs a proper video URL)."""
+        if not self.live:
+            return self.cdn_url("DRYRUN", dest)
+        headers = {"Authorization": f"Bearer {self.token}", "Accept": "application/vnd.github+json"}
+        body = {"message": f"media: {dest}", "content": base64.b64encode(local.read_bytes()).decode(), "branch": self.branch}
+        try:
+            data = net.request("PUT", f"https://api.github.com/repos/{self.repo}/contents/{dest}", timeout=max(self.timeout, 120),
+                               max_retries=self.max_retries, session=self.session, json=body, headers=headers).json()
+            sha = (data.get("commit") or {}).get("sha")
+        except net.ExternalCallError as exc:
+            if "HTTP 422" not in str(exc):
+                raise RuntimeError(scrub(str(exc), self.token)) from exc
+            sha = None                    # already uploaded: find the commit that added it
+        if not sha:
+            try:
+                commits = net.request("GET", f"https://api.github.com/repos/{self.repo}/commits", timeout=self.timeout,
+                                      max_retries=self.max_retries, session=self.session, headers=headers,
+                                      params={"path": dest, "per_page": 1}).json()
+                sha = commits[0]["sha"]
+            except (net.ExternalCallError, ValueError, KeyError, IndexError) as exc:
+                raise RuntimeError(f"cannot resolve commit for {dest}: {scrub(str(exc), self.token)[:200]}") from None
+        return self.cdn_url(sha, dest)
+
     def upload(self, local: Path, dest: str) -> str:
         """Upload local file to dest (path inside the repo); returns its public URL.
         Dry-run returns the would-be URL without uploading."""

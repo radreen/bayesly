@@ -77,3 +77,19 @@ Record what was checked, when, and the link.
 ## Beehiiv — NOT CHECKED (later)
 
 - Draft-only creation via API; human sends. Check API availability per plan before building.
+
+## Vertical video — checked 2026-11-20
+- **Instagram Reels:** `media_type=REELS` + `video_url` (public), MP4/MOV, H.264/HEVC, AAC ≤48 kHz, 23–60 fps,
+  3 s–15 min, ≤300 MB; poll `status_code` (~1/min, ≤5 min). We send `share_to_feed=true`.
+- **Threads:** `media_type=VIDEO` + `video_url` (public), ≤5 min, ≤1 GB; wait ~30 s before publish.
+- **X:** chunked upload v2: `POST /2/media/upload/initialize` (JSON: media_type, total_bytes, media_category=tweet_video)
+  → `/{id}/append` (multipart, segment_index, media ≤5 MB) → `/{id}/finalize` → poll `GET /2/media/upload?command=STATUS`.
+  Hard limit 1280×1024 per side pair, recommended 720×1280 → we upload a separate 720×1280 copy.
+  OAuth 1.0a support for these endpoints is NOT confirmed in the docs (they show OAuth2 user token);
+  if it fails, the bot posts the image instead and says so in Telegram.
+- **TikTok:** unaudited apps can only post privately → needs the Content Posting API audit first.
+- **YouTube Shorts:** `videos.insert`, 100 uploads/day default; needs a Google OAuth setup (not built yet).
+- **Hosting:** GitHub raw serves .mp4 as `application/octet-stream`; jsDelivr serves `video/mp4` → video URLs use
+  `cdn.jsdelivr.net/gh/<repo>@<commit sha>/<path>` (sha-pinned so the first request is fresh).
+- **Voice (Gemini TTS):** free tier = 10 requests/day per model (429 "per day"). One request per video;
+  fallback `gemini-3.8-flash-lite-tts` (own quota). If both are out: silent video.

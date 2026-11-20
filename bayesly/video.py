@@ -315,6 +315,15 @@ def encode(frames_dir: Path, wav: Path, out: Path, fps: int = FPS) -> None:
         raise RenderError(f"ffmpeg failed: {done.stderr.strip()[:300]}")
 
 
+def scale_for_x(src: Path, out: Path) -> None:
+    """X's hard limit is 1280x1024 per side pair; it recommends 720x1280 portrait (docs, 2026-11-20)."""
+    cmd = [_ffmpeg(), "-y", "-loglevel", "error", "-i", str(src), "-vf", "scale=720:1280", "-c:v", "libx264",
+           "-profile:v", "high", "-pix_fmt", "yuv420p", "-b:v", "5M", "-c:a", "copy", "-movflags", "+faststart", str(out)]
+    done = subprocess.run(cmd, capture_output=True, text=True)
+    if done.returncode != 0:
+        raise RenderError(f"ffmpeg (X copy) failed: {done.stderr.strip()[:300]}")
+
+
 def render_video(json_path: Path, settings: Settings, *, voice: bool = True, force: bool = False) -> Path:
     """Draft JSON -> <base>.mp4 next to it. Updates record["video"] and record["video_warnings"]."""
     record = json.loads(json_path.read_text(encoding="utf-8"))
@@ -346,7 +355,10 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
         wav = tmpd / "voice.wav"
         wav.write_bytes(mix_audio(segs, total))
         encode(tmpd / "frames", wav, out)
+    x_out = json_path.with_suffix(".x.mp4")
+    scale_for_x(out, x_out)
     record["video"] = str(out)
+    record["video_x"] = str(x_out)
     record["video_seconds"] = round(total, 1)
     record["video_voice"] = bool(voice and all(s.pcm for s in segs))
     record["video_warnings"] = warnings

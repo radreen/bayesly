@@ -30,8 +30,8 @@ class _MetaPublisher:
 
     def __init__(self, user_id: str, token: str, *, live: bool, timeout: float = 30, max_retries: int = 2,
                  session: Any = None, sleep: Callable[[float], None] = time.sleep,
-                 poll_every: float = 5, poll_max: int = 24, base: str | None = None) -> None:
-        self.user_id, self.token, self.live = user_id, token, live
+                 poll_every: float = 5, poll_max: int = 24, base: str | None = None, use_video: bool = False) -> None:
+        self.user_id, self.token, self.live, self.use_video = user_id, token, live, use_video
         self.timeout, self.max_retries, self.session = timeout, max_retries, session
         self.sleep, self.poll_every, self.poll_max = sleep, poll_every, poll_max
         if base:
@@ -49,8 +49,8 @@ class _MetaPublisher:
             raise PublishError(f"no container id in response: {data}")
         return data["id"]
 
-    def _wait(self, container_id: str) -> None:
-        for _ in range(self.poll_max):
+    def _wait(self, container_id: str, rounds: int | None = None) -> None:
+        for _ in range(rounds or self.poll_max):
             data = self._req("GET", container_id, fields=self.status_field)
             status = str(data.get(self.status_field, "")).upper()
             if status in {"FINISHED", "PUBLISHED"}:
@@ -64,30 +64,45 @@ class _MetaPublisher:
     def publish(self, post: PublishPost) -> PublishResult:
         text = post.texts.get(self.name, "")
         urls = post.image_urls[:MAX_CAROUSEL]
-        if not text and not urls:
+        video = post.video_url if self.use_video else ""
+        if not text and not urls and not video:
             return PublishResult(self.name, ok=False, error="nothing to publish")
         if not self.live:
-            return PublishResult(self.name, ok=True, dry_run=True,
-                                 detail=f"would post {len(urls)} image(s) + {len(text)} chars")
+            what = "1 video" if video else f"{len(urls)} image(s)"
+            return PublishResult(self.name, ok=True, dry_run=True, detail=f"would post {what} + {len(text)} chars")
         if not (self.user_id and self.token):
             return PublishResult(self.name, ok=False, error=f"{self.name}: user id / token not configured")
-        try:
-            parent = self._build(text, urls)
-            self._wait(parent)
-            if self.publish_delay:
-                self.sleep(self.publish_delay)
-            data = self._publish_container(parent)
-            post_id = data.get("id")
-            if not post_id:
-                raise PublishError(f"publish returned no id: {data}")
-            url = None
+        note = None
+        if video:
             try:
-                url = self._req("GET", post_id, fields="permalink").get("permalink")
-            except (net.ExternalCallError, ValueError):
-                pass  # the post exists; a missing permalink is not a failure
-            return PublishResult(self.name, ok=True, post_id=post_id, url=url)
+                return self._finish(self._build_video(text, video), video=True)
+            except (net.ExternalCallError, PublishError, ValueError, KeyError) as exc:
+                # never lose the post over a video problem: publish the carousel instead
+                note = f"video failed, posted images: {scrub(str(exc), self.token)[:160]}"
+        try:
+            result = self._finish(self._build(text, urls))
+            result.detail = note
+            return result
         except (net.ExternalCallError, PublishError, ValueError, KeyError) as exc:
-            return PublishResult(self.name, ok=False, error=scrub(str(exc), self.token)[:500])
+            return PublishResult(self.name, ok=False, error=scrub(str(exc), self.token)[:500], detail=note)
+
+    def _finish(self, parent: str, video: bool = False) -> PublishResult:
+        self._wait(parent, rounds=self.poll_max * 3 if video else None)   # video takes longer to process
+        if self.publish_delay:
+            self.sleep(self.publish_delay)
+        data = self._publish_container(parent)
+        post_id = data.get("id")
+        if not post_id:
+            raise PublishError(f"publish returned no id: {data}")
+        url = None
+        try:
+            url = self._req("GET", post_id, fields="permalink").get("permalink")
+        except (net.ExternalCallError, ValueError):
+            pass  # the post exists; a missing permalink is not a failure
+        return PublishResult(self.name, ok=True, post_id=post_id, url=url, detail="video" if video else None)
+
+    def _build_video(self, text: str, video_url: str) -> str:
+        raise NotImplementedError
 
     def _publish_container(self, container_id: str) -> dict:
         """POST .../*_publish. A "Media Not Found" (subcode 4279009) right after the container reports
@@ -116,6 +131,9 @@ class ThreadsPublisher(_MetaPublisher):
     # (2026-11-19) failed with "Media Not Found" when publishing right after status FINISHED.
     publish_delay = 30
 
+    def _build_video(self, text: str, video_url: str) -> str:
+        return self._container(media_type="VIDEO", video_url=video_url, text=text)
+
     def _build(self, text: str, urls: list[str]) -> str:
         if len(urls) >= 2:
             children = [self._container(media_type="IMAGE", image_url=u, is_carousel_item="true") for u in urls]
@@ -139,6 +157,10 @@ class InstagramPublisher(_MetaPublisher):
         kwargs.setdefault("poll_every", 15)   # docs: check status_code ~once a minute, up to 5 minutes
         kwargs.setdefault("poll_max", 20)
         super().__init__(*args, **kwargs)
+
+    def _build_video(self, text: str, video_url: str) -> str:
+        # Reels: MP4/H.264/AAC, 3 s-15 min, public URL (docs, checked 2026-11-20)
+        return self._container(media_type="REELS", video_url=video_url, caption=text, share_to_feed="true")
 
     def _build(self, text: str, urls: list[str]) -> str:
         if not urls:

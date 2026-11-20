@@ -43,6 +43,8 @@ env:
   PLATFORMS: ${{ vars.PLATFORMS || 'threads,instagram,x' }}
   POSTS_PER_RUN: ${{ vars.POSTS_PER_RUN || '1' }}
   BAYESLY_PAUSED: ${{ vars.BAYESLY_PAUSED || '0' }}
+  VIDEO_PLATFORMS: ${{ vars.VIDEO_PLATFORMS || 'instagram,x' }}   # set to 'none' to switch video off
+  VIDEO_VOICE: ${{ vars.VIDEO_VOICE || '1' }}
   GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
   GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash' }}
   GEMINI_TIMEOUT_SECONDS: "90"
@@ -64,7 +66,7 @@ env:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30          # video render ~2-3 min per post
     steps:
       - uses: actions/checkout@v4
 
@@ -92,6 +94,7 @@ jobs:
           if [ "${{ steps.cmd.outputs.name }}" = "autopost" ]; then
             pip install -e ".[render]"
             python -m playwright install --with-deps chromium
+            sudo apt-get install -y -qq ffmpeg > /dev/null
           fi
 
       - name: Telegram sync

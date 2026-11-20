@@ -132,9 +132,12 @@ class RunReport:
 class Autoposter:
     def __init__(self, settings: Settings, cfg: PublishConfig, publishers: dict[str, Publisher], *,
                  media_upload: Callable[[Path, str], str], telegram: Telegram, live: bool,
-                 render: Callable[[Path], None] | None = None) -> None:
+                 render: Callable[[Path], None] | None = None,
+                 render_video: Callable[[Path], None] | None = None,
+                 video_upload: Callable[[Path, str], str] | None = None) -> None:
         self.settings, self.cfg, self.publishers = settings, cfg, publishers
         self.media_upload, self.telegram, self.live, self.render = media_upload, telegram, live, render
+        self.render_video, self.video_upload = render_video, video_upload
         self.ledger = Ledger(settings.state_dir)
         self.held = HeldStore(settings.state_dir)
 
@@ -315,6 +318,24 @@ class Autoposter:
         except TelegramError as exc:
             report.errors.append(f"telegram hold {rec['id']}: {exc}")
 
+    def _video_for(self, path: Path, rec: dict, draft_id: str, day: str) -> tuple[str, str]:
+        """Render + host the video when a pending platform wants one. Any failure -> ("", "") and
+        the platforms simply post the carousel; video never blocks a post."""
+        wants = [p for p in self._pending_platforms(draft_id) if p in self.cfg.video_platforms]
+        if not wants or not self.render_video:
+            return "", ""
+        try:
+            if not _video_ready(rec):
+                self.render_video(path)
+                rec.update(json.loads(path.read_text(encoding="utf-8")))
+            url = ""
+            if self.video_upload and any(p in ("instagram", "threads") for p in wants):
+                url = self.video_upload(Path(rec["video"]), f"{day}/{draft_id}/video.mp4")
+            return url, rec.get("video_x", "")
+        except Exception as exc:  # noqa: BLE001
+            log.warning("video skipped", extra={"draft": draft_id, "error": str(exc)[:300]})
+            return "", ""
+
     def publish_record(self, path: Path, rec: dict) -> list[PublishResult]:
         draft_id = rec["id"]
         draft = rec.get("draft") or {}
@@ -330,8 +351,10 @@ class Autoposter:
                     for i, p in enumerate(rec.get("images_jpg") or [], start=1)]
         except Exception as exc:  # noqa: BLE001 - hosting failure: nothing was posted, retry next run
             return [PublishResult("media", ok=False, error=str(exc)[:300])]
+        video_url, video_path = self._video_for(path, rec, draft_id, day)
         post = PublishPost(draft_id=draft_id, image_urls=urls, source_url=(rec.get("source") or {}).get("url", ""),
-                           texts={p: draft.get(k, "") or "" for p, k in TEXT_KEYS.items()})
+                           texts={p: draft.get(k, "") or "" for p, k in TEXT_KEYS.items()},
+                           video_url=video_url, video_path=video_path)
         results = []
         for platform in self._pending_platforms(draft_id):
             result = self.publishers[platform].publish(post)
@@ -345,6 +368,10 @@ class Autoposter:
             if all(r.ok for r in results):
                 _set_status(path, "published")
         return results
+
+
+def _video_ready(rec: dict) -> bool:
+    return all(rec.get(k) and Path(rec[k]).exists() for k in ("video", "video_x"))
 
 
 def _now() -> str:
@@ -366,18 +393,25 @@ def build_autoposter(settings: Settings, cfg: PublishConfig, *, live: bool, pale
     publishers: dict[str, Publisher] = {}
     if "threads" in cfg.platforms:
         publishers["threads"] = ThreadsPublisher(cfg.threads_user_id, cfg.threads_token, live=live,
-                                                 base=cfg.threads_base, **kw)
+                                                 base=cfg.threads_base, use_video="threads" in cfg.video_platforms, **kw)
     if "instagram" in cfg.platforms:
         publishers["instagram"] = InstagramPublisher(cfg.instagram_user_id, cfg.instagram_token, live=live,
-                                                     base=cfg.instagram_base, **kw)
+                                                     base=cfg.instagram_base,
+                                                     use_video="instagram" in cfg.video_platforms, **kw)
     if "x" in cfg.platforms:
         publishers["x"] = XPublisher(cfg.x_api_key, cfg.x_api_secret, cfg.x_access_token, cfg.x_access_secret,
-                                     live=live, handle=cfg.x_handle, max_images=cfg.x_max_images, **kw)
+                                     live=live, handle=cfg.x_handle, max_images=cfg.x_max_images,
+                                     use_video="x" in cfg.video_platforms, **kw)
     host = GitHubMediaHost(cfg.media_repo, cfg.media_token, branch=cfg.media_branch, live=live, **kw)
 
     def render(path: Path) -> None:
         from bayesly.render import render_record
         render_record(path, palette=palette, force=True)
 
+    def render_video(path: Path) -> None:
+        from bayesly.video import render_video as _render_video
+        _render_video(path, settings, voice=cfg.video_voice, force=True)
+
     return Autoposter(settings, cfg, publishers, media_upload=host.upload,
-                      telegram=Telegram(cfg.telegram_token, cfg.telegram_chat_id), live=live, render=render)
+                      telegram=Telegram(cfg.telegram_token, cfg.telegram_chat_id), live=live, render=render,
+                      render_video=render_video if cfg.video_platforms else None, video_upload=host.upload_video)
