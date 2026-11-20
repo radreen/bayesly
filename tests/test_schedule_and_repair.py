@@ -1,0 +1,77 @@
+"""When to post (15-min check) and the one-shot length repair. No network."""
+
+import json
+from datetime import datetime, timedelta, timezone
+
+from bayesly.models import Item, Source
+from bayesly.pipeline import shorten_if_needed
+from bayesly.schedule import Rules, decide
+
+NOW = datetime(2026, 11, 20, 18, 0, tzinfo=timezone.utc)
+SRC = Source("tc", "TechCrunch", "u", "press", 0.75)
+
+
+def item(title, score, age_h, url=None):
+    i = Item(SRC, title, url or title, "text", NOW - timedelta(hours=age_h))
+    i.score = score
+    return i
+
+
+def test_hot_fresh_story_triggers_a_post():
+    go, why = decide([item("OpenAI raises", 1.05, 0.5)], set(), 0, [NOW - timedelta(hours=2)], Rules(), NOW)
+    assert go and why.startswith("hot")
+
+
+def test_gap_and_daily_cap_hold_even_hot_news():
+    hot = [item("OpenAI raises", 1.2, 0.2)]
+    go, why = decide(hot, set(), 0, [NOW - timedelta(minutes=20)], Rules(), NOW)
+    assert not go and "min ago" in why
+    eight = [NOW - timedelta(hours=h) for h in range(9, 1, -1)]
+    go, why = decide(hot, set(), 0, eight, Rules(), NOW)
+    assert not go and "daily cap" in why
+
+
+def test_already_drafted_stories_do_not_count():
+    hot = [item("OpenAI raises", 1.2, 0.2, url="k1")]
+    assert not decide(hot, {"k1"}, 0, [NOW - timedelta(hours=2)], Rules(), NOW)[0]
+
+
+def test_approved_post_goes_out_fast_and_quiet_spell_posts_decent_story():
+    assert decide([], set(), 1, [NOW - timedelta(hours=2)], Rules(), NOW)[0]
+    decent = [item("Apple builds an agent", 0.85, 6)]
+    assert not decide(decent, set(), 0, [NOW - timedelta(hours=2)], Rules(), NOW)[0]
+    assert decide(decent, set(), 0, [NOW - timedelta(hours=6)], Rules(), NOW)[0]
+
+
+class Gen:
+    model = "fake"
+
+    def __init__(self, answer):
+        self.answer, self.prompts = answer, []
+
+    def generate(self, prompt):
+        self.prompts.append(prompt)
+        return self.answer
+
+
+def test_overlong_texts_are_shortened_once_and_kept_honest():
+    url = "https://example.com/a"
+    draft = {"threads_post": "x" * 540 + " " + url, "x_post": "y" * 290, "instagram_caption": "ok"}
+    gen = Gen(json.dumps({"threads_post": "short " + url, "x_post": "short x"}))
+    out = shorten_if_needed(draft, gen, url)
+    assert out["threads_post"] == "short " + url and out["x_post"] == "short x"
+    assert "auto-shortened" in out["editor_notes"] and len(gen.prompts) == 1
+    assert "instagram_caption" not in gen.prompts[0].split("\n\n")[-1]
+
+
+def test_repair_that_drops_the_link_or_is_still_long_is_ignored():
+    url = "https://example.com/a"
+    draft = {"threads_post": "x" * 540 + " " + url, "x_post": "y" * 290}
+    out = shorten_if_needed(draft, Gen(json.dumps({"threads_post": "no link", "x_post": "z" * 300})), url)
+    assert out["threads_post"] == draft["threads_post"] and out["x_post"] == draft["x_post"]
+
+
+def test_no_call_when_everything_fits():
+    gen = Gen("{}")
+    d = {"threads_post": "fine", "x_post": "fine"}
+    assert shorten_if_needed(d, gen, "u") is d and gen.prompts == []

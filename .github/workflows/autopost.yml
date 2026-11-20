@@ -6,21 +6,25 @@
 #
 # State (what was drafted / posted / held) lives in ci-state/ and is committed back after each run,
 # so re-runs never double-post. Slide images are re-rendered on demand and never committed.
+#
+# Rhythm: every 15 min a cheap `check` (RSS + Telegram taps, ~30 s). The heavy autopost (drafting,
+# carousel, video) runs only when check says GO: hot fresh story, an approved post, or a long quiet
+# spell; capped by MIN_GAP_MINUTES and MAX_POSTS_PER_DAY (bayesly/schedule.py). GitHub may delay or
+# drop scheduled runs under load, which is why we tick often instead of at 3 fixed times.
 
 name: autopost
 
 on:
   schedule:
-    - cron: "0 7,13,19 * * *"     # autopost: 3 posts/day (UTC). Edit to change the rhythm.
-    - cron: "30 6-21 * * *"       # telegram-sync: apply Publish/Skip taps hourly during the day
+    - cron: "*/15 * * * *"        # check -> autopost only when worth it
     - cron: "15 5 * * 1"          # refresh-tokens: weekly (Meta tokens live 60 days)
   workflow_dispatch:
     inputs:
       command:
-        description: "autopost or telegram-sync"
-        default: autopost
+        description: "check (decides), autopost (forces a post), telegram-sync, refresh-tokens"
+        default: check
         type: choice
-        options: [autopost, telegram-sync, refresh-tokens]
+        options: [check, autopost, telegram-sync, refresh-tokens]
       live:
         description: "REALLY publish this one run (ignores BAYESLY_LIVE; default: dry-run)"
         type: boolean
@@ -45,6 +49,8 @@ env:
   BAYESLY_PAUSED: ${{ vars.BAYESLY_PAUSED || '0' }}
   VIDEO_PLATFORMS: ${{ vars.VIDEO_PLATFORMS || 'instagram,x' }}   # set to 'none' to switch video off
   VIDEO_VOICE: ${{ vars.VIDEO_VOICE || '1' }}
+  MAX_POSTS_PER_DAY: ${{ vars.MAX_POSTS_PER_DAY || '8' }}
+  MIN_GAP_MINUTES: ${{ vars.MIN_GAP_MINUTES || '60' }}
   GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
   GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash' }}
   GEMINI_TIMEOUT_SECONDS: "90"
@@ -80,22 +86,26 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "name=${{ inputs.command }}" >> "$GITHUB_OUTPUT"
-          elif [ "${{ github.event.schedule }}" = "30 6-21 * * *" ]; then
-            echo "name=telegram-sync" >> "$GITHUB_OUTPUT"
           elif [ "${{ github.event.schedule }}" = "15 5 * * 1" ]; then
             echo "name=refresh-tokens" >> "$GITHUB_OUTPUT"
           else
-            echo "name=autopost" >> "$GITHUB_OUTPUT"
+            echo "name=check" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Install
+      - name: Install (light)
+        run: pip install -e . --quiet
+
+      - name: Check
+        id: check
+        if: steps.cmd.outputs.name == 'check'
+        run: python -m bayesly check $LIVE_FLAG
+
+      - name: Install (render + video)
+        if: steps.cmd.outputs.name == 'autopost' || steps.check.outputs.go == 'true'
         run: |
-          pip install -e .
-          if [ "${{ steps.cmd.outputs.name }}" = "autopost" ]; then
-            pip install -e ".[render]"
-            python -m playwright install --with-deps chromium
-            sudo apt-get install -y -qq ffmpeg > /dev/null
-          fi
+          pip install -e ".[render]" --quiet
+          python -m playwright install --with-deps chromium > /dev/null
+          sudo apt-get install -y -qq ffmpeg > /dev/null
 
       - name: Telegram sync
         if: steps.cmd.outputs.name == 'telegram-sync'
@@ -110,7 +120,7 @@ jobs:
           if [ -n "$LIVE_FLAG" ]; then python -m bayesly refresh-tokens --live --github-secrets; else echo "dry-run: skipping refresh"; fi
 
       - name: Autopost
-        if: steps.cmd.outputs.name == 'autopost'
+        if: steps.cmd.outputs.name == 'autopost' || steps.check.outputs.go == 'true'
         run: python -m bayesly autopost --draft ${{ inputs.draft || '3' }} $LIVE_FLAG
 
       - name: Save state

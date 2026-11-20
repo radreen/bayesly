@@ -5,6 +5,7 @@ Nothing here publishes anything. There is no publish step in Phase 0.
 
 from __future__ import annotations
 
+import json
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -96,7 +97,44 @@ def run_draft(
             result.failed.append(item_id)
             continue
         draft = parse_draft_json(raw)
+        if draft:
+            draft = shorten_if_needed(draft, generator, item.url)
         path = store.write(item, item_id, draft, raw, model=generator.model)
         log.info("draft written", extra={"item_id": item_id, "path": str(path), "parsed": draft is not None})
         result.written.append(path)
     return result
+
+
+# Platform limits the model sometimes overruns by a few characters (a held post costs us the
+# "be first" race). One cheap repair call shortens just the offending texts.
+TEXT_LIMITS = {"threads_post": 500, "x_post": 280, "instagram_caption": 2200}
+REPAIR_TARGET = {"threads_post": 470, "x_post": 265, "instagram_caption": 2000}
+
+
+def shorten_if_needed(draft: dict, generator, source_url: str) -> dict:
+    over = {k: draft[k] for k, lim in TEXT_LIMITS.items() if isinstance(draft.get(k), str) and len(draft[k]) > lim}
+    if not over:
+        return draft
+    rules = "\n".join(f"- {k}: at most {REPAIR_TARGET[k]} characters" for k in over)
+    prompt = (
+        "Shorten these social posts. Keep every fact, number and name exactly as written; do not add anything; "
+        "keep the opinion line and the question if present; cut filler words first.\n"
+        f"Limits:\n{rules}\n"
+        f"- threads_post must still end with the source link {source_url}\n"
+        "- x_post must contain no link and no domain name\n"
+        "Return ONLY a JSON object with the same keys.\n\n" + json.dumps(over, ensure_ascii=False)
+    )
+    try:
+        fixed = parse_draft_json(generator.generate(prompt)) or {}
+    except GeminiError as exc:
+        log.warning("shorten failed", extra={"error": str(exc)[:200]})
+        return draft
+    out = dict(draft)
+    for k in over:
+        v = fixed.get(k)
+        if isinstance(v, str) and v.strip() and len(v) <= TEXT_LIMITS[k] and (k != "threads_post" or source_url in v):
+            out[k] = v.strip()
+    if out != draft:
+        out["editor_notes"] = ((draft.get("editor_notes") or "") + " [auto-shortened: " + ", ".join(
+            k for k in over if out[k] != draft[k]) + "]").strip()
+    return out

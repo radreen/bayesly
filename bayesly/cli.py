@@ -51,6 +51,8 @@ def build_parser() -> argparse.ArgumentParser:
     rt.add_argument("--live", action="store_true", help="required: really calls the refresh endpoints")
     rt.add_argument("--github-secrets", action="store_true",
                     help="store the new tokens as GitHub Actions secrets via `gh secret set` (CI only)")
+    chk = sub.add_parser("check", help="cheap 15-min check: apply Telegram taps, decide whether to run autopost")
+    chk.add_argument("--live", action="store_true", help="also consume Telegram taps (changes state)")
     vid = sub.add_parser("video", help="render a vertical MP4 (1080x1920) for a draft")
     vid.add_argument("paths", nargs="+", help="draft .json files")
     vid.add_argument("--no-voice", action="store_true", help="silent video (no TTS calls)")
@@ -256,6 +258,25 @@ def main(argv: list[str] | None = None) -> int:
         return refresh_tokens(args)
     if args.command == "accounts":
         return show_accounts()
+    if args.command == "check":
+        import os
+        from bayesly.autopost import build_autoposter, is_paused
+        from bayesly.publish.base import load_publish_config
+        from bayesly.schedule import check
+        cfg = load_publish_config()
+        if args.live:   # approvals tapped in Telegram take effect within 15 min, not on the next post
+            for line in build_autoposter(settings, cfg, live=True).sync_telegram():
+                print(f"telegram: {line}")
+        if is_paused(settings, cfg):
+            go, why = False, "paused (kill switch)"
+        else:
+            go, why = check(settings)
+        print(f"{'GO' if go else 'skip'}: {why}")
+        out = os.getenv("GITHUB_OUTPUT")
+        if out:
+            with open(out, "a", encoding="utf-8") as fh:
+                fh.write(f"go={'true' if go else 'false'}\n")
+        return 0
     if args.command == "video":
         from bayesly.render import RenderError
         from bayesly.video import render_video
