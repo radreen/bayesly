@@ -103,6 +103,11 @@ def published_message(rec: dict, results: list) -> tuple[str, list[list[tuple[st
     text = f"{icon} <b>{title}</b>\n\n<b>{h(headline)}</b>\n{h(meta)}"
     for r in bad:
         text += f"\n\n❌ {PLATFORM_LABEL.get(r.platform, r.platform)}: {h(_short_error(r.error))}\n<i>retries on the next run</i>"
+    for r in ok:
+        if (r.detail or "").startswith("video failed"):
+            text += f"\n\nℹ️ {PLATFORM_LABEL.get(r.platform, r.platform)}: posted images, video failed ({h(_short_error(r.detail))})"
+    if any(r.detail == "video" for r in ok):
+        text += "\n🎬 " + ", ".join(PLATFORM_LABEL.get(r.platform, r.platform) for r in ok if r.detail == "video") + ": video"
     row = [(PLATFORM_LABEL.get(r.platform, r.platform), r.url) for r in ok if r.url]
     return text, ([row] if row else [])
 
