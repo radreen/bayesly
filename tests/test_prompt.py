@@ -10,7 +10,7 @@ def test_prompt_contains_source_text_voice_and_grounding_rules(make_item):
     assert "{weird braces}" in prompt  # braces in source text must not break formatting
     assert item.url in prompt
     assert "Use ONLY facts that appear in the SOURCE TEXT" in prompt
-    assert "No hype words" in prompt  # voice guide is embedded
+    assert "hype words" in prompt and "Hook first" in prompt  # voice guide is embedded
     assert "{voice}" not in prompt and "{source_text}" not in prompt
 
 

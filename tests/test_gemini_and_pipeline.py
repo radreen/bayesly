@@ -12,9 +12,9 @@ from bayesly.review import lint_draft
 
 GOOD_DRAFT = {
     "headline": "A model API was released.",
-    "threads_post": "A model API was released.\n\nConfidence: medium\n\nSource: https://example.com/post",
-    "x_post": "A model API was released. Source: Example Lab",
-    "instagram_caption": "A model API was released. Source: Example Lab — link in our Threads.",
+    "threads_post": "A model API was released.\n\nIt costs 30% less than the last one.\n\nWould you switch?",
+    "x_post": "A model API was released, 30% cheaper than the last one. Would you switch?",
+    "instagram_caption": "A model API was released.\n\nWould you switch?\n\n#ai #llm #api",
     "confidence": "medium",
     "confidence_reason": "vendor claim",
     "opinion_line": "Our take: wait for independent tests.",
@@ -137,3 +137,9 @@ def test_client_falls_back_to_next_model_when_busy(monkeypatch):
     assert c.generate("p") == "ok"
     assert c.model == "spare-model"
     assert [call[2]["json"]["model"] for call in session.calls] == ["busy-model", "busy-model", "spare-model"]
+
+
+def test_lint_flags_source_confidence_and_take_lines():
+    for line in ("Source: Example Lab", "Confidence: medium — vendor claim", "Our take: wait"):
+        warnings = " ".join(lint_draft(dict(GOOD_DRAFT, threads_post="A fact.\n\n" + line), "u"))
+        assert "not wanted" in warnings, line

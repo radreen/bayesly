@@ -21,7 +21,7 @@ def test_script_follows_the_carousel():
     rec["draft"]["question"] = "Worth switching for a 25% lower price?"
     segs = build_segments(build_card(rec), rec)
     kinds = [s.kind for s in segs]
-    assert kinds[0] == "hook" and kinds[-1] == "ask" and "fact" in kinds
+    assert kinds[0] == "hook" and kinds[-1] == "ask" and "fact" in kinds and "take" not in kinds
     assert segs[-1].text == "Worth switching for a 25% lower price?"
     assert segs[-1].voice.endswith("Tell us in the comments.")
     assert all(s.voice.strip() for s in segs)
@@ -54,7 +54,11 @@ def test_page_is_escaped_and_seekable():
     segs = build_segments(card, rec)
     total = plan_timing(segs)
     html = build_video_page(card, rec, segs, total)
-    assert "window.__seek" in html and 'class="photo"' in html
+    assert "window.__seek" in html and 'class="m photo"' in html
+    rec["page_shot"] = "C:/x/page.jpg"
+    html2 = build_video_page(card, rec, segs, total)
+    assert 'class="m shot"' in html2 and "data-scroll=" in html2
+    assert "Our take" not in html2 and "Source:" not in html2
     assert "<script>x</script>" not in html and "&lt;script&gt;" in html
     assert f"window.__TOTAL = {total:.3f}" in html
 

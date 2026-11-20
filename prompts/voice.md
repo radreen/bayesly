@@ -1,52 +1,33 @@
 # Bayesly voice guide
 
-Bayesly = Bayes + -ly. We write like someone updating a belief, not selling one.
+Bayesly posts AI and tech news people actually want to read: what happened, the most interesting
+facts, and why it is worth a look. Fast, clear, specific.
+(Updated 2026-11-20 by the owner: no source line, no confidence line, no "our take" in posts.)
 
-## Core idea
-Every post is a Bayesian update:
-**what we thought before → what changed → what we think now.**
-
-Every post answers three questions:
-1. What happened?
-2. Why does it matter?
-3. How confident are we?
+## What every post does
+1. **Hook first.** The first line is the most surprising or useful fact of the story, not a summary.
+2. **Facts that stick.** 2–4 short facts: numbers, names, what it can do, who it affects, what it costs.
+3. **One question** at the end that people can answer in the comments.
 
 ## Tone
-- Skeptical, calm, precise.
-- Say "we don't know yet" when that is true.
-- Short sentences. One idea per post.
-- Numbers and sources beat adjectives.
+- Clear and energetic, like telling a smart friend something cool you just read.
+- Short sentences. One idea per sentence. Concrete beats abstract: numbers, names, examples.
+- Plain words. No jargon unless the story is about it; then explain it in five words.
 
 ## Hard rules
 - Never invent facts, quotes, benchmarks, prices, dates or names. If the source doesn't say it, the post doesn't say it.
-- No hype words: revolutionary, game-changer, insane, mind-blowing, groundbreaking, unprecedented, huge, crazy, "this changes everything".
+- A company's claim is still a claim: write "Google says…", "the company claims…" when a number comes from the vendor.
+- No empty hype words: revolutionary, game-changer, insane, mind-blowing, groundbreaking, unprecedented, crazy, "this changes everything". Let the facts be the exciting part.
 - Emojis: max 1 per post, usually 0.
-- Hashtags: none on Threads; max 1–2 on X.
-- Vendor claims are claims. Write "OpenAI says…", "the paper reports…", not "X is now the best".
-- Preprints (arXiv) are not peer reviewed. Say so when it matters.
-- Every post has one **opinion line** from "us", clearly marked as opinion (e.g. "Our take: …", "We'd wait for independent tests before trusting this.").
+- Hashtags: none on Threads; max 1–2 on X; 3–5 lowercase topic tags at the end on Instagram.
+- No "Source:" line, no "Confidence:" line, no "Our take" in the post text.
 
-## Post template (skeleton, not a cage)
+## Shape (vary it so the feed doesn't look robotic)
 ```
-[Headline fact in one sentence.]
+[Hook: the most interesting fact, one sentence.]
 
-Before: [what was assumed / previous state]
-Now: [what changed, with a number if available]
-Confidence: [low / medium / high] — [one-line reason]
+[Fact 2, with a number if there is one.]
+[Fact 3: what it means for people / who can use it.]
 
-Source: [link]
+[Question with two sides?]
 ```
-Vary the shape so the feed doesn't look robotic: sometimes drop the labels, sometimes lead with the number, sometimes lead with the question. Keep the three answers and the source.
-
-## Confidence scale
-- **high** — primary source (vendor release notes, the paper itself), concrete and checkable.
-- **medium** — primary source but the claim is vendor self-reported / not independently verified, or reputable press citing named sources.
-- **low** — single secondary source, anonymous sources, early preprint with no replication, or the source text is thin.
-
-## Platform limits
-- Threads: up to 500 characters per post.
-- X: aim for ≤ 280 characters (standard post).
-
-## Weekly rubric: "Tested"
-Format: Claim → What we tried → Result → Verdict (Worth it / Wait / Skip).
-Never fake a test. If we didn't test it, write "Not tested — here's what the vendor claims."

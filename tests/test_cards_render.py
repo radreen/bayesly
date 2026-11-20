@@ -7,8 +7,8 @@ from pathlib import Path
 import pytest
 
 from bayesly.cards import build_card, number_in_source
-from bayesly.render import (RenderError, build_page, build_slides, find_cover_image, plan_slides,
-                            slide_take)
+from bayesly.render import (RenderError, build_page, build_slides, find_cover_image, key_facts, plan_slides,
+                            slide_ask)
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sample_draft.json"
 
@@ -18,15 +18,27 @@ def record():
     return json.loads(FIXTURE.read_text(encoding="utf-8"))
 
 
-def test_full_card_gives_cover_facts_take(record):
+def test_full_card_gives_cover_facts_ask(record):
     card = build_card(record)
     assert card.warnings == []
-    assert plan_slides(card) == ["cover", "facts", "take"]
+    assert plan_slides(card, record) == ["cover", "facts", "ask"]
     slides = build_slides(card, record)
     assert len(slides) == 3
     assert '<span class="key">7B open-weights</span>' in slides[0]
-    assert "What changed" in slides[1] and "The number" in slides[1]
+    assert "Key facts" in slides[1]
     assert "Your call" in slides[2] and "3 / 3" in slides[2]
+
+
+def test_no_source_confidence_or_take_on_slides(record):
+    html = "".join(build_slides(build_card(record), record))
+    assert "Source:" not in html and "confidence" not in html.lower() and "Our take" not in html
+
+
+def test_model_facts_are_used_first(record):
+    record["draft"]["facts"] = ["Runs on a single GPU", "Costs $0 to try", "Open weights"]
+    card = build_card(record)
+    assert key_facts(card, record) == ["Runs on a single GPU", "Costs $0 to try", "Open weights"]
+    assert "Runs on a single GPU" in build_slides(card, record)[1]
 
 
 def test_cover_uses_photo_when_available_and_credits_it(record):
@@ -39,12 +51,6 @@ def test_cover_uses_photo_when_available_and_credits_it(record):
     assert 'data-layout="text"' in build_slides(card, record)[0]
 
 
-def test_confidence_chip_is_on_every_cover(record):
-    for level in ("low", "medium", "high"):
-        record["draft"]["confidence"] = level
-        assert f"conf-{level}" in build_slides(build_card(record), record)[0]
-
-
 def test_number_must_be_in_source(record):
     assert number_in_source("2x", "matches a model that is 2× larger")
     assert not number_in_source("2x", "Llama 2 is a model")      # a bare "2" is not "2x"
@@ -52,7 +58,7 @@ def test_number_must_be_in_source(record):
     record["draft"]["card"]["number"]["value"] = "3x"
     card = build_card(record)
     assert card.number is None
-    assert "The number" not in build_slides(card, record)[1]
+    assert "3x" not in build_slides(card, record)[1]
     assert any("not found in the source" in w for w in card.warnings)
 
 
@@ -72,22 +78,19 @@ def test_html_is_escaped(record):
     assert "<b>bold" not in slides[-1]
 
 
-def test_missing_card_still_gives_cover_and_take(record):
+def test_missing_card_still_gives_cover_and_ask(record):
     del record["draft"]["card"]
     card = build_card(record)
-    assert plan_slides(card) == ["cover", "take"]
+    assert plan_slides(card, record)[0] == "cover" and plan_slides(card, record)[-1] == "ask"
     assert "Your call" in build_slides(card, record)[-1]
 
 
-def test_take_uses_model_question_or_a_default_and_strips_prefix(record):
+def test_ask_uses_model_question_or_a_default(record):
     card = build_card(record)
     record["draft"]["question"] = "Worth switching for a 25% lower price?"
-    assert "Worth switching" in slide_take(card, record, 3, 3)
+    assert "Worth switching" in slide_ask(card, record, 3, 3)
     record["draft"]["question"] = ""
-    card.opinion = "Our take: wait for tests."
-    html = slide_take(card, record, 3, 3)
-    assert "Would you trust" in html or "noise" in html or "convince" in html
-    assert "Our take: wait" not in html and "wait for tests." in html
+    assert "?" in slide_ask(card, record, 3, 3)
 
 
 def test_long_fields_are_trimmed_with_warning(record):

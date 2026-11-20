@@ -64,10 +64,9 @@ def test_overlong_texts_are_shortened_once_and_kept_honest():
     assert "instagram_caption" not in gen.prompts[0].split("\n\n")[-1]
 
 
-def test_repair_that_drops_the_link_or_is_still_long_is_ignored():
-    url = "https://example.com/a"
-    draft = {"threads_post": "x" * 540 + " " + url, "x_post": "y" * 290}
-    out = shorten_if_needed(draft, Gen(json.dumps({"threads_post": "no link", "x_post": "z" * 300})), url)
+def test_repair_that_is_still_too_long_is_ignored():
+    draft = {"threads_post": "x" * 540, "x_post": "y" * 290}
+    out = shorten_if_needed(draft, Gen(json.dumps({"threads_post": "t" * 600, "x_post": "z" * 300})), "u")
     assert out["threads_post"] == draft["threads_post"] and out["x_post"] == draft["x_post"]
 
 

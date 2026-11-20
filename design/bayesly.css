@@ -285,3 +285,13 @@ body[data-palette="blue"] .unknown .take-block .kicker { color: #8c8fff; }
 .s-ask .q { font-weight: 800; font-size: 56px; line-height: 1.05; letter-spacing: -0.03em; }
 .s-ask .cta { margin-top: 22px; font: 700 24px var(--mono); text-transform: uppercase; opacity: .8; }
 .s-take .s-foot { color: var(--white); }
+
+/* ---- owner update 2026-11-20: no chip / source; facts without labels; question slide ---- */
+.s-cover .s-head { top: 840px; font-size: 88px; }
+.s-textcover .s-head { top: 260px; font-size: 128px; }
+.s-list .v { font-weight: 700; }
+.s-take > .s-kicker { position: absolute; left: var(--pad); top: 210px; }
+.s-question { position: absolute; left: var(--pad); right: var(--pad); top: 270px; font-weight: 800; font-size: 112px; line-height: .98; letter-spacing: -0.045em; }
+.s-ask { height: 300px; display: flex; flex-direction: column; justify-content: center; gap: 22px; }
+.s-ask .pill.fill { align-self: flex-start; font-size: 28px; padding: 16px 30px; }
+.s-take .s-ask { justify-content: flex-start; padding-top: 52px; }

@@ -1,6 +1,6 @@
 """Vertical video (1080x1920 MP4) from a draft: the same story as the carousel, told in ~20-35 s.
 
-Scenes: hook (source photo + headline + confidence chip) -> facts one by one -> our take -> question.
+Scenes: hook headline over the source photo -> key facts over the source article scrolling -> question.
 Each scene lasts as long as its voice line (Gemini TTS); without a voice the timing comes from
 text length and the video is silent (all text is on screen anyway: most people watch muted).
 
@@ -26,9 +26,8 @@ from typing import Any
 from bayesly import net
 from bayesly.cards import Card, build_card
 from bayesly.config import ROOT, Settings
-from bayesly.render import (CONF_LABEL, DEFAULT_QUESTION, FONTS_URL, SOURCE_LABEL, RenderError, _facts,
-                            _headline_html, _launch, _opinion, domain, e, find_cover_image, photo_allowed,
-                            source_label)
+from bayesly.render import (FONTS_URL, RenderError, _headline_html, _launch, domain, e, find_cover_image,
+                            key_facts, photo_allowed, question_for)
 
 log = logging.getLogger(__name__)
 
@@ -51,7 +50,7 @@ TTS_BACKOFF = 20.0    # seconds x attempt, on 429/503
 
 @dataclass
 class Segment:
-    kind: str           # hook | fact | take | ask
+    kind: str           # hook | fact | ask
     voice: str          # what is said
     label: str = ""     # fact label
     text: str = ""      # fact text
@@ -62,18 +61,67 @@ class Segment:
 
 # -- script ---------------------------------------------------------------------------------
 def build_segments(card: Card, record: dict[str, Any]) -> list[Segment]:
-    draft = record.get("draft") or {}
-    segs = [Segment("hook", card.headline.rstrip(".") + ".")]
-    spoken = {"Before": "Before", "Now": "Now", "The number": "The number", "Catch": "The catch",
-              "Still unknown": "Still unknown"}
-    for label, text in _facts(card):
-        segs.append(Segment("fact", f"{spoken.get(label, label)}: {text.rstrip('.')}.", label=label, text=text))
-    opinion = _opinion(card) or card.confidence_reason
-    if opinion:
-        segs.append(Segment("take", f"Our take: {opinion}"))
-    question = (draft.get("question") or "").strip() or DEFAULT_QUESTION.get(card.confidence, DEFAULT_QUESTION["medium"])
+    """Hook headline -> 3-4 key facts -> question. No source, no confidence, no opinion (owner, 2026-11-20)."""
+    segs = [Segment("hook", card.headline.rstrip(".") + ".", text=card.headline)]
+    for fact in key_facts(card, record):
+        segs.append(Segment("fact", fact.rstrip(".") + ".", text=fact))
+    question = question_for(card, record)
     segs.append(Segment("ask", f"{question} Tell us in the comments.", text=question))
     return segs
+
+
+# -- live footage: the source article itself, scrolling ----------------------------------------
+HIDE_OVERLAYS = """
+[id*="cookie" i], [class*="cookie" i], [id*="consent" i], [class*="consent" i], [class*="newsletter" i],
+[class*="paywall" i], [id*="onetrust" i], [class*="modal" i], [class*="popup" i], [aria-modal="true"],
+header[class*="sticky" i], [class*="sticky" i][class*="header" i] { display: none !important; }
+html, body { overflow: visible !important; }
+"""
+
+
+def capture_article(url: str, out: Path, *, max_css_height: int = 2600, timeout_ms: int = 25000) -> Path | None:
+    """Phone-sized screenshot of the source page (1080 px wide), used as scrolling footage in the video.
+    Best effort: any failure returns None and the video uses the cover photo instead."""
+    from playwright.sync_api import sync_playwright
+
+    try:
+        with sync_playwright() as p:
+            browser = _launch(p)
+            try:
+                page = browser.new_page(viewport={"width": 540, "height": 960}, device_scale_factor=2,
+                                        user_agent=("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) "
+                                                    "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"))
+                page.goto(url, timeout=timeout_ms, wait_until="domcontentloaded")
+                page.add_style_tag(content=HIDE_OVERLAYS)
+                for y in range(0, max_css_height, 400):          # wake lazy images
+                    page.evaluate(f"window.scrollTo(0, {y})")
+                    page.wait_for_timeout(120)
+                page.evaluate("window.scrollTo(0, 0)")
+                page.wait_for_timeout(600)
+                try:
+                    page.wait_for_load_state("load", timeout=10000)
+                except Exception:  # noqa: BLE001 - slow ads/trackers: measure what we have
+                    pass
+                height = 0
+                for _ in range(4):                               # pages grow while they hydrate
+                    height = int(page.evaluate("document.documentElement.scrollHeight"))
+                    if height >= 1200:
+                        break
+                    page.wait_for_timeout(1000)
+                height = min(height, max_css_height)
+                if height < 1200:
+                    log.info("article capture skipped", extra={"url": url, "error": f"page only {height}px"})
+                    return None                                  # too short to be an article
+                # (Playwright refuses full_page + clip together: grow the viewport instead)
+                page.set_viewport_size({"width": 540, "height": height})
+                page.wait_for_timeout(400)
+                page.screenshot(path=str(out), type="jpeg", quality=82)
+            finally:
+                browser.close()
+        return out
+    except Exception as exc:  # noqa: BLE001 - footage is a bonus, never a blocker
+        log.info("article capture skipped", extra={"url": url, "error": str(exc)[:200]})
+        return None
 
 
 # -- voice ----------------------------------------------------------------------------------
@@ -207,53 +255,49 @@ def mix_audio(segs: list[Segment], total: float) -> bytes:
 
 # -- page -----------------------------------------------------------------------------------
 def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], total: float) -> str:
+    """Competitor-style Reel: big text on top, live footage in the middle, bottom kept free for the
+    platform's caption. Footage: hook -> source photo (slow zoom); facts -> the source article scrolling
+    (or the photo if we could not capture the page); end -> question card."""
     design = (ROOT / "design").as_uri()
-    hook = segs[0]
+    hook, ask = segs[0], segs[-1]
     facts = [s for s in segs if s.kind == "fact"]
-    take = next((s for s in segs if s.kind == "take"), None)
-    ask = segs[-1]
     src = record["source"]
-    photo = record.get("cover_image")
+    photo, shot = record.get("cover_image"), record.get("page_shot")
     end = lambda s: s.start + s.dur  # noqa: E731
-    chip = (f'<div class="chip conf-{e(card.confidence)}" data-in="0.15" data-rise><b>●</b> '
-            f'{e(CONF_LABEL.get(card.confidence, ""))} · {e(SOURCE_LABEL.get(source_label(record), "Source"))}</div>')
-    pic = (f'<img class="photo" src="{e(photo)}" alt="" data-dur="{end(hook):.2f}">'
-           f'<div class="credit">Image: {e(src.get("name") or domain(src["url"]))}</div>' if photo
-           else '<div class="nophoto"></div>')
-    scenes = [f"""
-<section class="scene hook" data-in="0" data-out="{end(hook):.2f}">
-  {pic}<div class="fade"></div>{chip}
-  <h1 class="pad" data-in="0.1" data-rise data-fit="470">{_headline_html(card)}</h1>
-  <div class="v-source">Source: {e(domain(src["url"]))}</div>
-</section>"""]
-    if facts:
-        items = "".join(
-            f'<li data-in="{f.start:.2f}" data-rise{f" data-dim={facts[i + 1].start:.2f}" if i + 1 < len(facts) else ""}>'
-            f'<span class="n">{i + 1}</span><div><p class="k">{e(f.label)}</p><p class="t">{e(f.text)}</p></div></li>'
-            for i, f in enumerate(facts))
-        scenes.append(f"""
-<section class="scene facts" data-in="{facts[0].start:.2f}" data-out="{end(facts[-1]):.2f}">
-  <h2 class="pad">What changed</h2><ol class="pad" data-fit="1080">{items}</ol>
-</section>""")
-    if take:
-        scenes.append(f"""
-<section class="scene take" data-in="{take.start:.2f}" data-out="{end(take):.2f}">
-  <p class="kick pad">Our take — opinion</p>
-  <blockquote class="pad" data-in="{take.start + 0.1:.2f}" data-rise data-fit="1080">{e(_opinion(card) or card.confidence_reason)}</blockquote>
-</section>""")
-    scenes.append(f"""
-<section class="scene ask" data-in="{ask.start:.2f}">
-  <p class="kick pad">Your call</p>
-  <h2 class="pad" data-in="{ask.start + 0.1:.2f}" data-rise data-fit="620">{e(ask.text)}</h2>
-  <div class="cta pad" data-in="{ask.start + 0.8:.2f}" data-rise><span>Tell us in the comments ↓</span><span class="pill">Follow @bayesly.ai</span></div>
-</section>""")
+    credit = e(src.get("name") or domain(src["url"]))
+    facts_start = facts[0].start if facts else end(hook)
+    facts_end = end(facts[-1]) if facts else end(hook)
+
+    media = []
+    if photo:
+        media.append(f'<img class="m photo" src="{e(photo)}" alt="" data-in="0" data-out="{(facts_start if shot else facts_end):.2f}" '
+                     f'data-zoom="0,{(facts_start if shot else facts_end):.2f}">')
+    if shot:
+        media.append(f'<img class="m shot" src="{Path(shot).as_uri()}" alt="" data-in="{(facts_start if photo else 0):.2f}" '
+                     f'data-out="{facts_end:.2f}" data-scroll="{(facts_start if photo else 0):.2f},{facts_end:.2f}">')
+    if not media:
+        media.append(f'<div class="m nophoto" data-in="0" data-out="{facts_end:.2f}"></div>')
+
+    lines = [f'<div class="line" data-in="0.05" data-out="{end(hook):.2f}" data-rise>'
+             f'<h1 class="hookline" data-fit="560">{_headline_html(card)}</h1></div>']
+    for i, f in enumerate(facts, start=1):
+        lines.append(f'<div class="line fact" data-in="{f.start:.2f}" data-out="{end(f):.2f}" data-rise>'
+                     f'<span class="n">{i}</span><p data-fit="520">{e(f.text)}</p></div>')
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Bayesly video</title>
 <link rel="stylesheet" href="{FONTS_URL}"><link rel="stylesheet" href="{design}/bayesly.css"><link rel="stylesheet" href="{design}/video.css">
 </head><body>
 <div class="v">
   <div class="v-progress"></div>
   <div class="v-brand"><div class="wordmark">bayesly<i></i></div><span class="handle">@bayesly.ai</span></div>
-  {"".join(scenes)}
+  <section class="story" data-in="0" data-out="{facts_end:.2f}">
+    <div class="media">{"".join(media)}<div class="credit">{credit}</div></div>
+    {"".join(lines)}
+  </section>
+  <section class="ask" data-in="{ask.start:.2f}">
+    <p class="kick">Your call</p>
+    <h2 data-in="{ask.start + 0.1:.2f}" data-rise data-fit="700">{e(ask.text)}</h2>
+    <div class="cta" data-in="{ask.start + 0.8:.2f}" data-rise><span>Tell us in the comments ↓</span><span class="pill">Follow @bayesly.ai</span></div>
+  </section>
 </div>
 <script>
 window.__TOTAL = {total:.3f};
@@ -262,13 +306,19 @@ window.__seek = function (t) {{
   function c(x) {{ return Math.min(1, Math.max(0, x)); }}
   document.querySelectorAll("[data-in]").forEach(function (el) {{
     var a = +el.dataset.in, b = el.dataset.out ? +el.dataset.out : 1e9;
-    var i = c((t - a) / F), o = c((b - t) / F), op = i * o;
-    if (el.dataset.dim && t >= +el.dataset.dim) op *= 0.4;
-    el.style.opacity = op;
-    if (el.hasAttribute("data-rise")) {{ var k = 1 - Math.pow(1 - i, 3); el.style.transform = "translateY(" + ((1 - k) * 60) + "px)"; }}
+    var i = c((t - a) / F), o = c((b - t) / F);
+    el.style.opacity = i * o;
+    if (el.hasAttribute("data-rise")) {{ var k = 1 - Math.pow(1 - i, 3); el.style.transform = "translateY(" + ((1 - k) * 50) + "px)"; }}
   }});
-  var ph = document.querySelector(".photo");
-  if (ph) ph.style.transform = "scale(" + (1 + 0.10 * c(t / +ph.dataset.dur)) + ")";
+  document.querySelectorAll("[data-zoom]").forEach(function (el) {{
+    var r = el.dataset.zoom.split(",").map(Number);
+    el.style.transform = "scale(" + (1.02 + 0.12 * c((t - r[0]) / (r[1] - r[0]))) + ")";
+  }});
+  document.querySelectorAll("[data-scroll]").forEach(function (el) {{
+    var r = el.dataset.scroll.split(",").map(Number), box = el.parentNode.clientHeight;
+    var travel = Math.max(0, Math.min(el.naturalHeight * (1080 / el.naturalWidth) - box, 90 * (r[1] - r[0])));
+    el.style.transform = "translateY(" + (-travel * c((t - r[0]) / (r[1] - r[0]))) + "px)";
+  }});
   document.querySelector(".v-progress").style.width = (100 * c(t / window.__TOTAL)) + "%";
 }};
 </script>
@@ -337,6 +387,9 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
         src = record["source"]
         record["cover_image"] = find_cover_image(src["url"]) if photo_allowed(src.get("id", "")) else None
     segs = build_segments(card, record)
+    shot_path = json_path.with_suffix(".page.jpg")
+    shot = capture_article(record["source"]["url"], shot_path) or capture_article(record["source"]["url"], shot_path)
+    record["page_shot"] = str(shot) if shot else None
     warnings: list[str] = []
     if voice and settings.gemini_api_key:
         try:

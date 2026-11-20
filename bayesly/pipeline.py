@@ -108,7 +108,7 @@ def run_draft(
 # Platform limits the model sometimes overruns by a few characters (a held post costs us the
 # "be first" race). One cheap repair call shortens just the offending texts.
 TEXT_LIMITS = {"threads_post": 500, "x_post": 280, "instagram_caption": 2200}
-REPAIR_TARGET = {"threads_post": 470, "x_post": 265, "instagram_caption": 2000}
+REPAIR_TARGET = {"threads_post": 440, "x_post": 260, "instagram_caption": 2000}
 
 
 def shorten_if_needed(draft: dict, generator, source_url: str) -> dict:
@@ -118,10 +118,9 @@ def shorten_if_needed(draft: dict, generator, source_url: str) -> dict:
     rules = "\n".join(f"- {k}: at most {REPAIR_TARGET[k]} characters" for k in over)
     prompt = (
         "Shorten these social posts. Keep every fact, number and name exactly as written; do not add anything; "
-        "keep the opinion line and the question if present; cut filler words first.\n"
+        "keep the hook line and the question; cut filler words first.\n"
         f"Limits:\n{rules}\n"
-        f"- threads_post must still end with the source link {source_url}\n"
-        "- x_post must contain no link and no domain name\n"
+        "- no links and no domain names anywhere\n"
         "Return ONLY a JSON object with the same keys.\n\n" + json.dumps(over, ensure_ascii=False)
     )
     try:
@@ -132,7 +131,7 @@ def shorten_if_needed(draft: dict, generator, source_url: str) -> dict:
     out = dict(draft)
     for k in over:
         v = fixed.get(k)
-        if isinstance(v, str) and v.strip() and len(v) <= TEXT_LIMITS[k] and (k != "threads_post" or source_url in v):
+        if isinstance(v, str) and v.strip() and len(v) <= TEXT_LIMITS[k]:
             out[k] = v.strip()
     if out != draft:
         out["editor_notes"] = ((draft.get("editor_notes") or "") + " [auto-shortened: " + ", ".join(
