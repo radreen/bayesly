@@ -1,0 +1,80 @@
+{
+  "id": "6da8ea47d40e788a",
+  "status": "published",
+  "created_at": "2026-11-20T23:15:05+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.techmeme.com/261120/p33#a261120p33",
+    "title": "TML releases Inkling 2 Mini, an open-weights 26.4B-parameter transformer that loops middle layers three times per token for better reasoning with fewer tokens (Thinking Machines Lab)",
+    "published": "2026-11-20T21:15:02+00:00",
+    "text": "Thinking Machines Lab : TML releases Inkling 2 Mini, an open-weights 26.4B-parameter transformer that loops middle layers three times per token for better reasoning with fewer tokens — Today we are releasing Inkling 2 Mini, a fast, powerful model that's small enough to run on your laptop."
+  },
+  "score": 1.01,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.8,
+    "novelty": 1.0,
+    "news_signal_bonus": 0.1,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Thinking Machines Lab released Inkling 2 Mini, an open-weights 26.4B-parameter model that loops middle layers three times per token.",
+    "threads_post": "Inkling 2 Mini loops its middle layers three times per token to boost reasoning with fewer tokens.\n\nThinking Machines Lab released the open-weights 26.4B-parameter transformer today. The lab claims the model is fast, powerful, and small enough to run on a laptop.\n\nWould you run a 26.4B model locally, or stick to cloud APIs?",
+    "x_post": "Inkling 2 Mini loops its middle layers 3x per token for better reasoning with fewer tokens.\n\nThinking Machines Lab released the open-weights 26.4B model, claiming it can run on a laptop.\n\nWould you run a 26.4B model locally or use cloud APIs?",
+    "instagram_caption": "Inkling 2 Mini loops its middle layers three times per token for better reasoning with fewer tokens.\n\nThinking Machines Lab released the open-weights 26.4B-parameter transformer model. By looping middle layers during execution, it aims to achieve higher reasoning performance with fewer overall tokens.\n\nThe company claims the model is fast, powerful, and small enough to run directly on a laptop.\n\nWould you run a 26.4B model locally, or stick to cloud APIs?\n\n#ai #llm #opensource #tech",
+    "question": "Would you run a 26.4B model locally, or stick to cloud APIs?",
+    "facts": [
+      "Inkling 2 Mini is an open-weights 26.4B-parameter transformer.",
+      "It loops middle layers three times per token for better reasoning with fewer tokens.",
+      "Thinking Machines Lab says it is small enough to run on a laptop."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source provides exact model size, architectural detail, and release claim.",
+    "facts_used": [
+      "Thinking Machines Lab released Inkling 2 Mini.",
+      "Inkling 2 Mini is an open-weights 26.4B-parameter transformer.",
+      "It loops middle layers three times per token for better reasoning with fewer tokens.",
+      "Thinking Machines Lab claims it is fast, powerful, and small enough to run on your laptop."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Verify hardware requirements for running 26.4B parameters locally if TML posts benchmarks later.",
+    "card": {
+      "category": "Models",
+      "headline": "Inkling 2 Mini loops middle layers 3x",
+      "highlight": "loops middle layers 3x",
+      "number": {
+        "value": "26.4B",
+        "caption": "Parameters in Thinking Machines Lab's open-weights model",
+        "footnote": "Thinking Machines Lab"
+      }
+    }
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 74 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "text",
+  "page_shot": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b.x.mp4",
+  "video_seconds": 23.7,
+  "video_voice": true,
+  "video_warnings": []
+}

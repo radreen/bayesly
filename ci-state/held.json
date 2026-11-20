@@ -19,5 +19,23 @@
     ],
     "held_at": "2026-11-20T01:00:33+00:00",
     "message_id": 16
+  },
+  "5259c7996b79c471": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/5259c7996b79c471-introducing-amazon-sagemaker-hyperpod-global-infer.json",
+    "reasons": [
+      "image: Some text was too long to fit a slide even after shrinking. Shorten it."
+    ],
+    "held_at": "2026-11-20T23:16:28+00:00",
+    "message_id": 25
+  },
+  "668baa710142dd51": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/668baa710142dd51-introducing-managed-cluster-extensions-for-observa.json",
+    "reasons": [
+      "image: Some text was too long to fit a slide even after shrinking. Shorten it."
+    ],
+    "held_at": "2026-11-20T23:16:29+00:00",
+    "message_id": 26
   }
 }

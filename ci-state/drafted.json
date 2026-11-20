@@ -34,5 +34,17 @@
   "c554d88a231d4448": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/c554d88a231d4448-with-the-biggest-ipo-of-all-time-anthropic-s-good.json",
     "drafted_at": "2026-11-20T16:00:32+00:00"
+  },
+  "5259c7996b79c471": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/5259c7996b79c471-introducing-amazon-sagemaker-hyperpod-global-infer.json",
+    "drafted_at": "2026-11-20T23:14:34+00:00"
+  },
+  "668baa710142dd51": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/668baa710142dd51-introducing-managed-cluster-extensions-for-observa.json",
+    "drafted_at": "2026-11-20T23:14:46+00:00"
+  },
+  "6da8ea47d40e788a": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b.json",
+    "drafted_at": "2026-11-20T23:15:05+00:00"
   }
 }
