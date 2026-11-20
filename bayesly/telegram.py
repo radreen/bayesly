@@ -51,17 +51,37 @@ class Telegram:
         return data.get("result")
 
     # -- sending ---------------------------------------------------------------
-    def send(self, text: str, buttons: list[list[tuple[str, str]]] | None = None) -> int | None:
-        payload: dict[str, Any] = {"chat_id": self.chat_id, "text": text[:MAX_TEXT], "disable_web_page_preview": True}
-        if buttons:
-            payload["reply_markup"] = {"inline_keyboard": [[{"text": t, "callback_data": d} for t, d in row] for row in buttons]}
+    @staticmethod
+    def _markup(buttons: list[list[tuple[str, str]]] | None) -> dict | None:
+        """Rows of (label, value); a value starting with http(s) becomes a link button."""
+        if not buttons:
+            return None
+        return {"inline_keyboard": [[
+            {"text": t, "url": v} if v.startswith(("http://", "https://")) else {"text": t, "callback_data": v}
+            for t, v in row] for row in buttons]}
+
+    def send(self, text: str, buttons: list[list[tuple[str, str]]] | None = None, html: bool = False) -> int | None:
+        payload: dict[str, Any] = {"chat_id": self.chat_id, "text": text[:MAX_TEXT],
+                                   "link_preview_options": {"is_disabled": True}}
+        if html:
+            payload["parse_mode"] = "HTML"
+        markup = self._markup(buttons)
+        if markup:
+            payload["reply_markup"] = markup
         result = self._call("sendMessage", json=payload)
         return (result or {}).get("message_id")
 
-    def send_photo(self, path: Path, caption: str = "") -> None:
+    def send_photo(self, path: Path, caption: str = "", buttons: list[list[tuple[str, str]]] | None = None,
+                   html: bool = False) -> int | None:
+        data: dict[str, Any] = {"chat_id": self.chat_id, "caption": caption[:MAX_CAPTION]}
+        if html:
+            data["parse_mode"] = "HTML"
+        markup = self._markup(buttons)
+        if markup:
+            data["reply_markup"] = json.dumps(markup)
         with path.open("rb") as fh:
-            self._call("sendPhoto", data={"chat_id": self.chat_id, "caption": caption[:MAX_CAPTION]},
-                       files={"photo": (path.name, fh, "image/jpeg")})
+            result = self._call("sendPhoto", data=data, files={"photo": (path.name, fh, "image/jpeg")})
+        return (result or {}).get("message_id")
 
     def answer(self, callback_id: str, text: str) -> None:
         self._call("answerCallbackQuery", json={"callback_query_id": callback_id, "text": text[:190]})
@@ -69,6 +89,20 @@ class Telegram:
     def clear_buttons(self, message_id: int) -> None:
         self._call("editMessageReplyMarkup", json={"chat_id": self.chat_id, "message_id": message_id,
                                                    "reply_markup": {"inline_keyboard": []}})
+
+    def edit_caption(self, message_id: int, caption: str, buttons: list[list[tuple[str, str]]] | None = None) -> None:
+        """Replace a held post's caption after the owner decides (falls back to text edit for text messages)."""
+        payload: dict[str, Any] = {"chat_id": self.chat_id, "message_id": message_id, "parse_mode": "HTML",
+                                   "reply_markup": self._markup(buttons) or {"inline_keyboard": []}}
+        try:
+            self._call("editMessageCaption", json={**payload, "caption": caption[:MAX_CAPTION]})
+        except TelegramError:
+            self._call("editMessageText", json={**payload, "text": caption[:MAX_TEXT]})
+
+    def set_commands(self, commands: list[tuple[str, str]], description: str = "") -> None:
+        self._call("setMyCommands", json={"commands": [{"command": c, "description": d} for c, d in commands]})
+        if description:
+            self._call("setMyShortDescription", json={"short_description": description[:120]})
 
     # -- receiving -------------------------------------------------------------
     def updates(self, offset: int) -> list[dict]:

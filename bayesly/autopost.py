@@ -21,6 +21,7 @@ from typing import Callable
 
 from bayesly.config import Settings
 from bayesly.publish.base import Ledger, PublishConfig, PublishPost, PublishResult, Publisher
+from bayesly import notify
 from bayesly.telegram import OffsetStore, Telegram, TelegramError
 
 log = logging.getLogger(__name__)
@@ -173,28 +174,42 @@ class Autoposter:
                 self.held.set(draft_id, status=status, decided_at=_now())
                 msg_id = (cq.get("message") or {}).get("message_id")
                 if msg_id:
-                    self.telegram.clear_buttons(msg_id)
+                    rec = self._record(held[draft_id].get("path"))
+                    if rec:
+                        self.telegram.edit_caption(msg_id, notify.decided_caption(rec, status == "approved"))
+                    else:
+                        self.telegram.clear_buttons(msg_id)
             self.telegram.answer(cq["id"], "Will publish on the next run" if status == "approved" else "Skipped")
             return [f"{draft_id}: {status}"]
         text = ((upd.get("message") or {}).get("text") or "").strip().lower()
         if text.startswith("/pause"):
             if self.live:
                 set_paused(self.settings, True, "via Telegram")
-            self.telegram.send("Paused. Nothing will be published until /resume.")
+            self.telegram.send("⏸ <b>Paused</b>\nNothing will be published until /resume.", html=True)
             return ["paused via Telegram"]
         if text.startswith("/resume"):
             if self.live:
                 set_paused(self.settings, False)
-            self.telegram.send("Resumed.")
+            self.telegram.send("▶️ <b>Resumed</b>", html=True)
             return ["resumed via Telegram"]
         if text.startswith("/status"):
             held = self.held.load()
             pending = sum(1 for h in held.values() if h.get("status") == "pending")
             paused = is_paused(self.settings, self.cfg)
-            self.telegram.send(f"Paused: {'yes' if paused else 'no'}\nHeld, waiting for you: {pending}\n"
-                               f"Platforms: {', '.join(self.cfg.platforms)}")
+            today = _now()[:10]
+            posted_today = sum(1 for e in self.ledger._load().values()
+                               if any(v.get("ok") and (v.get("at") or "").startswith(today) for v in e.values()))
+            self.telegram.send(notify.status_message(paused, pending, posted_today, self.cfg.platforms,
+                                                     "every scheduled run"), html=True)
             return ["status sent"]
         return []
+
+    @staticmethod
+    def _record(path: str | None) -> dict | None:
+        try:
+            return json.loads(Path(path).read_text(encoding="utf-8")) if path else None
+        except (OSError, ValueError):
+            return None
 
     # Queue ------------------------------------------------------------------
     def _records(self) -> list[tuple[Path, dict]]:
@@ -252,12 +267,23 @@ class Autoposter:
                 continue
             report.published.append((rec["id"], self.publish_record(path, rec)))
             published += 1
-        if self.live and self.telegram.enabled and (report.published or report.errors):
-            try:
-                self.telegram.send("Bayesly run\n" + "\n".join(report.lines()))
-            except TelegramError as exc:
-                log.warning("telegram summary failed", extra={"error": str(exc)})
+        if self.live and self.telegram.enabled:
+            self._notify(report)
         return report
+
+    def _notify(self, report: RunReport) -> None:
+        """One clean message per published post, one for bot problems; silence otherwise."""
+        try:
+            for draft_id, results in report.published:
+                path = next((p for p, r in self._records() if r.get("id") == draft_id), None)
+                rec = self._record(str(path)) if path else None
+                msg = notify.published_message(rec or {"id": draft_id}, results)
+                if msg:
+                    self.telegram.send(msg[0], buttons=msg[1], html=True)
+            if report.errors:
+                self.telegram.send(notify.error_message(report.errors), html=True)
+        except TelegramError as exc:
+            log.warning("telegram notify failed", extra={"error": str(exc)})
 
     def _ensure_images(self, path: Path, rec: dict, report: RunReport) -> None:
         jpgs = rec.get("images_jpg") or []
@@ -278,17 +304,13 @@ class Autoposter:
         _set_status(path, "held")
         if not self.telegram.enabled:
             return
-        draft = rec.get("draft") or {}
-        src = rec.get("source") or {}
-        text = (f"HELD for review: {draft.get('headline') or src.get('title')}\n\n"
-                f"Why held:\n- " + "\n- ".join(reasons[:8]) +
-                f"\n\nThreads:\n{draft.get('threads_post', '')}\n\nX:\n{draft.get('x_post', '')}\n\n"
-                f"Instagram:\n{draft.get('instagram_caption', '')}\n\nSource: {src.get('url', '')}")
+        caption, buttons = notify.held_message(rec, reasons)
         try:
             jpgs = [Path(p) for p in rec.get("images_jpg") or [] if Path(p).exists()]
-            if jpgs:
-                self.telegram.send_photo(jpgs[0], caption=draft.get("headline", ""))
-            msg_id = self.telegram.send(text, buttons=[[("Publish", f"pub:{rec['id']}"), ("Skip", f"skip:{rec['id']}")]])
+            if jpgs:   # one message: cover + decision + folded text + buttons
+                msg_id = self.telegram.send_photo(jpgs[0], caption=caption, buttons=buttons, html=True)
+            else:
+                msg_id = self.telegram.send(caption, buttons=buttons, html=True)
             self.held.set(rec["id"], message_id=msg_id)
         except TelegramError as exc:
             report.errors.append(f"telegram hold {rec['id']}: {exc}")

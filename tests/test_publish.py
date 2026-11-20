@@ -179,12 +179,13 @@ class SpyTelegram:
     def __init__(self):
         self.sent = []
 
-    def send(self, text, buttons=None):
+    def send(self, text, buttons=None, html=False):
         self.sent.append((text, buttons))
         return 1
 
-    def send_photo(self, path, caption=""):
-        pass
+    def send_photo(self, path, caption="", buttons=None, html=False):
+        self.sent.append((caption, buttons))
+        return 2
 
     def updates(self, offset):
         return []
@@ -246,7 +247,8 @@ def test_held_post_goes_to_telegram_with_buttons_not_to_platforms(env):
     poster, pubs, tg = make(settings)
     report = poster.run(1)
     assert report.held and not pubs["threads"].posts
-    assert tg.sent[0][1] == [[("Publish", "pub:abc"), ("Skip", "skip:abc")]]
+    assert tg.sent[0][1][0] == [("✅ Publish", "pub:abc"), ("✖️ Skip", "skip:abc")]
+    assert len(tg.sent) == 1          # one message per held post
     # owner taps Publish -> next run publishes it despite the gate
     poster.held.set("abc", status="approved")
     poster.run(1)
@@ -344,3 +346,34 @@ def test_threads_waits_before_publish_and_retries_media_not_found():
     assert r.ok and r.post_id == "post1"
     assert 30 in slept          # docs: ~30 s between container and publish
     assert len([c for c in s.calls if c[1].endswith("/threads_publish")]) == 2
+
+
+# -- telegram message format ----------------------------------------------------------------
+def test_held_message_is_short_with_buttons_and_folded_text():
+    from bayesly.notify import held_message, visible_len
+    rec = good_record()
+    rec["draft"]["threads_post"] = "x" * 2000
+    rec["draft"]["card"] = {"category": "Models"}
+    text, buttons = held_message(rec, ["lint: Threads post is 591 chars (> 500).", "confidence is 'low'"])
+    assert visible_len(text) <= 1024
+    assert "Threads text too long (591/500)" in text and "low confidence" in text
+    assert "<blockquote expandable>" in text
+    assert buttons[0] == [("✅ Publish", "pub:abc"), ("✖️ Skip", "skip:abc")]
+    assert buttons[1][0][1].startswith("https://")
+
+
+def test_published_message_links_and_failures():
+    from bayesly.notify import published_message
+    rec = good_record()
+    results = [PublishResult("threads", ok=True, url="https://threads.com/p/1"),
+               PublishResult("x", ok=False, error='HTTP 400: {"error":{"message":"Bad media"}}')]
+    text, buttons = published_message(rec, results)
+    assert "Partly published" in text and "X: Bad media" in text
+    assert buttons == [[("Threads", "https://threads.com/p/1")]]
+    assert published_message(rec, [PublishResult("x", ok=True, dry_run=True)]) is None
+
+
+def test_telegram_url_buttons_are_links():
+    from bayesly.telegram import Telegram
+    m = Telegram._markup([[("Go", "https://a.b"), ("Ok", "pub:1")]])
+    assert m == {"inline_keyboard": [[{"text": "Go", "url": "https://a.b"}, {"text": "Ok", "callback_data": "pub:1"}]]}

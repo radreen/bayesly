@@ -51,6 +51,7 @@ def build_parser() -> argparse.ArgumentParser:
     rt.add_argument("--live", action="store_true", help="required: really calls the refresh endpoints")
     rt.add_argument("--github-secrets", action="store_true",
                     help="store the new tokens as GitHub Actions secrets via `gh secret set` (CI only)")
+    sub.add_parser("telegram-setup", help="set the bot's command menu and short description (one-off)")
     sub.add_parser("accounts", help="read-only: show which Threads/Instagram accounts the tokens in .env belong to")
     sub.add_parser("pause", help="kill switch: stop all publishing (creates state/PAUSED)")
     sub.add_parser("resume", help="remove the kill switch")
@@ -251,6 +252,19 @@ def main(argv: list[str] | None = None) -> int:
         return refresh_tokens(args)
     if args.command == "accounts":
         return show_accounts()
+    if args.command == "telegram-setup":
+        from bayesly import notify
+        from bayesly.publish.base import load_publish_config
+        from bayesly.telegram import Telegram, TelegramError
+        cfg = load_publish_config()
+        try:
+            Telegram(cfg.telegram_token, cfg.telegram_chat_id).set_commands(
+                notify.COMMANDS, "Bayesly control: approve held posts, pause and resume publishing.")
+        except TelegramError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
+        print("telegram: command menu set (/status, /pause, /resume)")
+        return 0
     if args.command in {"autopost", "telegram-sync", "pause", "resume", "status"}:
         return run_publishing(args, settings)
 
