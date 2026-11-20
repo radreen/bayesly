@@ -49,8 +49,8 @@ def lint_draft(draft: dict[str, Any], source_url: str) -> list[str]:
         warnings.append("Threads post contains a hashtag (rule: none on Threads).")
     if len(_HASHTAG_RE.findall(x_post)) > 2:
         warnings.append("X post has more than 2 hashtags.")
-    if len(_HASHTAG_RE.findall(insta)) > 3:
-        warnings.append("Instagram caption has more than 3 hashtags.")
+    if len(_HASHTAG_RE.findall(insta)) > 5:
+        warnings.append("Instagram caption has more than 5 hashtags.")
     for name, text in (("Threads", threads), ("X", x_post), ("Instagram", insta)):
         lowered = text.lower()
         for word in HYPE_WORDS:

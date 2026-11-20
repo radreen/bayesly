@@ -233,92 +233,55 @@ sup.fn { font: 700 .22em var(--mono); vertical-align: top; margin-left: .04em; p
 body[data-palette="blue"] .unknown .take-block .kicker { color: #8c8fff; }
 
 /* =====================================================================================
-   VARIATION LAYER — one brand, many layouts (chosen per post by bayesly/render.py Style)
+   SIMPLE POSTS (docs/competitor-analysis.md): photo + headline + confidence chip,
+   numbered facts, our take + a question. Classes prefixed s- ; built by bayesly/render.py.
    ===================================================================================== */
+.s-cover, .s-text { background: var(--ink); color: var(--white); }
+.s-take { background: var(--accent); color: var(--ink); }
 
-/* ---- cover: curve (position of the arrow is set inline from the curve) ---- */
-.cover .arrow { left: auto; top: auto; }
+/* cover: photo on top */
+.s-img { position: absolute; left: 0; top: 0; width: 1080px; height: 800px; object-fit: cover; object-position: center; display: block; }
+.s-fade { position: absolute; left: 0; right: 0; top: 540px; height: 262px; background: linear-gradient(rgba(13,13,14,0), var(--ink)); }
+.s-top { position: absolute; left: var(--pad); right: var(--pad); top: 56px; display: flex; justify-content: space-between; align-items: center; z-index: 5; color: var(--white); }
+.s-cover .s-top .wordmark { background: var(--ink); padding: 10px 18px; border-radius: 12px; height: auto; }
+.s-cover .s-top .wordmark svg { height: 40px; }
+.s-cover .s-top .pill { background: var(--ink); border-color: var(--ink); }
+.s-credit { position: absolute; right: 28px; top: 760px; z-index: 6; font: 500 15px var(--mono); letter-spacing: .04em; opacity: .65; text-transform: uppercase; }
+.s-chip { position: absolute; left: var(--pad); top: 770px; z-index: 6; display: inline-flex; gap: 12px; align-items: center; padding: 14px 24px; border-radius: 999px;
+  font: 700 23px var(--mono); text-transform: uppercase; letter-spacing: .04em; background: var(--accent); color: var(--ink); white-space: nowrap; }
+.s-chip.conf-high { background: var(--white); }
+.s-chip.conf-low { background: #ff6b5a; }
+.s-head { position: absolute; left: var(--pad); right: var(--pad); top: 862px; z-index: 5; font-weight: 800; font-size: 80px; line-height: 1.0; letter-spacing: -0.035em; }
+.s-head .key { color: var(--accent); }
+.s-foot { position: absolute; left: var(--pad); right: var(--pad); bottom: 52px; display: flex; justify-content: space-between; font: 700 22px var(--mono);
+  text-transform: uppercase; letter-spacing: .04em; opacity: .75; z-index: 5; }
 
-/* ---- cover: split (lime top, ink bottom with a "before -> now" shift) ---- */
-.split .panel { position: absolute; left: 0; right: 0; top: 900px; bottom: 0; background: var(--ink); z-index: 1; }
-.split .art { z-index: 2; }
-.split .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
-.split .lede { margin-top: 30px; }
-.split .lede .serif { font-size: 52px; }
-.split .shift path { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-.split .shift path:first-child { stroke-dasharray: 2 12; }
-.split .ruler, .split .bottom { color: var(--white); }
-.split .ruler .dot { background: var(--accent); --ruler-bg: var(--ink); }
+/* cover without a usable photo: the headline is the picture */
+.s-textcover .s-mark { position: absolute; right: -120px; bottom: -40px; width: 760px; height: 760px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(198,255,46,.22) 2.6px, transparent 3px); background-size: 22px 22px; }
+.s-textcover .s-kicker { position: absolute; left: var(--pad); top: 200px; color: var(--accent); }
+.s-textcover .s-head { top: 300px; font-size: 120px; line-height: .98; letter-spacing: -0.045em; }
+.s-textcover .s-chip { top: auto; bottom: 150px; }
 
-/* ---- cover: editorial (paper, giant outlined category, framed figure) ---- */
-.editorial .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
-.editorial .content .kicker { margin-bottom: 26px; opacity: .6; }
-.editorial .lede { margin-top: 30px; }
-.editorial .lede .serif { font-size: 50px; }
-.editorial .ghost { position: absolute; left: 50px; bottom: 150px; font-weight: 900; font-size: 300px; line-height: .8; letter-spacing: -0.07em;
-  color: transparent; -webkit-text-stroke: 3px rgba(13,13,14,.16); white-space: nowrap; z-index: 1; }
-.editorial .fig { position: absolute; right: var(--pad); bottom: 200px; width: 420px; border: 3px solid var(--ink); background: var(--paper); padding: 18px 18px 14px; }
-.editorial .fig svg { width: 100%; height: auto; display: block; overflow: visible; }
-.editorial .fig figcaption { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font: 700 15px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-.editorial .fig .dots span { width: 24px; height: 12px; }
+/* shared */
+.s-kicker { font: 700 22px var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.s-brand { position: absolute; left: var(--pad); top: 60px; display: flex; align-items: center; gap: 18px; font: 700 22px var(--mono); opacity: .85; }
+.s-brand .wordmark svg { height: 38px; }
 
-/* ---- cover: stamp (confidence seal + data cloud) ---- */
-.stamp .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
-.stamp .lede { margin-top: 36px; }
-.stamp .lede .serif { font-size: 52px; color: var(--accent); }
-.stamp .cloud .f { fill: var(--accent); opacity: .75; }
-.stamp .cloud .o { fill: none; stroke: var(--white); stroke-width: 2; opacity: .45; }
-.stamp .seal { position: absolute; top: 790px; width: 330px; height: 330px; color: var(--white); transform: rotate(-11deg); z-index: 4; }
-.stamp .seal .badge { width: 100%; height: 100%; }
-.stamp .seal .badge text { font-size: 13px; }
-.stamp .seal .disc { width: 200px; height: 200px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center;
-  font-weight: 900; font-size: 74px; letter-spacing: -0.05em; }
+/* facts */
+.s-h3 { position: absolute; left: var(--pad); top: 170px; font-weight: 800; font-size: 84px; letter-spacing: -0.04em; }
+.s-list { position: absolute; left: var(--pad); right: var(--pad); top: 320px; list-style: none; display: grid; gap: 54px; }
+.s-list li { display: grid; grid-template-columns: 84px 1fr; gap: 24px; align-items: start; }
+.s-list .n { width: 70px; height: 70px; border-radius: 50%; background: var(--accent); color: var(--ink); display: grid; place-items: center; font: 800 34px "Inter Tight"; }
+.s-list .k { font: 700 22px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin-bottom: 8px; }
+.s-list .v { font-weight: 600; font-size: 56px; line-height: 1.1; letter-spacing: -0.02em; }
+.s-note { position: absolute; left: var(--pad); right: var(--pad); bottom: 120px; font: 500 20px var(--mono); opacity: .6; }
 
-/* ---- cover: figure (the number is the cover) ---- */
-.figure .content { position: absolute; left: var(--pad); right: var(--pad); top: 196px; }
-.figure h2 { max-width: 900px; margin-bottom: 30px; }
-.figure .bigwrap { position: relative; }
-.figure .big { position: absolute; left: -18px; top: 0; font-weight: 900; line-height: .8; letter-spacing: -0.08em; }
-.figure .big.echo { left: 2px; top: 18px; color: transparent; -webkit-text-stroke: 3px var(--on-accent); opacity: .5; }
-.figure .big sup.fn { font-size: .13em; top: .15em; }
-.figure .cap { max-width: 880px; margin-top: 18px; }
-.figure .footnote { position: absolute; left: var(--pad); right: var(--pad); top: 1100px; color: var(--white); opacity: .7; font: 500 19px var(--mono); z-index: 4; }
-.figure .ruler, .figure .bottom { color: var(--white); }
-.figure .ruler .dot { background: var(--accent); --ruler-bg: var(--ink); }
-
-/* ---- update, variant b: ink ---- */
-.post.ink.update .before p { color: rgba(245,245,240,.45); text-decoration-color: rgba(245,245,240,.6); }
-.post.ink.update .delta .stem { background: var(--white); }
-.post.ink.update .delta .stem::after { border-color: var(--white); }
-.post.ink.update .now { background: var(--accent); color: var(--on-accent); }
-.post.ink.update .now .halftone { background-image: radial-gradient(circle, var(--ink) 2.4px, transparent 2.8px); }
-.post.ink.update .now .pill.fill { background: var(--ink); color: var(--accent); border-color: var(--ink); }
-.post.ink.update .vlabel { color: var(--white); }
-
-/* ---- number, variant b: paper (ink shape at the bottom stays) ---- */
-.post.paper.number .big.echo { -webkit-text-stroke-color: var(--ink); opacity: .35; }
-.post.paper.number .big { color: var(--ink); }
-.post.number .ruler .dot { background: var(--accent); --ruler-bg: var(--ink); }
-
-/* ---- confidence, variant b: paper ---- */
-.post.paper.confidence .gauge .off { stroke: rgba(13,13,14,.12); }
-.post.paper.confidence .gauge .tick { stroke: var(--ink); }
-.post.paper.confidence .gauge .needle { stroke: var(--ink); }
-.post.paper.confidence .gauge .hub { fill: var(--ink); }
-.post.paper.confidence .gauge text { fill: var(--ink); }
-.post.paper.confidence .readout .v { color: var(--ink); background: var(--accent); display: inline-block; padding: 0 .08em; }
-.post.paper.confidence .sign { background: var(--ink); color: var(--white); }
-.post.paper.confidence .row.against .bar { border-color: var(--ink); }
-
-/* ---- closing, variant b: lime ---- */
-.post.acc.unknown h2 .serif { color: var(--ink); }
-.post.acc.unknown .q .kicker, .post.acc.unknown .take-block .kicker { color: var(--ink); opacity: .7; }
-.post.acc.unknown .q li { border-top-color: rgba(13,13,14,.3); }
-.post.acc.unknown .q li::before { border-color: var(--ink); }
-.post.acc.unknown .flat line { stroke: var(--ink); }
-.post.acc.unknown .flat text { fill: var(--ink) !important; }
-.post.acc.unknown .uniform rect { stroke: var(--ink); }
-.post.acc.unknown .uniform rect[fill="var(--accent)"] { fill: var(--ink); }
-
-/* highlight on lime covers: lime-on-lime is invisible, so invert it */
-.split .hl, .figure .hl { background: var(--ink); color: var(--accent); }
+/* take + question */
+.s-take > .s-kicker { position: absolute; left: var(--pad); top: 190px; }
+.s-quote { position: absolute; left: var(--pad); right: var(--pad); top: 250px; font-family: var(--serif); font-style: italic; font-size: 96px; line-height: 1.0; }
+.s-ask { position: absolute; left: 0; right: 0; bottom: 0; height: 420px; background: var(--ink); color: var(--white); padding: 60px var(--pad); }
+.s-ask .s-kicker { color: var(--accent); margin-bottom: 16px; }
+.s-ask .q { font-weight: 800; font-size: 56px; line-height: 1.05; letter-spacing: -0.03em; }
+.s-ask .cta { margin-top: 22px; font: 700 24px var(--mono); text-transform: uppercase; opacity: .8; }
+.s-take .s-foot { color: var(--white); }

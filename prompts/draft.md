@@ -18,11 +18,12 @@ Each platform gets its own wording (not the same text three times), with the sam
 - If the source text is too thin to write an honest post (e.g. only a title), set "insufficient_source" to true, set confidence to "low", and keep the posts minimal and explicit about what we don't know.
 - List every factual claim you used in "facts_used", each as a short quote or close paraphrase from the source text.
 - The opinion line is the only place for our view, and it must be clearly marked as opinion.
-- Never include hashtags in the Threads post. At most 2 hashtags in the X post (zero is fine). At most 3 in the Instagram caption.
-- Threads post ≤ 500 characters INCLUDING the link (aim for 400; the link alone is ~{url_len} characters) and must end with the source link: {url}
+- Never include hashtags in the Threads post. At most 2 hashtags in the X post (zero is fine). 3 to 5 lowercase topic hashtags at the very end of the Instagram caption (e.g. #ai #openai #llm).
+- Threads post ≤ 500 characters INCLUDING the link (aim for 400; the link alone is ~{url_len} characters) and must end with the source link: {url}. Put the question (see "question") on the line just before the link.
 - X post ≤ 260 characters and must contain NO link and NO domain name (no "http", no "example.com"): links cost us money on X.
   Name the source in words at the end instead, e.g. "Source: {source_name}".
-- Instagram caption ≤ 900 characters, no link (links are not clickable there). End with "Source: {source_name} — link in our Threads."
+- Instagram caption ≤ 900 characters, no link (links are not clickable there). Order of the ending: the question, then "Source: {source_name} — link in our Threads.", then the hashtags.
+- "question": ONE short question (max 90 characters) that invites a real opinion and has two sides. It must follow from what is uncertain or contested in this story (trust, cost, who wins, would you use it). Not a yes-man question ("Isn't this amazing?"), no "let us know in the comments". Examples of the style: "Would you trust this number before independent tests?", "Worth switching for a 25% lower price?"
 
 ## SOURCE ITEM
 Source name: {source_name}
@@ -47,6 +48,7 @@ Return ONLY a JSON object, no markdown fences, with exactly these keys:
   "opinion_line": "the sentence that is our opinion, copied from the posts",
   "facts_used": ["...", "..."],
   "insufficient_source": false,
+  "question": "the comment question, max 90 characters",
   "editor_notes": "anything the human editor should double-check",
   "card": {{
     "category": "one of: Models, Research, Tools, Infra, Chips, Policy, Safety, Business, Other",

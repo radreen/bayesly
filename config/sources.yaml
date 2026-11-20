@@ -41,6 +41,7 @@ sources:
     kind: official_blog
     reliability: 0.85
     max_items: 3          # developer how-tos: real but rarely what the audience talks about
+    cover_image: false    # og:image is a text banner, not a photo
 
   - id: nvidia-dev-blog
     name: NVIDIA Technical Blog

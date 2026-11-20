@@ -7,8 +7,8 @@ from pathlib import Path
 import pytest
 
 from bayesly.cards import build_card, number_in_source
-from bayesly.render import (COVERS, INNER_BG, COVER_BG, RenderError, Style, build_page, build_slides,
-                            choose_style, plan_slides)
+from bayesly.render import (RenderError, build_page, build_slides, find_cover_image, plan_slides,
+                            slide_take)
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sample_draft.json"
 
@@ -18,14 +18,31 @@ def record():
     return json.loads(FIXTURE.read_text(encoding="utf-8"))
 
 
-def test_full_card_gives_five_slides(record):
+def test_full_card_gives_cover_facts_take(record):
     card = build_card(record)
     assert card.warnings == []
-    assert plan_slides(card) == ["cover", "update", "number", "confidence", "closing"]
-    slides = build_slides(card, record, Style(cover="curve"))
-    assert len(slides) == 5
-    assert '<span class="hl">7B open-weights</span>' in slides[0]
-    assert "05 · What&#x27;s next" in slides[4]
+    assert plan_slides(card) == ["cover", "facts", "take"]
+    slides = build_slides(card, record)
+    assert len(slides) == 3
+    assert '<span class="key">7B open-weights</span>' in slides[0]
+    assert "What changed" in slides[1] and "The number" in slides[1]
+    assert "Your call" in slides[2] and "3 / 3" in slides[2]
+
+
+def test_cover_uses_photo_when_available_and_credits_it(record):
+    card = build_card(record)
+    record["cover_image"] = "https://example.com/photo.jpg"
+    cover = build_slides(card, record)[0]
+    assert 'data-layout="photo"' in cover and 'src="https://example.com/photo.jpg"' in cover
+    assert "Image: " in cover
+    record["cover_image"] = None
+    assert 'data-layout="text"' in build_slides(card, record)[0]
+
+
+def test_confidence_chip_is_on_every_cover(record):
+    for level in ("low", "medium", "high"):
+        record["draft"]["confidence"] = level
+        assert f"conf-{level}" in build_slides(build_card(record), record)[0]
 
 
 def test_number_must_be_in_source(record):
@@ -35,7 +52,7 @@ def test_number_must_be_in_source(record):
     record["draft"]["card"]["number"]["value"] = "3x"
     card = build_card(record)
     assert card.number is None
-    assert "number" not in plan_slides(card)
+    assert "The number" not in build_slides(card, record)[1]
     assert any("not found in the source" in w for w in card.warnings)
 
 
@@ -43,25 +60,34 @@ def test_bad_highlight_is_dropped(record):
     record["draft"]["card"]["highlight"] = "not in headline"
     card = build_card(record)
     assert card.highlight is None
-    assert 'class="hl"' not in build_slides(card, record)[0]
+    assert 'class="key"' not in build_slides(card, record)[0]
 
 
 def test_html_is_escaped(record):
     record["draft"]["card"]["headline"] = 'A <script>alert(1)</script> & "quotes"'
     record["draft"]["card"]["highlight"] = None
-    html = build_slides(build_card(record), record)[0]
-    assert "<script>" not in html
-    assert "&lt;script&gt;" in html and "&amp;" in html
+    record["draft"]["question"] = "<b>bold?</b>"
+    slides = build_slides(build_card(record), record)
+    assert "<script>" not in slides[0] and "&lt;script&gt;" in slides[0] and "&amp;" in slides[0]
+    assert "<b>bold" not in slides[-1]
 
 
-def test_missing_card_falls_back_to_cover_and_confidence(record):
+def test_missing_card_still_gives_cover_and_take(record):
     del record["draft"]["card"]
     card = build_card(record)
-    kinds = plan_slides(card)
-    assert kinds[0] == "cover" and "confidence" in kinds and "update" not in kinds
-    # Opinion still gets a slide when there is no number slide.
-    assert kinds[-1] == "closing"
-    assert "Our take" in build_slides(card, record)[-1]
+    assert plan_slides(card) == ["cover", "take"]
+    assert "Your call" in build_slides(card, record)[-1]
+
+
+def test_take_uses_model_question_or_a_default_and_strips_prefix(record):
+    card = build_card(record)
+    record["draft"]["question"] = "Worth switching for a 25% lower price?"
+    assert "Worth switching" in slide_take(card, record, 3, 3)
+    record["draft"]["question"] = ""
+    card.opinion = "Our take: wait for tests."
+    html = slide_take(card, record, 3, 3)
+    assert "Would you trust" in html or "noise" in html or "convince" in html
+    assert "Our take: wait" not in html and "wait for tests." in html
 
 
 def test_long_fields_are_trimmed_with_warning(record):
@@ -71,10 +97,22 @@ def test_long_fields_are_trimmed_with_warning(record):
     assert any("card.now trimmed" in w for w in card.warnings)
 
 
-def test_high_confidence_closing_title(record):
-    record["draft"]["confidence"] = "high"
-    slides = build_slides(build_card(record), record)
-    assert "watch." in slides[-1] and "know <span" not in slides[-1]
+def test_og_image_is_found_and_only_https():
+    class R:
+        def __init__(self, text):
+            self.status_code, self.text = 200, text
+
+    class S:
+        def __init__(self, text):
+            self.text = text
+
+        def request(self, *a, **k):
+            return R(self.text)
+
+    html = '<meta property="og:image" content="https://cdn.example.com/a.jpg?x=1&amp;y=2">'
+    assert find_cover_image("https://e.com", session=S(html)) == "https://cdn.example.com/a.jpg?x=1&y=2"
+    assert find_cover_image("https://e.com", session=S('<meta property="og:image" content="http://x/a.jpg">')) is None
+    assert find_cover_image("https://e.com", session=S("<html></html>")) is None
 
 
 def test_page_links_design_assets_and_rejects_bad_palette(record):
@@ -93,50 +131,3 @@ def test_record_without_draft_cannot_render(tmp_path, record):
     path.write_text(json.dumps(record), encoding="utf-8")
     with pytest.raises(RenderError, match="no parsed draft"):
         render_record(path)
-
-
-# ---------------------------------------------------------------- variation (one brand, many layouts)
-def test_style_is_stable_for_a_post(record):
-    card = build_card(record)
-    assert choose_style(card, record) == choose_style(card, record)
-
-
-def test_cover_avoids_the_two_previous_layouts(record):
-    card = build_card(record)
-    for i in range(30):
-        rec = {**record, "id": f"post{i}"}
-        st = choose_style(card, rec, ["curve", "figure"])
-        assert st.cover not in {"curve", "figure"}
-
-
-def test_figure_cover_needs_a_number_and_replaces_the_number_slide(record):
-    card = build_card(record)
-    assert plan_slides(card, "figure").count("number") == 0
-    record["draft"]["card"]["number"] = None
-    no_num = build_card(record)
-    for i in range(30):
-        assert choose_style(no_num, {**record, "id": f"p{i}"}).cover != "figure"
-
-
-def test_layouts_and_backgrounds_vary_across_posts(record):
-    card = build_card(record)
-    covers, recent = [], []
-    for i in range(12):
-        st = choose_style(card, {**record, "id": f"feed{i}"}, recent)
-        recent.insert(0, st.cover)
-        covers.append(st.cover)
-        # neighbouring slides never share a background
-        kinds = plan_slides(card, st.cover)
-        bgs = [COVER_BG[st.cover]] + [INNER_BG[k][st.variants[k] == "b"] for k in kinds[1:]]
-        assert all(a != b for a, b in zip(bgs, bgs[1:])), (st, bgs)
-    assert all(a != b for a, b in zip(covers, covers[1:]))       # no cover repeats back to back
-    assert len(set(covers)) >= 4
-
-
-@pytest.mark.parametrize("cover", COVERS)
-def test_every_cover_layout_renders_escaped_headline(record, cover):
-    record["draft"]["card"]["headline"] = 'A <b>bold</b> & "quoted" launch'
-    record["draft"]["card"]["highlight"] = None
-    card = build_card(record)
-    html = build_slides(card, record, choose_style(card, {**record, "layout": cover}))[0]
-    assert f'data-layout="{cover}"' in html and "<b>bold" not in html and "&lt;b&gt;bold" in html

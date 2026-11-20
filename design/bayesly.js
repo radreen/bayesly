@@ -114,7 +114,11 @@
       ? Promise.all(faces.map(function (f) { return document.fonts.load(f).catch(function () {}); }))
           .then(function () { return document.fonts.ready; })
       : Promise.resolve();
-    fonts.then(function () {
+    // Wait for cover photos too; a photo that fails to load is hidden so the text cover look stays clean.
+    var imgs = Array.prototype.slice.call(document.images).map(function (img) {
+      return (img.decode ? img.decode() : Promise.resolve()).catch(function () { img.style.display = "none"; });
+    });
+    Promise.all([fonts].concat(imgs)).then(function () {
       fitText();
       document.body.dataset.ready = "1";
     });

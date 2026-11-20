@@ -14,6 +14,7 @@ class Source:
     kind: str
     reliability: float
     max_items: int = 10
+    cover_image: bool = True   # use the article's og:image as the cover photo
 
 
 @dataclass
