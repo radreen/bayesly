@@ -1,0 +1,79 @@
+{
+  "id": "c554d88a231d4448",
+  "status": "pending_review",
+  "created_at": "2026-11-20T16:00:32+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "verge-ai",
+    "name": "The Verge AI",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://www.theverge.com/ai-artificial-intelligence/1037459/anthropic-ipo-safe-ai-reputation-power-structure",
+    "title": "With the biggest IPO of all time, Anthropic’s ‘good guy’ reputation is on the line",
+    "published": "2026-11-19T14:25:37+00:00",
+    "text": "Today is a new beginning for Anthropic: a years-in-the-making IPO that beat out SpaceX for most valuable of all time, having raised $81.3 billion and set an important precedent for the other public AI lab debuts to come. But it's not simply a financial milestone. Anthropic was founded on the idea that it prioritized safety more than other labs; its founders had left executive research positions at OpenAI. As the AI race has accelerated, though, its executives have emphasized that Anthropic can only fulfill this mission by coming in first place, requiring lots of money and compute. Unsurprisingly, thoughtful, safe, and intentional AI develop … Read the full story at The Verge."
+  },
+  "score": 0.8875,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.4,
+    "novelty": 0.99,
+    "names_bonus": 0.12,
+    "stakes_bonus": 0.08
+  },
+  "draft": {
+    "headline": "Anthropic raised $81.3 billion in an IPO, beating SpaceX for the largest public debut of all time.",
+    "threads_post": "Anthropic raised $81.3 billion in IPO beating SpaceX for largest of all time. Founded by former OpenAI research execs to prioritize AI safety, leadership says safety requires winning race first.\n\nConfidence: medium — press report.\n\nOur take: Staying committed to safety gets harder under public market pressure.\n\nCan public AI lab prioritize safety while racing for first place?\nhttps://www.theverge.com/ai-artificial-intelligence/1037459/anthropic-ipo-safe-ai-reputation-power-structure",
+    "x_post": "Anthropic raised $81.3B in an IPO beating SpaceX for largest of all time. Executives say safety requires coming in first place.\n\nOur take: Staying committed to safety gets harder under public market pressure.\n\nConfidence: medium\n\nSource: The Verge AI",
+    "instagram_caption": "Anthropic raised $81.3 billion in a public offering that beat SpaceX for the largest IPO of all time.\n\nBefore: Founded by former OpenAI research executives to prioritize AI safety over rival labs.\nNow: Executives argue fulfilling that safety mission requires coming in first place, demanding massive capital and compute.\n\nConfidence: medium — press report based on IPO details.\n\nOur take: Staying committed to safety gets harder under public market pressure.\n\nCan a public AI lab prioritize safety while racing for first place?\n\nSource: The Verge AI — link in our Threads.\n\n#ai #anthropic #ipo #tech #aisafety",
+    "confidence": "medium",
+    "confidence_reason": "Press report citing IPO raising $81.3B and exec statements",
+    "opinion_line": "Our take: Staying committed to safety gets harder under public market pressure.",
+    "facts_used": [
+      "Anthropic raised $81.3 billion in an IPO",
+      "Beat out SpaceX for most valuable IPO of all time",
+      "Founders left executive research positions at OpenAI",
+      "Founded on the idea that it prioritized safety more than other labs",
+      "Executives emphasized Anthropic can only fulfill this mission by coming in first place"
+    ],
+    "insufficient_source": false,
+    "question": "Can a public AI lab prioritize safety while racing for first place?",
+    "editor_notes": "Source text is an excerpt from The Verge. IPO details ($81.3B, beating SpaceX) are cited from press coverage; full audited filing details were not attached to the excerpt. [auto-shortened: threads_post]",
+    "card": {
+      "category": "Business",
+      "headline": "Anthropic completes record $81.3 billion IPO",
+      "highlight": "record $81.3 billion IPO",
+      "before": "Founded to prioritize AI safety over rival labs",
+      "now": "Executives claim safety requires coming in first place",
+      "number": null,
+      "evidence_for": [
+        "Raised $81.3 billion in IPO",
+        "Beat SpaceX for largest IPO of all time"
+      ],
+      "evidence_against": [
+        "Safety mission requires winning race first",
+        "Public markets increase quarterly pressure"
+      ],
+      "open_questions": [
+        "Can safety stay primary after going public?",
+        "How will public capital alter research focus?"
+      ]
+    }
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/STK202_DARIO_AMODEI_CVIRGINIA_D.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/c554d88a231d4448-with-the-biggest-ipo-of-all-time-anthropic-s-good-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/c554d88a231d4448-with-the-biggest-ipo-of-all-time-anthropic-s-good-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/c554d88a231d4448-with-the-biggest-ipo-of-all-time-anthropic-s-good-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/c554d88a231d4448-with-the-biggest-ipo-of-all-time-anthropic-s-good-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/c554d88a231d4448-with-the-biggest-ipo-of-all-time-anthropic-s-good-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/c554d88a231d4448-with-the-biggest-ipo-of-all-time-anthropic-s-good-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

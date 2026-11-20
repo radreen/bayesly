@@ -1,0 +1,82 @@
+{
+  "id": "46ef023d2eb28089",
+  "status": "pending_review",
+  "created_at": "2026-11-20T15:58:29+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.techmeme.com/261120/p17#a261120p17",
+    "title": "Anthropic mathematician Levent Alpöge says he used Claude to prove the 167-year-old Riemann hypothesis and posts the proof in the Lean programming language (Joseph Howlett/Scientific American)",
+    "published": "2026-11-20T15:20:00+00:00",
+    "text": "Joseph Howlett / Scientific American : Anthropic mathematician Levent Alpöge says he used Claude to prove the 167-year-old Riemann hypothesis and posts the proof in the Lean programming language — An AI-generated solution of the 167-year-old problem, long considered far out of reach to human mathematicians …"
+  },
+  "score": 0.97,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Anthropic mathematician Levent Alpöge says he used Claude to prove the 167-year-old Riemann hypothesis.",
+    "threads_post": "Anthropic mathematician Levent Alpöge used Claude to prove the 167-year-old Riemann hypothesis, posting proof in Lean.\n\nBefore: 167-year-old problem out of reach.\nNow: AI-assisted proof in Lean.\nConfidence: Medium — Vendor employee claim reported by Scientific American.\n\nOur take: We'd wait for independent math reviews before trusting this.\n\nWould you trust a Lean proof before mathematicians independently review it?\nhttps://www.techmeme.com/261120/p17#a261120p17",
+    "x_post": "Anthropic mathematician Levent Alpöge says he used Claude to prove the 167-year-old Riemann hypothesis, posting the proof in Lean.\n\nConfidence: Medium — employee claim.\n\nOur take: We'd wait for independent math reviews before trusting this.\n\nSource: Techmeme",
+    "instagram_caption": "Anthropic mathematician Levent Alpöge says he used Claude to prove the 167-year-old Riemann hypothesis and posted the proof in the Lean programming language.\n\nScientific American reports the proof covers a problem long considered out of reach for human mathematicians.\n\nBefore: 167-year-old unsolved math problem.\nNow: AI-assisted proof posted in Lean code.\nConfidence: Medium — Vendor employee claim, awaiting community verification.\n\nOur take: We'd wait for independent math reviews before trusting this.\n\nWould you trust a Lean proof before mathematicians independently review it?\n\nSource: Techmeme — link in our Threads.\n\n#ai #claude #anthropic #math",
+    "confidence": "medium",
+    "confidence_reason": "Vendor employee self-reported claim, reported by Scientific American.",
+    "opinion_line": "Our take: We'd wait for independent math reviews before trusting this.",
+    "facts_used": [
+      "Anthropic mathematician Levent Alpöge says he used Claude to prove the 167-year-old Riemann hypothesis",
+      "posts the proof in the Lean programming language",
+      "Joseph Howlett / Scientific American reported the story",
+      "long considered far out of reach to human mathematicians"
+    ],
+    "insufficient_source": false,
+    "question": "Would you trust a Lean proof before mathematicians independently review it?",
+    "editor_notes": "The source is a short Scientific American excerpt on Techmeme. Check if Lean compiler fully checks the proof without unverified axioms. [auto-shortened: threads_post]",
+    "card": {
+      "category": "Research",
+      "headline": "Anthropic mathematician claims Claude proved Riemann hypothesis",
+      "highlight": "Riemann hypothesis",
+      "before": "167-year-old problem long considered out of reach",
+      "now": "AI-assisted proof posted in Lean language",
+      "number": {
+        "value": "167",
+        "caption": "years the Riemann hypothesis remained unsolved",
+        "footnote": "Reported by Scientific American"
+      },
+      "evidence_for": [
+        "Proof posted in Lean formal language",
+        "Reported by Scientific American"
+      ],
+      "evidence_against": [
+        "Vendor employee self-reported claim",
+        "Not yet independently peer-reviewed"
+      ],
+      "open_questions": [
+        "Will the math community verify the Lean proof?",
+        "How much human guidance did Claude require?"
+      ]
+    }
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/46ef023d2eb28089-anthropic-mathematician-levent-alp-ge-says-he-used-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/46ef023d2eb28089-anthropic-mathematician-levent-alp-ge-says-he-used-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/46ef023d2eb28089-anthropic-mathematician-levent-alp-ge-says-he-used-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/46ef023d2eb28089-anthropic-mathematician-levent-alp-ge-says-he-used-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/46ef023d2eb28089-anthropic-mathematician-levent-alp-ge-says-he-used-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/46ef023d2eb28089-anthropic-mathematician-levent-alp-ge-says-he-used-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}

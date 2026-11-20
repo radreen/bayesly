@@ -1,0 +1,90 @@
+{
+  "id": "6b3b257fdc4e6ca9",
+  "status": "published",
+  "created_at": "2026-11-20T15:53:47+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.techmeme.com/261120/p16#a261120p16",
+    "title": "Anthropic stock fell as low as $87.26 in the opening hours of its second day of trading, trimming gains from the $83 IPO price to as little as 5.1% (Bloomberg)",
+    "published": "2026-11-20T15:10:01+00:00",
+    "text": "Bloomberg : Anthropic stock fell as low as $87.26 in the opening hours of its second day of trading, trimming gains from the $83 IPO price to as little as 5.1% — Anthropic PBC shares erased much of their first-day jump on Friday, testing investors' faith after the AI lab delivered the biggest initial public offering in history."
+  },
+  "score": 0.98,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "stakes_bonus": 0.08,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Anthropic stock fell to $87.26 on its second day of trading, trimming gains from its $83 IPO price to 5.1%.",
+    "threads_post": "Anthropic shares fell as low as $87.26 on Friday, erasing much of their first-day jump.\n\nBefore: First-day stock jump after the largest IPO in history at $83 per share.\nNow: Gains trimmed to as little as 5.1% on day two of trading.\nConfidence: medium — Bloomberg market reporting.\n\nOur take: Early stock swings show market volatility, not long-term tech value.\n\nIs post-IPO volatility expected, or a sign of overhype?\nhttps://www.techmeme.com/261120/p16#a261120p16",
+    "x_post": "Anthropic stock fell as low as $87.26 on day two, trimming gains from its $83 IPO price to 5.1%.\n\nOur take: Early stock swings show market volatility, not long-term tech value.\n\nConfidence: medium — Bloomberg report.\nSource: Techmeme",
+    "instagram_caption": "Anthropic stock fell as low as $87.26 in the opening hours of its second day of trading, erasing much of its initial jump.\n\nBefore: Anthropic completed the largest IPO in history at $83 per share, jumping on day one.\nNow: Gains trimmed to as little as 5.1% on day two.\nConfidence: medium — Bloomberg market reporting via Techmeme.\n\nOur take: Early stock swings show market volatility, not long-term tech value.\n\nIs post-IPO volatility expected, or a sign of overhype?\n\nSource: Techmeme — link in our Threads.\n\n#ai #anthropic #ipo #tech #stocks",
+    "confidence": "medium",
+    "confidence_reason": "Bloomberg press reporting on stock market trading data.",
+    "opinion_line": "Our take: Early stock swings show market volatility, not long-term tech value.",
+    "facts_used": [
+      "Anthropic stock fell as low as $87.26 in the opening hours of its second day of trading",
+      "Trimming gains from the $83 IPO price to as little as 5.1%",
+      "Anthropic PBC shares erased much of their first-day jump on Friday",
+      "Delivered the biggest initial public offering in history"
+    ],
+    "insufficient_source": false,
+    "question": "Is post-IPO volatility expected, or a sign of overhype?",
+    "editor_notes": "Stock market data reported by Bloomberg via Techmeme; no primary market transcript provided.",
+    "card": {
+      "category": "Business",
+      "headline": "Anthropic stock trims first-day gains to 5.1% on day two",
+      "highlight": "trims first-day gains",
+      "before": "First-day stock jump after $83 IPO price",
+      "now": "Stock fell to as low as $87.26, leaving a 5.1% gain",
+      "number": {
+        "value": "5.1%",
+        "caption": "Remaining gain from $83 IPO price on day two",
+        "footnote": "Bloomberg reporting via Techmeme"
+      },
+      "evidence_for": [
+        "Biggest IPO in history",
+        "Stock remains above $83 IPO price"
+      ],
+      "evidence_against": [
+        "Erased much of first-day jump on Friday",
+        "Fell to as low as $87.26"
+      ],
+      "open_questions": [
+        "Will stock hold above the $83 IPO price?",
+        "How will market faith trend after week one?"
+      ]
+    }
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6b3b257fdc4e6ca9-anthropic-stock-fell-as-low-as-87-26-in-the-openin-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6b3b257fdc4e6ca9-anthropic-stock-fell-as-low-as-87-26-in-the-openin-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6b3b257fdc4e6ca9-anthropic-stock-fell-as-low-as-87-26-in-the-openin-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6b3b257fdc4e6ca9-anthropic-stock-fell-as-low-as-87-26-in-the-openin-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6b3b257fdc4e6ca9-anthropic-stock-fell-as-low-as-87-26-in-the-openin-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6b3b257fdc4e6ca9-anthropic-stock-fell-as-low-as-87-26-in-the-openin-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text",
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6b3b257fdc4e6ca9-anthropic-stock-fell-as-low-as-87-26-in-the-openin.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6b3b257fdc4e6ca9-anthropic-stock-fell-as-low-as-87-26-in-the-openin.x.mp4",
+  "video_seconds": 35.4,
+  "video_voice": true,
+  "video_warnings": [
+    "Some video text was too long to fit even after shrinking."
+  ]
+}
