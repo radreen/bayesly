@@ -78,3 +78,25 @@ def test_thin_text_is_penalised(make_item):
     thin = make_item(url="https://a.com/2", text="short")
     assert score_item(thin, NOW) < score_item(full, NOW)
     assert "thin_text_penalty" in thin.score_breakdown
+
+
+def test_audience_interest_signals():
+    from datetime import datetime, timedelta, timezone
+    from bayesly.models import Item, Source
+    from bayesly.score import score_item
+    now = datetime(2026, 11, 20, 12, tzinfo=timezone.utc)
+    press = Source("tc", "TechCrunch", "u", "press", 0.75)
+    blog = Source("nv", "NVIDIA blog", "u", "official_blog", 0.85)
+    arxiv = Source("arxiv-cs-cl", "arXiv", "u", "research", 0.7)
+    text = "AI model release " * 30
+    hot = Item(press, "OpenAI raises $40 billion in new funding", "u", text, now - timedelta(minutes=30))
+    stale = Item(press, "OpenAI raises $40 billion in new funding", "u", text, now - timedelta(hours=30))
+    vendor = Item(blog, "NVIDIA explains kernel tuning", "u", text, now - timedelta(minutes=30))
+    paper = Item(arxiv, "A note on KV cache eviction", "u", text, now - timedelta(minutes=30))
+    metadata = Item(press, "New metadata standard for datasets", "u", text, now - timedelta(minutes=30))
+    score_item(hot, now); score_item(stale, now); score_item(vendor, now); score_item(paper, now); score_item(metadata, now)
+    assert {"names_bonus", "stakes_bonus", "fresh_bonus"} <= set(hot.score_breakdown)
+    assert hot.score > stale.score                      # being first matters
+    assert "names_bonus" not in vendor.score_breakdown  # a vendor naming itself is no signal
+    assert "niche_research_penalty" in paper.score_breakdown
+    assert "names_bonus" not in metadata.score_breakdown  # "meta" must not match inside "metadata"

@@ -49,7 +49,8 @@ _HOWTO_RE = re.compile(
     r"^(how to|getting started|get started|a guide|guide to|introduction to|best practices|"
     r"build(ing)?|deploy(ing)?|use|using|tutorial)\b"
     r"|^how [\w.&-]+( [\w.&-]+)? uses\b"  # customer / internal case studies
-    r"|\b(on|with|using) (amazon|aws|azure|google cloud|vertex ai)\b",
+    r"|\b(on|with|using) (amazon|aws|azure|google cloud|vertex ai)\b"
+    r"|\b(in review|recap|roundup|part \d+)\b",  # retrospectives and series
     re.IGNORECASE,
 )
 HOWTO_PENALTY = 0.15
@@ -61,6 +62,24 @@ _NEWS_RE = re.compile(
     re.IGNORECASE,
 )
 NEWS_SIGNAL_BONUS = 0.10
+
+# Audience interest (from the competitor analysis, docs/competitor-analysis.md): the stories that
+# travel name a company/person people know, or involve money and conflict. Fresh beats thorough.
+_NAMES_RE = re.compile(
+    r"\b(openai|chatgpt|gpt-?\d|sora|anthropic|claude|google|gemini|deepmind|nvidia|meta|llama|xai|grok|"
+    r"microsoft|copilot|apple|tesla|musk|altman|amodei|hassabis|huang|zuckerberg|mistral|deepseek|qwen|"
+    r"perplexity|midjourney|hugging ?face|tiktok|youtube|samsung)\b",
+    re.IGNORECASE,
+)
+NAMES_BONUS = 0.12
+_STAKES_RE = re.compile(
+    r"\b(billion|million|ipo|valuation|rais(es|ed)|funding|acquir(es|ed)|acquisition|buys|lawsuit|sues|sued|"
+    r"ban(s|ned)?|layoffs?|fired|record|beats|outperforms|tops|price|cheaper|free)\b",
+    re.IGNORECASE,
+)
+STAKES_BONUS = 0.08
+FRESH_BONUS = ((1, 0.18), (3, 0.10))   # (published within N hours, bonus)
+NICHE_RESEARCH_PENALTY = 0.15          # arXiv papers without a known name rarely reach a wide audience
 
 
 def release_kind(item: Item) -> str | None:
@@ -117,6 +136,19 @@ def score_item(item: Item, now: datetime | None = None) -> float:
         adjustments["howto_penalty"] = -HOWTO_PENALTY
     if _NEWS_RE.search(item.title):
         adjustments["news_signal_bonus"] = NEWS_SIGNAL_BONUS
+    named = bool(_NAMES_RE.search(item.title))
+    if named and item.source.kind in {"press", "research"}:   # a vendor naming itself in its own blog is no signal
+        adjustments["names_bonus"] = NAMES_BONUS
+    if _STAKES_RE.search(item.title):
+        adjustments["stakes_bonus"] = STAKES_BONUS
+    if item.published is not None:
+        age_h = (now - item.published).total_seconds() / 3600
+        for hours, bonus in FRESH_BONUS:
+            if 0 <= age_h <= hours:
+                adjustments["fresh_bonus"] = bonus
+                break
+    if item.source.id.startswith("arxiv") and not named:
+        adjustments["niche_research_penalty"] = -NICHE_RESEARCH_PENALTY
     total += sum(adjustments.values())
     parts.update(adjustments)
     item.score = round(max(total, 0.0), 4)

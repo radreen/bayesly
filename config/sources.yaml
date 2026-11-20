@@ -40,12 +40,14 @@ sources:
     url: https://aws.amazon.com/blogs/machine-learning/feed/
     kind: official_blog
     reliability: 0.85
+    max_items: 3          # developer how-tos: real but rarely what the audience talks about
 
   - id: nvidia-dev-blog
     name: NVIDIA Technical Blog
     url: https://developer.nvidia.com/blog/feed
     kind: official_blog
     reliability: 0.85
+    max_items: 3
 
   - id: arxiv-cs-cl
     name: arXiv cs.CL (Computation and Language)
@@ -71,3 +73,23 @@ sources:
     url: https://www.technologyreview.com/topic/artificial-intelligence/feed
     kind: press
     reliability: 0.75
+
+  # --- fast press: where the big AI stories land first (checked 2026-11-20: fresh within ~1 h) ---
+  - id: techcrunch-ai
+    name: TechCrunch AI
+    url: https://techcrunch.com/category/artificial-intelligence/feed/
+    kind: press
+    reliability: 0.75
+
+  - id: verge-ai
+    name: The Verge AI
+    url: https://www.theverge.com/rss/ai-artificial-intelligence/index.xml
+    kind: press
+    reliability: 0.75
+
+  - id: techmeme
+    name: Techmeme
+    url: https://www.techmeme.com/feed.xml
+    kind: press
+    reliability: 0.7      # aggregator: headline + link to the original report
+    max_items: 15
