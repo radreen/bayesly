@@ -1,6 +1,6 @@
 {
   "id": "31618e0c886ff009",
-  "status": "pending_review",
+  "status": "held",
   "created_at": "2026-11-19T21:47:43+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -71,5 +71,6 @@
     "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/31618e0c886ff009-reducing-rollout-bottlenecks-in-reinforcement-lear-03.jpg"
   ],
   "image_warnings": [],
-  "palette": "lime"
+  "palette": "lime",
+  "layout": "curve"
 }

@@ -1,6 +1,6 @@
 {
   "id": "ebd75882b3d9e79b",
-  "status": "pending_review",
+  "status": "published",
   "created_at": "2026-11-19T21:46:39+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -75,5 +75,6 @@
     "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-19/ebd75882b3d9e79b-amazon-bedrock-agentcore-harness-adds-strands-harn-04.jpg"
   ],
   "image_warnings": [],
-  "palette": "lime"
+  "palette": "lime",
+  "layout": "curve"
 }
