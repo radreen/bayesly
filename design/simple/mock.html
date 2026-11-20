@@ -1,0 +1,56 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Simple design mock</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Instrument+Serif:ital@0;1&display=swap"><link rel="stylesheet" href="../bayesly.css"><style>
+body{margin:0;padding:0;background:#666}
+.s-cover{background:var(--ink);color:var(--white)}
+.s-cover .img{position:absolute;left:0;right:0;top:0;height:800px;background-size:cover;background-position:center}
+.s-cover .fade{position:absolute;left:0;right:0;top:560px;height:260px;background:linear-gradient(transparent,var(--ink))}
+.s-top{position:absolute;left:var(--pad);right:var(--pad);top:56px;display:flex;justify-content:space-between;align-items:center;z-index:5;color:var(--white)}
+.s-top .wordmark{background:var(--ink);padding:10px 18px;border-radius:12px;height:auto}
+.s-top .wordmark svg{height:40px}
+.s-top .pill{background:var(--ink);border-color:var(--ink)}
+.s-chip{position:absolute;left:var(--pad);top:770px;z-index:6;display:inline-flex;gap:12px;align-items:center;padding:14px 24px;border-radius:999px;font:700 24px var(--mono);text-transform:uppercase;letter-spacing:.04em;background:var(--accent);color:var(--ink)}
+.s-chip.conf-low{background:#ff6b5a}.s-chip.conf-high{background:var(--white)}
+.s-head{position:absolute;left:var(--pad);right:var(--pad);top:860px;z-index:5;font-weight:800;font-size:78px;line-height:1.0;letter-spacing:-0.035em}
+.s-head .key{color:var(--accent)}
+.s-foot{position:absolute;left:var(--pad);right:var(--pad);bottom:52px;display:flex;justify-content:space-between;font:700 22px var(--mono);text-transform:uppercase;letter-spacing:.04em;opacity:.75;z-index:5}
+.s-text,.s-take{background:var(--ink);color:var(--white)}
+.s-take{background:var(--accent);color:var(--ink)}
+.s-brand{position:absolute;left:var(--pad);top:60px;display:flex;align-items:center;gap:18px;font:700 22px var(--mono);opacity:.85}
+.s-brand .wordmark svg{height:38px}
+.s-h3{position:absolute;left:var(--pad);top:170px;font-weight:800;font-size:84px;letter-spacing:-0.04em}
+.s-list{position:absolute;left:var(--pad);right:var(--pad);top:310px;list-style:none;display:grid;gap:40px}
+.s-list li{display:grid;grid-template-columns:84px 1fr;gap:24px;align-items:start}
+.s-list .n{width:70px;height:70px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center;font:800 34px 'Inter Tight'}
+.s-list .k{font:700 22px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:8px}
+.s-list .v{font-weight:600;font-size:50px;line-height:1.1;letter-spacing:-0.02em}
+.s-take .kicker{position:absolute;left:var(--pad);top:190px}
+.s-quote{position:absolute;left:var(--pad);right:var(--pad);top:250px;font-family:var(--serif);font-style:italic;font-size:84px;line-height:1.02}
+.s-ask{position:absolute;left:0;right:0;bottom:0;height:420px;background:var(--ink);color:var(--white);padding:60px var(--pad)}
+.s-ask .kicker{position:static;color:var(--accent);margin-bottom:16px}
+.s-ask .q{font-weight:800;font-size:58px;line-height:1.05;letter-spacing:-0.03em}
+.s-ask .cta{margin-top:24px;font:700 24px var(--mono);text-transform:uppercase;opacity:.8}
+.s-take .s-foot{color:var(--white)}
+</style></head>
+<body><article class="post s-cover">
+  <div class="img" style="background-image:url('https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/17/ML-22377-featured-image.png')"></div><div class="fade"></div>
+  <div class="s-top"><div class="wordmark">bayesly<i></i></div><span class="pill">Infra</span></div>
+  <div class="s-chip conf-medium"><b>●</b> Vendor claim · medium confidence</div>
+  <h2 class="s-head" data-fit="380">AWS adds <span class="key">cross-Region inference routing</span> to SageMaker AI</h2>
+  <div class="s-foot"><span>Source: aws.amazon.com</span><span>Swipe →</span></div>
+</article><article class="post s-text">
+  <div class="s-brand"><div class="wordmark">bayesly<i></i></div><span>@bayesly.ai</span></div>
+  <h3 class="s-h3">What changed</h3><ol class="s-list"><li><span class="n">1</span><div><p class="k">Before</p><p class="v">Developers built custom code to route SageMaker inference across AWS Regions</p></div></li><li><span class="n">2</span><div><p class="k">Now</p><p class="v">SageMaker AI manages cross-Region routing natively via an inference router</p></div></li><li><span class="n">3</span><div><p class="k">Catch</p><p class="v">Does not provision backup capacity automatically</p></div></li></ol>
+  <div class="s-foot"><span>Source: aws.amazon.com</span><span>2 / 3</span></div>
+</article><article class="post s-take">
+  <div class="s-brand"><div class="wordmark">bayesly<i></i></div><span>@bayesly.ai</span></div>
+  <p class="kicker">Our take — opinion</p>
+  <p class="s-quote" data-fit="420">Useful native feature, but it requires pre-provisioned endpoints in other Regions.</p>
+  <div class="s-ask"><p class="kicker">Your call</p><p class="q">Would you build on this before independent tests?</p><p class="cta">Tell us in the comments ↓</p></div>
+  <div class="s-foot"><span>Follow @bayesly.ai</span><span>3 / 3</span></div>
+</article><article class="post s-cover">
+  <div class="img" style="background-image:url('https://developer-blogs.nvidia.com/wp-content/uploads/2026/11/image3-17.webp')"></div><div class="fade"></div>
+  <div class="s-top"><div class="wordmark">bayesly<i></i></div><span class="pill">Tools</span></div>
+  <div class="s-chip conf-low"><b>●</b> Unverified · low confidence</div>
+  <h2 class="s-head" data-fit="380">NVIDIA aims to <span class="key">cut RL rollout bottlenecks</span> with Dynamo</h2>
+  <div class="s-foot"><span>Source: developer.nvidia.com</span><span>Swipe →</span></div>
+</article><script src="../logo.js"></script><script src="../bayesly.js"></script></body></html>
