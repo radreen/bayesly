@@ -1,6 +1,6 @@
 # REVIEW: OpenAI shares new prompting tips for GPT-6.2 Astra and Sol to fix brief answers and unnecessary questions
 
-- Status: **pending_review** (nothing is published automatically)
+- Status: **held** (nothing is published automatically)
 - Source: The Decoder (press, reliability 0.75)
 - Link: https://the-decoder.com/openai-shares-new-prompting-tips-for-gpt-6-2-astra-and-sol-to-fix-brief-answers-and-unnecessary-questions/
 - Published: 2026-11-21T13:32:35+00:00

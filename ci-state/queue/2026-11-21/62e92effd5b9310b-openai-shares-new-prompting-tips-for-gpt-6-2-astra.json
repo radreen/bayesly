@@ -1,6 +1,6 @@
 {
   "id": "62e92effd5b9310b",
-  "status": "held",
+  "status": "published",
   "created_at": "2026-11-21T14:03:35+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -70,5 +70,12 @@
   ],
   "image_warnings": [],
   "palette": "lime",
-  "layout": "photo"
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra.x.mp4",
+  "video_seconds": 24.4,
+  "video_voice": true,
+  "video_warnings": []
 }

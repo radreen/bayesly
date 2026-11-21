@@ -39,7 +39,7 @@
     "message_id": 26
   },
   "62e92effd5b9310b": {
-    "status": "approved",
+    "status": "published",
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra.json",
     "reasons": [
       "lint: Fact-check: not in the source: That OpenAI's API update is specifically designed to prevent history edits from dropping reasoning content."
