@@ -46,5 +46,17 @@
   "6da8ea47d40e788a": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/6da8ea47d40e788a-tml-releases-inkling-2-mini-an-open-weights-26-4b.json",
     "drafted_at": "2026-11-20T23:15:05+00:00"
+  },
+  "62e92effd5b9310b": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra.json",
+    "drafted_at": "2026-11-21T14:03:35+00:00"
+  },
+  "7f7ccbf019ca3177": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/7f7ccbf019ca3177-release-v5-24-0.json",
+    "drafted_at": "2026-11-21T14:09:17+00:00"
+  },
+  "08401912b13f330b": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/08401912b13f330b-openai-makes-it-much-harder-for-attackers-to-extra.json",
+    "drafted_at": "2026-11-21T14:11:49+00:00"
   }
 }

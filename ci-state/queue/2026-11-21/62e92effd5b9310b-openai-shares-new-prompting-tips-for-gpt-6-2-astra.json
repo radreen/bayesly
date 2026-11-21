@@ -1,0 +1,74 @@
+{
+  "id": "62e92effd5b9310b",
+  "status": "held",
+  "created_at": "2026-11-21T14:03:35+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/openai-shares-new-prompting-tips-for-gpt-6-2-astra-and-sol-to-fix-brief-answers-and-unnecessary-questions/",
+    "title": "OpenAI shares new prompting tips for GPT-6.2 Astra and Sol to fix brief answers and unnecessary questions",
+    "published": "2026-11-21T13:32:35+00:00",
+    "text": "OpenAI has released new prompt templates for GPT-6.2 Astra and Sol meant to fix common model behaviors such as overly brief answers, unnecessary follow-up questions, and excessive testing when coding. The API is changing as well, since editing a conversation's history can discard reasoning content and lower response quality. The article OpenAI shares new prompting tips for GPT-6.2 Astra and Sol to fix brief answers and unnecessary questions appeared first on The Decoder ."
+  },
+  "score": 1.13,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.8,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "OpenAI released new prompt templates for GPT-6.2 Astra and Sol to fix brief answers and needless follow-up questions.",
+    "threads_post": "OpenAI released new prompt templates for GPT-6.2 Astra and Sol to stop the models from giving overly brief answers.\n\nThe templates also target unnecessary follow-up questions and excessive testing during coding. OpenAI is updating its API as well, warning that editing conversation history can discard reasoning content and lower response quality.\n\nDo custom prompts fix bad model habits, or should models work out of the box?",
+    "x_post": "OpenAI released new prompt templates for GPT-6.2 Astra and Sol to fix overly brief answers and unnecessary follow-up questions.\n\nOpenAI is also updating its API because editing chat history can discard reasoning content. #AI #OpenAI",
+    "instagram_caption": "OpenAI released new prompt templates for GPT-6.2 Astra and Sol to fix overly brief answers and unnecessary follow-up questions.\n\nThe new templates also target excessive testing when the models write code. OpenAI is updating its API alongside the prompt guides, warning developers that editing conversation history can discard reasoning content and degrade overall response quality.\n\nDo custom prompt templates fix bad model habits, or should models work out of the box?\n\n#ai #openai #gpt #prompting #llm",
+    "question": "Do custom prompt templates fix bad model habits, or should models work out of the box?",
+    "topic_tag": "OpenAI",
+    "broll_query": "typing code laptop screen",
+    "facts": [
+      "OpenAI released prompt templates for GPT-6.2 Astra and Sol.",
+      "The templates target brief answers and excessive code testing.",
+      "OpenAI is updating its API to prevent history edits from dropping reasoning."
+    ],
+    "confidence": "high",
+    "confidence_reason": "The source explicitly states OpenAI's release details and API reasons.",
+    "facts_used": [
+      "OpenAI has released new prompt templates for GPT-6.2 Astra and Sol",
+      "meant to fix common model behaviors such as overly brief answers, unnecessary follow-up questions, and excessive testing when coding",
+      "The API is changing as well, since editing a conversation's history can discard reasoning content and lower response quality"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "GPT-6.2 Astra and Sol names are as reported in the source text.",
+    "card": {
+      "category": "Models",
+      "headline": "OpenAI shares new prompt guides for GPT-6.2 Astra and Sol",
+      "highlight": "prompt guides",
+      "number": null
+    },
+    "fact_check_issues": [
+      "That OpenAI's API update is specifically designed to prevent history edits from dropping reasoning content."
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: That OpenAI's API update is specifically designed to prevent history edits from dropping reasoning content."
+  ],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/06/openai_logo_chatgpt-2-1200x675.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-21/62e92effd5b9310b-openai-shares-new-prompting-tips-for-gpt-6-2-astra-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
