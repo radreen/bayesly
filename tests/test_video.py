@@ -144,7 +144,7 @@ def test_broll_is_found_downloaded_and_credited(tmp_path):
     b = find_broll(queries_for({"broll_query": "data center"}, "Infra"), "KEY", tmp_path / "b.mp4", session=S())
     assert b and b.credit == "Video: Pexels · Ana" and (tmp_path / "b.mp4").read_bytes() == b"mp4"
     assert calls[0][1]["Authorization"] == "KEY" and calls[0][2]["query"] == "data center"
-    assert calls[-1][0] == "https://v/hd.mp4"           # too-short clip skipped, 4K avoided
+    assert calls[-1][0] == "https://v/hd.mp4"           # too-short clip skipped, 4K avoided (smallest >= 1080)
     assert find_broll(["x"], "", tmp_path / "c.mp4", session=S()) is None   # no key: no call
 
 

@@ -37,10 +37,10 @@ class Broll:
 
 
 def _pick_file(video: dict) -> dict | None:
-    """An mp4 between 1280 and 1920 px wide: sharp enough for 1080 px, light enough to download."""
+    """The smallest mp4 at least 1080 px wide: sharp enough for our 1080 px zone, light to download."""
     files = [f for f in video.get("video_files", []) if f.get("file_type") == "video/mp4" and f.get("width")]
-    good = sorted((f for f in files if 1280 <= f["width"] <= 1920), key=lambda f: -f["width"])
-    return good[0] if good else (sorted(files, key=lambda f: -f["width"])[0] if files else None)
+    sharp = sorted((f for f in files if f["width"] >= 1080), key=lambda f: f["width"])   # smallest that is sharp
+    return sharp[0] if sharp else (max(files, key=lambda f: f["width"]) if files else None)
 
 
 def find_broll(queries: list[str], api_key: str, out: Path, *, timeout: float = 30, session: Any = None) -> Broll | None:
