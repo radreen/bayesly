@@ -22,6 +22,7 @@ from time import sleep
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 from bayesly import net
 from bayesly.cards import Card, build_card
@@ -71,6 +72,9 @@ def build_segments(card: Card, record: dict[str, Any]) -> list[Segment]:
 
 
 # -- live footage: the source article itself, scrolling ----------------------------------------
+PAYWALLED = ("bloomberg.com", "wsj.com", "ft.com", "nytimes.com", "theinformation.com", "economist.com",
+             "barrons.com", "businessinsider.com", "washingtonpost.com", "x.com", "twitter.com")
+
 HIDE_OVERLAYS = """
 [id*="cookie" i], [class*="cookie" i], [id*="consent" i], [class*="consent" i], [class*="newsletter" i],
 [class*="paywall" i], [id*="onetrust" i], [class*="modal" i], [class*="popup" i], [aria-modal="true"],
@@ -84,6 +88,9 @@ def capture_article(url: str, out: Path, *, max_css_height: int = 2600, timeout_
     Best effort: any failure returns None and the video uses the cover photo instead."""
     from playwright.sync_api import sync_playwright
 
+    host = urlsplit(url).netloc.lower().removeprefix("www.")
+    if any(host == d or host.endswith("." + d) for d in PAYWALLED):
+        return None          # the page would show a subscribe wall, not the story: use the photo only
     try:
         with sync_playwright() as p:
             browser = _launch(p)
@@ -264,7 +271,7 @@ def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], to
     src = record["source"]
     photo, shot = record.get("cover_image"), record.get("page_shot")
     end = lambda s: s.start + s.dur  # noqa: E731
-    credit = e(src.get("name") or domain(src["url"]))
+    credit = e(domain(src["url"]))
     facts_start = facts[0].start if facts else end(hook)
     facts_end = end(facts[-1]) if facts else end(hook)
 
@@ -275,8 +282,8 @@ def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], to
     if shot:
         media.append(f'<img class="m shot" src="{Path(shot).as_uri()}" alt="" data-in="{(facts_start if photo else 0):.2f}" '
                      f'data-out="{facts_end:.2f}" data-scroll="{(facts_start if photo else 0):.2f},{facts_end:.2f}">')
-    if not media:
-        media.append(f'<div class="m nophoto" data-in="0" data-out="{facts_end:.2f}"></div>')
+    # No photo and no page: never show an empty box; the text takes the whole screen instead.
+    layout = "withmedia" if media else "nomedia"
 
     lines = [f'<div class="line" data-in="0.05" data-out="{end(hook):.2f}" data-rise>'
              f'<h1 class="hookline" data-fit="560">{_headline_html(card)}</h1></div>']
@@ -286,11 +293,11 @@ def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], to
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Bayesly video</title>
 <link rel="stylesheet" href="{FONTS_URL}"><link rel="stylesheet" href="{design}/bayesly.css"><link rel="stylesheet" href="{design}/video.css">
 </head><body>
-<div class="v">
+<div class="v {layout}">
   <div class="v-progress"></div>
   <div class="v-brand"><div class="wordmark">bayesly<i></i></div><span class="handle">@bayesly.ai</span></div>
   <section class="story" data-in="0" data-out="{facts_end:.2f}">
-    <div class="media">{"".join(media)}<div class="credit">{credit}</div></div>
+    {f'<div class="media">{"".join(media)}<div class="credit">{credit}</div></div>' if media else ''}
     {"".join(lines)}
   </section>
   <section class="ask" data-in="{ask.start:.2f}">

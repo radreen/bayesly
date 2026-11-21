@@ -86,7 +86,7 @@ def slide_cover(card: Card, record: dict[str, Any], idx: int, total: int) -> str
     right = "Swipe →" if total > 1 else ""
     if photo:
         # The photo belongs to the source: a small credit stays (that is image licensing, not a source line).
-        credit = f"Image: {src.get('name') or domain(src['url'])}"
+        credit = f"Image: {domain(src['url'])}"     # the site the photo comes from (not the aggregator)
         return f"""
 <article class="post s-cover" data-kind="cover" data-layout="photo">
   <img class="s-img" src="{e(photo)}" alt="">

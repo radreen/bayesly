@@ -35,3 +35,10 @@ html, body { margin: 0; background: var(--ink); }
 .ask .cta { position: absolute; left: 80px; top: 1340px; display: flex; flex-direction: column; gap: 26px; align-items: flex-start; }
 .ask .cta span { font: 700 34px var(--mono); text-transform: uppercase; letter-spacing: .05em; }
 .ask .cta .pill { background: var(--accent); color: var(--ink); border-color: var(--accent); font-size: 36px; padding: 18px 34px; }
+
+/* no photo and no page captured: text fills the screen (never an empty footage box) */
+.v.nomedia .line { top: 330px; height: 1120px; align-items: center; }
+.v.nomedia .hookline { font-size: 124px; line-height: .98; }
+.v.nomedia .fact { flex-direction: column; align-items: flex-start; justify-content: center; gap: 40px; }
+.v.nomedia .fact .n { flex: 0 0 auto; width: 110px; height: 110px; font-size: 56px; }
+.v.nomedia .fact p { font-size: 100px; line-height: 1.0; }

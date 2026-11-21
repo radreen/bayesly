@@ -107,3 +107,13 @@ def test_split_falls_back_to_text_length_without_pauses():
     pcm = b"\x00\x10" * RATE * 3
     parts = split_on_pauses(pcm, 3, [1, 1, 1])
     assert len(parts) == 3 and all(abs(len(p) / 2 / RATE - 1.0) < 0.1 for p in parts)
+
+
+def test_no_media_means_no_empty_box():
+    rec = record()
+    rec["cover_image"] = None
+    rec["page_shot"] = None
+    card = build_card(rec)
+    segs = build_segments(card, rec)
+    html = build_video_page(card, rec, segs, plan_timing(segs))
+    assert 'class="v nomedia"' in html and 'class="media"' not in html and "nophoto" not in html

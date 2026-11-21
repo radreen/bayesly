@@ -21,3 +21,18 @@ def test_parse_feed_extracts_clean_items():
 
 def test_clean_text_collapses_whitespace():
     assert clean_text("<p>a\n\n  b</p>") == "a b"
+
+
+def test_aggregator_items_point_to_the_original_article():
+    from bayesly.collect import original_link
+    summary = ('<a href="https://www.techmeme.com/261120/p43#a261120p43">x</a> '
+               '<a href="https://www.cnbc.com/2026/11/20/cursor-models.html?a=1&amp;b=2">CNBC</a> '
+               '<a href="http://www.cnbc.com/">CNBC</a>')
+    assert original_link(summary, "https://www.techmeme.com/261120/p43") == "https://www.cnbc.com/2026/11/20/cursor-models.html?a=1&b=2"
+    assert original_link("<p>no links</p>", "https://www.techmeme.com/x") == "https://www.techmeme.com/x"
+
+
+def test_x_account_pages_are_skipped_for_the_post_link():
+    from bayesly.collect import original_link
+    s = '<a href="https://x.com/oracle">Oracle</a> <a href="https://x.com/oracle/status/2123884437045760420">post</a>'
+    assert original_link(s, "https://www.techmeme.com/a") == "https://x.com/oracle/status/2123884437045760420"

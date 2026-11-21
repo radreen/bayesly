@@ -70,6 +70,7 @@ def load_sources(path: Path) -> list[Source]:
             reliability=float(raw.get("reliability", 0.5)),
             max_items=int(raw.get("max_items", 10)),
             cover_image=bool(raw.get("cover_image", not raw["id"].startswith(("arxiv", "gh-")))),
+            resolve_link=bool(raw.get("resolve_link", False)),
         )
         if src.id in seen_ids:
             raise ValueError(f"duplicate source id in {path}: {src.id}")

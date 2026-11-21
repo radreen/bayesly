@@ -7,6 +7,7 @@ import logging
 import re
 from datetime import datetime, timezone
 from time import struct_time
+from urllib.parse import urlsplit
 
 import feedparser
 
@@ -32,6 +33,24 @@ def _to_dt(value: struct_time | None) -> datetime | None:
     return datetime(*value[:6], tzinfo=timezone.utc)
 
 
+_HREF_RE = re.compile(r'href="([^"]+)"')
+
+
+def original_link(summary_html: str, fallback: str) -> str:
+    """Aggregators (Techmeme) link to their own page; the story's first outbound link is the article,
+    which has the real photo and page. Skip the aggregator itself and bare homepages."""
+    own = urlsplit(fallback).netloc
+    for href in _HREF_RE.findall(summary_html or ""):
+        href = html.unescape(href)
+        parts = urlsplit(href)
+        if parts.scheme not in ("http", "https") or not parts.netloc or parts.netloc == own or not parts.path.strip("/"):
+            continue
+        if parts.netloc.removeprefix("www.") in ("x.com", "twitter.com") and "/status/" not in parts.path:
+            continue                       # an account page, not the post itself
+        return href
+    return fallback
+
+
 def parse_feed(source: Source, content: bytes) -> list[Item]:
     parsed = feedparser.parse(content)
     items: list[Item] = []
@@ -45,6 +64,8 @@ def parse_feed(source: Source, content: bytes) -> list[Item]:
             body = " ".join(c.get("value", "") for c in entry["content"])
         if not body:
             body = entry.get("summary", "")
+        if source.resolve_link:
+            url = original_link(body, url)
         items.append(
             Item(
                 source=source,

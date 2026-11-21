@@ -35,20 +35,7 @@ sources:
     kind: research
     reliability: 0.9
 
-  - id: aws-ml-blog
-    name: AWS Machine Learning Blog
-    url: https://aws.amazon.com/blogs/machine-learning/feed/
-    kind: official_blog
-    reliability: 0.85
-    max_items: 3          # developer how-tos: real but rarely what the audience talks about
-    cover_image: false    # og:image is a text banner, not a photo
 
-  - id: nvidia-dev-blog
-    name: NVIDIA Technical Blog
-    url: https://developer.nvidia.com/blog/feed
-    kind: official_blog
-    reliability: 0.85
-    max_items: 3
 
   - id: arxiv-cs-cl
     name: arXiv cs.CL (Computation and Language)
@@ -93,4 +80,8 @@ sources:
     url: https://www.techmeme.com/feed.xml
     kind: press
     reliability: 0.7      # aggregator: headline + link to the original report
+    resolve_link: true    # use the original article (photo, page) instead of the Techmeme page
     max_items: 15
+
+# Removed 2026-11-21 (owner: news + interesting facts only): aws-ml-blog, nvidia-dev-blog
+# (developer how-tos that kept winning the ranking as 'hot').

@@ -15,6 +15,7 @@ class Source:
     reliability: float
     max_items: int = 10
     cover_image: bool = True   # use the article's og:image as the cover photo
+    resolve_link: bool = False # aggregator: follow the story's first outbound link to the article
 
 
 @dataclass
