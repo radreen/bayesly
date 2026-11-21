@@ -57,6 +57,8 @@ def build_parser() -> argparse.ArgumentParser:
     vid.add_argument("paths", nargs="+", help="draft .json files")
     vid.add_argument("--no-voice", action="store_true", help="silent video (no TTS calls)")
     vid.add_argument("--force", action="store_true", help="re-render even if the MP4 exists")
+    met = sub.add_parser("metrics", help="read-only: send the stats summary to Telegram now (or --print)")
+    met.add_argument("--print", action="store_true", help="print the summary instead of sending it")
     sub.add_parser("telegram-setup", help="set the bot's command menu and short description (one-off)")
     sub.add_parser("accounts", help="read-only: show which Threads/Instagram accounts the tokens in .env belong to")
     sub.add_parser("pause", help="kill switch: stop all publishing (creates state/PAUSED)")
@@ -89,6 +91,32 @@ def print_ranking(ranked: list[Item], picked: list[Item], top: int) -> None:
             f"rel={b['reliability']} topic={b['relevance']} new={b['novelty']} {extras or ''}"
         )
     print("\n* = would be drafted with the current --limit / --max-per-source")
+
+
+def _tg_sender(cfg):
+    from bayesly.telegram import Telegram
+    tg = Telegram(cfg.telegram_token, cfg.telegram_chat_id)
+    return lambda text, buttons: tg.send(text, buttons, html=True)
+
+
+def owner_reports(settings, cfg) -> list[str]:
+    """Comment alerts + the once-a-day summary. Read-only on the networks; never fails `check`."""
+    from bayesly import metrics
+    if not cfg.telegram_token:
+        return []
+    lines: list[str] = []
+    send = _tg_sender(cfg)
+    try:
+        lines += metrics.poll_comments(settings, cfg, send)
+    except Exception as exc:  # noqa: BLE001
+        lines.append(f"comments failed: {exc}")
+    try:
+        done = metrics.morning_summary(settings, cfg, send)
+        if done:
+            lines.append(done)
+    except Exception as exc:  # noqa: BLE001
+        lines.append(f"summary failed: {exc}")
+    return lines
 
 
 def find_drafts(out_dir: Path, day: str | None) -> list[Path]:
@@ -267,6 +295,8 @@ def main(argv: list[str] | None = None) -> int:
         if args.live:   # approvals tapped in Telegram take effect within 15 min, not on the next post
             for line in build_autoposter(settings, cfg, live=True).sync_telegram():
                 print(f"telegram: {line}")
+            for line in owner_reports(settings, cfg):
+                print(f"metrics: {line}")
         if is_paused(settings, cfg):
             go, why = False, "paused (kill switch)"
         else:
@@ -276,6 +306,16 @@ def main(argv: list[str] | None = None) -> int:
         if out:
             with open(out, "a", encoding="utf-8") as fh:
                 fh.write(f"go={'true' if go else 'false'}\n")
+        return 0
+    if args.command == "metrics":
+        from bayesly import metrics
+        from bayesly.publish.base import load_publish_config
+        cfg = load_publish_config()
+        if args.print:
+            snap = metrics.collect_stats(settings, cfg)
+            print(metrics.summary_message(snap, None, 0, None))
+            return 0
+        print(metrics.morning_summary(settings, cfg, _tg_sender(cfg), force=True))
         return 0
     if args.command == "video":
         from bayesly.render import RenderError

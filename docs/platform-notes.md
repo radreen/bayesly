@@ -93,3 +93,10 @@ Record what was checked, when, and the link.
   `cdn.jsdelivr.net/gh/<repo>@<commit sha>/<path>` (sha-pinned so the first request is fresh).
 - **Voice (Gemini TTS):** free tier = 10 requests/day per model (429 "per day"). One request per video;
   fallback `gemini-3.8-flash-lite-tts` (own quota). If both are out: silent video.
+
+## Stats and comments (read-only, checked 2026-11-21)
+- `check --live` also polls comments every 15 min (`bayesly/metrics.py`): Threads `GET /{id}/replies`, Instagram `GET /{id}/comments`, posts of the last 7 days. Each new comment goes to Telegram once, with an "Open post" button; the first run only records existing ones. Seen ids: `ci-state/comments.json`.
+- Morning summary once a day after `SUMMARY_HOUR_UTC` (default 6 = 08:00 Kyiv in winter): Threads views/likes/replies/reposts/shares + followers (`threads_insights`), Instagram likes/comments + followers. Daily snapshots in `ci-state/metrics.json` (30 days), deltas vs yesterday.
+- Instagram views/reach need `instagram_manage_insights` (not granted). X stats need a paid tier: skipped.
+- Threads `topic_tag`: 1–50 chars, no "." or "&", one per post, set on the post container (not carousel items).
+- Manual: `python -m bayesly metrics` (send now) or `metrics --print`.
