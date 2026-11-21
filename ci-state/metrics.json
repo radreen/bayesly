@@ -1,0 +1,62 @@
+{
+  "days": {
+    "2026-11-21": {
+      "at": "2026-11-21T12:34:55+00:00",
+      "followers": {
+        "threads": 0,
+        "instagram": 1
+      },
+      "posts": {
+        "threads:18110330105285691": {
+          "views": 24,
+          "likes": 0,
+          "replies": 0,
+          "reposts": 0,
+          "quotes": 0,
+          "shares": 0
+        },
+        "threads:18134378809780319": {
+          "views": 19,
+          "likes": 0,
+          "replies": 0,
+          "reposts": 0,
+          "quotes": 0,
+          "shares": 0
+        },
+        "threads:18118685858125292": {
+          "views": 4,
+          "likes": 0,
+          "replies": 0,
+          "reposts": 0,
+          "quotes": 0,
+          "shares": 0
+        },
+        "threads:18153227053479987": {
+          "views": 7,
+          "likes": 0,
+          "replies": 0,
+          "reposts": 0,
+          "quotes": 0,
+          "shares": 0
+        },
+        "instagram:18178602148456037": {
+          "likes": 0,
+          "replies": 0
+        },
+        "instagram:18166699555446117": {
+          "likes": 0,
+          "replies": 0
+        },
+        "instagram:17959340631258070": {
+          "likes": 0,
+          "replies": 0
+        },
+        "instagram:17972069301198241": {
+          "likes": 0,
+          "replies": 0
+        }
+      }
+    }
+  },
+  "summary_sent": "2026-11-21"
+}

@@ -1,6 +1,6 @@
 {
   "id": "46ef023d2eb28089",
-  "status": "pending_review",
+  "status": "published",
   "created_at": "2026-11-20T15:58:29+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -78,5 +78,15 @@
   ],
   "image_warnings": [],
   "palette": "lime",
-  "layout": "text"
+  "layout": "text",
+  "page_shot": null,
+  "broll": {
+    "credit": "Video: Pexels · Ivan S",
+    "page": "https://www.pexels.com/video/a-person-wearing-black-medical-gloves-8485791/"
+  },
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/46ef023d2eb28089-anthropic-mathematician-levent-alp-ge-says-he-used.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-20/46ef023d2eb28089-anthropic-mathematician-levent-alp-ge-says-he-used.x.mp4",
+  "video_seconds": 25.0,
+  "video_voice": true,
+  "video_warnings": []
 }
