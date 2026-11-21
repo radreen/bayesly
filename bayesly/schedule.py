@@ -77,13 +77,15 @@ def decide(ranked: list[Item], drafted: set[str], approved_waiting: int, posted:
     return False, "nothing hot"
 
 
-def check(settings: Settings) -> tuple[bool, str]:
+def check(settings: Settings, keep: list | None = None) -> tuple[bool, str]:
     """Network: RSS only (no LLM, no browser). Used by `python -m bayesly check`."""
     from bayesly.autopost import HeldStore
     from bayesly.dedupe import item_key
     from bayesly.pipeline import RunResult, collect_and_rank
 
     ranked = collect_and_rank(settings, RunResult())
+    if keep is not None:      # hand the ranking to the owner reports: no second RSS fetch
+        keep.extend(ranked)
     drafted = DraftStore(settings.out_dir, settings.state_dir).drafted_ids()
     approved = sum(1 for h in HeldStore(settings.state_dir).load().values() if h.get("status") == "approved")
     return decide(ranked, drafted, approved, post_times(Ledger(settings.state_dir)), Rules.from_env(),

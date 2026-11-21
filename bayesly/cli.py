@@ -99,17 +99,26 @@ def _tg_sender(cfg):
     return lambda text, buttons: tg.send(text, buttons, html=True)
 
 
-def owner_reports(settings, cfg) -> list[str]:
-    """Comment alerts + the once-a-day summary. Read-only on the networks; never fails `check`."""
-    from bayesly import metrics
+def owner_reports(settings, cfg, ranked=None) -> list[str]:
+    """Comment alerts (+ reply drafts), comment ideas under big accounts, the once-a-day summary.
+    Read-only on the networks; never fails `check`."""
+    from bayesly import engage, metrics
+    from bayesly.dedupe import item_key
     if not cfg.telegram_token:
         return []
     lines: list[str] = []
     send = _tg_sender(cfg)
+    gen = make_generator(settings) if settings.gemini_api_key else None
+    drafter = (lambda h, t, c: engage.reply_draft(gen.generate, h, t, c)) if gen else None
     try:
-        lines += metrics.poll_comments(settings, cfg, send)
+        lines += metrics.poll_comments(settings, cfg, send, drafter=drafter)
     except Exception as exc:  # noqa: BLE001
         lines.append(f"comments failed: {exc}")
+    if gen and ranked:
+        try:
+            lines += engage.comment_ideas(settings, ranked, gen.generate, send, key=item_key)
+        except Exception as exc:  # noqa: BLE001
+            lines.append(f"ideas failed: {exc}")
     try:
         done = metrics.morning_summary(settings, cfg, send)
         if done:
@@ -295,12 +304,14 @@ def main(argv: list[str] | None = None) -> int:
         if args.live:   # approvals tapped in Telegram take effect within 15 min, not on the next post
             for line in build_autoposter(settings, cfg, live=True).sync_telegram():
                 print(f"telegram: {line}")
-            for line in owner_reports(settings, cfg):
-                print(f"metrics: {line}")
         if is_paused(settings, cfg):
             go, why = False, "paused (kill switch)"
         else:
-            go, why = check(settings)
+            ranked: list = []
+            go, why = check(settings, keep=ranked)
+            if args.live:
+                for line in owner_reports(settings, cfg, ranked):
+                    print(f"owner: {line}")
         print(f"{'GO' if go else 'skip'}: {why}")
         out = os.getenv("GITHUB_OUTPUT")
         if out:

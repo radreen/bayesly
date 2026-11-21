@@ -73,15 +73,17 @@ def recent_posts(state_dir: Path, platform: str, days: int) -> list[dict]:
     return sorted(out, key=lambda p: p["at"], reverse=True)
 
 
-def headline_for(out_dir: Path, draft_id: str) -> str:
+def draft_for(out_dir: Path, draft_id: str) -> dict:
     for path in sorted(out_dir.glob(f"*/{draft_id}-*.json")):
         try:
-            rec = json.loads(path.read_text(encoding="utf-8"))
+            return json.loads(path.read_text(encoding="utf-8")).get("draft") or {}
         except ValueError:
             continue
-        d = rec.get("draft") or {}
-        return d.get("headline") or (rec.get("item") or {}).get("title") or ""
-    return ""
+    return {}
+
+
+def headline_for(out_dir: Path, draft_id: str) -> str:
+    return draft_for(out_dir, draft_id).get("headline") or ""
 
 
 class MetaReader:
@@ -123,18 +125,21 @@ def fetch_comments(reader: MetaReader, platform: str, post_id: str) -> list[dict
     return [c for c in data.get("data") or [] if c.get("id")]
 
 
-def comment_message(platform: str, comment: dict, headline: str) -> str:
+def comment_message(platform: str, comment: dict, headline: str, reply: str = "") -> str:
     where = {"threads": "Threads", "instagram": "Instagram"}[platform]
     text = escape((comment.get("text") or "").strip()[:600]) or "<i>(no text)</i>"
     lines = [f"💬 <b>New comment on {where}</b>", f"<b>@{escape(comment.get('username') or '?')}</b>: {text}"]
     if headline:
         lines.append(f"\n<i>on: {escape(headline[:120])}</i>")
+    if reply:
+        lines.append(f"\n✍️ Suggested reply (tap to copy):\n<code>{escape(reply)}</code>")
     return "\n".join(lines)
 
 
 def poll_comments(settings: Any, cfg: PublishConfig, send: Callable[[str, list], Any], *,
-                  reader: MetaReader | None = None) -> list[str]:
-    """Send each new comment once. The first run only records what is there (no flood of old ones)."""
+                  reader: MetaReader | None = None, drafter: Callable[[str, str, str], str] | None = None) -> list[str]:
+    """Send each new comment once. The first run only records what is there (no flood of old ones).
+    drafter(headline, post_text, comment) -> a suggested reply (optional, Gemini)."""
     reader = reader or MetaReader(cfg)
     path = settings.state_dir / "comments.json"
     state = _load(path)
@@ -157,8 +162,12 @@ def poll_comments(settings: Any, cfg: PublishConfig, send: Callable[[str, list],
                 if not first_run:
                     url = c.get("permalink") or post["url"]
                     buttons = [[("Open post", url)]] if url.startswith("http") else []
+                    d = draft_for(settings.out_dir, post["draft_id"])
+                    post_text = d.get("threads_post" if platform == "threads" else "instagram_caption") or ""
+                    reply = drafter(d.get("headline") or "", post_text, c.get("text") or "") \
+                        if drafter and c.get("text") else ""
                     try:
-                        send(comment_message(platform, c, headline_for(settings.out_dir, post["draft_id"])), buttons)
+                        send(comment_message(platform, c, d.get("headline") or "", reply), buttons)
                     except Exception as exc:  # noqa: BLE001 - a Telegram hiccup must not lose the seen list
                         log.warning("telegram comment alert failed: %s", exc)
                         continue
