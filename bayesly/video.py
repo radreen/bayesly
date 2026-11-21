@@ -81,7 +81,28 @@ HIDE_OVERLAYS = """
 [class*="paywall" i], [id*="onetrust" i], [class*="modal" i], [class*="popup" i], [aria-modal="true"],
 header[class*="sticky" i], [class*="sticky" i][class*="header" i] { display: none !important; }
 html, body { overflow: visible !important; }
+[class*="didomi" i], [id*="didomi" i], [class*="qc-cmp" i], [id*="sp_message" i], [class*="fc-" i][class*="root" i],
+[id*="usercentrics" i], [class*="cmp" i], iframe[src*="consent" i], iframe[src*="cmp" i] { display: none !important; }
 """
+# Hide (never accept) whatever still floats over the article: fixed/sticky layers, and any block whose
+# text is a cookie/consent notice. Runs right before the screenshot.
+KILL_BANNERS = """() => {
+  const rx = /(cookie|consent|data processing|privacy choices|we value your privacy)/i;
+  // CMPs (consentmanager, Usercentrics...) render inside a shadow root and re-show themselves with inline
+  // !important styles, so remove the host element outright.
+  for (const el of [...document.querySelectorAll('body *')]) {
+    if (el.shadowRoot && rx.test(el.shadowRoot.textContent || '')) el.remove();
+    else if (/^(cmpwrapper|usercentrics-root|didomi-host|onetrust-consent-sdk)$/i.test(el.id)) el.remove();
+  }
+  for (const el of document.querySelectorAll('body *')) {
+    const cs = getComputedStyle(el);
+    if (cs.position === 'fixed' || cs.position === 'sticky') { el.style.setProperty('display', 'none', 'important'); continue; }
+    if (el.children.length < 40 && (el.innerText || '').length < 2500 && rx.test((el.innerText || '').slice(0, 200))
+        && /(accept|agree|reject|settings|manage)/i.test(el.innerText || '')) {
+      el.style.setProperty('display', 'none', 'important');
+    }
+  }
+}"""
 
 
 def capture_article(url: str, out: Path, *, max_css_height: int = 2600, timeout_ms: int = 25000) -> Path | None:
@@ -125,6 +146,7 @@ def capture_article(url: str, out: Path, *, max_css_height: int = 2600, timeout_
                 # (Playwright refuses full_page + clip together: grow the viewport instead)
                 page.set_viewport_size({"width": 540, "height": height})
                 page.wait_for_timeout(400)
+                page.evaluate(KILL_BANNERS)   # consent banners injected late (CMPs) slip past the CSS
                 page.screenshot(path=str(out), type="jpeg", quality=82)
             finally:
                 browser.close()

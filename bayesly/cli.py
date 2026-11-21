@@ -345,7 +345,7 @@ def main(argv: list[str] | None = None) -> int:
         failed = 0
         for raw in args.paths:
             try:
-                out = render_video(Path(raw), settings, voice=not args.no_voice, force=args.force)
+                out = render_video(Path(raw).resolve(), settings, voice=not args.no_voice, force=args.force)
                 print(f"  {out}")
             except RenderError as exc:
                 print(f"  {raw}: video failed: {exc}", file=sys.stderr)
@@ -368,7 +368,7 @@ def main(argv: list[str] | None = None) -> int:
         return run_publishing(args, settings)
 
     if args.command == "render":
-        paths = [Path(p) for p in args.paths] or find_drafts(settings.out_dir, args.day)
+        paths = [Path(p).resolve() for p in args.paths] or find_drafts(settings.out_dir, args.day)
         ok, failed = render_paths(paths, args.palette, args.force)
         print(f"rendered={ok} failed={failed}")
         return 1 if failed and not ok else 0
