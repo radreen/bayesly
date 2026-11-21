@@ -52,16 +52,21 @@ def post_times(ledger: Ledger) -> list[datetime]:
     return sorted(out)
 
 
+APPROVED_GAP_MIN = 15
+
+
 def decide(ranked: list[Item], drafted: set[str], approved_waiting: int, posted: list[datetime],
            rules: Rules, now: datetime, key=lambda i: i.url) -> tuple[bool, str]:
     today = [t for t in posted if t.date() == now.date()]
     if len(today) >= rules.max_per_day:
         return False, f"daily cap reached ({len(today)}/{rules.max_per_day})"
     last = posted[-1] if posted else None
-    if last and now - last < timedelta(minutes=rules.min_gap_min):
-        return False, f"last post {int((now - last).total_seconds() // 60)} min ago (< {rules.min_gap_min:.0f})"
-    if approved_waiting:
+    since = (now - last) if last else None
+    # The owner tapped Publish: he expects it out now, not an hour later. Only a short gap applies.
+    if approved_waiting and (since is None or since >= timedelta(minutes=APPROVED_GAP_MIN)):
         return True, f"{approved_waiting} approved post(s) waiting"
+    if since is not None and since < timedelta(minutes=rules.min_gap_min):
+        return False, f"last post {int(since.total_seconds() // 60)} min ago (< {rules.min_gap_min:.0f})"
 
     def age_h(item: Item) -> float:
         return (now - item.published).total_seconds() / 3600 if item.published else 1e9

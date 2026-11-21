@@ -38,6 +38,8 @@ def test_already_drafted_stories_do_not_count():
 
 def test_approved_post_goes_out_fast_and_quiet_spell_posts_decent_story():
     assert decide([], set(), 1, [NOW - timedelta(hours=2)], Rules(), NOW)[0]
+    assert decide([], set(), 1, [NOW - timedelta(minutes=20)], Rules(), NOW)[0]       # owner tapped Publish: no 60-min wait
+    assert not decide([], set(), 1, [NOW - timedelta(minutes=5)], Rules(), NOW)[0]    # but never back-to-back
     decent = [item("Apple builds an agent", 0.85, 6)]
     assert not decide(decent, set(), 0, [NOW - timedelta(hours=2)], Rules(), NOW)[0]
     assert decide(decent, set(), 0, [NOW - timedelta(hours=6)], Rules(), NOW)[0]
