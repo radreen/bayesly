@@ -14,6 +14,7 @@ import base64
 import io
 import json
 import logging
+import os
 import shutil
 import subprocess
 import tempfile
@@ -261,7 +262,8 @@ def mix_audio(segs: list[Segment], total: float) -> bytes:
 
 
 # -- page -----------------------------------------------------------------------------------
-def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], total: float) -> str:
+def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], total: float,
+                     broll_credit: str | None = None) -> str:
     """Competitor-style Reel: big text on top, live footage in the middle, bottom kept free for the
     platform's caption. Footage: hook -> source photo (slow zoom); facts -> the source article scrolling
     (or the photo if we could not capture the page); end -> question card."""
@@ -283,7 +285,9 @@ def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], to
         media.append(f'<img class="m shot" src="{Path(shot).as_uri()}" alt="" data-in="{(facts_start if photo else 0):.2f}" '
                      f'data-out="{facts_end:.2f}" data-scroll="{(facts_start if photo else 0):.2f},{facts_end:.2f}">')
     # No photo and no page: never show an empty box; the text takes the whole screen instead.
-    layout = "withmedia" if media else "nomedia"
+    layout = "withmedia" if media else ("withmedia broll" if broll_credit else "nomedia")
+    if broll_credit:   # stock clip is composited by ffmpeg under a transparent footage zone
+        credit = e(broll_credit)
 
     lines = [f'<div class="line" data-in="0.05" data-out="{end(hook):.2f}" data-rise>'
              f'<h1 class="hookline" data-fit="560">{_headline_html(card)}</h1></div>']
@@ -298,6 +302,7 @@ def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], to
   <div class="v-brand"><div class="wordmark">bayesly<i></i></div><span class="handle">@bayesly.ai</span></div>
   <section class="story" data-in="0" data-out="{facts_end:.2f}">
     {f'<div class="media">{"".join(media)}<div class="credit">{credit}</div></div>' if media else ''}
+    {f'<div class="band-top"></div><div class="media see-through"><div class="credit">{credit}</div></div><div class="band-bottom"></div>' if broll_credit and not media else ''}
     {"".join(lines)}
   </section>
   <section class="ask" data-in="{ask.start:.2f}">
@@ -341,7 +346,8 @@ def _ffmpeg() -> str:
     return exe
 
 
-def capture(page_path: Path, frames_dir: Path, total: float, fps: int = FPS, timeout_ms: int = 30000) -> list[str]:
+def capture(page_path: Path, frames_dir: Path, total: float, fps: int = FPS, timeout_ms: int = 30000,
+            transparent: bool = False) -> list[str]:
     from playwright.sync_api import sync_playwright
 
     warnings: list[str] = []
@@ -356,13 +362,31 @@ def capture(page_path: Path, frames_dir: Path, total: float, fps: int = FPS, tim
                 warnings.append("Some video text was too long to fit even after shrinking.")
             for i in range(n):
                 page.evaluate(f"window.__seek({i / fps:.4f})")
-                page.screenshot(path=str(frames_dir / f"{i:05d}.jpg"), type="jpeg", quality=90)
+                if transparent:   # PNG with alpha: the stock clip shows through the footage zone
+                    page.screenshot(path=str(frames_dir / f"{i:05d}.png"), type="png", omit_background=True)
+                else:
+                    page.screenshot(path=str(frames_dir / f"{i:05d}.jpg"), type="jpeg", quality=90)
         finally:
             browser.close()
     return warnings
 
 
-def encode(frames_dir: Path, wav: Path, out: Path, fps: int = FPS) -> None:
+def encode(frames_dir: Path, wav: Path, out: Path, fps: int = FPS, broll: Path | None = None,
+           total: float = 0) -> None:
+    if broll:
+        # ink canvas -> stock clip in the footage zone (800 px high at y=800) -> our transparent frames on top
+        inputs = ["-f", "lavfi", "-i", f"color=c=0x0d0d0e:s={W}x{H}:r={fps}", "-stream_loop", "-1", "-i", str(broll),
+                  "-framerate", str(fps), "-i", str(frames_dir / "%05d.png"), "-i", str(wav)]
+        graph = (f"[1:v]scale={W}:800:force_original_aspect_ratio=increase,crop={W}:800,setsar=1,fps={fps}[b];"
+                 f"[0:v][b]overlay=0:800[base];[base][2:v]overlay=0:0:shortest=1[v]")
+        cmd = [_ffmpeg(), "-y", "-loglevel", "error", *inputs, "-filter_complex", graph, "-map", "[v]", "-map", "3:a",
+               "-t", f"{total:.2f}", "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p", "-crf", "20",
+               "-preset", "medium", "-g", str(fps * 2), "-c:a", "aac", "-b:a", "128k", "-ar", "48000",
+               "-movflags", "+faststart", str(out)]
+        done = subprocess.run(cmd, capture_output=True, text=True)
+        if done.returncode != 0:
+            raise RenderError(f"ffmpeg (b-roll) failed: {done.stderr.strip()[:300]}")
+        return
     cmd = [_ffmpeg(), "-y", "-loglevel", "error", "-framerate", str(fps), "-i", str(frames_dir / "%05d.jpg"),
            "-i", str(wav), "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p", "-crf", "20",
            "-preset", "medium", "-g", str(fps * 2), "-c:a", "aac", "-b:a", "128k", "-ar", "48000",
@@ -397,6 +421,12 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
     shot_path = json_path.with_suffix(".page.jpg")
     shot = capture_article(record["source"]["url"], shot_path) or capture_article(record["source"]["url"], shot_path)
     record["page_shot"] = str(shot) if shot else None
+    broll = None
+    if not record.get("cover_image") and not shot:   # LAST resort: the source gave us nothing to show
+        from bayesly.broll import find_broll, queries_for
+        broll = find_broll(queries_for(record.get("draft") or {}, card.category), os.getenv("PEXELS_API_KEY", "").strip(),
+                           json_path.with_suffix(".broll.mp4"))
+    record["broll"] = {"credit": broll.credit, "page": broll.page} if broll else None
     warnings: list[str] = []
     if voice and settings.gemini_api_key:
         try:
@@ -409,12 +439,12 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
     with tempfile.TemporaryDirectory(prefix="bayesly-video-") as tmp:
         tmpd = Path(tmp)
         page = tmpd / "video.html"
-        page.write_text(build_video_page(card, record, segs, total), encoding="utf-8")
+        page.write_text(build_video_page(card, record, segs, total, broll.credit if broll else None), encoding="utf-8")
         (tmpd / "frames").mkdir()
-        warnings += capture(page, tmpd / "frames", total)
+        warnings += capture(page, tmpd / "frames", total, transparent=bool(broll))
         wav = tmpd / "voice.wav"
         wav.write_bytes(mix_audio(segs, total))
-        encode(tmpd / "frames", wav, out)
+        encode(tmpd / "frames", wav, out, broll=broll.path if broll else None, total=total)
     x_out = json_path.with_suffix(".x.mp4")
     scale_for_x(out, x_out)
     record["video"] = str(out)

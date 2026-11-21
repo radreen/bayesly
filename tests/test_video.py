@@ -117,3 +117,42 @@ def test_no_media_means_no_empty_box():
     segs = build_segments(card, rec)
     html = build_video_page(card, rec, segs, plan_timing(segs))
     assert 'class="v nomedia"' in html and 'class="media"' not in html and "nophoto" not in html
+
+
+def test_broll_is_found_downloaded_and_credited(tmp_path):
+    from bayesly.broll import find_broll, queries_for
+
+    class R:
+        def __init__(self, data=None, content=b""):
+            self.status_code, self._d, self.content, self.text = 200, data, content, ""
+        def json(self):
+            return self._d
+
+    calls = []
+
+    class S:
+        def request(self, method, url, **kw):
+            calls.append((url, kw.get("headers", {}), kw.get("params", {})))
+            if "pexels.com/v1/videos/search" in url:
+                return R({"videos": [
+                    {"duration": 3, "video_files": [{"file_type": "video/mp4", "width": 1920, "link": "https://v/short.mp4"}]},
+                    {"duration": 12, "url": "https://www.pexels.com/video/1/", "user": {"name": "Ana"},
+                     "video_files": [{"file_type": "video/mp4", "width": 3840, "link": "https://v/4k.mp4"},
+                                     {"file_type": "video/mp4", "width": 1920, "link": "https://v/hd.mp4"}]}]})
+            return R(content=b"mp4")
+
+    b = find_broll(queries_for({"broll_query": "data center"}, "Infra"), "KEY", tmp_path / "b.mp4", session=S())
+    assert b and b.credit == "Video: Pexels · Ana" and (tmp_path / "b.mp4").read_bytes() == b"mp4"
+    assert calls[0][1]["Authorization"] == "KEY" and calls[0][2]["query"] == "data center"
+    assert calls[-1][0] == "https://v/hd.mp4"           # too-short clip skipped, 4K avoided
+    assert find_broll(["x"], "", tmp_path / "c.mp4", session=S()) is None   # no key: no call
+
+
+def test_broll_page_is_see_through_and_credited():
+    rec = record()
+    rec["cover_image"] = None
+    rec["page_shot"] = None
+    card = build_card(rec)
+    segs = build_segments(card, rec)
+    html = build_video_page(card, rec, segs, plan_timing(segs), broll_credit="Video: Pexels · Ana")
+    assert 'class="v withmedia broll"' in html and "see-through" in html and "Video: Pexels · Ana" in html

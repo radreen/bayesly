@@ -67,6 +67,7 @@ env:
   MEDIA_GITHUB_TOKEN: ${{ secrets.MEDIA_GITHUB_TOKEN }}
   TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
   TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}   # stock footage, last resort only
   LIVE_FLAG: ${{ (vars.BAYESLY_LIVE == 'true' || inputs.live == true) && '--live' || '' }}
 
 jobs:
