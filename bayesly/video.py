@@ -371,15 +371,29 @@ def capture(page_path: Path, frames_dir: Path, total: float, fps: int = FPS, tim
     return warnings
 
 
-def encode(frames_dir: Path, wav: Path, out: Path, fps: int = FPS, broll: Path | None = None,
+def broll_graph(n: int, seg: float, fps: int = FPS) -> str:
+    """n clips, `seg` seconds each, cut one after another into the footage zone (800 px high at y=800),
+    then our transparent frames on top. Inputs: 0 canvas, 1..n clips, n+1 frames."""
+    parts = [f"[{i}:v]scale={W}:800:force_original_aspect_ratio=increase,crop={W}:800,setsar=1,fps={fps},"
+             f"trim=duration={seg:.2f},setpts=PTS-STARTPTS[c{i}]" for i in range(1, n + 1)]
+    chain = "".join(f"[c{i}]" for i in range(1, n + 1))
+    parts.append(f"{chain}concat=n={n}:v=1:a=0[b]" if n > 1 else "[c1]null[b]")
+    parts.append(f"[0:v][b]overlay=0:800[base];[base][{n + 1}:v]overlay=0:0:shortest=1[v]")
+    return ";".join(parts)
+
+
+def encode(frames_dir: Path, wav: Path, out: Path, fps: int = FPS, broll: list[Path] | Path | None = None,
            total: float = 0) -> None:
     if broll:
-        # ink canvas -> stock clip in the footage zone (800 px high at y=800) -> our transparent frames on top
-        inputs = ["-f", "lavfi", "-i", f"color=c=0x0d0d0e:s={W}x{H}:r={fps}", "-stream_loop", "-1", "-i", str(broll),
-                  "-framerate", str(fps), "-i", str(frames_dir / "%05d.png"), "-i", str(wav)]
-        graph = (f"[1:v]scale={W}:800:force_original_aspect_ratio=increase,crop={W}:800,setsar=1,fps={fps}[b];"
-                 f"[0:v][b]overlay=0:800[base];[base][2:v]overlay=0:0:shortest=1[v]")
-        cmd = [_ffmpeg(), "-y", "-loglevel", "error", *inputs, "-filter_complex", graph, "-map", "[v]", "-map", "3:a",
+        clips = [broll] if isinstance(broll, Path) else list(broll)
+        seg = total / len(clips) + 0.1          # a hair longer so the concat never runs short
+        inputs = ["-f", "lavfi", "-i", f"color=c=0x0d0d0e:s={W}x{H}:r={fps}"]
+        for c in clips:                          # loop short clips so each fills its slot
+            inputs += ["-stream_loop", "-1", "-t", f"{seg:.2f}", "-i", str(c)]
+        inputs += ["-framerate", str(fps), "-i", str(frames_dir / "%05d.png"), "-i", str(wav)]
+        graph = broll_graph(len(clips), seg, fps)
+        cmd = [_ffmpeg(), "-y", "-loglevel", "error", *inputs, "-filter_complex", graph, "-map", "[v]",
+               "-map", f"{len(clips) + 2}:a",
                "-t", f"{total:.2f}", "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p", "-crf", "20",
                "-preset", "medium", "-g", str(fps * 2), "-c:a", "aac", "-b:a", "128k", "-ar", "48000",
                "-movflags", "+faststart", str(out)]
@@ -444,7 +458,7 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
         warnings += capture(page, tmpd / "frames", total, transparent=bool(broll))
         wav = tmpd / "voice.wav"
         wav.write_bytes(mix_audio(segs, total))
-        encode(tmpd / "frames", wav, out, broll=broll.path if broll else None, total=total)
+        encode(tmpd / "frames", wav, out, broll=broll.paths if broll else None, total=total)
     x_out = json_path.with_suffix(".x.mp4")
     scale_for_x(out, x_out)
     record["video"] = str(out)

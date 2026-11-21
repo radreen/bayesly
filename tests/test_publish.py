@@ -136,7 +136,7 @@ def good_record(**over):
         "id": "abc", "created_at": datetime.now(timezone.utc).isoformat(), "score": 0.8,
         "source": {"reliability": 0.9, "url": "https://example.com/a"},
         "draft": {"headline": "H", "threads_post": "T", "x_post": "X", "instagram_caption": "I",
-                  "confidence": "medium", "insufficient_source": False},
+                  "confidence": "medium", "insufficient_source": False, "facts": ["F"], "question": "Q?"},
         "lint_warnings": [], "image_warnings": [], "images_jpg": ["a.jpg"],
     }
     rec.update(over)
@@ -459,3 +459,15 @@ def test_threads_topic_tag_on_the_post_container_only():
     containers = [kw["params"] for m, u, kw in s.calls if m == "POST" and u.endswith("/u1/threads")]
     assert "topic_tag" not in containers[0] and "topic_tag" not in containers[1]   # carousel items
     assert containers[2]["topic_tag"] == "OpenAI"
+
+
+def test_old_drafts_are_relinted_and_stale_ones_skipped():
+    from bayesly.autopost import gate, is_fresh, is_outdated_format
+    rec = {"source": {"reliability": 0.9, "url": "u"}, "images_jpg": ["a.jpg"], "lint_warnings": [],
+           "draft": {"threads_post": "T", "x_post": "X", "confidence": "medium", "facts": ["F"], "question": "Q?",
+                     "instagram_caption": "Hook.\n\nBefore: old\nConfidence: Medium — vendor claim\nOur take: wait."}}
+    reasons = gate(rec, ["instagram"])                       # stored lint was empty; today's rules catch it
+    assert any("Before/Now" in r for r in reasons)
+    assert is_outdated_format({"draft": {"threads_post": "T"}}) and not is_outdated_format(rec)
+    old = (datetime.now(timezone.utc) - timedelta(hours=9)).isoformat()
+    assert not is_fresh({"created_at": old}) and is_fresh({"created_at": datetime.now(timezone.utc).isoformat()})

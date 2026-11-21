@@ -22,18 +22,20 @@ log = logging.getLogger(__name__)
 
 SEARCH = "https://api.pexels.com/v1/videos/search"
 MIN_SECONDS = 6
-CATEGORY_QUERY = {
-    "Models": "artificial intelligence abstract", "Research": "scientist laboratory", "Tools": "person typing laptop",
-    "Infra": "data center servers", "Chips": "computer chip macro", "Policy": "government building",
-    "Safety": "cyber security code", "Business": "city office skyline", "Other": "technology abstract",
-}
+
+
+CLIPS = 3          # 2-3 different shots with a cut every few seconds, like competitors' Reels
 
 
 @dataclass
 class Broll:
-    path: Path
-    credit: str        # "Video: Pexels · <author>"
-    page: str          # pexels.com page of the clip
+    paths: list[Path]  # 1-3 clips, played one after another
+    credit: str        # "Video: Pexels · <author>, <author>"
+    page: str          # pexels.com page of the first clip
+
+    @property
+    def path(self) -> Path:
+        return self.paths[0]
 
 
 def _pick_file(video: dict) -> dict | None:
@@ -43,7 +45,9 @@ def _pick_file(video: dict) -> dict | None:
     return sharp[0] if sharp else (max(files, key=lambda f: f["width"]) if files else None)
 
 
-def find_broll(queries: list[str], api_key: str, out: Path, *, timeout: float = 30, session: Any = None) -> Broll | None:
+def find_broll(queries: list[str], api_key: str, out: Path, *, timeout: float = 30, session: Any = None,
+               clips: int = CLIPS) -> Broll | None:
+    """Up to `clips` different videos for the FIRST query that has results (queries are story-specific)."""
     if not api_key:
         return None
     for q in [q for q in dict.fromkeys(x.strip() for x in queries) if q]:
@@ -54,7 +58,12 @@ def find_broll(queries: list[str], api_key: str, out: Path, *, timeout: float = 
         except (net.ExternalCallError, ValueError) as exc:
             log.info("pexels search failed", extra={"query": q, "error": str(exc)[:200]})
             continue
+        paths: list[Path] = []
+        authors: list[str] = []
+        page = ""
         for video in data.get("videos", []):
+            if len(paths) >= clips:
+                break
             if (video.get("duration") or 0) < MIN_SECONDS:
                 continue
             f = _pick_file(video)
@@ -65,11 +74,20 @@ def find_broll(queries: list[str], api_key: str, out: Path, *, timeout: float = 
             except net.ExternalCallError as exc:
                 log.info("pexels download failed", extra={"error": str(exc)[:200]})
                 continue
-            out.write_bytes(blob)
+            target = out if not paths else out.with_name(f"{out.stem}{len(paths)}{out.suffix}")
+            target.write_bytes(blob)
+            paths.append(target)
+            page = page or video.get("url", "")
             author = ((video.get("user") or {}).get("name") or "").strip()
-            return Broll(out, "Video: Pexels" + (f" · {author}" if author else ""), video.get("url", ""))
+            if author and author not in authors:
+                authors.append(author)
+        if paths:
+            return Broll(paths, "Video: Pexels" + (f" · {', '.join(authors)}" if authors else ""), page)
     return None
 
 
 def queries_for(draft: dict, category: str) -> list[str]:
-    return [str(draft.get("broll_query") or ""), CATEGORY_QUERY.get(category, ""), CATEGORY_QUERY["Other"]]
+    """Only the story-specific query Gemini wrote. No category fallback: a generic "scientist laboratory"
+    clip put medical gloves under a maths story (2026-11-21). Off-topic footage is worse than none, so
+    without a query the video uses the clean text layout."""
+    return [str(draft.get("broll_query") or "").strip()]

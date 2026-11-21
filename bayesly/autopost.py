@@ -13,6 +13,7 @@ Dry-run (the default) prints what would happen and writes/sends nothing.
 from __future__ import annotations
 
 import json
+import os
 import logging
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
@@ -26,7 +27,11 @@ from bayesly.telegram import OffsetStore, Telegram, TelegramError
 
 log = logging.getLogger(__name__)
 
-MAX_AGE_HOURS = 48          # older drafts are stale news: never auto-published
+# Older drafts are stale news: never auto-published. A 21-hour-old story went out on 2026-11-21; 8 h keeps
+# the feed current (override with MAX_DRAFT_AGE_HOURS).
+MAX_AGE_HOURS = float(os.getenv("MAX_DRAFT_AGE_HOURS", "8") or 8)
+# Keys every draft written under the current prompt has. A draft without them predates the current rules.
+CURRENT_KEYS = ("facts", "question")
 MIN_RELIABILITY = 0.7       # less reliable sources always go through the owner
 TEXT_KEYS = {"threads": "threads_post", "x": "x_post", "instagram": "instagram_caption"}
 
@@ -84,7 +89,11 @@ def gate(record: dict, platforms: list[str], now: datetime | None = None) -> lis
         reasons.append(f"confidence is {draft.get('confidence')!r}")
     if (record.get("source") or {}).get("reliability", 0) < MIN_RELIABILITY:
         reasons.append("source reliability below threshold")
-    for w in record.get("lint_warnings") or []:
+    # Re-lint with TODAY's rules: a draft written before a rule change must not slip through on old checks.
+    from bayesly.review import lint_draft
+    warnings = list(dict.fromkeys([*(record.get("lint_warnings") or []),
+                                   *lint_draft(draft, (record.get("source") or {}).get("url", ""))]))
+    for w in warnings:
         reasons.append(f"lint: {w}")
     for w in record.get("image_warnings") or []:
         if "trimmed" in w:
@@ -96,6 +105,10 @@ def gate(record: dict, platforms: list[str], now: datetime | None = None) -> lis
         if not (draft.get(TEXT_KEYS.get(p, "")) or "").strip():
             reasons.append(f"no {p} text")
     return reasons
+
+
+def is_outdated_format(record: dict) -> bool:
+    return not all(k in (record.get("draft") or {}) for k in CURRENT_KEYS)
 
 
 def is_fresh(record: dict, now: datetime | None = None) -> bool:
@@ -238,7 +251,7 @@ class Autoposter:
             h = held.get(rid, {}).get("status")
             if h == "approved" or (self.ledger.touched(rid) and h != "skipped"):
                 first.append((path, rec))
-            elif h is None and is_fresh(rec):
+            elif h is None and is_fresh(rec) and not is_outdated_format(rec):
                 fresh.append((path, rec))
         key = lambda pr: pr[1].get("score") or 0  # noqa: E731
         return sorted(first, key=key, reverse=True), sorted(fresh, key=key, reverse=True)

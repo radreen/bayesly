@@ -58,8 +58,8 @@ def lint_draft(draft: dict[str, Any], source_url: str) -> list[str]:
                 warnings.append(f"{name} post uses hype word: '{word}'.")
     # Owner decision 2026-11-20: posts carry no source line / confidence line / opinion.
     for name, text in (("Threads", threads), ("X", x_post), ("Instagram", insta)):
-        if re.search(r"^\s*(source|confidence|our take)\s*[:—-]", text, re.IGNORECASE | re.MULTILINE):
-            warnings.append(f"{name} post has a Source/Confidence/Our take line (not wanted).")
+        if re.search(r"^\s*(source|confidence|our take|before|now)\s*[:—-]", text, re.IGNORECASE | re.MULTILINE):
+            warnings.append(f"{name} post has a Source/Confidence/Our take/Before/Now line (not wanted).")
     if _URL_OR_DOMAIN_RE.search(x_post):
         warnings.append("X post contains a link or domain (costs $0.20 instead of $0.015).")
     if not x_post.strip():

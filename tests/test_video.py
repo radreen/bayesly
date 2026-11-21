@@ -156,3 +156,33 @@ def test_broll_page_is_see_through_and_credited():
     segs = build_segments(card, rec)
     html = build_video_page(card, rec, segs, plan_timing(segs), broll_credit="Video: Pexels · Ana")
     assert 'class="v withmedia broll"' in html and "see-through" in html and "Video: Pexels · Ana" in html
+
+
+def test_broll_takes_several_clips_and_never_a_generic_query(tmp_path):
+    from bayesly.broll import find_broll, queries_for
+    from bayesly.video import broll_graph
+
+    class R:
+        status_code, text = 200, ""
+        def __init__(self, data=None, content=b""):
+            self._d, self.content = data, content
+        def json(self):
+            return self._d
+
+    calls = []
+
+    class S:
+        def request(self, method, url, **kw):
+            calls.append(url)
+            if "search" in url:
+                return R({"videos": [{"duration": 10, "url": f"https://p/{i}", "user": {"name": n},
+                                      "video_files": [{"file_type": "video/mp4", "width": 1920, "link": f"https://v/{i}.mp4"}]}
+                                     for i, n in enumerate(["Ana", "Bo", "Ana", "Cy"])]})
+            return R(content=url.encode())
+
+    b = find_broll(queries_for({"broll_query": "chalkboard equations"}, "Research"), "K", tmp_path / "b.mp4", session=S())
+    assert [p.name for p in b.paths] == ["b.mp4", "b1.mp4", "b2.mp4"] and b.credit == "Video: Pexels · Ana, Bo"
+    calls.clear()
+    assert find_broll(queries_for({}, "Research"), "K", tmp_path / "c.mp4", session=S()) is None and calls == []
+    g = broll_graph(3, 8.4)
+    assert "concat=n=3" in g and "[4:v]overlay" in g and "trim=duration=8.40" in g
