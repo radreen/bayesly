@@ -16,6 +16,7 @@ CONF_ICON = {"high": "🟢", "medium": "🟡", "low": "🔴"}
 
 # gate reasons -> one short human line
 _REASONS = [
+    (r"Fact-check: not in the source: (.{0,70})", r"fact-check: "),
     (r"confidence is 'low'", "low confidence"),
     (r"confidence is", "confidence missing"),
     (r"insufficient", "source text too thin"),

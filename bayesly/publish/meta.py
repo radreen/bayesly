@@ -17,6 +17,12 @@ from bayesly.publish.base import PublishError, PublishPost, PublishResult, scrub
 MAX_CAROUSEL = 20
 
 
+def clean_topic(topic: str) -> str:
+    """Threads topic tag rules (docs, checked 2026-11-21): 1-50 characters, no periods, no ampersands."""
+    t = " ".join((topic or "").replace(".", " ").replace("&", " and ").replace("#", " ").split())
+    return t[:50].strip()
+
+
 class _MetaPublisher:
     name = ""
     base = ""
@@ -44,6 +50,8 @@ class _MetaPublisher:
         return resp.json()
 
     def _container(self, **params: Any) -> str:
+        if getattr(self, "_topic", "") and params.get("is_carousel_item") != "true":
+            params["topic_tag"] = self._topic          # Threads: one topic per post, on the post container
         data = self._req("POST", self.container_path.format(uid=self.user_id), **params)
         if "id" not in data:
             raise PublishError(f"no container id in response: {data}")
@@ -72,6 +80,7 @@ class _MetaPublisher:
             return PublishResult(self.name, ok=True, dry_run=True, detail=f"would post {what} + {len(text)} chars")
         if not (self.user_id and self.token):
             return PublishResult(self.name, ok=False, error=f"{self.name}: user id / token not configured")
+        self._topic = clean_topic(post.topic) if self.name == "threads" else ""
         note = None
         if video:
             try:

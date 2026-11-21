@@ -18,6 +18,7 @@ class PublishPost:
     source_url: str = ""
     video_url: str = ""      # public MP4 URL (Instagram Reels, Threads)
     video_path: str = ""     # local MP4 for platforms that take an upload (X)
+    topic: str = ""          # Threads topic tag (1-50 chars, no "." or "&")
 
 
 @dataclass

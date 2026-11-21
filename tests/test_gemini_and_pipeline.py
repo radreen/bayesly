@@ -127,7 +127,7 @@ def test_pipeline_writes_review_files_and_is_idempotent(tmp_path, make_item):
     # Second run with the same items must not redraft the first two.
     second = run_draft(settings, limit=5, generator=gen, items=items)
     assert len(second.written) == 1
-    assert len(gen.prompts) == 3
+    assert len([x for x in gen.prompts if "SOURCE ITEM" in x]) == 3   # draft calls only
 
 
 def test_client_falls_back_to_next_model_when_busy(monkeypatch):
@@ -143,3 +143,39 @@ def test_lint_flags_source_confidence_and_take_lines():
     for line in ("Source: Example Lab", "Confidence: medium — vendor claim", "Our take: wait"):
         warnings = " ".join(lint_draft(dict(GOOD_DRAFT, threads_post="A fact.\n\n" + line), "u"))
         assert "not wanted" in warnings, line
+
+
+class ScriptedGenerator:
+    model = "fake"
+
+    def __init__(self, dedupe=None, unsupported=None):
+        self.dedupe, self.unsupported, self.prompts = dedupe or [], unsupported or [], []
+
+    def generate(self, prompt):
+        self.prompts.append(prompt)
+        if prompt.startswith("You dedupe"):
+            return json.dumps({"duplicates": self.dedupe})
+        if prompt.startswith("You are a strict fact-checker"):
+            return json.dumps({"unsupported": self.unsupported})
+        return json.dumps(GOOD_DRAFT)
+
+
+def test_duplicate_story_is_skipped_and_remembered(tmp_path, make_item):
+    from bayesly.review import DraftStore
+    settings = replace(load_settings(), out_dir=tmp_path / "out", state_dir=tmp_path / "state",
+                       prompts_dir=load_settings().prompts_dir)
+    items = [make_item(title="Anthropic claims Claude proved the Riemann hypothesis", url="https://a/1"),
+             make_item(title="Hours after Anthropic's Riemann claim, mathematicians doubt it", url="https://b/2")]
+    gen = ScriptedGenerator(dedupe=[1])
+    res = run_draft(settings, limit=2, generator=gen, items=items)
+    assert len(res.written) == 1
+    assert len(DraftStore(settings.out_dir, settings.state_dir).drafted_ids()) == 2   # the duplicate is remembered
+
+
+def test_fact_check_issue_becomes_a_lint_warning(tmp_path, make_item):
+    settings = replace(load_settings(), out_dir=tmp_path / "out", state_dir=tmp_path / "state",
+                       prompts_dir=load_settings().prompts_dir)
+    gen = ScriptedGenerator(unsupported=["claims a 40% speedup; source gives no number"])
+    res = run_draft(settings, limit=1, generator=gen, items=[make_item()])
+    record = json.loads(res.written[0].read_text(encoding="utf-8"))
+    assert any(w.startswith("Fact-check:") for w in record["lint_warnings"])

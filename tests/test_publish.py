@@ -443,3 +443,19 @@ def test_autopost_hands_video_to_video_platforms(env, monkeypatch):
     poster.run(1)
     assert pubs["x"].posts[0].video_path == str(xmp4)
     assert pubs["x"].posts[0].video_url == ""            # X uploads the file; no hosting needed for it alone
+
+
+def test_threads_topic_tag_on_the_post_container_only():
+    from bayesly.publish.meta import clean_topic
+    assert clean_topic("A.I. & robots") == "A I and robots" and len(clean_topic("x" * 80)) == 50
+    ids = iter(["c1", "c2", "parent"])
+    s = FakeSession([
+        (("POST", "/threads_publish"), FakeResp({"id": "p1"})),
+        (("POST", "/threads"), lambda kw: FakeResp({"id": next(ids)})),
+        (("GET", "p1"), FakeResp({"permalink": "u"})),
+        (("GET", "/"), FakeResp({"status": "FINISHED"})),
+    ])
+    ThreadsPublisher("u1", "t", live=True, session=s, sleep=lambda _: None).publish(replace(POST, topic="OpenAI"))
+    containers = [kw["params"] for m, u, kw in s.calls if m == "POST" and u.endswith("/u1/threads")]
+    assert "topic_tag" not in containers[0] and "topic_tag" not in containers[1]   # carousel items
+    assert containers[2]["topic_tag"] == "OpenAI"

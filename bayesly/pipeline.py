@@ -83,7 +83,14 @@ def run_draft(
     ranked = collect_and_rank(settings, result, source_ids=source_ids, items=items)
 
     voice, template = load_prompts(settings.prompts_dir)
-    for item in select(ranked, limit, max_per_source):
+    picked = select(ranked, limit * 2 if generator else limit, max_per_source)
+    if generator is not None and picked:
+        dupes = find_duplicates(picked, recent_headlines(settings.out_dir), generator)
+        for item in dupes:   # remember them, so the 15-min check doesn't fire on them again
+            store.mark_skipped(item_key(item), "duplicate of a recent story")
+            log.info("duplicate skipped", extra={"title": item.title[:100]})
+        picked = [i for i in picked if i not in dupes][:limit]
+    for item in picked:
         item_id = item_key(item)
         if generator is None:
             path = store.write(item, item_id, None, "", model="(skipped)", mark=False)
@@ -99,6 +106,7 @@ def run_draft(
         draft = parse_draft_json(raw)
         if draft:
             draft = shorten_if_needed(draft, generator, item.url)
+            draft["fact_check_issues"] = fact_check(draft, item.text, generator)
         path = store.write(item, item_id, draft, raw, model=generator.model)
         log.info("draft written", extra={"item_id": item_id, "path": str(path), "parsed": draft is not None})
         result.written.append(path)
@@ -137,3 +145,72 @@ def shorten_if_needed(draft: dict, generator, source_url: str) -> dict:
         out["editor_notes"] = ((draft.get("editor_notes") or "") + " [auto-shortened: " + ", ".join(
             k for k in over if out[k] != draft[k]) + "]").strip()
     return out
+
+
+# -- the same story from two outlets -----------------------------------------------------------
+DUPLICATE_WINDOW_H = 48
+
+
+def recent_headlines(out_dir: Path, hours: float = DUPLICATE_WINDOW_H) -> list[str]:
+    """Source titles + our headlines of everything drafted in the last `hours`."""
+    from datetime import datetime, timedelta, timezone
+
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
+    out: list[str] = []
+    for p in out_dir.rglob("*.json"):
+        try:
+            r = json.loads(p.read_text(encoding="utf-8"))
+            if datetime.fromisoformat(r.get("created_at", "")) < cutoff:
+                continue
+        except (OSError, ValueError):
+            continue
+        out.append((r.get("source") or {}).get("title", ""))
+        if (r.get("draft") or {}).get("headline"):
+            out.append(r["draft"]["headline"])
+    return [t for t in dict.fromkeys(out) if t]
+
+
+def find_duplicates(candidates: list[Item], recent: list[str], generator) -> list[Item]:
+    """One model call: which candidates report the same news event as a recent story or as an
+    earlier candidate (different outlets word it differently, so title matching misses it)."""
+    if len(candidates) < 2 and not recent:
+        return []
+    numbered = "\n".join(f"{i}. {c.title}" for i, c in enumerate(candidates))
+    prompt = (
+        "You dedupe a news feed. Two items are duplicates when they report the SAME news event "
+        "(same company + same announcement/incident), even if worded differently. Follow-ups that add a "
+        "genuinely new event are NOT duplicates.\n\nRECENT (already covered):\n"
+        + ("\n".join(f"- {t}" for t in recent[:80]) or "- (none)")
+        + f"\n\nNEW CANDIDATES:\n{numbered}\n\n"
+        "Return ONLY JSON: {\"duplicates\": [indices of NEW candidates that duplicate a RECENT item "
+        "or an EARLIER candidate in the list]}"
+    )
+    try:
+        data = parse_draft_json(generator.generate(prompt)) or {}
+    except GeminiError as exc:
+        log.warning("duplicate check failed", extra={"error": str(exc)[:200]})
+        return []
+    idx = {i for i in data.get("duplicates", []) if isinstance(i, int) and 0 <= i < len(candidates)}
+    return [c for i, c in enumerate(candidates) if i in idx]
+
+
+# -- fact-check: every claim in the posts must be in the source ---------------------------------
+def fact_check(draft: dict, source_text: str, generator) -> list[str]:
+    """One model call. Returns claims in the posts that the source text does not support
+    (empty list = clean). A failed check returns [] and is logged: it never blocks on its own."""
+    posts = {k: draft.get(k, "") for k in ("threads_post", "x_post", "instagram_caption")}
+    posts["facts"] = draft.get("facts") or []
+    prompt = (
+        "You are a strict fact-checker. Compare the POSTS with the SOURCE TEXT. List every factual claim in "
+        "the posts (numbers, names, dates, prices, quotes, capabilities, who said what) that the source text "
+        "does NOT state or clearly imply. Ignore the question at the end, hashtags and style. Attributed claims "
+        "('the company says X') are fine if the source says the company says X.\n\n"
+        f"<source_text>\n{source_text[:12000]}\n</source_text>\n\nPOSTS:\n{json.dumps(posts, ensure_ascii=False)}\n\n"
+        "Return ONLY JSON: {\"unsupported\": [\"short description of each unsupported claim\"]}"
+    )
+    try:
+        data = parse_draft_json(generator.generate(prompt)) or {}
+    except GeminiError as exc:
+        log.warning("fact check failed", extra={"error": str(exc)[:200]})
+        return []
+    return [str(x)[:200] for x in data.get("unsupported", []) if str(x).strip()][:5]

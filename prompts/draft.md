@@ -46,6 +46,7 @@ Return ONLY a JSON object, no markdown fences, with exactly these keys:
   "x_post": "full post text for X, no link, no domain name",
   "instagram_caption": "full caption for Instagram, no link",
   "question": "the comment question, max 90 characters",
+  "topic_tag": "one Threads topic people follow, 1-3 words, no dots or &, e.g. AI, OpenAI, Nvidia, Apple, AI agents",
   "broll_query": "2-4 word search for generic stock footage that fits the story, no brand or person names (e.g. data center servers, robot arm factory, stock market screen)",
   "facts": ["max 90 characters", "max 90 characters", "max 90 characters"],
   "confidence": "low | medium | high (internal only: how well the source supports the post)",

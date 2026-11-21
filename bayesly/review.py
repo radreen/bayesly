@@ -70,6 +70,8 @@ def lint_draft(draft: dict[str, Any], source_url: str) -> list[str]:
         warnings.append("Confidence is missing or not one of low/medium/high.")
     if draft.get("insufficient_source"):
         warnings.append("Model flagged the source text as insufficient. Check the source before posting.")
+    for issue in draft.get("fact_check_issues") or []:
+        warnings.append(f"Fact-check: not in the source: {issue}")
     return warnings
 
 
@@ -82,6 +84,10 @@ class DraftStore:
         if not self.state_path.exists():
             return set()
         return set(json.loads(self.state_path.read_text(encoding="utf-8")).keys())
+
+    def mark_skipped(self, item_id: str, reason: str) -> None:
+        """Remember an item we decided not to draft (e.g. a duplicate) so it is never re-picked."""
+        self._mark_drafted(item_id, Path(f"skipped: {reason}"))
 
     def _mark_drafted(self, item_id: str, path: Path) -> None:
         self.state_path.parent.mkdir(parents=True, exist_ok=True)

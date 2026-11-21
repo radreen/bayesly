@@ -83,5 +83,43 @@ sources:
     resolve_link: true    # use the original article (photo, page) instead of the Techmeme page
     max_items: 15
 
+  # --- big companies and big stories (added 2026-11-21; Google News gives no article URL, so direct feeds) ---
+  - id: the-decoder
+    name: The Decoder
+    url: https://the-decoder.com/feed/
+    kind: press
+    reliability: 0.75
+
+  - id: cnbc-tech
+    name: CNBC Technology
+    url: https://www.cnbc.com/id/19854910/device/rss/rss.html
+    kind: press
+    reliability: 0.8
+    max_items: 15
+
+  - id: ars-ai
+    name: Ars Technica AI
+    url: https://arstechnica.com/ai/feed/
+    kind: press
+    reliability: 0.8
+
+  - id: zdnet-ai
+    name: ZDNet AI
+    url: https://www.zdnet.com/topic/artificial-intelligence/rss.xml
+    kind: press
+    reliability: 0.7
+
+  - id: nvidia-newsroom
+    name: NVIDIA Newsroom
+    url: https://nvidianews.nvidia.com/releases.xml
+    kind: official_blog
+    reliability: 0.9
+
+  - id: apple-newsroom
+    name: Apple Newsroom
+    url: https://www.apple.com/newsroom/rss-feed.rss
+    kind: official_blog
+    reliability: 0.9
+
 # Removed 2026-11-21 (owner: news + interesting facts only): aws-ml-blog, nvidia-dev-blog
 # (developer how-tos that kept winning the ranking as 'hot').

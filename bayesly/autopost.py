@@ -354,7 +354,8 @@ class Autoposter:
         video_url, video_path = self._video_for(path, rec, draft_id, day)
         post = PublishPost(draft_id=draft_id, image_urls=urls, source_url=(rec.get("source") or {}).get("url", ""),
                            texts={p: draft.get(k, "") or "" for p, k in TEXT_KEYS.items()},
-                           video_url=video_url, video_path=video_path)
+                           video_url=video_url, video_path=video_path,
+                           topic=draft.get("topic_tag") or (draft.get("card") or {}).get("category", "") or "AI")
         results = []
         for platform in self._pending_platforms(draft_id):
             result = self.publishers[platform].publish(post)
