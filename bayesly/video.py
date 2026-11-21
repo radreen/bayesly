@@ -87,6 +87,8 @@ html, body { overflow: visible !important; }
 def capture_article(url: str, out: Path, *, max_css_height: int = 2600, timeout_ms: int = 25000) -> Path | None:
     """Phone-sized screenshot of the source page (1080 px wide), used as scrolling footage in the video.
     Best effort: any failure returns None and the video uses the cover photo instead."""
+    if not url:
+        return None
     from playwright.sync_api import sync_playwright
 
     host = urlsplit(url).netloc.lower().removeprefix("www.")

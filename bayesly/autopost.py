@@ -83,6 +83,8 @@ def gate(record: dict, platforms: list[str], now: datetime | None = None) -> lis
     draft = record.get("draft")
     if not draft:
         return ["no parsed draft"]
+    if (record.get("source") or {}).get("id") == "bayesly-weekly":
+        reasons.append("weekly recap: new format, the owner approves it")
     if draft.get("insufficient_source"):
         reasons.append("model said the source text is insufficient")
     if draft.get("confidence") not in {"medium", "high"}:

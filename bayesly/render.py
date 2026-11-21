@@ -176,6 +176,8 @@ def find_cover_image(url: str, *, timeout: float = 15, session: Any = None) -> s
     """og:image of the source page, or None. Network errors mean "no photo", never a failure."""
     from bayesly import net
 
+    if not url:
+        return None
     try:
         html = net.request("GET", url, timeout=timeout, max_retries=1, session=session).text[:300_000]
     except Exception:  # noqa: BLE001 - a missing photo falls back to the text cover

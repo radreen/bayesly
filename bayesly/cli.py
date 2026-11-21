@@ -312,6 +312,17 @@ def main(argv: list[str] | None = None) -> int:
             if args.live:
                 for line in owner_reports(settings, cfg, ranked):
                     print(f"owner: {line}")
+                from bayesly import weekly
+                from bayesly.review import DraftStore
+                if settings.gemini_api_key and weekly.due(settings.state_dir):
+                    try:
+                        gen = make_generator(settings)
+                        made = weekly.make_weekly(settings, gen.generate, DraftStore(settings.out_dir, settings.state_dir),
+                                                  model=gen.model)
+                        if made:   # autopost renders it and sends it to Telegram for approval
+                            go, why = True, f"weekly recap ready: {made.name}"
+                    except Exception as exc:  # noqa: BLE001
+                        print(f"owner: weekly failed: {exc}")
         print(f"{'GO' if go else 'skip'}: {why}")
         out = os.getenv("GITHUB_OUTPUT")
         if out:
