@@ -1,0 +1,72 @@
+{
+  "id": "1c3eaf246b725d75",
+  "status": "pending_review",
+  "created_at": "2026-11-22T06:39:05+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "nvidia-newsroom",
+    "name": "NVIDIA Newsroom",
+    "kind": "official_blog",
+    "reliability": 0.9,
+    "url": "https://blogs.nvidia.com/blog/rtx-spark-desktop-local-ai-available-now/",
+    "title": "NVIDIA RTX Spark Compact Desktops Out Now",
+    "published": "2026-11-18T14:00:31+00:00",
+    "text": "New NVIDIA RTX Spark compact desktops from ASUS, Dell and MSI are available today, bringing local AI agents, image and video generation, and model fine-tuning to a dedicated Windows PC. With up to 128GB of unified memory and NVIDIA’s AI software stack, these systems provide room for larger local models alongside RTX-accelerated creative and development […]"
+  },
+  "score": 0.8478,
+  "score_breakdown": {
+    "reliability": 0.9,
+    "relevance": 1.0,
+    "novelty": 0.551
+  },
+  "draft": {
+    "headline": "NVIDIA launched RTX Spark compact desktops from ASUS, Dell, and MSI featuring up to 128GB of unified memory.",
+    "threads_post": "NVIDIA RTX Spark compact desktops from ASUS, Dell, and MSI are available today.\n\nThe dedicated Windows PCs feature up to 128GB of unified memory to run local AI models. NVIDIA says the systems support local AI agents, image and video generation, and model fine-tuning alongside creative tools.\n\nWould you run local AI workflows on a dedicated desktop, or stay in the cloud?",
+    "x_post": "NVIDIA RTX Spark compact desktops from ASUS, Dell, and MSI are available today.\n\nThe Windows PCs pack up to 128GB of unified memory for local AI agents, image generation, and fine-tuning.\n\nWould you run local AI on a dedicated desktop or stay in the cloud? #nvidia",
+    "instagram_caption": "NVIDIA RTX Spark compact desktops from ASUS, Dell, and MSI are available today.\n\nThe dedicated Windows PCs feature up to 128GB of unified memory. NVIDIA says the systems provide room for larger local models, supporting local AI agents, image and video generation, and model fine-tuning alongside creative and development tools.\n\nWould you run local AI workflows on a dedicated desktop, or stay in the cloud?\n\n#ai #nvidia #desktops #hardware #tech",
+    "question": "Would you run local AI workflows on a dedicated desktop, or stay in the cloud?",
+    "topic_tag": "Nvidia",
+    "broll_query": "compact desktop computer",
+    "facts": [
+      "ASUS, Dell, and MSI released NVIDIA RTX Spark compact desktops today.",
+      "The dedicated Windows PCs feature up to 128GB of unified memory.",
+      "The systems support local AI agents, media generation, and model fine-tuning."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Direct release details from NVIDIA official blog post.",
+    "facts_used": [
+      "New NVIDIA RTX Spark compact desktops from ASUS, Dell and MSI are available today",
+      "bringing local AI agents, image and video generation, and model fine-tuning to a dedicated Windows PC",
+      "With up to 128GB of unified memory and NVIDIA’s AI software stack"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All specs and vendor list are pulled directly from the official NVIDIA blog text.",
+    "card": {
+      "category": "Infra",
+      "headline": "NVIDIA launches RTX Spark compact desktops with 128GB memory",
+      "highlight": "RTX Spark compact desktops",
+      "number": {
+        "value": "128GB",
+        "caption": "unified memory offered in NVIDIA RTX Spark compact desktops",
+        "footnote": "NVIDIA-reported specifications"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://blogs.nvidia.com/wp-content/uploads/2026/11/nv-blog-1280x680-2-1.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/1c3eaf246b725d75-nvidia-rtx-spark-compact-desktops-out-now-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/1c3eaf246b725d75-nvidia-rtx-spark-compact-desktops-out-now-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/1c3eaf246b725d75-nvidia-rtx-spark-compact-desktops-out-now-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/1c3eaf246b725d75-nvidia-rtx-spark-compact-desktops-out-now-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/1c3eaf246b725d75-nvidia-rtx-spark-compact-desktops-out-now-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/1c3eaf246b725d75-nvidia-rtx-spark-compact-desktops-out-now-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
