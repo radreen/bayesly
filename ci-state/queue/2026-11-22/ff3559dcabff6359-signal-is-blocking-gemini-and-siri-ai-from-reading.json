@@ -1,0 +1,69 @@
+{
+  "id": "ff3559dcabff6359",
+  "status": "pending_review",
+  "created_at": "2026-11-22T00:01:28+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "verge-ai",
+    "name": "The Verge AI",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://www.theverge.com/ai-artificial-intelligence/1038390/signal-blocking-ai-agent-screenshots-mobile-app",
+    "title": "Signal is blocking Gemini and Siri AI from reading your screen",
+    "published": "2026-11-20T12:30:47+00:00",
+    "text": "Signal users on iOS will see this option to toggle blocking screenshots and preventing Siri AI from scanning on-screen content. | Image: Signal Signal is restricting the ability to take screenshots on Android and iOS devices in an effort to prevent AI agents from reading users' messages and other data. The agentic AI capabilities built into operating systems that analyze on-screen information to learn more about the user are \"undermining Signal's ability to independently guarantee privacy,\" Signal president Meredith Whittaker said in a blog post , while urging OS providers to make it easier for app developers to control what data agents can access. \"We want to be very clear: it is a serious problem that Signal - and application developers beyond - lack robust tools to prevent AI age … Read the full story at The Verge."
+  },
+  "score": 0.8601,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.6,
+    "novelty": 0.92,
+    "names_bonus": 0.12
+  },
+  "draft": {
+    "headline": "Signal is restricting screenshots on Android and iOS to block OS AI agents from reading screen content.",
+    "threads_post": "Signal is restricting screenshots on iOS and Android to keep OS AI agents from reading your messages.\n\nSignal president Meredith Whittaker says OS-level AI features that scan screens undermine the app's ability to guarantee privacy. The company is urging OS providers to give developers better controls over what data AI agents can access.\n\nShould phone operating systems let AI agents scan your screen?",
+    "x_post": "Signal is restricting screenshots on iOS and Android to block OS AI agents from scanning your messages.\n\nSignal president Meredith Whittaker says screen-reading AI undermines user privacy.\n\nShould AI agents be allowed to read your screen? #AI",
+    "instagram_caption": "Signal is restricting screenshots on iOS and Android to keep OS AI agents from reading your messages.\n\nThe app is limiting on-screen scanning to prevent system-level AI tools from reading user data. Signal president Meredith Whittaker stated in a blog post that screen-analyzing AI capabilities undermine Signal's ability to independently guarantee privacy.\n\nSignal is urging OS providers to give app developers better controls over what data AI agents can access.\n\nShould phone operating systems let AI agents scan your screen?\n\n#signal #privacy #aiagents #security #ai",
+    "question": "Should phone operating systems let AI agents scan your screen?",
+    "topic_tag": "AI agents",
+    "broll_query": "smartphone lock screen",
+    "facts": [
+      "Signal is restricting screenshots on iOS and Android to block AI agents.",
+      "Signal president Meredith Whittaker says screen-scanning AI undermines privacy.",
+      "Signal urged OS providers to give developers more control over AI data access."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source clearly states Signal's move and quotes Meredith Whittaker.",
+    "facts_used": [
+      "Signal is restricting the ability to take screenshots on Android and iOS devices in an effort to prevent AI agents from reading users' messages and other data.",
+      "Signal president Meredith Whittaker said on-screen AI analysis is undermining Signal's ability to independently guarantee privacy.",
+      "Signal urged OS providers to make it easier for app developers to control what data agents can access."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Siri AI and Gemini are mentioned in the article title/image caption, but the main text focuses on Meredith Whittaker's post about OS-level screen-reading AI agents.",
+    "card": {
+      "category": "Safety",
+      "headline": "Signal is blocking screen-reading AI agents on mobile",
+      "highlight": "screen-reading AI agents",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/protecting-your-privacy-1.png?quality=90&strip=all&crop=0%2C3.8035109331691%2C100%2C92.392978133662&w=1200",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/ff3559dcabff6359-signal-is-blocking-gemini-and-siri-ai-from-reading-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/ff3559dcabff6359-signal-is-blocking-gemini-and-siri-ai-from-reading-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/ff3559dcabff6359-signal-is-blocking-gemini-and-siri-ai-from-reading-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/ff3559dcabff6359-signal-is-blocking-gemini-and-siri-ai-from-reading-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/ff3559dcabff6359-signal-is-blocking-gemini-and-siri-ai-from-reading-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/ff3559dcabff6359-signal-is-blocking-gemini-and-siri-ai-from-reading-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

@@ -1,0 +1,76 @@
+{
+  "id": "c77f37fad59e94ed",
+  "status": "held",
+  "created_at": "2026-11-22T00:00:22+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/bytedance-argues-most-ai-training-phases-are-unnecessary-and-backs-it-up-with-a-competitive-open-model/",
+    "title": "Bytedance argues most AI training phases are unnecessary and backs it up with a competitive open model",
+    "published": "2026-11-21T09:17:24+00:00",
+    "text": "Bytedance and several US universities introduce Axion 1.0, an AI agent that rivals top commercial models from OpenAI and Anthropic on benchmarks after just three training phases. The researchers attribute the gains to carefully curated training data rather than ever more training steps. The model, data, and code are freely available. The article Bytedance argues most AI training phases are unnecessary and backs it up with a competitive open model appeared first on The Decoder ."
+  },
+  "score": 0.9,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 1.0,
+    "novelty": 1.0
+  },
+  "draft": {
+    "headline": "ByteDance and US universities built Axion 1.0, an AI agent that rivals OpenAI and Anthropic after just three training phases.",
+    "threads_post": "ByteDance and US university researchers built an open AI agent using just three training phases.\n\nThe model, named Axion 1.0, rivals top commercial AI from OpenAI and Anthropic on benchmarks. Researchers attribute the performance to carefully curated training data rather than endless training steps.\n\nThe model, data, and code are freely available.\n\nWill curated data quality make massive training runs obsolete?",
+    "x_post": "ByteDance and US universities built Axion 1.0, an open AI agent that rivals OpenAI and Anthropic after just 3 training phases.\n\nResearchers say curated data beats extra training steps. The model, data, and code are free.\n\nIs data quality better than more compute?",
+    "instagram_caption": "ByteDance and US university researchers built an open AI agent using just three training phases.\n\nThe model, called Axion 1.0, rivals top commercial systems from OpenAI and Anthropic on benchmarks. Researchers attribute the gains to carefully curated training data rather than ever more training steps.\n\nThe team released the model, data, and code freely to the public.\n\nWill curated data quality replace massive training runs?\n\n#ai #bytedance #aiagents #opensource #machinelearning",
+    "question": "Will curated data quality replace massive training runs?",
+    "topic_tag": "AI agents",
+    "broll_query": "computer code screen",
+    "facts": [
+      "ByteDance and US universities created Axion 1.0 in three training phases.",
+      "Axion 1.0 rivals OpenAI and Anthropic commercial models on benchmarks.",
+      "Researchers attribute gains to curated data over extra training steps.",
+      "The model, code, and training data are freely available."
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Source text is short but provides clear specific facts and claims.",
+    "facts_used": [
+      "Bytedance and several US universities introduce Axion 1.0, an AI agent",
+      "rivals top commercial models from OpenAI and Anthropic on benchmarks after just three training phases",
+      "attributing gains to carefully curated training data rather than ever more training steps",
+      "The model, data, and code are freely available"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The source is a brief summary from The Decoder. Specific benchmark names and metrics were not listed in the provided text.",
+    "card": {
+      "category": "Research",
+      "headline": "Axion 1.0 matches top AI models after three training phases",
+      "highlight": "three training phases",
+      "number": {
+        "value": "three",
+        "caption": "training phases needed to rival top commercial models",
+        "footnote": "ByteDance and university researchers"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/bytedance-axio-training-pipeline-nano-banana-pro.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/c77f37fad59e94ed-bytedance-argues-most-ai-training-phases-are-unnec-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/c77f37fad59e94ed-bytedance-argues-most-ai-training-phases-are-unnec-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/c77f37fad59e94ed-bytedance-argues-most-ai-training-phases-are-unnec-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/c77f37fad59e94ed-bytedance-argues-most-ai-training-phases-are-unnec-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/c77f37fad59e94ed-bytedance-argues-most-ai-training-phases-are-unnec-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/c77f37fad59e94ed-bytedance-argues-most-ai-training-phases-are-unnec-03.jpg"
+  ],
+  "image_warnings": [
+    "card.number 'three' not found in the source text; number slide dropped."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}

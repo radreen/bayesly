@@ -47,5 +47,14 @@
     "held_at": "2026-11-21T14:12:23+00:00",
     "message_id": 32,
     "decided_at": "2026-11-21T15:13:21+00:00"
+  },
+  "c77f37fad59e94ed": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/c77f37fad59e94ed-bytedance-argues-most-ai-training-phases-are-unnec.json",
+    "reasons": [
+      "image: card.number 'three' not found in the source text; number slide dropped."
+    ],
+    "held_at": "2026-11-22T00:02:24+00:00",
+    "message_id": 37
   }
 }
