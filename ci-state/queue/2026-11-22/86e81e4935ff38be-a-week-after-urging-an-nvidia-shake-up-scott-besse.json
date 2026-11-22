@@ -1,0 +1,72 @@
+{
+  "id": "86e81e4935ff38be",
+  "status": "pending_review",
+  "created_at": "2026-11-22T21:06:02+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.nytimes.com/2026/11/22/business/scott-bessent-jensen-huang-nvidia.html",
+    "title": "A week after urging an Nvidia shake-up, Scott Bessent says Jensen Huang's return should depend on probes of its China chip sales and presses Nvidia for answers (Alan Rappeport/New York Times)",
+    "published": "2026-11-22T19:50:01+00:00",
+    "text": "Alan Rappeport / New York Times : A week after urging an Nvidia shake-up, Scott Bessent says Jensen Huang's return should depend on probes of its China chip sales and presses Nvidia for answers — The treasury secretary said on CBS that it was too soon to say if Jensen Huang should return as the company's chief executive."
+  },
+  "score": 0.82,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Scott Bessent says Jensen Huang's return as Nvidia CEO depends on China chip probes.",
+    "threads_post": "Treasury Secretary Scott Bessent says Jensen Huang’s return as Nvidia CEO should depend on probes into China chip sales.\n\nSpeaking on CBS, Bessent said it is too soon to say if Huang should return as chief executive. The comments come a week after Bessent urged an Nvidia shake-up and pressed the company for answers.\n\nShould CEO leadership depend on export probes?",
+    "x_post": "Treasury Secretary Scott Bessent says Jensen Huang’s return as Nvidia CEO should depend on probes into China chip sales.\n\nSpeaking on CBS, he said it is too soon to say if Huang should return.\n\nShould CEO leadership depend on export probes? #Nvidia",
+    "instagram_caption": "Treasury Secretary Scott Bessent says Jensen Huang’s return as Nvidia CEO should depend on probes into the company’s China chip sales.\n\nSpeaking on CBS, Bessent said it is too soon to say if Huang should return as chief executive. This comes a week after Bessent urged an Nvidia shake-up and pressed the company for answers.\n\nShould CEO leadership depend on export probes?\n\n#nvidia #tech #policy #business #chips",
+    "question": "Should CEO leadership depend on export probes?",
+    "topic_tag": "Nvidia",
+    "broll_query": "semiconductor wafer",
+    "facts": [
+      "Scott Bessent says Jensen Huang's return as CEO depends on China chip probes.",
+      "Bessent told CBS it is too soon to say if Jensen Huang should return as CEO.",
+      "The Treasury Secretary urged an Nvidia shake-up a week ago and wants answers."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is very short (a single snippet sentence).",
+    "facts_used": [
+      "Scott Bessent says Jensen Huang's return should depend on probes of its China chip sales",
+      "The treasury secretary said on CBS that it was too soon to say if Jensen Huang should return as the company's chief executive.",
+      "A week after urging an Nvidia shake-up, Scott Bessent... presses Nvidia for answers"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source text is extremely thin (one summary sentence from NYT via Techmeme). Double-check the original NYT article before posting.",
+    "card": {
+      "category": "Policy",
+      "headline": "Bessent links Jensen Huang Nvidia return to China chip probes",
+      "highlight": "Jensen Huang Nvidia return",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/86e81e4935ff38be-a-week-after-urging-an-nvidia-shake-up-scott-besse-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/86e81e4935ff38be-a-week-after-urging-an-nvidia-shake-up-scott-besse-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/86e81e4935ff38be-a-week-after-urging-an-nvidia-shake-up-scott-besse-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/86e81e4935ff38be-a-week-after-urging-an-nvidia-shake-up-scott-besse-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/86e81e4935ff38be-a-week-after-urging-an-nvidia-shake-up-scott-besse-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/86e81e4935ff38be-a-week-after-urging-an-nvidia-shake-up-scott-besse-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}

@@ -67,5 +67,15 @@
     ],
     "held_at": "2026-11-22T15:11:44+00:00",
     "message_id": 42
+  },
+  "weekly-2026-w47": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/weekly-2026-w47-ai-this-week-in-5-facts-2026-w47.json",
+    "reasons": [
+      "weekly recap: new format, the owner approves it",
+      "image: Some text was too long to fit a slide even after shrinking. Shorten it."
+    ],
+    "held_at": "2026-11-22T21:06:32+00:00",
+    "message_id": 44
   }
 }

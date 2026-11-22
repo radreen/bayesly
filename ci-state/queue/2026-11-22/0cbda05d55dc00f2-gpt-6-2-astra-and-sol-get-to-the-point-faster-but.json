@@ -1,0 +1,78 @@
+{
+  "id": "0cbda05d55dc00f2",
+  "status": "published",
+  "created_at": "2026-11-22T21:04:43+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude/",
+    "title": "GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude",
+    "published": "2026-11-22T09:41:37+00:00",
+    "text": "OpenAI's GPT-6.2 Astra and Sol give much shorter, more direct answers than their predecessors, but they are also less willing to admit uncertainty. Anthropic's Claude models score well ahead on transparency. The article GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude appeared first on The Decoder ."
+  },
+  "score": 0.88,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "names_bonus": 0.12
+  },
+  "draft": {
+    "headline": "OpenAI's GPT-6.2 Astra and Sol give direct answers but score lower on transparency than Claude.",
+    "threads_post": "OpenAI's GPT-6.2 Astra and Sol give much shorter, more direct answers than previous models.\n\nWhile they get to the point faster, they are also less willing to admit uncertainty. Anthropic's Claude models score well ahead on transparency.\n\nDo you prefer shorter AI answers or clear uncertainty?",
+    "x_post": "OpenAI's GPT-6.2 Astra and Sol give shorter answers than older models, but are less willing to admit uncertainty. Anthropic's Claude scores well ahead on transparency.\n\nDo you prefer concise answers or clear uncertainty? #AI",
+    "instagram_caption": "OpenAI's GPT-6.2 Astra and Sol give much shorter, more direct answers than their predecessors.\n\nWhile the new models get straight to the point, they are less willing to admit when they are uncertain. Meanwhile, Anthropic's Claude models score well ahead on transparency.\n\nDo you prefer concise AI answers or clear uncertainty?\n\n#ai #openai #gpt6 #anthropic #claude",
+    "question": "Do you prefer concise AI answers or clear uncertainty?",
+    "topic_tag": "OpenAI",
+    "broll_query": "person typing laptop screen",
+    "facts": [
+      "OpenAI's GPT-6.2 Astra and Sol give shorter, more direct answers.",
+      "The new GPT-6.2 models are less willing to admit uncertainty.",
+      "Anthropic's Claude models score well ahead on transparency."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source text fully supports all statements about Astra, Sol, and Claude.",
+    "facts_used": [
+      "OpenAI's GPT-6.2 Astra and Sol give much shorter, more direct answers than their predecessors",
+      "GPT-6.2 Astra and Sol are less willing to admit uncertainty",
+      "Anthropic's Claude models score well ahead on transparency"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "No specific numerical benchmark scores were provided in the source text.",
+    "card": {
+      "category": "Models",
+      "headline": "GPT-6.2 Astra and Sol answer faster but drop in transparency",
+      "highlight": "drop in transparency",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/OpenAI-Logo-1200x670.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/0cbda05d55dc00f2-gpt-6-2-astra-and-sol-get-to-the-point-faster-but-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/0cbda05d55dc00f2-gpt-6-2-astra-and-sol-get-to-the-point-faster-but-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/0cbda05d55dc00f2-gpt-6-2-astra-and-sol-get-to-the-point-faster-but-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/0cbda05d55dc00f2-gpt-6-2-astra-and-sol-get-to-the-point-faster-but-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/0cbda05d55dc00f2-gpt-6-2-astra-and-sol-get-to-the-point-faster-but-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/0cbda05d55dc00f2-gpt-6-2-astra-and-sol-get-to-the-point-faster-but-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 71 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/0cbda05d55dc00f2-gpt-6-2-astra-and-sol-get-to-the-point-faster-but.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/0cbda05d55dc00f2-gpt-6-2-astra-and-sol-get-to-the-point-faster-but.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/0cbda05d55dc00f2-gpt-6-2-astra-and-sol-get-to-the-point-faster-but.x.mp4",
+  "video_seconds": 24.3,
+  "video_voice": true,
+  "video_warnings": []
+}

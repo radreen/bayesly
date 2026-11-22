@@ -1,0 +1,72 @@
+{
+  "id": "141d3e3e6383c48f",
+  "status": "pending_review",
+  "created_at": "2026-11-22T21:04:17+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/perplexitys-new-monitor-api-turns-web-search-from-a-one-off-query-into-a-nonstop-watchdog/",
+    "title": "Perplexity's new Monitor API turns web search from a one-off query into a nonstop watchdog",
+    "published": "2026-11-22T14:20:28+00:00",
+    "text": "Perplexity is launching a Monitor API that searches the web on a schedule and alerts agents via webhook only when relevant changes occur. Its own decision model filters out unimportant results. For Perplexity, the API is part of a broader strategy to stand out from an increasingly interchangeable chatbot business through developer tools. The article Perplexity's new Monitor API turns web search from a one-off query into a nonstop watchdog appeared first on The Decoder ."
+  },
+  "score": 0.88,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "names_bonus": 0.12
+  },
+  "draft": {
+    "headline": "Perplexity is launching a Monitor API that searches the web on a schedule and alerts AI agents when relevant changes occur.",
+    "threads_post": "Perplexity is launching an API that turns web search into an automated watchdog.\n\nThe new Monitor API searches the web on a set schedule instead of answering one-off queries. It sends webhook alerts to AI agents only when relevant changes occur. Perplexity uses its own decision model to filter out unimportant results. The tool is part of a strategy to stand out from chatbots.\n\nWould automated search alerts help your AI agents, or cause too much noise?",
+    "x_post": "Perplexity is launching a Monitor API that searches the web on a schedule. It alerts AI agents via webhook only when relevant changes happen, using a decision model to filter noise.\n\nWould automated web alerts help your workflow, or just add noise?",
+    "instagram_caption": "Perplexity is launching a Monitor API that turns web search into an automated watchdog.\n\nInstead of answering one-off queries, the API runs web searches on a set schedule. It alerts AI agents via webhook only when relevant changes occur. Perplexity says its own decision model filters out unimportant results. The company is focusing on developer tools to stand out from standard chatbots.\n\nWould automated search alerts help your AI agents, or cause too much noise?\n\n#ai #perplexity #aiagents #devtools #websearch",
+    "question": "Would automated search alerts help your AI agents, or cause too much noise?",
+    "topic_tag": "AI agents",
+    "broll_query": "automated web monitoring",
+    "facts": [
+      "Perplexity is launching a Monitor API for scheduled web search.",
+      "It sends webhook alerts to AI agents only when relevant changes occur.",
+      "Perplexity uses its own decision model to filter out unimportant results."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source clearly describes the new API, how it functions, and its strategy.",
+    "facts_used": [
+      "Perplexity is launching a Monitor API",
+      "searches the web on a schedule and alerts agents via webhook only when relevant changes occur",
+      "Its own decision model filters out unimportant results",
+      "part of a broader strategy to stand out from an increasingly interchangeable chatbot business through developer tools"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "No specific pricing or launch date provided in the source text.",
+    "card": {
+      "category": "Tools",
+      "headline": "Perplexity launches API for nonstop web search monitoring",
+      "highlight": "nonstop web search",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/06/Perplexity-Logo-Silhouette-Nano-Banana-Pro.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/141d3e3e6383c48f-perplexity-s-new-monitor-api-turns-web-search-from-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/141d3e3e6383c48f-perplexity-s-new-monitor-api-turns-web-search-from-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/141d3e3e6383c48f-perplexity-s-new-monitor-api-turns-web-search-from-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/141d3e3e6383c48f-perplexity-s-new-monitor-api-turns-web-search-from-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/141d3e3e6383c48f-perplexity-s-new-monitor-api-turns-web-search-from-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/141d3e3e6383c48f-perplexity-s-new-monitor-api-turns-web-search-from-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 73 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}
