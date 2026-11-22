@@ -1,0 +1,72 @@
+{
+  "id": "579f2fe627a97c6f",
+  "status": "held",
+  "created_at": "2026-11-22T15:09:17+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.nytimes.com/2026/11/20/magazine/ai-slop-taste-aesthetic-silicon-valley.html?unlocked_article_code=1.SFE.1a6T.-kpbFF_tJYZx&smid=url-share",
+    "title": "Jony Ive, ex-OpenAI product designer Joey Flynn, and others on Silicon Valley's obsession with \"taste\" as a moat against AI slop and whether AI can learn it (Jonah Weiner/New York Times)",
+    "published": "2026-11-22T15:00:34+00:00",
+    "text": "Jonah Weiner / New York Times : Jony Ive, ex-OpenAI product designer Joey Flynn, and others on Silicon Valley's obsession with “taste” as a moat against AI slop and whether AI can learn it — To move through A.I.-era San Francisco as a relatively normal person is to confront the sheer volume of bewildering concepts that tech has lately thrust upon us."
+  },
+  "score": 0.9,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Silicon Valley design leaders like Jony Ive and Joey Flynn are debating whether human taste can act as a moat against AI slop.",
+    "threads_post": "Silicon Valley figures like Jony Ive and former OpenAI product designer Joey Flynn are positioning \"taste\" as a moat against AI slop. A report by Jonah Weiner in the New York Times looks at tech's obsession with aesthetics and whether AI can ever learn it.\n\nCan AI models learn human taste, or is taste uniquely human?",
+    "x_post": "Silicon Valley figures like Jony Ive and former OpenAI designer Joey Flynn are focusing on \"taste\" as a moat against AI slop. The New York Times explores if AI can learn taste.\n\nCan AI models learn human taste, or is taste uniquely human?",
+    "instagram_caption": "Silicon Valley figures like Jony Ive and former OpenAI product designer Joey Flynn are focusing on human \"taste\" as a moat against AI slop.\n\nA report by Jonah Weiner in the New York Times details tech's growing obsession with aesthetics, examining whether AI models can ever learn taste.\n\nCan AI models learn human taste, or is taste uniquely human?\n\n#ai #design #siliconvalley #tech",
+    "question": "Can AI models learn human taste, or is taste uniquely human?",
+    "topic_tag": "AI design",
+    "broll_query": "product design studio",
+    "facts": [
+      "Jony Ive and Joey Flynn discussed taste as a moat against AI slop.",
+      "The New York Times examined whether AI models can learn human taste.",
+      "Silicon Valley is confronting an obsession with tech aesthetics and AI slop."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is a single snippet with limited detail.",
+    "facts_used": [
+      "Jony Ive, ex-OpenAI product designer Joey Flynn, and others on Silicon Valley's obsession with 'taste' as a moat against AI slop",
+      "whether AI can learn it",
+      "Jonah Weiner / New York Times"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source text is extremely thin ( headline snippet). Check the full New York Times article for detailed context before publishing.",
+    "card": {
+      "category": "Business",
+      "headline": "Can human taste act as a moat against AI slop?",
+      "highlight": "moat against AI slop",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/579f2fe627a97c6f-jony-ive-ex-openai-product-designer-joey-flynn-and-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/579f2fe627a97c6f-jony-ive-ex-openai-product-designer-joey-flynn-and-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/579f2fe627a97c6f-jony-ive-ex-openai-product-designer-joey-flynn-and-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/579f2fe627a97c6f-jony-ive-ex-openai-product-designer-joey-flynn-and-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/579f2fe627a97c6f-jony-ive-ex-openai-product-designer-joey-flynn-and-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-22/579f2fe627a97c6f-jony-ive-ex-openai-product-designer-joey-flynn-and-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}
