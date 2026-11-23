@@ -60,6 +60,7 @@ env:
   MAX_POSTS_PER_DAY_THREADS: ${{ vars.MAX_POSTS_PER_DAY_THREADS }}      # empty = use the ramp
   MAX_POSTS_PER_DAY_INSTAGRAM: ${{ vars.MAX_POSTS_PER_DAY_INSTAGRAM }}
   MAX_POSTS_PER_DAY_X: ${{ vars.MAX_POSTS_PER_DAY_X }}
+  HARD_MAX_PER_DAY: ${{ vars.HARD_MAX_PER_DAY || '12' }}   # ceiling incl. breaking news (caps above are for routine posts)
   GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
   GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash' }}
   GEMINI_TIMEOUT_SECONDS: "90"

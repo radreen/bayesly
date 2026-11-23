@@ -371,11 +371,14 @@ class Autoposter:
                            texts={p: draft.get(k, "") or "" for p, k in TEXT_KEYS.items()},
                            video_url=video_url, video_path=video_path,
                            topic=draft.get("topic_tag") or (draft.get("card") or {}).get("category", "") or "AI")
-        from bayesly.schedule import platform_cap, posted_today
+        from bayesly.schedule import is_breaking, platform_cap, posted_today
         now = datetime.now(timezone.utc)
+        published = (rec.get("source") or {}).get("published")
+        breaking = (self.held.load().get(draft_id, {}).get("status") == "approved"
+                    or is_breaking(float(rec.get("score") or 0), datetime.fromisoformat(published) if published else None, now))
         results = []
         for platform in self._pending_platforms(draft_id):
-            cap = platform_cap(platform, now)
+            cap = platform_cap(platform, now, breaking)
             if posted_today(self.ledger, platform, now) >= cap:
                 log.info("daily cap", extra={"draft": draft_id, "platform": platform, "cap": cap})
                 if self.live:   # a news post is stale tomorrow: this platform simply skips it

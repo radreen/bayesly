@@ -104,4 +104,5 @@ Record what was checked, when, and the link.
 ## Daily caps per platform (since 2026-11-23)
 - Meta flagged the business portfolio for "automated activity" on 2026-11-22; cleared 2026-11-23 after an ID check. To avoid a sudden spike, Instagram and Threads ramp: 4 posts/day from 2026-11-23, +1 every 4 days, max 8 (`bayesly/schedule.py: platform_cap`). X: `MAX_POSTS_PER_DAY` (8).
 - A platform whose cap is full skips that story for good (ledger `skipped: daily cap N`): news is stale tomorrow.
+- **Caps are for routine posts only.** Breaking news (score >= HOT_SCORE, published < 3 h ago) and posts the owner approved in Telegram ignore the caps and the 60-min gap: they wait at most 20 min after our previous post. Only `HARD_MAX_PER_DAY` (12 per network) stops them, as an anti-spam ceiling.
 - Override with repo variables `MAX_POSTS_PER_DAY_THREADS` / `_INSTAGRAM` / `_X`, or tune `META_*`.

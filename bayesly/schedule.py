@@ -62,7 +62,10 @@ APPROVED_GAP_MIN = 15
 META = ("threads", "instagram")
 
 
-def platform_cap(platform: str, now: datetime) -> int:
+def platform_cap(platform: str, now: datetime, breaking: bool = False) -> int:
+    """Routine posts per day on `platform`. Breaking news and owner-approved posts get the hard ceiling."""
+    if breaking:
+        return hard_max()
     override = os.getenv(f"MAX_POSTS_PER_DAY_{platform.upper()}", "").strip()
     if override:
         try:
@@ -87,26 +90,46 @@ def posted_today(ledger: Ledger, platform: str, now: datetime) -> int:
                if p == platform and e.get("ok") and e.get("at") and datetime.fromisoformat(e["at"]).date() == day)
 
 
+HOT_GAP_MIN = 20        # a breaking story waits at most this long after our previous post
+HARD_MAX_PER_DAY = 12   # absolute ceiling per network, breaking news included (anti-spam)
+
+
+def hard_max() -> int:
+    return int(_env("HARD_MAX_PER_DAY", HARD_MAX_PER_DAY))
+
+
+def is_breaking(score: float, published: datetime | None, now: datetime, rules: "Rules | None" = None) -> bool:
+    """A big, fresh story: daily caps and the normal 60-min gap don't apply (only the hard ceiling).
+    A news account that posts the story of the day 3 hours late loses the moment."""
+    rules = rules or Rules.from_env()
+    if published is None:
+        return False
+    return score >= rules.hot_score and (now - published) <= timedelta(hours=rules.hot_age_h + 1)
+
+
 def decide(ranked: list[Item], drafted: set[str], approved_waiting: int, posted: list[datetime],
            rules: Rules, now: datetime, key=lambda i: i.url) -> tuple[bool, str]:
     today = [t for t in posted if t.date() == now.date()]
-    if len(today) >= rules.max_per_day:
-        return False, f"daily cap reached ({len(today)}/{rules.max_per_day})"
+    if len(today) >= hard_max():
+        return False, f"hard daily ceiling reached ({len(today)}/{hard_max()})"
     last = posted[-1] if posted else None
     since = (now - last) if last else None
     # The owner tapped Publish: he expects it out now, not an hour later. Only a short gap applies.
     if approved_waiting and (since is None or since >= timedelta(minutes=APPROVED_GAP_MIN)):
         return True, f"{approved_waiting} approved post(s) waiting"
-    if since is not None and since < timedelta(minutes=rules.min_gap_min):
-        return False, f"last post {int(since.total_seconds() // 60)} min ago (< {rules.min_gap_min:.0f})"
 
     def age_h(item: Item) -> float:
         return (now - item.published).total_seconds() / 3600 if item.published else 1e9
 
     fresh = [i for i in ranked if key(i) not in drafted]
     hot = [i for i in fresh if i.score >= rules.hot_score and age_h(i) <= rules.hot_age_h]
-    if hot:
+    if hot and (since is None or since >= timedelta(minutes=HOT_GAP_MIN)):
+        # breaking news: ignores the routine cap and the 60-min gap
         return True, f"hot: {hot[0].title[:70]} ({hot[0].score:.2f}, {age_h(hot[0]):.1f} h old)"
+    if len(today) >= rules.max_per_day:
+        return False, f"daily cap reached ({len(today)}/{rules.max_per_day}); only breaking news now"
+    if since is not None and since < timedelta(minutes=rules.min_gap_min):
+        return False, f"last post {int(since.total_seconds() // 60)} min ago (< {rules.min_gap_min:.0f})"
     quiet = last is None or now - last >= timedelta(hours=rules.quiet_h)
     decent = [i for i in fresh if i.score >= rules.decent_score and age_h(i) <= rules.decent_age_h]
     if quiet and decent:

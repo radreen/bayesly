@@ -22,12 +22,13 @@ def test_hot_fresh_story_triggers_a_post():
     assert go and why.startswith("hot")
 
 
-def test_gap_and_daily_cap_hold_even_hot_news():
+def test_hot_news_only_waits_for_a_short_gap_and_the_hard_ceiling():
     hot = [item("OpenAI raises", 1.2, 0.2)]
-    go, why = decide(hot, set(), 0, [NOW - timedelta(minutes=20)], Rules(), NOW)
-    assert not go and "min ago" in why
+    assert not decide(hot, set(), 0, [NOW - timedelta(minutes=10)], Rules(), NOW)[0]
+    assert decide(hot, set(), 0, [NOW - timedelta(minutes=20)], Rules(), NOW)[0]
     eight = [NOW - timedelta(hours=h) for h in range(9, 1, -1)]
-    go, why = decide(hot, set(), 0, eight, Rules(), NOW)
+    assert decide(hot, set(), 0, eight, Rules(), NOW)[0]                     # routine cap doesn't stop it
+    go, why = decide([item("Apple builds an agent", 0.85, 1)], set(), 0, eight, Rules(), NOW)
     assert not go and "daily cap" in why
 
 
@@ -76,3 +77,20 @@ def test_no_call_when_everything_fits():
     gen = Gen("{}")
     d = {"threads_post": "fine", "x_post": "fine"}
     assert shorten_if_needed(d, gen, "u") is d and gen.prompts == []
+
+
+def test_breaking_news_skips_the_routine_cap_and_gap_but_not_the_ceiling():
+    hot = [item("OpenAI sues Microsoft for $10B", 1.2, 0.5)]
+    eight = [NOW - timedelta(hours=h) for h in (9, 8, 7, 6, 5, 4, 3, 1)]          # routine cap (8) full
+    assert decide(hot, set(), 0, eight[:-1] + [NOW - timedelta(minutes=25)], Rules(), NOW)[0]
+    assert not decide(hot, set(), 0, eight[:-1] + [NOW - timedelta(minutes=10)], Rules(), NOW)[0]   # 20-min gap
+    assert not decide([item("Apple builds an agent", 0.85, 1)], set(), 0, eight, Rules(), NOW)[0]   # routine waits
+    twelve = [NOW - timedelta(minutes=30 * k + 30) for k in range(12)]
+    assert not decide(hot, set(), 0, twelve, Rules(), NOW)[0]                                       # hard ceiling
+
+
+def test_platform_cap_lifts_for_breaking_news():
+    from bayesly.schedule import is_breaking, platform_cap
+    assert platform_cap("instagram", NOW, breaking=True) == 12
+    assert is_breaking(1.1, NOW - timedelta(hours=2), NOW, Rules()) and not is_breaking(0.9, NOW, NOW, Rules())
+    assert not is_breaking(1.1, NOW - timedelta(hours=5), NOW, Rules())
