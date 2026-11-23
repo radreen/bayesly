@@ -83,7 +83,7 @@ env:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 30          # video render ~2-3 min per post
+    timeout-minutes: 40          # usual heavy run 8-10 min; Gemini outages can add several minutes
     steps:
       # ref: main = the branch tip NOW, not the commit the run was queued at. A run that waited behind
       # another one used to start from stale ci-state (without the post that run had just published),

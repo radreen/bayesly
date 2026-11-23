@@ -46,8 +46,9 @@ TTS_MODELS = ("gemini-3.8-flash-tts", "gemini-3.8-flash-lite-tts")   # separate 
 PAUSE_TAG = "<long pause>"   # docs: inline tags in angle brackets
 SILENCE_LEVEL = 600          # |sample| below this counts as silence
 MIN_PAUSE = 0.25             # seconds
-TTS_ATTEMPTS = 3
-TTS_BACKOFF = 20.0    # seconds x attempt, on 429/503
+TTS_ATTEMPTS = 2       # Gemini busy -> give up fast: a silent video beats a run killed at 30 min
+TTS_BACKOFF = 10.0    # seconds x attempt, on 429/503
+TTS_TIMEOUT = 60      # per call; a 2026-11-23 run stalled ~10 min in TTS while Gemini returned 503s
 
 
 @dataclass
@@ -238,7 +239,7 @@ def tts(text: str, settings: Settings, *, voice: str = TTS_VOICE, model: str = T
     for attempt in range(1, TTS_ATTEMPTS + 1):
         try:
             resp = net.request("POST", "https://generativelanguage.googleapis.com/v1beta/interactions",
-                               timeout=max(settings.gemini_timeout, 60), max_retries=0, session=session,
+                               timeout=TTS_TIMEOUT, max_retries=0, session=session,
                                headers={"x-goog-api-key": settings.gemini_api_key,
                                         "Api-Revision": settings.gemini_api_revision}, json=body)
             break
@@ -468,6 +469,7 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
                            json_path.with_suffix(".broll.mp4"))
     record["broll"] = {"credit": broll.credit, "page": broll.page} if broll else None
     warnings: list[str] = []
+    log.info("video: voice", extra={"path": str(json_path.name)})
     if voice and settings.gemini_api_key:
         try:
             voice_segments(segs, settings)
@@ -481,7 +483,9 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
         page = tmpd / "video.html"
         page.write_text(build_video_page(card, record, segs, total, broll.credit if broll else None), encoding="utf-8")
         (tmpd / "frames").mkdir()
+        log.info("video: capture frames", extra={"seconds": total})
         warnings += capture(page, tmpd / "frames", total, transparent=bool(broll))
+        log.info("video: encode")
         wav = tmpd / "voice.wav"
         wav.write_bytes(mix_audio(segs, total))
         encode(tmpd / "frames", wav, out, broll=broll.paths if broll else None, total=total)
