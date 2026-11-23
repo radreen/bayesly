@@ -98,5 +98,15 @@
     ],
     "held_at": "2026-11-23T16:52:00+00:00",
     "message_id": 61
+  },
+  "1ee9f5994a817a2b": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1ee9f5994a817a2b-a-legendary-philosopher-isn-t-buying-anthropic-s-c.json",
+    "reasons": [
+      "lint: Fact-check: not in the source: The claim that Thomas Nagel specifically pushed back against Anthropic's rationale that growing model capabilities increase the chances of sentience.",
+      "image: Some text was too long to fit a slide even after shrinking. Shorten it."
+    ],
+    "held_at": "2026-11-23T20:38:01+00:00",
+    "message_id": 67
   }
 }

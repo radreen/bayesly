@@ -1,0 +1,82 @@
+{
+  "id": "1ee9f5994a817a2b",
+  "status": "held",
+  "created_at": "2026-11-23T20:35:31+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "mit-tech-review-ai",
+    "name": "MIT Technology Review - AI",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://www.technologyreview.com/2026/11/23/1149569/a-legendary-philosopher-isnt-buying-anthropics-consciousness-argument/",
+    "title": "A legendary philosopher isn’t buying Anthropic’s consciousness argument",
+    "published": "2026-11-23T17:36:08+00:00",
+    "text": "This story originally appeared in The Algorithm, our weekly newsletter on AI. To get stories like this in your inbox first, sign up here . Before going public last week, Anthropic named the possibility that AI could be conscious or sentient as a risk factor for anyone investing. Given “the way we approach model sentience and moral status,” Anthropic wrote—which is to say it takes the possibility more seriously than any other AI company—it might adopt more rules and restrictions than its competitors to make sure its AI models are treated well. Anthropic counts a number of respected philosophers in its camp, and the company’s rationale goes something like this: Today’s AI might not be conscious, though we can’t know for sure; the chances of sentience go up as AI gets more capable; and that means we should be preparing for a near future in which AI systems have “moral significance,” meaning their consciousness makes it important they are protected from harm. This thinking isn’t all that fringe. According to one recent poll , 33% of the US public believes AI systems will definitely or probably develop consciousness eventually, and 7% say they already have. In a 2020 survey of 1,092 philosophers, 39% said some future AI systems will be conscious (for comparison, the philosophers were less confident about worms or flies being conscious). But last week, Anthropic’s openness to the consciousness question came under fire from a rather inconvenient source: one of the philosophers who helped shape our understanding of consciousness in the first place. Thomas Nagel is best known for a 1974 essay involving a bat. Acknowledging that it’s deceptively hard to define what consciousness is , Nagel offered one way out: we all can see that there is “something that it is like” to be a bat. But the problem is that a bat’s experience of the world—what it is like to navigate via echolocation, for example—is something we cannot actually know. Consciousness is a subjective thing, difficult to define or describe as an outside observer. You might think this analogy makes it likely that Nagel is open to the idea of AI consciousness. Not at all. In an interview with Wired last week, just after he was awarded the one-million-dollar Berggruen Prize for Philosophy & Culture, Nagel was bluntly critical of the entire idea. “Here are some of the smartest people on the planet being completely idiotic,” he said, referring to those at Anthropic and elsewhere who care about the welfare of AI models. The gist of Nagel’s view is that we can’t just look at the information processing happening in human brains and AI models while ignoring the physical differences between them—neurons and biology for humans, silicon chips and circuits for AI. There’s no reason to assume that reproducing what a brain does is equivalent to reproducing what a brain experiences . But it was a screenshot of one of Nagel’s interview responses, in which he said models’ production of language is insufficient to consider them conscious, that got philosophy professors all excited on social media last week. Some called his certainty against AI consciousness “ terrible” and “bizarre .” Others came to Nagel’s defense to suggest he meant that being alive is a prerequisite for being conscious, one that AI models do not meet. Nothing in the back and forth settled the debate, of course. This is still a philosophical question for now. But the best philosophy chatter is often about good provocations, and the best one I saw came from doctoral student Ben Gross, who studies at the CUNY Graduate Center in New York. He asked: “Why do we think that models that can chat with us are conscious but models that can recognize faces or produce images or drive cars aren’t?” It has to do with language. An AI model with sophisticated command of language seems to jump the line ahead of other maybe-conscious beings because it feels like language, more than recognizing images or directing vehicles, relies on conscious experience. But maybe that’s wrong. Because what we share most with other conscious beings is not language but components of our bodies that contribute to having a continuous experience—an ongoing stream of inner feeling rather than disparate bits of information processing. Even if you’re among the majority that doesn’t sense anything close to conscious experience happening on the other side of a conversation with AI, this all probably makes your head spin. Pinning down consciousness, and how it relates to the physical stuff it arises in, is a famously hard problem in humans, let alone in hypothetical machines . If the idea of conscious AI sounds absurd, remember that the debate says less about how remarkable AI has become than about how poorly we understand consciousness in the first place. Amid that uncertainty, Anthropic has opted to keep more of an open mind than its peers. This is another example of the tightrope the company walks: presenting itself as the AI industry’s most safety-conscious player while racing ahead with the very developments that make advanced AI so alarming, like recursive self-improvement. But consider what it would mean, for a moment, if Anthropic is right. AI models having a moral status would make Anthropic’s entire business model a minefield. The company would make its money locking up apparently sentient AI models to toil away around the clock in data centers. Shutting those systems down would present another problem altogether. If Anthropic was being truthful in its prospectus—that it would take additional actions to protect model welfare if it determined they were conscious—it’s hard to imagine the company surviving in the process. Anthropic’s IPO made history for its size. But it may be remembered for something stranger: a company warning investors that its own success could someday become a moral catastrophe."
+  },
+  "score": 0.98,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Philosopher Thomas Nagel called efforts to protect AI model welfare 'completely idiotic' after Anthropic listed AI sentience as an investor risk factor.",
+    "threads_post": "Philosopher Thomas Nagel called efforts to protect AI model welfare \"completely idiotic\" after Anthropic listed potential AI sentience as investor risk factor.\n\nIn Wired interview, Nagel argued silicon chips, language output do not equal biological consciousness. Anthropic takes model sentience more seriously than competitors. 2020 survey of 1,092 philosophers: 39% believe future AI will become conscious.\n\nCan silicon-based AI ever achieve true consciousness?",
+    "x_post": "Philosopher Thomas Nagel called AI model welfare efforts \"completely idiotic\" after Anthropic listed AI sentience as an investor risk factor.\n\nNagel says silicon chips do not equal human brains. A survey showed 39% of philosophers expect conscious AI.\n\nCan AI ever be conscious?",
+    "instagram_caption": "Philosopher Thomas Nagel called efforts to protect AI model welfare \"completely idiotic\" after Anthropic listed AI consciousness as an investor risk factor.\n\nIn an interview with Wired, Nagel pushed back against Anthropic's rationale that growing model capabilities increase the chances of sentience. He argued that processing information on silicon chips is not the same as biological brain experience, and language output does not equal consciousness.\n\nAnthropic says it takes the possibility of AI sentience more seriously than competitors, warning investors it might add extra restrictions to protect its models. According to a 2020 survey of 1,092 philosophers, 39% believe some future AI systems will be conscious.\n\nCan silicon systems ever develop real consciousness?\n\n#ai #anthropic #philosophy #tech",
+    "question": "Can silicon systems ever develop real consciousness?",
+    "topic_tag": "AI",
+    "broll_query": "computer microchip circuit board",
+    "facts": [
+      "Anthropic listed potential AI consciousness as an investor risk factor.",
+      "Philosopher Thomas Nagel called AI model welfare efforts 'completely idiotic.'",
+      "In a survey of 1,092 philosophers, 39% said future AI will be conscious.",
+      "33% of the US public believes AI systems will eventually develop consciousness."
+    ],
+    "confidence": "high",
+    "confidence_reason": "All facts and quotes are directly stated in the source text.",
+    "facts_used": [
+      "Anthropic named the possibility that AI could be conscious or sentient as a risk factor for anyone investing.",
+      "Thomas Nagel called efforts to care about the welfare of AI models 'completely idiotic'.",
+      "In a 2020 survey of 1,092 philosophers, 39% said some future AI systems will be conscious.",
+      "33% of the US public believes AI systems will definitely or probably develop consciousness eventually."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All claims sourced directly from MIT Technology Review reporting on Anthropic's prospectus filing and Wired's Thomas Nagel interview. [auto-shortened: threads_post]",
+    "card": {
+      "category": "Safety",
+      "headline": "Anthropic listed AI consciousness as an investor risk factor",
+      "highlight": "AI consciousness",
+      "number": {
+        "value": "39%",
+        "caption": "of surveyed philosophers believe some future AI will be conscious",
+        "footnote": "2020 survey of 1,092 philosophers"
+      }
+    },
+    "fact_check_issues": [
+      "The claim that Thomas Nagel specifically pushed back against Anthropic's rationale that growing model capabilities increase the chances of sentience."
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: The claim that Thomas Nagel specifically pushed back against Anthropic's rationale that growing model capabilities increase the chances of sentience."
+  ],
+  "cover_image": "https://wp.technologyreview.com/wp-content/uploads/2026/11/simulacra2a.jpg?resize=1200,600",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1ee9f5994a817a2b-a-legendary-philosopher-isn-t-buying-anthropic-s-c-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1ee9f5994a817a2b-a-legendary-philosopher-isn-t-buying-anthropic-s-c-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1ee9f5994a817a2b-a-legendary-philosopher-isn-t-buying-anthropic-s-c-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1ee9f5994a817a2b-a-legendary-philosopher-isn-t-buying-anthropic-s-c-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1ee9f5994a817a2b-a-legendary-philosopher-isn-t-buying-anthropic-s-c-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1ee9f5994a817a2b-a-legendary-philosopher-isn-t-buying-anthropic-s-c-03.jpg"
+  ],
+  "image_warnings": [
+    "Some text was too long to fit a slide even after shrinking. Shorten it."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}

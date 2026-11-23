@@ -142,5 +142,21 @@
   "89af10e9e0075355": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/89af10e9e0075355-sources-trump-and-jd-vance-were-convinced-jensen-h.json",
     "drafted_at": "2026-11-23T19:55:24+00:00"
+  },
+  "0908ebe9dc863b24": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-23T20:32:18+00:00"
+  },
+  "3b54f599017186c7": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-23T20:32:18+00:00"
+  },
+  "1ee9f5994a817a2b": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1ee9f5994a817a2b-a-legendary-philosopher-isn-t-buying-anthropic-s-c.json",
+    "drafted_at": "2026-11-23T20:35:31+00:00"
+  },
+  "def41b9598d68a15": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/def41b9598d68a15-amazon-to-acquire-ai-startup-decart-s-chip-softwar.json",
+    "drafted_at": "2026-11-23T20:37:22+00:00"
   }
 }
