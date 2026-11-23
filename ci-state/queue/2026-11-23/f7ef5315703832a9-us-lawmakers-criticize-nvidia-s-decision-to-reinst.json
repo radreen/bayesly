@@ -1,0 +1,71 @@
+{
+  "id": "f7ef5315703832a9",
+  "status": "held",
+  "created_at": "2026-11-23T16:50:36+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.reuters.com/business/lawmakers-criticize-nvidia-decision-reinstate-huang-ceo-2026-11-23/",
+    "title": "US lawmakers criticize Nvidia's decision to reinstate Jensen Huang and say Congress must pass legislation to crack down on US chip exports to China (David Shepardson/Reuters)",
+    "published": "2026-11-23T16:25:02+00:00",
+    "text": "David Shepardson / Reuters : US lawmakers criticize Nvidia's decision to reinstate Jensen Huang and say Congress must pass legislation to crack down on US chip exports to China — US lawmakers from both parties offered sharp criticism on Monday of Nvidia's (NVDA.O) decision to reinstate Jensen Huang as CEO …"
+  },
+  "score": 0.9,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "US lawmakers criticize Nvidia reinstating Jensen Huang as CEO and call for chip export restrictions",
+    "threads_post": "US lawmakers from both parties are sharply criticizing Nvidia's decision to reinstate Jensen Huang as CEO.\n\nFollowing the move, politicians on Monday urged Congress to pass legislation cracking down on US chip exports to China.\n\nShould Congress tighten chip export rules?",
+    "x_post": "US lawmakers from both parties are criticizing Nvidia's decision to reinstate Jensen Huang as CEO.\n\nPoliticians say Congress must now pass legislation to crack down on US chip exports to China.\n\nShould export rules be tighter?",
+    "instagram_caption": "US lawmakers from both parties sharply criticized Nvidia's decision to reinstate Jensen Huang as CEO on Monday.\n\nFollowing the announcement, politicians argued that Congress must pass new legislation to crack down on US chip exports to China.\n\nShould Congress pass stricter laws on chip exports to China?\n\n#nvidia #semiconductors #ai #policy",
+    "question": "Should Congress pass stricter laws on US chip exports to China?",
+    "topic_tag": "Nvidia",
+    "broll_query": "semiconductor wafer",
+    "facts": [
+      "Lawmakers criticized Nvidia's decision to reinstate Jensen Huang as CEO.",
+      "US politicians from both parties offered sharp criticism on Monday.",
+      "Lawmakers say Congress must pass laws cracking down on chip exports to China."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source snippet is very brief and lacks specific details or quotes.",
+    "facts_used": [
+      "US lawmakers from both parties offered sharp criticism on Monday of Nvidia's decision to reinstate Jensen Huang as CEO",
+      "say Congress must pass legislation to crack down on US chip exports to China"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "The source snippet is extremely short (just a headline and sentence prefix). Kept posts minimal and grounded only in the available text.",
+    "card": {
+      "category": "Policy",
+      "headline": "US Lawmakers Criticize Nvidia Over CEO Return",
+      "highlight": "Criticize Nvidia Over CEO Return",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/f7ef5315703832a9-us-lawmakers-criticize-nvidia-s-decision-to-reinst-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/f7ef5315703832a9-us-lawmakers-criticize-nvidia-s-decision-to-reinst-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/f7ef5315703832a9-us-lawmakers-criticize-nvidia-s-decision-to-reinst-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/f7ef5315703832a9-us-lawmakers-criticize-nvidia-s-decision-to-reinst-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/f7ef5315703832a9-us-lawmakers-criticize-nvidia-s-decision-to-reinst-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/f7ef5315703832a9-us-lawmakers-criticize-nvidia-s-decision-to-reinst-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}

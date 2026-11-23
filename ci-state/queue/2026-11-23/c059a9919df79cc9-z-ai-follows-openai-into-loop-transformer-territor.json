@@ -1,0 +1,78 @@
+{
+  "id": "c059a9919df79cc9",
+  "status": "held",
+  "created_at": "2026-11-23T16:48:34+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/z-ai-follows-openai-into-loop-transformer-territory-with-its-new-750b-flagship-model/",
+    "title": "Z.ai follows OpenAI into loop transformer territory with its new 750B flagship model",
+    "published": "2026-11-23T15:13:03+00:00",
+    "text": "Z.ai is moving its flagship GLM-5.4 model to a loop architecture in which 28 layers run twice, which the company says lets the 750-billion-parameter model match models with 2 to 3 trillion parameters. Benchmark scores are only available for a smaller 30B test model so far, and Z.ai is positioning GLM-5.4 as the start of \"Generalized Coding,\" where code also generates videos, games, and CAD models. The article Z.ai follows OpenAI into loop transformer territory with its new 750B flagship model appeared first on The Decoder ."
+  },
+  "score": 1.12,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 1.0,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Z.ai is adopting a loop architecture for its new 750B flagship model, GLM-5.4.",
+    "threads_post": "Z.ai is adopting a loop architecture for its new 750-billion-parameter flagship model, GLM-5.4.\n\nThe company says running 28 layers twice allows the 750B model to match the performance of models with 2 to 3 trillion parameters. So far, benchmark scores are only available for a smaller 30B test model. Z.ai plans to use GLM-5.4 for Generalized Coding, where code also generates videos, games, and CAD models.\n\nWill loop architectures replace standard model scaling?",
+    "x_post": "Z.ai says its new 750B GLM-5.4 model matches 2 to 3 trillion parameter models by running 28 layers twice in a loop architecture.\n\nPublic benchmarks are only available for a smaller 30B model so far.\n\nWill loop architectures replace standard scaling? #AI #Tech",
+    "instagram_caption": "Z.ai is adopting a loop architecture for its new 750-billion-parameter GLM-5.4 model.\n\nBy running 28 layers twice, Z.ai claims the 750B model matches the performance of models with 2 to 3 trillion parameters.\n\nWhat we know so far:\n- Benchmark scores are currently only available for a smaller 30B test model.\n- Z.ai is positioning the model for Generalized Coding.\n- The company says code can generate videos, games, and CAD models.\n\nWill loop architectures replace standard model scaling?\n\n#ai #llm #coding #tech",
+    "question": "Will loop architectures replace standard model scaling?",
+    "topic_tag": "AI models",
+    "broll_query": "computer code screen animation",
+    "facts": [
+      "GLM-5.4 runs 28 layers twice in a loop architecture.",
+      "Z.ai says the 750B model matches models with 2 to 3 trillion parameters.",
+      "Public benchmark scores are currently only available for a 30B test model.",
+      "GLM-5.4 is built for code that generates videos, games, and CAD models."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source provides detailed parameters, architecture, and company claims.",
+    "facts_used": [
+      "Z.ai is moving its flagship GLM-5.4 model to a loop architecture in which 28 layers run twice",
+      "the company says lets the 750-billion-parameter model match models with 2 to 3 trillion parameters",
+      "Benchmark scores are only available for a smaller 30B test model so far",
+      "Z.ai is positioning GLM-5.4 as the start of 'Generalized Coding,' where code also generates videos, games, and CAD models"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Double-check if OpenAI loop transformer details or benchmarks for the 750B model are published later.",
+    "card": {
+      "category": "Models",
+      "headline": "Z.ai uses loop architecture in new 750B model",
+      "highlight": "new 750B model",
+      "number": {
+        "value": "750B",
+        "caption": "Parameters in Z.ai's GLM-5.4 model",
+        "footnote": "Company reported"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "X post contains a link or domain (costs $0.20 instead of $0.015)."
+  ],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/06/zhipu-ai-logo-wall-nano-banana-pro.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c059a9919df79cc9-z-ai-follows-openai-into-loop-transformer-territor-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c059a9919df79cc9-z-ai-follows-openai-into-loop-transformer-territor-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c059a9919df79cc9-z-ai-follows-openai-into-loop-transformer-territor-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c059a9919df79cc9-z-ai-follows-openai-into-loop-transformer-territor-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c059a9919df79cc9-z-ai-follows-openai-into-loop-transformer-territor-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c059a9919df79cc9-z-ai-follows-openai-into-loop-transformer-territor-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

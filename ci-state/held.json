@@ -77,5 +77,25 @@
     ],
     "held_at": "2026-11-22T21:06:32+00:00",
     "message_id": 44
+  },
+  "c059a9919df79cc9": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c059a9919df79cc9-z-ai-follows-openai-into-loop-transformer-territor.json",
+    "reasons": [
+      "lint: X post contains a link or domain (costs $0.20 instead of $0.015)."
+    ],
+    "held_at": "2026-11-23T16:51:59+00:00",
+    "message_id": 60
+  },
+  "f7ef5315703832a9": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/f7ef5315703832a9-us-lawmakers-criticize-nvidia-s-decision-to-reinst.json",
+    "reasons": [
+      "model said the source text is insufficient",
+      "confidence is 'low'",
+      "lint: Model flagged the source text as insufficient. Check the source before posting."
+    ],
+    "held_at": "2026-11-23T16:52:00+00:00",
+    "message_id": 61
   }
 }
