@@ -1,0 +1,79 @@
+{
+  "id": "bc6b513693d3e77e",
+  "status": "published",
+  "created_at": "2026-11-23T15:04:05+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/gpt-6-2-astra-solved-a-math-theorem-no-other-ai-could-crack-then-invented-its-own-proof-strategy/",
+    "title": "GPT-6.2 Astra solved a math theorem no other AI could crack, then invented its own proof strategy",
+    "published": "2026-11-23T12:17:01+00:00",
+    "text": "OpenAI's GPT-6.2 Astra independently produced a machine-verifiable Lean proof of Smoktunowicz's gap theorem, the first of its kind according to Vals AI. The model chose its own approach because key foundations were missing from Mathlib. On Autoform-Hard, Astra now leads the leaderboard with 49 of 56 tasks solved. The article GPT-6.2 Astra solved a math theorem no other AI could crack, then invented its own proof strategy appeared first on The Decoder ."
+  },
+  "score": 0.98,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "OpenAI's GPT-6.2 Astra produced a machine-verifiable Lean proof of Smoktunowicz's gap theorem.",
+    "threads_post": "OpenAI's GPT-6.2 Astra just solved Smoktunowicz's gap theorem with a machine-verifiable Lean proof.\n\nVals AI says this is the first proof of its kind by an AI. The model created its own strategy after finding key foundations missing from Mathlib. It now leads the Autoform-Hard leaderboard after solving 49 of 56 tasks.\n\nShould AI invent its own math strategies or stick to human methods?",
+    "x_post": "OpenAI's GPT-6.2 Astra solved Smoktunowicz's gap theorem with a machine-verifiable Lean proof.\n\nVals AI says it is the first of its kind. Astra made its own strategy when Mathlib lacked foundations, and leads Autoform-Hard with 49 of 56 tasks.\n\n#OpenAI",
+    "instagram_caption": "OpenAI's GPT-6.2 Astra just solved Smoktunowicz's gap theorem with a machine-verifiable Lean proof.\n\nAccording to Vals AI, it is the first AI proof of its kind. When Astra found key foundations missing from Mathlib, it chose its own approach to finish the proof.\n\nOn the Autoform-Hard benchmark, Astra now leads the leaderboard after solving 49 of 56 tasks.\n\nShould AI invent its own math strategies or stick to human methods?\n\n#ai #openai #math #research",
+    "question": "Should AI invent its own math strategies or stick to human methods?",
+    "topic_tag": "OpenAI",
+    "broll_query": "chalkboard math equations",
+    "facts": [
+      "GPT-6.2 Astra produced a machine-verifiable Lean proof of Smoktunowicz's gap theorem.",
+      "Vals AI says it is the first AI proof of its kind.",
+      "Astra devised its own approach because key foundations were missing from Mathlib.",
+      "The model leads the Autoform-Hard leaderboard with 49 of 56 tasks solved."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source explicitly details the model, theorem, benchmark, and findings.",
+    "facts_used": [
+      "OpenAI's GPT-6.2 Astra independently produced a machine-verifiable Lean proof of Smoktunowicz's gap theorem",
+      "the first of its kind according to Vals AI",
+      "The model chose its own approach because key foundations were missing from Mathlib",
+      "On Autoform-Hard, Astra now leads the leaderboard with 49 of 56 tasks solved"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Verify if Mathlib details require further elaboration when full technical papers are released.",
+    "card": {
+      "category": "Research",
+      "headline": "GPT-6.2 Astra Solves Math Theorem with Own Strategy",
+      "highlight": "Solves Math Theorem",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/gpt_lean_proof.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/bc6b513693d3e77e-gpt-6-2-astra-solved-a-math-theorem-no-other-ai-co-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/bc6b513693d3e77e-gpt-6-2-astra-solved-a-math-theorem-no-other-ai-co-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/bc6b513693d3e77e-gpt-6-2-astra-solved-a-math-theorem-no-other-ai-co-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/bc6b513693d3e77e-gpt-6-2-astra-solved-a-math-theorem-no-other-ai-co-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/bc6b513693d3e77e-gpt-6-2-astra-solved-a-math-theorem-no-other-ai-co-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/bc6b513693d3e77e-gpt-6-2-astra-solved-a-math-theorem-no-other-ai-co-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/bc6b513693d3e77e-gpt-6-2-astra-solved-a-math-theorem-no-other-ai-co.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/bc6b513693d3e77e-gpt-6-2-astra-solved-a-math-theorem-no-other-ai-co.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/bc6b513693d3e77e-gpt-6-2-astra-solved-a-math-theorem-no-other-ai-co.x.mp4",
+  "video_seconds": 32.1,
+  "video_voice": true,
+  "video_warnings": []
+}

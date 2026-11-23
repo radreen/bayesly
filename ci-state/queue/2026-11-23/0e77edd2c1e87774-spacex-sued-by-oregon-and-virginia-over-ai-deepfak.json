@@ -1,0 +1,71 @@
+{
+  "id": "0e77edd2c1e87774",
+  "status": "pending_review",
+  "created_at": "2026-11-23T15:05:21+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "cnbc-tech",
+    "name": "CNBC Technology",
+    "kind": "press",
+    "reliability": 0.8,
+    "url": "https://www.cnbc.com/2026/11/23/oregon-virginia-spacex-grok-deepfake-lawsuits.html",
+    "title": "SpaceX sued by Oregon and Virginia over AI deepfake porn, Grok safety claims",
+    "published": "2026-11-23T12:40:37+00:00",
+    "text": "The states are seeking civil penalties and injunctions to stop Grok and X from creation and distribution of nonconsensual sexualized images."
+  },
+  "score": 0.91,
+  "score_breakdown": {
+    "reliability": 0.8,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "thin_text_penalty": -0.1,
+    "names_bonus": 0.12,
+    "stakes_bonus": 0.08,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Oregon and Virginia are suing SpaceX over Grok safety claims and AI deepfakes.",
+    "threads_post": "Oregon and Virginia are suing SpaceX over AI deepfake porn and Grok safety claims.\n\nThe states are seeking civil penalties and legal injunctions against the company.\n\nThey aim to stop Grok and X from creating and distributing nonconsensual sexualized images.\n\nAre state lawsuits the right way to enforce AI safety?",
+    "x_post": "Oregon and Virginia are suing SpaceX over Grok safety claims and AI deepfake porn.\n\nThe states seek civil penalties and injunctions to stop Grok and X from making and sharing explicit images.\n\nShould states regulate AI tools directly?",
+    "instagram_caption": "Oregon and Virginia are suing SpaceX over AI deepfake porn and Grok safety claims.\n\nThe two states are seeking civil penalties and injunctions against SpaceX. They want to stop Grok and X from creating and distributing nonconsensual sexualized images.\n\nShould state governments have the power to restrict AI image generators?\n\n#ai #aisafety #techlaw #deepfakes",
+    "question": "Are state lawsuits the right way to enforce AI safety?",
+    "topic_tag": "AI Safety",
+    "broll_query": "courtroom gavel legal documents",
+    "facts": [
+      "Oregon and Virginia filed lawsuits against SpaceX over Grok safety claims.",
+      "The states are seeking civil penalties and legal injunctions.",
+      "The lawsuits aim to stop Grok and X from creating nonconsensual sexualized images."
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Source text is very brief (title plus one sentence body).",
+    "facts_used": [
+      "SpaceX sued by Oregon and Virginia over AI deepfake porn, Grok safety claims",
+      "The states are seeking civil penalties and injunctions to stop Grok and X from creation and distribution of nonconsensual sexualized images."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The source is very short (headline + 1 sentence). Verify full court filings as more details publish.",
+    "card": {
+      "category": "Safety",
+      "headline": "Oregon and Virginia sue SpaceX over Grok AI deepfakes",
+      "highlight": "sue SpaceX over Grok",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://image.cnbcfm.com/api/v1/image/108282790-1774443628624-gettyimages-2265843824-raa-grokaieu260313_np8wx.jpeg?v=1774443657&w=1920&h=1080",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/0e77edd2c1e87774-spacex-sued-by-oregon-and-virginia-over-ai-deepfak-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/0e77edd2c1e87774-spacex-sued-by-oregon-and-virginia-over-ai-deepfak-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/0e77edd2c1e87774-spacex-sued-by-oregon-and-virginia-over-ai-deepfak-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/0e77edd2c1e87774-spacex-sued-by-oregon-and-virginia-over-ai-deepfak-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/0e77edd2c1e87774-spacex-sued-by-oregon-and-virginia-over-ai-deepfak-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/0e77edd2c1e87774-spacex-sued-by-oregon-and-virginia-over-ai-deepfak-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

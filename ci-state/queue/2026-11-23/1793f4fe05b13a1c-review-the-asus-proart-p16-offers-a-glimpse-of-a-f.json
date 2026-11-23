@@ -1,0 +1,75 @@
+{
+  "id": "1793f4fe05b13a1c",
+  "status": "pending_review",
+  "created_at": "2026-11-23T15:04:24+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "ars-ai",
+    "name": "Ars Technica AI",
+    "kind": "press",
+    "reliability": 0.8,
+    "url": "https://arstechnica.com/reviews/2026/11/review-the-asus-proart-p16-offers-a-glimpse-of-a-future-powered-by-local-ai/",
+    "title": "Review: The Asus ProArt P16 offers a glimpse of a future powered by local AI",
+    "published": "2026-11-23T12:00:00+00:00",
+    "text": "Buying a new computer in the last few years has meant wading through all manner of AI branding nonsense . Most of the AI pitches for laptops are little more than marketing hype, but the launch of Nvidia RTX Spark could bring a meaningful improvement in AI capabilities to the device you use every day. Asus has adopted Nvidia's new chip in its latest ProArt lineup, offering a staggering amount of memory to run local AI models. While it doesn't have a traditional GPU, the Asus ProArt P16 , with up to 128GB of memory, can also be your primary gaming and productivity machine, but this unified experience comes at a high price. If you want to run a small army of agents on your laptop, you're looking at $7,000 for the top-end ProArt P16, and despite being more approachable on Windows, local AI still requires a lot of trial and error. The PC stuff Before we dive into the AI agents, let's talk about the ProArt P16 as a laptop. Nvidia's pitch is that the RTX Spark can be your one true machine for AI, productivity, and gaming. And it doesn't skimp on the specs. Read full article Comments"
+  },
+  "score": 0.92,
+  "score_breakdown": {
+    "reliability": 0.8,
+    "relevance": 1.0,
+    "novelty": 1.0
+  },
+  "draft": {
+    "headline": "Asus's new ProArt P16 laptop features Nvidia's RTX Spark chip and up to 128GB of memory for $7,000.",
+    "threads_post": "The top-end Asus ProArt P16 laptop costs $7,000 to run local AI models.\n\nIt features Nvidia's new RTX Spark chip and up to 128GB of memory. While it lacks a traditional GPU, Nvidia claims the RTX Spark can handle AI, gaming, and everyday productivity on one machine. Running AI locally on Windows still requires trial and error.\n\nWould you pay $7,000 to run AI models locally on a laptop?",
+    "x_post": "Asus's new ProArt P16 laptop features Nvidia's RTX Spark chip and up to 128GB of memory for local AI. It drops traditional GPUs, with top specs priced at $7,000. Nvidia claims it handles AI, gaming, and work.\n\nWould you pay $7,000 for local AI? #asus #nvidia",
+    "instagram_caption": "The top-end Asus ProArt P16 costs $7,000 to run local AI models.\n\nAsus built the new laptop around Nvidia's RTX Spark chip, packing up to 128GB of memory. It doesn't have a traditional GPU. Nvidia pitches the RTX Spark as a single chip for AI, gaming, and general productivity. However, running local AI on Windows still requires trial and error.\n\nWould you pay $7,000 to run AI models locally on a laptop?\n\n#ai #asus #nvidia #laptops",
+    "question": "Would you pay $7,000 to run AI models locally on a laptop?",
+    "topic_tag": "Nvidia",
+    "broll_query": "laptop computer user typing",
+    "facts": [
+      "The Asus ProArt P16 features up to 128GB of memory to run local AI models.",
+      "It uses Nvidia's new RTX Spark chip instead of a traditional GPU.",
+      "The top-end configuration costs $7,000."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source explicitly states chip name, RAM size, pricing, and GPU status.",
+    "facts_used": [
+      "Asus has adopted Nvidia's new chip in its latest ProArt lineup",
+      "the Asus ProArt P16 , with up to 128GB of memory",
+      "While it doesn't have a traditional GPU",
+      "you're looking at $7,000 for the top-end ProArt P16",
+      "Nvidia's pitch is that the RTX Spark can be your one true machine for AI, productivity, and gaming.",
+      "local AI still requires a lot of trial and error"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All specs and pricing taken directly from Ars Technica source text.",
+    "card": {
+      "category": "Chips",
+      "headline": "Asus puts Nvidia's RTX Spark chip in its $7,000 laptop",
+      "highlight": "Nvidia's RTX Spark chip",
+      "number": {
+        "value": "$7,000",
+        "caption": "Price for the top-end Asus ProArt P16",
+        "footnote": "As reported by Ars Technica"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Asus-P16-3-1152x648.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1793f4fe05b13a1c-review-the-asus-proart-p16-offers-a-glimpse-of-a-f-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1793f4fe05b13a1c-review-the-asus-proart-p16-offers-a-glimpse-of-a-f-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1793f4fe05b13a1c-review-the-asus-proart-p16-offers-a-glimpse-of-a-f-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1793f4fe05b13a1c-review-the-asus-proart-p16-offers-a-glimpse-of-a-f-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1793f4fe05b13a1c-review-the-asus-proart-p16-offers-a-glimpse-of-a-f-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1793f4fe05b13a1c-review-the-asus-proart-p16-offers-a-glimpse-of-a-f-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
