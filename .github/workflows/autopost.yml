@@ -51,6 +51,15 @@ env:
   VIDEO_VOICE: ${{ vars.VIDEO_VOICE || '1' }}
   MAX_POSTS_PER_DAY: ${{ vars.MAX_POSTS_PER_DAY || '8' }}
   MIN_GAP_MINUTES: ${{ vars.MIN_GAP_MINUTES || '60' }}
+  # Per-platform daily caps. Instagram/Threads ramp up slowly after Meta's 2026-11 automation flag:
+  # META_CAP_START/day from META_RAMP_FROM, +1 every META_RAMP_EVERY_DAYS, up to META_CAP_MAX.
+  META_RAMP_FROM: ${{ vars.META_RAMP_FROM || '2026-11-23' }}
+  META_CAP_START: ${{ vars.META_CAP_START || '4' }}
+  META_CAP_MAX: ${{ vars.META_CAP_MAX || '8' }}
+  META_RAMP_EVERY_DAYS: ${{ vars.META_RAMP_EVERY_DAYS || '4' }}
+  MAX_POSTS_PER_DAY_THREADS: ${{ vars.MAX_POSTS_PER_DAY_THREADS }}      # empty = use the ramp
+  MAX_POSTS_PER_DAY_INSTAGRAM: ${{ vars.MAX_POSTS_PER_DAY_INSTAGRAM }}
+  MAX_POSTS_PER_DAY_X: ${{ vars.MAX_POSTS_PER_DAY_X }}
   GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
   GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash' }}
   GEMINI_TIMEOUT_SECONDS: "90"

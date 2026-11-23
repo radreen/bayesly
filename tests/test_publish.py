@@ -471,3 +471,24 @@ def test_old_drafts_are_relinted_and_stale_ones_skipped():
     assert is_outdated_format({"draft": {"threads_post": "T"}}) and not is_outdated_format(rec)
     old = (datetime.now(timezone.utc) - timedelta(hours=9)).isoformat()
     assert not is_fresh({"created_at": old}) and is_fresh({"created_at": datetime.now(timezone.utc).isoformat()})
+
+
+def test_meta_daily_cap_ramps_and_x_keeps_posting(env, monkeypatch):
+    from bayesly.schedule import platform_cap
+    monkeypatch.setenv("META_RAMP_FROM", "2026-11-23")
+    day0 = datetime(2026, 11, 23, 12, tzinfo=timezone.utc)
+    assert platform_cap("instagram", day0) == 4 and platform_cap("instagram", day0 + timedelta(days=4)) == 5
+    assert platform_cap("threads", day0 + timedelta(days=60)) == 8 and platform_cap("x", day0) == 8
+    monkeypatch.setenv("MAX_POSTS_PER_DAY_INSTAGRAM", "2")
+    assert platform_cap("instagram", day0) == 2
+
+    settings, day, jpg = env
+    monkeypatch.setenv("MAX_POSTS_PER_DAY_THREADS", "0")       # Threads full for today
+    write(day, good_record(images_jpg=[str(jpg)]))
+    poster, pubs, _ = make(settings)
+    poster.run(1)
+    assert len(pubs["threads"].posts) == 0 and len(pubs["x"].posts) == 1
+    assert poster.ledger.entry("abc", "threads")["skipped"] == "daily cap 0"
+    monkeypatch.setenv("MAX_POSTS_PER_DAY_THREADS", "5")
+    poster.run(1)
+    assert len(pubs["threads"].posts) == 0                         # stale tomorrow: never posted late

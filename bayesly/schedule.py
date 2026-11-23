@@ -55,6 +55,38 @@ def post_times(ledger: Ledger) -> list[datetime]:
 APPROVED_GAP_MIN = 15
 
 
+# -- per-platform daily caps ---------------------------------------------------------------
+# Meta flagged the business portfolio for "automation" on 2026-11-22 (cleared 2026-11-23 after an ID
+# check). So Instagram/Threads ramp up slowly: META_CAP_START posts/day from META_RAMP_FROM, +1 every
+# META_RAMP_EVERY_DAYS, up to META_CAP_MAX. X is unaffected. MAX_POSTS_PER_DAY_<PLATFORM> overrides.
+META = ("threads", "instagram")
+
+
+def platform_cap(platform: str, now: datetime) -> int:
+    override = os.getenv(f"MAX_POSTS_PER_DAY_{platform.upper()}", "").strip()
+    if override:
+        try:
+            return int(override)
+        except ValueError:
+            pass
+    if platform not in META:
+        return int(_env("MAX_POSTS_PER_DAY", 8))
+    start, top, every = int(_env("META_CAP_START", 4)), int(_env("META_CAP_MAX", 8)), _env("META_RAMP_EVERY_DAYS", 4)
+    try:
+        since = datetime.fromisoformat(os.getenv("META_RAMP_FROM", "2026-11-23")).replace(tzinfo=timezone.utc)
+    except ValueError:
+        return start
+    days = max(0, (now - since).days)
+    return min(top, start + int(days // max(every, 1)))
+
+
+def posted_today(ledger: Ledger, platform: str, now: datetime) -> int:
+    day = now.date()
+    return sum(1 for plats in ledger._load().values()
+               for p, e in plats.items()
+               if p == platform and e.get("ok") and e.get("at") and datetime.fromisoformat(e["at"]).date() == day)
+
+
 def decide(ranked: list[Item], drafted: set[str], approved_waiting: int, posted: list[datetime],
            rules: Rules, now: datetime, key=lambda i: i.url) -> tuple[bool, str]:
     today = [t for t in posted if t.date() == now.date()]

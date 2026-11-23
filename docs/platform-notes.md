@@ -100,3 +100,8 @@ Record what was checked, when, and the link.
 - Instagram views/reach need `instagram_manage_insights` (not granted). X stats need a paid tier: skipped.
 - Threads `topic_tag`: 1–50 chars, no "." or "&", one per post, set on the post container (not carousel items).
 - Manual: `python -m bayesly metrics` (send now) or `metrics --print`.
+
+## Daily caps per platform (since 2026-11-23)
+- Meta flagged the business portfolio for "automated activity" on 2026-11-22; cleared 2026-11-23 after an ID check. To avoid a sudden spike, Instagram and Threads ramp: 4 posts/day from 2026-11-23, +1 every 4 days, max 8 (`bayesly/schedule.py: platform_cap`). X: `MAX_POSTS_PER_DAY` (8).
+- A platform whose cap is full skips that story for good (ledger `skipped: daily cap N`): news is stale tomorrow.
+- Override with repo variables `MAX_POSTS_PER_DAY_THREADS` / `_INSTAGRAM` / `_X`, or tune `META_*`.

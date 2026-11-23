@@ -134,6 +134,17 @@ class Ledger:
     def touched(self, draft_id: str) -> bool:
         return draft_id in self._load()
 
+    def record_skip(self, draft_id: str, platform: str, reason: str) -> None:
+        """This platform will never get this draft (e.g. its daily cap was full): mark it done, not failed."""
+        data = self._load()
+        data.setdefault(draft_id, {})[platform] = {
+            "platform": platform, "ok": False, "skipped": reason, "attempts": MAX_ATTEMPTS,
+            "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = self.path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+        tmp.replace(self.path)
+
     def record(self, draft_id: str, result: PublishResult) -> None:
         if result.dry_run:
             return
