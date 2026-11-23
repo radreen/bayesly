@@ -80,6 +80,10 @@ class _MetaPublisher:
             return PublishResult(self.name, ok=True, dry_run=True, detail=f"would post {what} + {len(text)} chars")
         if not (self.user_id and self.token):
             return PublishResult(self.name, ok=False, error=f"{self.name}: user id / token not configured")
+        existing = self._already_live(text)
+        if existing is not None:   # state was lost (e.g. a failed save): never post the same thing twice
+            return PublishResult(self.name, ok=True, post_id=existing.get("id"), url=existing.get("permalink"),
+                                 detail="already published, not posted again")
         self._topic = clean_topic(post.topic) if self.name == "threads" else ""
         note = None
         if video:
@@ -110,6 +114,24 @@ class _MetaPublisher:
             pass  # the post exists; a missing permalink is not a failure
         return PublishResult(self.name, ok=True, post_id=post_id, url=url, detail="video" if video else None)
 
+    recent_path = ""          # "{uid}/threads" or "{uid}/media"
+    recent_text_field = ""    # "text" or "caption"
+
+    def _already_live(self, text: str) -> dict | None:
+        """Our 10 most recent posts; the one whose text starts like `text`, else None. Best effort."""
+        key = " ".join(text.split())[:120]
+        if not key or not self.recent_path:
+            return None
+        try:
+            data = self._req("GET", self.recent_path.format(uid=self.user_id),
+                             fields=f"id,{self.recent_text_field},permalink", limit=10)
+        except Exception:  # noqa: BLE001 - a safety net only: if the check fails, publish as usual
+            return None
+        for item in data.get("data") or []:
+            if " ".join((item.get(self.recent_text_field) or "").split())[:120] == key:
+                return item
+        return None
+
     def _build_video(self, text: str, video_url: str) -> str:
         raise NotImplementedError
 
@@ -136,6 +158,8 @@ class ThreadsPublisher(_MetaPublisher):
     publish_path = "{uid}/threads_publish"
     text_param = "text"
     status_field = "status"
+    recent_path = "{uid}/threads"
+    recent_text_field = "text"
     # Threads docs: wait ~30 s after creating a container before publishing it. Our first live post
     # (2026-11-19) failed with "Media Not Found" when publishing right after status FINISHED.
     publish_delay = 30
@@ -161,6 +185,8 @@ class InstagramPublisher(_MetaPublisher):
     publish_path = "{uid}/media_publish"
     text_param = "caption"
     status_field = "status_code"
+    recent_path = "{uid}/media"
+    recent_text_field = "caption"
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         kwargs.setdefault("poll_every", 15)   # docs: check status_code ~once a minute, up to 5 minutes

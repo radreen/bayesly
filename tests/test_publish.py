@@ -492,3 +492,13 @@ def test_meta_daily_cap_ramps_and_x_keeps_posting(env, monkeypatch):
     monkeypatch.setenv("MAX_POSTS_PER_DAY_THREADS", "5")
     poster.run(1)
     assert len(pubs["threads"].posts) == 0                         # stale tomorrow: never posted late
+
+
+def test_meta_never_posts_the_same_text_twice():
+    s = FakeSession([
+        (("GET", "/u1/threads"), FakeResp({"data": [{"id": "p9", "text": POST.texts["threads"] + " ",
+                                                      "permalink": "https://threads/p9"}]})),
+    ])
+    r = ThreadsPublisher("u1", "t", live=True, session=s, sleep=lambda _: None).publish(POST)
+    assert r.ok and r.post_id == "p9" and "already published" in r.detail
+    assert not [c for c in s.calls if c[0] == "POST"]

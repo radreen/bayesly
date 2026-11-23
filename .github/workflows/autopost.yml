@@ -85,7 +85,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30          # video render ~2-3 min per post
     steps:
+      # ref: main = the branch tip NOW, not the commit the run was queued at. A run that waited behind
+      # another one used to start from stale ci-state (without the post that run had just published),
+      # publish it again and then fail to push (2026-11-23 duplicates).
       - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Sync state to the latest commit
+        run: git pull --ff-only --quiet origin main || true
 
       - uses: actions/setup-python@v5
         with:
@@ -142,4 +150,11 @@ jobs:
           git add ci-state
           if git diff --cached --quiet; then echo "no state changes"; exit 0; fi
           git commit -m "state: ${{ steps.cmd.outputs.name }} run ${{ github.run_id }}"
-          git pull --rebase --quiet && git push --quiet
+          # This run's state is the newest (it started from the latest commit), so on a conflict in
+          # ci-state keep ours (-X theirs = the commit being replayed). Retry: other pushes may race us.
+          for i in 1 2 3 4 5; do
+            if git pull --rebase -X theirs origin main && git push origin HEAD:main; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          echo "::error::could not push ci-state after 5 tries"; exit 1
