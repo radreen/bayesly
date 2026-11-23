@@ -1,0 +1,81 @@
+{
+  "id": "afb5825ea1aa5f61",
+  "status": "published",
+  "created_at": "2026-11-23T19:54:50+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/openai-warns-that-upcoming-ai-systems-could-outpace-safety-checks-and-urges-rivals-to-agree-on-shared-limits/",
+    "title": "OpenAI warns that upcoming AI systems could outpace safety checks and urges rivals to agree on shared limits",
+    "published": "2026-11-23T18:42:38+00:00",
+    "text": "OpenAI chief scientist Jakub Pachocki has released internal perplexity scores for the entire GPT series for the first time, up to an unreleased model beyond the current generation. The metric shows that core capabilities emerge at surprisingly precise thresholds. Pachocki is pushing to make perplexity an industry-wide progress metric and establish shared limits before control over AI behavior erodes. The article OpenAI warns that upcoming AI systems could outpace safety checks and urges rivals to agree on shared limits appeared first on The Decoder ."
+  },
+  "score": 1.05,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.8,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "OpenAI chief scientist Jakub Pachocki has shared internal GPT perplexity scores for the first time, including for an unreleased model.",
+    "threads_post": "OpenAI chief scientist Jakub Pachocki just released internal perplexity scores for the entire GPT series for the first time, including an unreleased next-gen model.\n\nThe metric shows that core capabilities emerge at surprisingly precise thresholds. Now, Pachocki is pushing to make perplexity an industry progress metric and establish shared safety limits before control erodes.\n\nShould AI rivals agree on shared safety limits?",
+    "x_post": "OpenAI chief scientist Jakub Pachocki released internal perplexity scores for the GPT series, including an unreleased model.\n\nHe warns upcoming AI could outpace safety checks and urges rivals to set shared limits.\n\nShould AI rivals agree on shared limits? #AI",
+    "instagram_caption": "OpenAI chief scientist Jakub Pachocki has released internal perplexity scores for the entire GPT series for the first time, extending to an unreleased model beyond the current generation.\n\nThe metric shows core capabilities emerge at surprisingly precise thresholds. OpenAI warns that upcoming AI systems could outpace existing safety checks.\n\nPachocki is now pushing to make perplexity an industry-wide metric and establish shared safety limits before control over AI behavior erodes.\n\nShould AI companies agree on shared limits?\n\n#ai #openai #aisafety #tech",
+    "question": "Should AI rivals agree on shared limits, or will it slow progress?",
+    "topic_tag": "OpenAI",
+    "broll_query": "computer screen code analytics",
+    "facts": [
+      "OpenAI released GPT perplexity scores up to an unreleased next-gen model.",
+      "Perplexity data shows core capabilities emerge at surprisingly precise thresholds.",
+      "Chief scientist Jakub Pachocki urges rivals to set shared safety limits."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source explicitly states Pachocki released scores and is pushing for limits.",
+    "facts_used": [
+      "OpenAI chief scientist Jakub Pachocki has released internal perplexity scores for the entire GPT series for the first time",
+      "up to an unreleased model beyond the current generation",
+      "core capabilities emerge at surprisingly precise thresholds",
+      "Pachocki is pushing to make perplexity an industry-wide progress metric and establish shared limits",
+      "OpenAI warns that upcoming AI systems could outpace safety checks"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "No specific numeric perplexity scores were provided in the source text, so the card number field is set to null.",
+    "card": {
+      "category": "Safety",
+      "headline": "OpenAI warns upcoming models could outpace safety checks",
+      "highlight": "outpace safety checks",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/10/openai_safety.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/afb5825ea1aa5f61-openai-warns-that-upcoming-ai-systems-could-outpac-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/afb5825ea1aa5f61-openai-warns-that-upcoming-ai-systems-could-outpac-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/afb5825ea1aa5f61-openai-warns-that-upcoming-ai-systems-could-outpac-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/afb5825ea1aa5f61-openai-warns-that-upcoming-ai-systems-could-outpac-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/afb5825ea1aa5f61-openai-warns-that-upcoming-ai-systems-could-outpac-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/afb5825ea1aa5f61-openai-warns-that-upcoming-ai-systems-could-outpac-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 76 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/afb5825ea1aa5f61-openai-warns-that-upcoming-ai-systems-could-outpac.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/afb5825ea1aa5f61-openai-warns-that-upcoming-ai-systems-could-outpac.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/afb5825ea1aa5f61-openai-warns-that-upcoming-ai-systems-could-outpac.x.mp4",
+  "video_seconds": 24.9,
+  "video_voice": true,
+  "video_warnings": []
+}
