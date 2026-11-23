@@ -1,0 +1,80 @@
+{
+  "id": "9d5c4f64f5c79390",
+  "status": "published",
+  "created_at": "2026-11-23T21:03:09+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "verge-ai",
+    "name": "The Verge AI",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://www.theverge.com/ai-artificial-intelligence/1040134/anthropic-claude-ship-ai-pull-requests",
+    "title": "Claude AI can review pull requests and ship fixes on its own now",
+    "published": "2026-11-23T20:00:00+00:00",
+    "text": "Anthropic is launching some new Claude AI features to help software engineers ship code. As part of a new Claude Ship product being announced today, Claude now can review, fix, and approve pull requests. Engineers have already been able to take advantage of Claude's code review capabilities thanks to the Code Review feature, which was announced in March and became generally available in October . What's new alongside Claude Ship are the PR Steward and Claude Approvals agents, which are launching in beta today. PR Steward \"jumps in on failing CI checks, merge conflicts, and review feedback from Code Review, other review tools, or team member … Read the full story at The Verge."
+  },
+  "score": 0.98,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Anthropic announced Claude Ship, allowing Claude to review, fix, and approve pull requests.",
+    "threads_post": "Anthropic's Claude can now review, fix, and approve pull requests on its own.\n\nAs part of the new Claude Ship product, Anthropic is launching two new agents in beta today: PR Steward and Claude Approvals. PR Steward steps in to handle failing CI checks, merge conflicts, and review feedback from team members.\n\nWould you trust an AI agent to approve pull requests in your codebase?",
+    "x_post": "Anthropic announced Claude Ship, letting Claude review, fix, and approve pull requests.\n\nNew PR Steward and Claude Approvals agents launch in beta today to handle failing CI checks and merge conflicts.\n\nWould you let AI approve pull requests in your repo?",
+    "instagram_caption": "Anthropic's Claude can now review, fix, and approve pull requests on its own.\n\nThe company announced a new product called Claude Ship, launching two new AI agents in beta today: PR Steward and Claude Approvals.\n\nPR Steward steps in to fix failing CI checks, resolve merge conflicts, and address review feedback from team members or automated tools. Anthropic previously launched its Code Review feature in March, which reached general availability in October.\n\nWould you trust an AI agent to review and approve pull requests in your codebase?\n\n#ai #coding #anthropic #claude #softwareengineering",
+    "question": "Would you trust an AI agent to review and approve pull requests in your repository?",
+    "topic_tag": "AI agents",
+    "broll_query": "software developer coding",
+    "facts": [
+      "Anthropic announced Claude Ship to review, fix, and approve pull requests.",
+      "New PR Steward and Claude Approvals agents are launching in beta today.",
+      "PR Steward handles failing CI checks, merge conflicts, and review feedback."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Core product announcement details are clearly stated in the source text.",
+    "facts_used": [
+      "Anthropic is launching some new Claude AI features to help software engineers ship code.",
+      "As part of a new Claude Ship product being announced today, Claude now can review, fix, and approve pull requests.",
+      "What's new alongside Claude Ship are the PR Steward and Claude Approvals agents, which are launching in beta today.",
+      "PR Steward jumps in on failing CI checks, merge conflicts, and review feedback from Code Review, other review tools, or team member"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The source snippet ends mid-sentence, but contains all key facts about Claude Ship, PR Steward, and Claude Approvals.",
+    "card": {
+      "category": "Tools",
+      "headline": "Claude can now review, fix, and approve pull requests",
+      "highlight": "review, fix, and approve",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/07/STKB364_CLAUDE_2_C_96d15c-1.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 72 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes.x.mp4",
+  "video_seconds": 24.8,
+  "video_voice": true,
+  "video_warnings": []
+}
