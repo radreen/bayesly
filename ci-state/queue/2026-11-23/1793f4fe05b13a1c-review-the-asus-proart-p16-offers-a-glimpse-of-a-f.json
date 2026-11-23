@@ -1,6 +1,6 @@
 {
   "id": "1793f4fe05b13a1c",
-  "status": "pending_review",
+  "status": "published",
   "created_at": "2026-11-23T15:04:24+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -71,5 +71,12 @@
   ],
   "image_warnings": [],
   "palette": "lime",
-  "layout": "photo"
+  "layout": "photo",
+  "page_shot": null,
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1793f4fe05b13a1c-review-the-asus-proart-p16-offers-a-glimpse-of-a-f.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/1793f4fe05b13a1c-review-the-asus-proart-p16-offers-a-glimpse-of-a-f.x.mp4",
+  "video_seconds": 24.2,
+  "video_voice": true,
+  "video_warnings": []
 }
