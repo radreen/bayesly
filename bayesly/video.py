@@ -313,7 +313,9 @@ def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], to
     if broll_credit:   # stock clip is composited by ffmpeg under a transparent footage zone
         credit = e(broll_credit)
 
-    lines = [f'<div class="line" data-in="0.05" data-out="{end(hook):.2f}" data-rise>'
+    # data-in="0": the hook is fully drawn on frame 0. Instagram, Threads and X use the first frame as the
+    # cover in profile grids; a fade-in made every Reel cover black (2026-11-23).
+    lines = [f'<div class="line" data-in="0" data-out="{end(hook):.2f}" data-rise>'
              f'<h1 class="hookline" data-fit="560">{_headline_html(card)}</h1></div>']
     for i, f in enumerate(facts, start=1):
         lines.append(f'<div class="line fact" data-in="{f.start:.2f}" data-out="{end(f):.2f}" data-rise>'
@@ -342,7 +344,7 @@ window.__seek = function (t) {{
   function c(x) {{ return Math.min(1, Math.max(0, x)); }}
   document.querySelectorAll("[data-in]").forEach(function (el) {{
     var a = +el.dataset.in, b = el.dataset.out ? +el.dataset.out : 1e9;
-    var i = c((t - a) / F), o = c((b - t) / F);
+    var i = a <= 0 ? 1 : c((t - a) / F), o = c((b - t) / F);   // things that start at 0 are on screen at once
     el.style.opacity = i * o;
     if (el.hasAttribute("data-rise")) {{ var k = 1 - Math.pow(1 - i, 3); el.style.transform = "translateY(" + ((1 - k) * 50) + "px)"; }}
   }});
