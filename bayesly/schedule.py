@@ -90,6 +90,7 @@ def posted_today(ledger: Ledger, platform: str, now: datetime) -> int:
                if p == platform and e.get("ok") and e.get("at") and datetime.fromisoformat(e["at"]).date() == day)
 
 
+FRESH_DRIFT = 0.08      # FRESH_BONUS (<1 h) 0.18 minus (<3 h) 0.10, see score.py
 HOT_GAP_MIN = 20        # a breaking story waits at most this long after our previous post
 HARD_MAX_PER_DAY = 12   # absolute ceiling per network, breaking news included (anti-spam)
 
@@ -104,7 +105,9 @@ def is_breaking(score: float, published: datetime | None, now: datetime, rules: 
     rules = rules or Rules.from_env()
     if published is None:
         return False
-    return score >= rules.hot_score and (now - published) <= timedelta(hours=rules.hot_age_h + 1)
+    # The freshness bonus shrinks between `check` (story 20 min old: +0.18) and drafting (1 h old: +0.10),
+    # so a story check called hot can be stored just under the bar (1.06 -> 0.98 on 2026-11-23).
+    return score >= rules.hot_score - FRESH_DRIFT and (now - published) <= timedelta(hours=rules.hot_age_h + 1)
 
 
 def decide(ranked: list[Item], drafted: set[str], approved_waiting: int, posted: list[datetime],

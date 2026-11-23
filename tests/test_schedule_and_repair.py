@@ -93,4 +93,5 @@ def test_platform_cap_lifts_for_breaking_news():
     from bayesly.schedule import is_breaking, platform_cap
     assert platform_cap("instagram", NOW, breaking=True) == 12
     assert is_breaking(1.1, NOW - timedelta(hours=2), NOW, Rules()) and not is_breaking(0.9, NOW, NOW, Rules())
+    assert is_breaking(0.98, NOW - timedelta(hours=1), NOW, Rules())     # bonus shrank since check: still hot
     assert not is_breaking(1.1, NOW - timedelta(hours=5), NOW, Rules())
