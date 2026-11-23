@@ -520,8 +520,8 @@
       "url": null,
       "error": "X text contains a link/domain (would cost $0.20); not posted",
       "detail": null,
-      "attempts": 1,
-      "at": "2026-11-23T18:38:13+00:00"
+      "attempts": 2,
+      "at": "2026-11-23T19:06:14+00:00"
     }
   }
 }
