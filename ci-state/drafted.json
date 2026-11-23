@@ -162,5 +162,13 @@
   "9d5c4f64f5c79390": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/9d5c4f64f5c79390-claude-ai-can-review-pull-requests-and-ship-fixes.json",
     "drafted_at": "2026-11-23T21:03:09+00:00"
+  },
+  "fe9a774fba4e4a1b": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/fe9a774fba4e4a1b-openai-updates-chatgpt-to-handle-complex-everyday.json",
+    "drafted_at": "2026-11-23T21:32:44+00:00"
+  },
+  "e4463fe276ea6eac": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/e4463fe276ea6eac-anthropic-s-appetite-for-compute-is-pushing-xai-to.json",
+    "drafted_at": "2026-11-23T21:33:13+00:00"
   }
 }

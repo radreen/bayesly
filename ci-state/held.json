@@ -108,5 +108,14 @@
     ],
     "held_at": "2026-11-23T20:38:01+00:00",
     "message_id": 67
+  },
+  "fe9a774fba4e4a1b": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/fe9a774fba4e4a1b-openai-updates-chatgpt-to-handle-complex-everyday.json",
+    "reasons": [
+      "image: card.number '71.7%' not found in the source text; number slide dropped."
+    ],
+    "held_at": "2026-11-23T21:33:57+00:00",
+    "message_id": 69
   }
 }

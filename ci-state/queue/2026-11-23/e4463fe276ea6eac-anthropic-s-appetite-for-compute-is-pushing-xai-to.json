@@ -1,0 +1,76 @@
+{
+  "id": "e4463fe276ea6eac",
+  "status": "pending_review",
+  "created_at": "2026-11-23T21:33:13+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/anthropics-appetite-for-compute-is-pushing-xai-toward-a-rent-over-build-strategy/",
+    "title": "Anthropic's appetite for compute is pushing xAI toward a rent-over-build strategy",
+    "published": "2026-11-23T18:47:53+00:00",
+    "text": "Since May, SpaceXSI has been renting compute to competitors like Anthropic and Google while scaling back its own AI projects. Anthropic pays about $3.1 billion a month, Google $800 million, the New York Times reports. After its June IPO, SpaceXSI disbanded the 60-person Grok Imagine team, among other cuts. The article Anthropic's appetite for compute is pushing xAI toward a rent-over-build strategy appeared first on The Decoder ."
+  },
+  "score": 0.84,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Anthropic pays SpaceXSI about $3.1 billion a month to rent compute, per the New York Times",
+    "threads_post": "Anthropic is paying about $3.1 billion a month to rent compute from SpaceXSI, according to a New York Times report.\n\nGoogle is also paying $800 million a month as SpaceXSI scales back its own AI projects. Following its June IPO, SpaceXSI disbanded its 60-person Grok Imagine team.\n\nShould AI companies focus on renting out compute or building their own models?",
+    "x_post": "Anthropic pays about $3.1 billion a month to rent compute from SpaceXSI, per the NYT. Google pays $800 million. SpaceXSI is scaling back its own AI projects and cut its 60-person Grok Imagine team. Is renting compute smarter than building models?",
+    "instagram_caption": "Anthropic is paying about $3.1 billion a month to rent compute from SpaceXSI, according to a New York Times report.\n\nGoogle is paying another $800 million a month to rent compute. SpaceXSI has been renting server capacity to competitors since May while scaling back its own internal AI work. After its June IPO, the company disbanded its 60-person Grok Imagine team among other cuts.\n\nShould AI companies focus on renting out compute or building their own models?\n\n#ai #tech #compute #business #grok",
+    "question": "Should AI companies focus on renting out compute or building their own models?",
+    "topic_tag": "AI",
+    "broll_query": "data center servers",
+    "facts": [
+      "Anthropic pays about $3.1 billion a month to rent compute from SpaceXSI.",
+      "Google pays $800 million a month for compute from SpaceXSI.",
+      "SpaceXSI disbanded its 60-person Grok Imagine team following a June IPO."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source text contains precise monthly payment figures and workforce details.",
+    "facts_used": [
+      "Anthropic pays about $3.1 billion a month, Google $800 million, the New York Times reports.",
+      "Since May, SpaceXSI has been renting compute to competitors like Anthropic and Google while scaling back its own AI projects.",
+      "After its June IPO, SpaceXSI disbanded the 60-person Grok Imagine team, among other cuts."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Verify NYT reporting details on SpaceXSI compute rental agreements.",
+    "card": {
+      "category": "Business",
+      "headline": "SpaceXSI disbands 60-person Grok Imagine team after IPO",
+      "highlight": "60-person Grok Imagine team",
+      "number": {
+        "value": "60",
+        "caption": "employees on the Grok Imagine team disbanded after SpaceXSI's IPO",
+        "footnote": "New York Times report"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/06/xai_logo_wall-2.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/e4463fe276ea6eac-anthropic-s-appetite-for-compute-is-pushing-xai-to-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/e4463fe276ea6eac-anthropic-s-appetite-for-compute-is-pushing-xai-to-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/e4463fe276ea6eac-anthropic-s-appetite-for-compute-is-pushing-xai-to-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/e4463fe276ea6eac-anthropic-s-appetite-for-compute-is-pushing-xai-to-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/e4463fe276ea6eac-anthropic-s-appetite-for-compute-is-pushing-xai-to-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/e4463fe276ea6eac-anthropic-s-appetite-for-compute-is-pushing-xai-to-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 75 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}
