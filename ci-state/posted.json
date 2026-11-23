@@ -488,5 +488,40 @@
       "attempts": 1,
       "at": "2026-11-23T16:55:18+00:00"
     }
+  },
+  "c059a9919df79cc9": {
+    "threads": {
+      "platform": "threads",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "18140222368633791",
+      "url": "https://www.threads.com/@bayesly.ai/post/DgGCgHtGqd7",
+      "error": null,
+      "detail": null,
+      "attempts": 1,
+      "at": "2026-11-23T18:37:13+00:00"
+    },
+    "instagram": {
+      "platform": "instagram",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "18148785778601735",
+      "url": "https://www.instagram.com/p/DgGCo3UiSSv/",
+      "error": null,
+      "detail": "video failed, posted images: container 17941637928181827 status ERROR: {'id': '17941637928181827', 'status_code': 'ERROR'}",
+      "attempts": 1,
+      "at": "2026-11-23T18:38:13+00:00"
+    },
+    "x": {
+      "platform": "x",
+      "ok": false,
+      "dry_run": false,
+      "post_id": null,
+      "url": null,
+      "error": "X text contains a link/domain (would cost $0.20); not posted",
+      "detail": null,
+      "attempts": 1,
+      "at": "2026-11-23T18:38:13+00:00"
+    }
   }
 }

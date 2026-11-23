@@ -1,6 +1,6 @@
 # REVIEW: Z.ai follows OpenAI into loop transformer territory with its new 750B flagship model
 
-- Status: **pending_review** (nothing is published automatically)
+- Status: **held** (nothing is published automatically)
 - Source: The Decoder (press, reliability 0.75)
 - Link: https://the-decoder.com/z-ai-follows-openai-into-loop-transformer-territory-with-its-new-750b-flagship-model/
 - Published: 2026-11-23T15:13:03+00:00
