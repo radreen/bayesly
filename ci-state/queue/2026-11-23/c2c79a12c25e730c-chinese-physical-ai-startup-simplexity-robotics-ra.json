@@ -1,0 +1,77 @@
+{
+  "id": "c2c79a12c25e730c",
+  "status": "pending_review",
+  "created_at": "2026-11-23T09:51:19+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.bloomberg.com/news/articles/2026-11-22/ant-group-bets-on-simplexity-to-thrive-in-china-s-humanoid-race",
+    "title": "Chinese physical AI startup Simplexity Robotics raised a $100M pre-Series A led by Ant Group, with Alibaba, Tencent, and others joining, at a $1.6B valuation (Saritha Rai/Bloomberg)",
+    "published": "2026-11-23T07:01:27+00:00",
+    "text": "Saritha Rai / Bloomberg : Chinese physical AI startup Simplexity Robotics raised a $100M pre-Series A led by Ant Group, with Alibaba, Tencent, and others joining, at a $1.6B valuation — Chinese physical AI startup Simplexity Robotics received $100 million in a funding round led by Jack Ma-backed Ant Group Co. …"
+  },
+  "score": 0.85,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "stakes_bonus": 0.08,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Chinese physical AI startup Simplexity Robotics raised $100M at a $1.6B valuation.",
+    "threads_post": "Chinese physical AI startup Simplexity Robotics is now valued at $1.6 billion after its pre-Series A round.\n\nAnt Group led the $100 million funding round. Tech giants Alibaba and Tencent also joined the investment.\n\nWill Chinese tech giants lead physical AI, or will US rivals stay ahead?",
+    "x_post": "Chinese physical AI startup Simplexity Robotics hit a $1.6B valuation after raising a $100M pre-Series A.\n\nAnt Group led the round, with Alibaba and Tencent joining.\n\nWill Chinese tech giants lead physical AI? #ai",
+    "instagram_caption": "Chinese physical AI startup Simplexity Robotics is now valued at $1.6 billion after its pre-Series A round.\n\nAnt Group led the $100 million funding round. Tech giants Alibaba and Tencent also joined the investment.\n\nWill Chinese tech giants lead physical AI, or will US rivals stay ahead?\n\n#ai #robotics #tech #china #startups",
+    "question": "Will Chinese tech giants lead physical AI, or will US rivals stay ahead?",
+    "topic_tag": "AI robotics",
+    "broll_query": "robot assembly line",
+    "facts": [
+      "Simplexity Robotics raised $100M in a pre-Series A round.",
+      "The deal values the physical AI startup at $1.6 billion.",
+      "Ant Group led the round with Alibaba and Tencent joining."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source explicitly states funding amount, valuation, round stage, and lead investors.",
+    "facts_used": [
+      "Simplexity Robotics raised a $100M pre-Series A",
+      "led by Ant Group, with Alibaba, Tencent, and others joining",
+      "at a $1.6B valuation",
+      "Chinese physical AI startup Simplexity Robotics"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Source snippet is brief; key details on product specs or specific robot hardware are not included in source text.",
+    "card": {
+      "category": "Business",
+      "headline": "Simplexity Robotics reaches $1.6B valuation",
+      "highlight": "Simplexity Robotics reaches",
+      "number": {
+        "value": "$1.6B",
+        "caption": "Valuation of Simplexity Robotics after pre-Series A round",
+        "footnote": "Reported by Bloomberg"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c2c79a12c25e730c-chinese-physical-ai-startup-simplexity-robotics-ra-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c2c79a12c25e730c-chinese-physical-ai-startup-simplexity-robotics-ra-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c2c79a12c25e730c-chinese-physical-ai-startup-simplexity-robotics-ra-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c2c79a12c25e730c-chinese-physical-ai-startup-simplexity-robotics-ra-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c2c79a12c25e730c-chinese-physical-ai-startup-simplexity-robotics-ra-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/c2c79a12c25e730c-chinese-physical-ai-startup-simplexity-robotics-ra-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 84 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "text"
+}

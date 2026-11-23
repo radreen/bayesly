@@ -1,0 +1,77 @@
+{
+  "id": "ac3df93f97de43ec",
+  "status": "pending_review",
+  "created_at": "2026-11-23T09:52:11+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/hours-after-anthropic-claims-a-claude-proof-of-the-riemann-hypothesis-stanford-releases-an-all-human-competing-draft/",
+    "title": "Hours after Anthropic claims a Claude proof of the Riemann hypothesis, Stanford releases an all-human competing draft",
+    "published": "2026-11-21T11:19:49+00:00",
+    "text": "Anthropic mathematician Levent Alpöge says he used Claude to prove the Riemann hypothesis, math's most famous open problem for 167 years, with a proof formalized in Lean that spans over 250,000 pages. Just hours later, Stanford researchers published an independent, entirely human competing proof, and mathematicians are now checking whether either one holds up. The article Hours after Anthropic claims a Claude proof of the Riemann hypothesis, Stanford releases an all-human competing draft appeared first on The Decoder ."
+  },
+  "score": 0.8009,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.2,
+    "novelty": 0.844,
+    "news_signal_bonus": 0.1,
+    "names_bonus": 0.12
+  },
+  "draft": {
+    "headline": "Anthropic claims Claude proved the 167-year-old Riemann hypothesis, followed hours later by an all-human proof from Stanford.",
+    "threads_post": "Anthropic mathematician Levent Alpöge says he used Claude to prove the Riemann hypothesis, math's most famous open problem for 167 years.\n\nThe proof is formalized in Lean and spans over 250,000 pages. Just hours later, Stanford researchers published an independent, entirely human competing proof. Mathematicians are now checking whether either draft holds up.\n\nWill AI or human mathematicians win the race to solve open math problems?",
+    "x_post": "Anthropic says Levent Alpöge used Claude to prove the 167-year-old Riemann hypothesis in a 250,000-page Lean proof. Hours later, Stanford posted an all-human competing draft. Mathematicians are reviewing both.\n\nWill AI or humans win this math race?",
+    "instagram_caption": "Anthropic mathematician Levent Alpöge says he used Claude to prove the Riemann hypothesis, math's most famous open problem for 167 years.\n\nThe proof is formalized in Lean and spans over 250,000 pages. Just hours after the claim, Stanford researchers published an independent, entirely human competing proof. Mathematicians are currently checking whether either draft holds up.\n\nWill the first verified proof of open math problems come from AI or humans?\n\n#ai #math #anthropic #claude #stanford",
+    "question": "Will the first verified proof of open math problems come from AI or humans?",
+    "topic_tag": "AI research",
+    "broll_query": "chalkboard equations math",
+    "facts": [
+      "Levent Alpöge says he used Claude to solve math's 167-year-old Riemann hypothesis.",
+      "The AI-assisted proof is formalized in Lean and spans over 250,000 pages.",
+      "Stanford researchers published an all-human competing draft hours later.",
+      "Mathematicians are currently checking if either proof holds up."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source explicitly details the claim, proof length, and Stanford draft.",
+    "facts_used": [
+      "Anthropic mathematician Levent Alpöge says he used Claude to prove the Riemann hypothesis.",
+      "The Riemann hypothesis has been math's most famous open problem for 167 years.",
+      "The proof is formalized in Lean and spans over 250,000 pages.",
+      "Stanford researchers published an independent, entirely human competing proof hours later.",
+      "Mathematicians are checking whether either one holds up."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Both Anthropic's Claude-assisted proof and Stanford's human proof are currently unverified drafts under review by mathematicians.",
+    "card": {
+      "category": "Research",
+      "headline": "Anthropic claims Claude proved the 167-year-old Riemann hypothesis",
+      "highlight": "Riemann hypothesis",
+      "number": {
+        "value": "167",
+        "caption": "Years the Riemann hypothesis has remained an open math problem",
+        "footnote": "According to source text"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/anthropic_riemann.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/ac3df93f97de43ec-hours-after-anthropic-claims-a-claude-proof-of-the-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/ac3df93f97de43ec-hours-after-anthropic-claims-a-claude-proof-of-the-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/ac3df93f97de43ec-hours-after-anthropic-claims-a-claude-proof-of-the-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/ac3df93f97de43ec-hours-after-anthropic-claims-a-claude-proof-of-the-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/ac3df93f97de43ec-hours-after-anthropic-claims-a-claude-proof-of-the-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/ac3df93f97de43ec-hours-after-anthropic-claims-a-claude-proof-of-the-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
