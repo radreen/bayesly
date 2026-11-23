@@ -170,5 +170,29 @@
   "e4463fe276ea6eac": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/e4463fe276ea6eac-anthropic-s-appetite-for-compute-is-pushing-xai-to.json",
     "drafted_at": "2026-11-23T21:33:13+00:00"
+  },
+  "972640f78a70025d": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-23T22:12:36+00:00"
+  },
+  "43b498f2b7e3dbe0": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-23T22:12:36+00:00"
+  },
+  "eb0c65b2b58fbc7a": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-23T22:12:36+00:00"
+  },
+  "537965d7de454e67": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-23T22:12:36+00:00"
+  },
+  "62791fee0fbd1691": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-23T22:12:36+00:00"
+  },
+  "388f4aa5f277fc66": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/388f4aa5f277fc66-supertake-raises-20m-to-let-ai-agents-turn-your-ma.json",
+    "drafted_at": "2026-11-23T22:13:20+00:00"
   }
 }

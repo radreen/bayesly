@@ -1,0 +1,78 @@
+{
+  "id": "388f4aa5f277fc66",
+  "status": "pending_review",
+  "created_at": "2026-11-23T22:13:20+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techcrunch-ai",
+    "name": "TechCrunch AI",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://techcrunch.com/2026/11/23/supertake-raises-20m-to-let-ai-agents-turn-your-market-predictions-into-stock-portfolios/",
+    "title": "Supertake raises $20M to let AI agents turn your market predictions into stock portfolios",
+    "published": "2026-11-23T22:02:05+00:00",
+    "text": "Think you know where the market is headed? A startup called Supertake lets you put money behind your ideas without having to pick the stocks yourself."
+  },
+  "score": 0.85,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "thin_text_penalty": -0.1,
+    "stakes_bonus": 0.08,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Supertake raised $20M to let AI agents turn market predictions into stock portfolios.",
+    "threads_post": "Supertake just raised $20M to build AI agents that turn market predictions into stock portfolios.\n\nThe startup lets people invest money based on their market ideas without having to pick individual stocks themselves.\n\nWould you trust AI agents to build a stock portfolio from your market ideas?",
+    "x_post": "Supertake raised $20M for AI agents that turn market predictions into stock portfolios. The startup lets you invest behind ideas without picking stocks yourself. Would you trust AI to pick your stocks? #ai #fintech",
+    "instagram_caption": "Supertake raised $20M to build AI agents that turn market predictions into stock portfolios.\n\nThe startup allows users to put money behind their market ideas without needing to choose individual stocks themselves.\n\nWould you trust AI agents to build a stock portfolio from your market ideas?\n\n#ai #fintech #stocks #aiagents",
+    "question": "Would you trust AI agents to build a stock portfolio from your market ideas?",
+    "topic_tag": "AI agents",
+    "broll_query": "stock trading charts",
+    "facts": [
+      "Supertake raised $20M to build AI agents for investing.",
+      "AI agents turn market predictions into stock portfolios.",
+      "Users can invest on market ideas without picking stocks."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is only a headline and a one-sentence snippet.",
+    "facts_used": [
+      "Supertake raises $20M to let AI agents turn your market predictions into stock portfolios",
+      "Supertake lets you put money behind your ideas without having to pick the stocks yourself"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "The source snippet is very short. Confirm full article details on Supertake before publishing.",
+    "card": {
+      "category": "Business",
+      "headline": "Supertake raises $20M for AI stock portfolio creation",
+      "highlight": "AI stock portfolio",
+      "number": {
+        "value": "$20M",
+        "caption": "raised to turn predictions into stock portfolios",
+        "footnote": "TechCrunch report"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": "https://techcrunch.com/wp-content/uploads/2026/11/supertake-header.jpg?resize=1200,675",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/388f4aa5f277fc66-supertake-raises-20m-to-let-ai-agents-turn-your-ma-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/388f4aa5f277fc66-supertake-raises-20m-to-let-ai-agents-turn-your-ma-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/388f4aa5f277fc66-supertake-raises-20m-to-let-ai-agents-turn-your-ma-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/388f4aa5f277fc66-supertake-raises-20m-to-let-ai-agents-turn-your-ma-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/388f4aa5f277fc66-supertake-raises-20m-to-let-ai-agents-turn-your-ma-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/388f4aa5f277fc66-supertake-raises-20m-to-let-ai-agents-turn-your-ma-03.jpg"
+  ],
+  "image_warnings": [
+    "card.number '$20M' not found in the source text; number slide dropped."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}
