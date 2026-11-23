@@ -37,3 +37,8 @@ Cost: free. Nothing is posted by this setup itself; it only starts the usual `ch
 - If cron-job.org shows 401/403: token expired or lacks "Actions: Read and write". 404: wrong repo
   or workflow file name. 422: wrong `ref` or inputs JSON.
 - To stop: disable the job on cron-job.org (GitHub's schedule keeps running as before).
+
+## Status
+- Set up 2026-11-23; test run returned 204 and started a run at once.
+- Token `bayesly-cron` expires **2027-11-22**: create a new one before that and replace it in the job header.
+- GitHub marks API version `2022-11-28` deprecated (sunset 2028-03-10); update the `X-GitHub-Api-Version` header before then.
