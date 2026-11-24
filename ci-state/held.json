@@ -192,5 +192,16 @@
     ],
     "held_at": "2026-11-24T21:47:58+00:00",
     "message_id": 93
+  },
+  "71615ee1ebfde345": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/71615ee1ebfde345-even-the-best-ai-agents-struggle-with-everyday-lif.json",
+    "reasons": [
+      "model said the source text is insufficient",
+      "confidence is 'low'",
+      "lint: Model flagged the source text as insufficient. Check the source before posting."
+    ],
+    "held_at": "2026-11-24T22:06:20+00:00",
+    "message_id": 94
   }
 }

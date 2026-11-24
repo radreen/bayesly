@@ -1,0 +1,71 @@
+{
+  "id": "71615ee1ebfde345",
+  "status": "held",
+  "created_at": "2026-11-24T22:04:58+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techcrunch-ai",
+    "name": "TechCrunch AI",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://techcrunch.com/2026/11/24/even-the-best-ai-agents-struggle-with-everyday-life/",
+    "title": "Even the best AI agents struggle with everyday life",
+    "published": "2026-11-24T21:33:29+00:00",
+    "text": "As millions embrace personal AI assistants, a new benchmark reveals that even the most advanced AI models struggle to complete everyday tasks reliably and safely without introducing potential new problems."
+  },
+  "score": 1.01,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.8,
+    "novelty": 1.0,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "A new benchmark reveals advanced AI models still struggle to handle everyday tasks reliably.",
+    "threads_post": "Even the most advanced AI models still struggle with basic daily tasks.\n\nA new benchmark found that top AI assistants fail to complete everyday tasks reliably or safely. They often introduce potential new problems along the way, even as millions of people adopt personal AI tools.\n\nWould you let an AI agent manage your daily tasks today?",
+    "x_post": "Even the most advanced AI models still struggle with daily tasks. A new benchmark shows top assistants fail to complete everyday tasks safely and reliably, often introducing new problems.\n\nWould you let an AI agent manage your daily tasks today?",
+    "instagram_caption": "Even the most advanced AI models still struggle to complete everyday tasks.\n\nA new benchmark reveals that top AI assistants fail to handle daily tasks reliably and safely. Researchers report that these models often introduce potential new problems while carrying out tasks, even as millions of people embrace personal AI.\n\nWould you let an AI agent manage your daily tasks today?\n\n#ai #aiagents #tech #techtrends",
+    "question": "Would you let an AI agent manage your daily tasks today?",
+    "topic_tag": "AI agents",
+    "broll_query": "person using smartphone",
+    "facts": [
+      "Millions of people now embrace personal AI assistants.",
+      "A new benchmark shows top AI models struggle with everyday tasks.",
+      "Models often fail to act safely without causing potential new problems."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is a single summary sentence with no specific metrics.",
+    "facts_used": [
+      "Millions embrace personal AI assistants",
+      "A new benchmark reveals that even the most advanced AI models struggle to complete everyday tasks reliably and safely",
+      "introducing potential new problems"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source item contains only one summary sentence without specific model names, benchmark figures, or test metrics. Needs full article details before publication.",
+    "card": {
+      "category": "Research",
+      "headline": "Top AI models still struggle with everyday tasks",
+      "highlight": "struggle with everyday tasks",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2296543552.jpg?w=1024",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/71615ee1ebfde345-even-the-best-ai-agents-struggle-with-everyday-lif-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/71615ee1ebfde345-even-the-best-ai-agents-struggle-with-everyday-lif-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/71615ee1ebfde345-even-the-best-ai-agents-struggle-with-everyday-lif-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/71615ee1ebfde345-even-the-best-ai-agents-struggle-with-everyday-lif-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/71615ee1ebfde345-even-the-best-ai-agents-struggle-with-everyday-lif-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/71615ee1ebfde345-even-the-best-ai-agents-struggle-with-everyday-lif-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

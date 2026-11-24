@@ -294,5 +294,17 @@
   "c16d07751d494ab4": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/c16d07751d494ab4-anthropic-details-siren-a-honeypot-test-that-tempt.json",
     "drafted_at": "2026-11-24T21:47:38+00:00"
+  },
+  "b1e5839c1dc50666": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-24T22:02:51+00:00"
+  },
+  "71615ee1ebfde345": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/71615ee1ebfde345-even-the-best-ai-agents-struggle-with-everyday-lif.json",
+    "drafted_at": "2026-11-24T22:04:58+00:00"
+  },
+  "a1954c7a4413f404": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/a1954c7a4413f404-raising-the-stakes-for-enterprise-networks-with-ai.json",
+    "drafted_at": "2026-11-24T22:05:39+00:00"
   }
 }
