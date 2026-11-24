@@ -911,5 +911,28 @@
       "attempts": 1,
       "at": "2026-11-24T19:39:39+00:00"
     }
+  },
+  "fdd5f51e8fafafb3": {
+    "threads": {
+      "platform": "threads",
+      "ok": false,
+      "skipped": "daily cap 4",
+      "attempts": 3,
+      "at": "2026-11-24T21:49:21+00:00"
+    },
+    "instagram": {
+      "platform": "instagram",
+      "ok": false,
+      "skipped": "daily cap 4",
+      "attempts": 3,
+      "at": "2026-11-24T21:49:21+00:00"
+    },
+    "x": {
+      "platform": "x",
+      "ok": false,
+      "skipped": "daily cap 8",
+      "attempts": 3,
+      "at": "2026-11-24T21:49:21+00:00"
+    }
   }
 }

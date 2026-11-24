@@ -1,6 +1,6 @@
 {
   "id": "fdd5f51e8fafafb3",
-  "status": "pending_review",
+  "status": "published",
   "created_at": "2026-11-24T18:04:35+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -73,5 +73,12 @@
     "card.confidence_reason trimmed from 77 to 70 chars."
   ],
   "palette": "lime",
-  "layout": "photo"
+  "layout": "photo",
+  "page_shot": null,
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/fdd5f51e8fafafb3-tidal-announces-ban-on-ai-generated-music-27-milli.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/fdd5f51e8fafafb3-tidal-announces-ban-on-ai-generated-music-27-milli.x.mp4",
+  "video_seconds": 30.3,
+  "video_voice": true,
+  "video_warnings": []
 }
