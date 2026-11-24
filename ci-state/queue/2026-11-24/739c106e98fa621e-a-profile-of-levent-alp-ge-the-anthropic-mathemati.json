@@ -1,0 +1,77 @@
+{
+  "id": "739c106e98fa621e",
+  "status": "pending_review",
+  "created_at": "2026-11-24T13:17:59+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.wsj.com/tech/ai/riemann-hypothesis-anthropic-math-levent-alpoge-75351bcb?st=waZnXv&reflink=desktopwebshare_permalink",
+    "title": "A profile of Levent Alpöge, the Anthropic mathematician who found a Riemann hypothesis proof with Claude and held off releasing it until after Anthropic's IPO (Wall Street Journal)",
+    "published": "2026-11-24T12:50:00+00:00",
+    "text": "Wall Street Journal : A profile of Levent Alpöge, the Anthropic mathematician who found a Riemann hypothesis proof with Claude and held off releasing it until after Anthropic's IPO — Mathematicians tried and failed to crack the Riemann Hypothesis for 167 years. Anthropic's Levent Alpöge says he's found a proof with Claude."
+  },
+  "score": 0.98,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "stakes_bonus": 0.08,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Anthropic mathematician Levent Alpöge says he found a proof for the 167-year-old Riemann Hypothesis using Claude.",
+    "threads_post": "Anthropic mathematician Levent Alpöge says he found a proof for the Riemann Hypothesis using Claude.\n\nMathematicians tried and failed to solve the math problem for 167 years. Alpöge held off releasing the proof until after Anthropic's IPO.\n\nShould AI researchers hold back major discoveries until after an IPO?",
+    "x_post": "Anthropic mathematician Levent Alpöge says he found a proof for the 167-year-old Riemann Hypothesis using Claude.\n\nHe held off releasing it until after Anthropic's IPO.\n\nShould researchers hold major AI discoveries until after an IPO? #ai #math",
+    "instagram_caption": "Anthropic mathematician Levent Alpöge says he found a proof for the Riemann Hypothesis using Claude.\n\nMathematicians have tried and failed to crack the problem for 167 years. Alpöge held off releasing the proof until after Anthropic's IPO.\n\nShould AI researchers hold back major breakthroughs until after an IPO?\n\n#ai #math #anthropic #claude",
+    "question": "Should researchers hold back major AI discoveries until after an IPO?",
+    "topic_tag": "AI research",
+    "broll_query": "chalkboard math equations",
+    "facts": [
+      "Mathematicians tried and failed to crack the Riemann Hypothesis for 167 years.",
+      "Anthropic mathematician Levent Alpöge says he found a proof using Claude.",
+      "He held off releasing the proof until after Anthropic's IPO."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source explicitly states all facts, names, numbers, and vendor claims used.",
+    "facts_used": [
+      "Mathematicians tried and failed to crack the Riemann Hypothesis for 167 years.",
+      "Anthropic's Levent Alpöge says he's found a proof with Claude.",
+      "held off releasing it until after Anthropic's IPO"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Note that this relies on Alpöge's claim reported by WSJ; the source does not detail formal peer review.",
+    "card": {
+      "category": "Research",
+      "headline": "Claude helped solve a 167-year-old math problem",
+      "highlight": "167-year-old math problem",
+      "number": {
+        "value": "167",
+        "caption": "Years mathematicians failed to crack the Riemann Hypothesis",
+        "footnote": "Reported by Wall Street Journal"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/739c106e98fa621e-a-profile-of-levent-alp-ge-the-anthropic-mathemati-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/739c106e98fa621e-a-profile-of-levent-alp-ge-the-anthropic-mathemati-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/739c106e98fa621e-a-profile-of-levent-alp-ge-the-anthropic-mathemati-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/739c106e98fa621e-a-profile-of-levent-alp-ge-the-anthropic-mathemati-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/739c106e98fa621e-a-profile-of-levent-alp-ge-the-anthropic-mathemati-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/739c106e98fa621e-a-profile-of-levent-alp-ge-the-anthropic-mathemati-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 75 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "text"
+}
