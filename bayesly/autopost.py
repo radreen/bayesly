@@ -285,6 +285,7 @@ class Autoposter:
                 continue
             report.published.append((rec["id"], self.publish_record(path, rec)))
             published += 1
+        self.daily_story(report)
         if self.live and self.telegram.enabled:
             self._notify(report)
         return report
@@ -394,7 +395,55 @@ class Autoposter:
                 self.held.set(draft_id, status="published")
             if all(r.ok for r in results):
                 _set_status(path, "published")
+        ig_ok = any(r.platform == "instagram" and r.ok and not r.dry_run for r in results)
+        if ig_ok and video_url:
+            self._story_for_post(draft_id, video_url)
         return results
+
+    # Stories ------------------------------------------------------------------
+    def _story_for_post(self, draft_id: str, video_url: str) -> None:
+        """The Reel also goes to Stories (same video). Capped per day; never twice for one draft."""
+        from bayesly import stories
+        ig = self.publishers.get("instagram")
+        now = datetime.now(timezone.utc)
+        slog = stories.StoryLog(self.settings.state_dir)
+        if not (stories.enabled() and self.live and hasattr(ig, "publish_story")) or not slog.room(now):
+            return
+        if draft_id in slog.load(now)["posts"]:
+            return
+        result = ig.publish_story(video_url=video_url)
+        log.info("story", extra={"draft": draft_id, "ok": result.ok, "error": result.error})
+        if result.ok:
+            slog.note(now, draft_id=draft_id, story_id=result.post_id or "")
+
+    def daily_story(self, report: "RunReport") -> None:
+        """Evening "Today in AI" card with the day's top 3 headlines (once a day)."""
+        from bayesly import stories
+        from bayesly.schedule import posted_today
+        ig = self.publishers.get("instagram")
+        now = datetime.now(timezone.utc)
+        slog = stories.StoryLog(self.settings.state_dir)
+        if not (stories.enabled() and self.live and hasattr(ig, "publish_story")):
+            return
+        if not stories.digest_due(slog, now, posted_today(self.ledger, "instagram", now)):
+            return
+        heads = stories.today_headlines(self.settings.state_dir, self.settings.out_dir, now)
+        if len(heads) < stories.MIN_POSTS_FOR_DIGEST:
+            return
+        try:
+            day = now.date().isoformat()
+            (self.settings.out_dir / day).mkdir(parents=True, exist_ok=True)
+            jpg = stories.render_digest(heads, self.settings.out_dir / day / f"today-{day}", now)
+            url = self.media_upload(jpg, f"{day}/stories/today.jpg")
+        except Exception as exc:  # noqa: BLE001 - a story is a bonus; never break the run
+            report.errors.append(f"daily story: {str(exc)[:200]}")
+            return
+        result = ig.publish_story(image_url=url)
+        log.info("daily story", extra={"ok": result.ok, "error": result.error})
+        if result.ok:
+            slog.note(now, digest=True)
+        else:
+            report.errors.append(f"daily story: {result.error}")
 
 
 def _video_ready(rec: dict) -> bool:

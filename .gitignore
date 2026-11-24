@@ -11,6 +11,7 @@ state/
 ci-state/**/*.png
 ci-state/**/*.jpg
 ci-state/**/*.slides.html
+ci-state/**/*.story.html
 ci-state/**/*.tmp
 ci-state/**/*.mp4
 ci-state/**/*.wav

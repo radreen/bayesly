@@ -106,3 +106,11 @@ Record what was checked, when, and the link.
 - A platform whose cap is full skips that story for good (ledger `skipped: daily cap N`): news is stale tomorrow.
 - **Caps are for routine posts only.** Breaking news (score >= HOT_SCORE, published < 3 h ago) and posts the owner approved in Telegram ignore the caps and the 60-min gap: they wait at most 20 min after our previous post. Only `HARD_MAX_PER_DAY` (12 per network) stops them, as an anti-spam ceiling.
 - Override with repo variables `MAX_POSTS_PER_DAY_THREADS` / `_INSTAGRAM` / `_X`, or tune `META_*`.
+
+## Instagram Stories (since 2026-11-24)
+- API: `POST /{ig-user-id}/media` with `media_type=STORIES` + `video_url` or `image_url`, then `media_publish` (docs checked 2026-11-24). 9:16, video 3–60 s, JPEG images. No stickers (links, polls, locations) via the API.
+- Every Reel is also posted as a Story (same video), and once a day after 17:00 UTC a "Today in AI" card with the day's top 3 headlines (`bayesly/stories.py`). Max `STORIES_PER_DAY` (4) in total; `STORIES=0` turns them off. State: `ci-state/stories.json`.
+
+## The news' own video (since 2026-11-24)
+- Reels prefer clips embedded in the source article (MP4, X, YouTube, Vimeo) via yt-dlp: up to 3 clips, first 90 s each, ≤1080p, audio dropped, credited on screen. Then source photo / page scroll, then Pexels. In a sample of 30 recent articles ~1 in 6 had a usable embed.
+- YouTube and X may block downloads from GitHub's servers; that only means a fallback to photo/screenshot.

@@ -502,3 +502,28 @@ def test_meta_never_posts_the_same_text_twice():
     r = ThreadsPublisher("u1", "t", live=True, session=s, sleep=lambda _: None).publish(POST)
     assert r.ok and r.post_id == "p9" and "already published" in r.detail
     assert not [c for c in s.calls if c[0] == "POST"]
+
+
+def test_instagram_story_container_and_publish():
+    s = FakeSession([
+        (("POST", "/media_publish"), FakeResp({"id": "st1"})),
+        (("POST", "/u1/media"), FakeResp({"id": "c1"})),
+        (("GET", "/"), FakeResp({"status_code": "FINISHED"})),
+    ])
+    r = InstagramPublisher("u1", "t", live=True, session=s, sleep=lambda _: None).publish_story(video_url="https://v/x.mp4")
+    assert r.ok and r.post_id == "st1" and r.platform == "instagram_story"
+    create = [kw["params"] for m, u, kw in s.calls if m == "POST" and u.endswith("/u1/media")][0]
+    assert create["media_type"] == "STORIES" and create["video_url"] == "https://v/x.mp4"
+
+
+def test_story_log_caps_and_digest_once(tmp_path, monkeypatch):
+    from bayesly import stories
+    monkeypatch.setenv("STORIES_PER_DAY", "2")
+    now = datetime(2026, 11, 24, 18, tzinfo=timezone.utc)
+    log = stories.StoryLog(tmp_path)
+    assert stories.digest_due(log, now, posts_today=3) and not stories.digest_due(log, now.replace(hour=12), 3)
+    assert not stories.digest_due(log, now, posts_today=1)
+    log.note(now, draft_id="a")
+    log.note(now, digest=True)
+    assert not log.room(now) and not stories.digest_due(log, now, 3)
+    assert log.room(now + timedelta(days=1))                                  # new day, new budget

@@ -193,6 +193,23 @@ class InstagramPublisher(_MetaPublisher):
         kwargs.setdefault("poll_max", 20)
         super().__init__(*args, **kwargs)
 
+    def publish_story(self, *, video_url: str = "", image_url: str = "") -> PublishResult:
+        """Instagram Story (media_type=STORIES, video 3-60 s or JPEG, 9:16). No caption, no stickers via API."""
+        if not (video_url or image_url):
+            return PublishResult("instagram_story", ok=False, error="nothing to post")
+        if not self.live:
+            return PublishResult("instagram_story", ok=True, dry_run=True, detail="would post a story")
+        try:
+            media = {"video_url": video_url} if video_url else {"image_url": image_url}
+            cid = self._req("POST", self.container_path.format(uid=self.user_id), media_type="STORIES", **media).get("id")
+            if not cid:
+                raise PublishError("no story container id")
+            self._wait(cid, rounds=self.poll_max * 2 if video_url else None)
+            data = self._publish_container(cid)
+            return PublishResult("instagram_story", ok=bool(data.get("id")), post_id=data.get("id"))
+        except (net.ExternalCallError, PublishError, ValueError, KeyError) as exc:
+            return PublishResult("instagram_story", ok=False, error=scrub(str(exc), self.token)[:300])
+
     def _build_video(self, text: str, video_url: str) -> str:
         # Reels: MP4/H.264/AAC, 3 s-15 min, public URL (docs, checked 2026-11-20)
         return self._container(media_type="REELS", video_url=video_url, caption=text, share_to_feed="true")

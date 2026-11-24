@@ -295,3 +295,16 @@ body[data-palette="blue"] .unknown .take-block .kicker { color: #8c8fff; }
 .s-ask { height: 300px; display: flex; flex-direction: column; justify-content: center; gap: 22px; }
 .s-ask .pill.fill { align-self: flex-start; font-size: 28px; padding: 16px 30px; }
 .s-take .s-ask { justify-content: flex-start; padding-top: 52px; }
+
+/* Instagram story: "Today in AI" digest, 1080x1920 (safe zone: keep text 250-1650 px from top) */
+.s-story { background: var(--ink); color: var(--white); }
+.s-story .s-brand { top: 260px; }
+.s-story > .s-kicker { position: absolute; left: var(--pad); top: 360px !important; color: var(--accent); }
+.s-story-title { position: absolute; left: var(--pad); top: 420px; font-weight: 800; font-size: 150px; line-height: .92; letter-spacing: -0.05em; }
+.s-story-title .hl { color: var(--ink); }
+.s-story-list { position: absolute; left: var(--pad); right: var(--pad); top: 760px; list-style: none; display: grid; gap: 56px; }
+.s-story-list li { display: grid; grid-template-columns: 84px 1fr; gap: 26px; align-items: start; }
+.s-story-list .n { width: 72px; height: 72px; border-radius: 50%; background: var(--accent); color: var(--ink); display: grid; place-items: center; font: 800 36px "Inter Tight"; }
+.s-story-list p { font-weight: 700; font-size: 58px; line-height: 1.08; letter-spacing: -0.025em; }
+.s-story-foot { position: absolute; left: var(--pad); bottom: 300px; }
+.s-story-foot .pill { font-size: 26px; padding: 18px 30px; }
