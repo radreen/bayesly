@@ -1,0 +1,72 @@
+{
+  "id": "8e4e73262f967dfd",
+  "status": "pending_review",
+  "created_at": "2026-11-24T02:19:21+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.bloomberg.com/news/articles/2026-11-23/openai-staffer-likely-captured-secrets-on-hidden-bug-us-says",
+    "title": "Filing: the former OpenAI engineer charged with bugging an exec conference room had dozens of OpenAI meeting recordings, many involving possible trade secrets (Madlin Mekelburg/Bloomberg)",
+    "published": "2026-11-24T02:10:02+00:00",
+    "text": "Madlin Mekelburg / Bloomberg : Filing: the former OpenAI engineer charged with bugging an exec conference room had dozens of OpenAI meeting recordings, many involving possible trade secrets — US prosecutors say the former engineer at OpenAI charged with bugging an office conference room likely intercepted trade secrets …"
+  },
+  "score": 0.83,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.0,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "A former OpenAI engineer charged with bugging an executive conference room had dozens of meeting recordings, according to US prosecutors.",
+    "threads_post": "A former OpenAI engineer charged with bugging an executive conference room possessed dozens of meeting recordings, according to US prosecutors.\n\nProsecutors say the former employee likely intercepted trade secrets using a hidden bug placed in the room.\n\nCan tech companies stop internal spying, or is total security impossible?",
+    "x_post": "A former OpenAI engineer charged with bugging an executive room had dozens of meeting recordings, US prosecutors say.\n\nProsecutors claim many recordings contained possible trade secrets captured on a hidden bug.\n\nCan tech companies prevent internal spying?",
+    "instagram_caption": "A former OpenAI engineer charged with bugging an executive conference room possessed dozens of meeting recordings, according to US prosecutors.\n\nIn a court filing, prosecutors say the former staffer likely intercepted company trade secrets using a hidden bug in the room.\n\nCan tech companies stop internal spying, or is total security impossible?\n\n#openai #tech #cybersecurity #security",
+    "question": "Can tech companies stop internal spying, or is total security impossible?",
+    "topic_tag": "OpenAI",
+    "broll_query": "conference room microphone",
+    "facts": [
+      "A former OpenAI engineer was charged with bugging an executive conference room.",
+      "US prosecutors say the engineer possessed dozens of OpenAI meeting recordings.",
+      "Prosecutors claim many of the recordings involved possible trade secrets."
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Source is a short news snippet, but facts are clear and attributed.",
+    "facts_used": [
+      "former OpenAI engineer charged with bugging an exec conference room",
+      "had dozens of OpenAI meeting recordings",
+      "many involving possible trade secrets",
+      "US prosecutors say the former engineer at OpenAI charged with bugging an office conference room likely intercepted trade secrets",
+      "captured secrets on hidden bug us says"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The source text is a short Bloomberg snippet. All claims are attributed to US prosecutors as stated in the text.",
+    "card": {
+      "category": "Safety",
+      "headline": "Former OpenAI engineer charged over hidden bug in exec room",
+      "highlight": "hidden bug",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8e4e73262f967dfd-filing-the-former-openai-engineer-charged-with-bug-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8e4e73262f967dfd-filing-the-former-openai-engineer-charged-with-bug-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8e4e73262f967dfd-filing-the-former-openai-engineer-charged-with-bug-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8e4e73262f967dfd-filing-the-former-openai-engineer-charged-with-bug-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8e4e73262f967dfd-filing-the-former-openai-engineer-charged-with-bug-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8e4e73262f967dfd-filing-the-former-openai-engineer-charged-with-bug-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}

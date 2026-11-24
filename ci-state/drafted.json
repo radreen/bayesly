@@ -194,5 +194,17 @@
   "388f4aa5f277fc66": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/388f4aa5f277fc66-supertake-raises-20m-to-let-ai-agents-turn-your-ma.json",
     "drafted_at": "2026-11-23T22:13:20+00:00"
+  },
+  "62898b4a825e7ca8": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-24T02:17:48+00:00"
+  },
+  "49fe75757113645c": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/49fe75757113645c-asian-nvidia-related-stocks-jump-after-huang-s-ret.json",
+    "drafted_at": "2026-11-24T02:18:23+00:00"
+  },
+  "8e4e73262f967dfd": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8e4e73262f967dfd-filing-the-former-openai-engineer-charged-with-bug.json",
+    "drafted_at": "2026-11-24T02:19:21+00:00"
   }
 }

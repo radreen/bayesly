@@ -1,0 +1,78 @@
+{
+  "id": "49fe75757113645c",
+  "status": "pending_review",
+  "created_at": "2026-11-24T02:18:23+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "cnbc-tech",
+    "name": "CNBC Technology",
+    "kind": "press",
+    "reliability": 0.8,
+    "url": "https://www.cnbc.com/2026/11/24/nvidia-jensen-huang-asia-chip-stocks.html",
+    "title": "Asian Nvidia-related stocks jump after Huang's return, with Taiwan's near price limits",
+    "published": "2026-11-24T01:40:30+00:00",
+    "text": "Investors piled back into the tech market, following the reinstatement of Nvidia CEO Jensen Huang by its board."
+  },
+  "score": 0.85,
+  "score_breakdown": {
+    "reliability": 0.8,
+    "relevance": 0.0,
+    "novelty": 1.0,
+    "thin_text_penalty": -0.1,
+    "names_bonus": 0.12,
+    "stakes_bonus": 0.08,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Nvidia CEO Jensen Huang reinstated by board as tech stocks jump",
+    "threads_post": "Asian Nvidia-related stocks jumped after Nvidia's board reinstated CEO Jensen Huang. Investors piled back into the tech market following his return. In Taiwan, Nvidia-related shares traded near their price limits. Will Jensen Huang's return keep chip stocks rallying, or is this a temporary jump?",
+    "x_post": "Asian Nvidia-related stocks jumped after Nvidia's board reinstated CEO Jensen Huang. Investors piled back into tech markets, sending Taiwan shares near price limits.\n\nWill Huang's return sustain this chip rally, or is it temporary?",
+    "instagram_caption": "Asian Nvidia-related stocks jumped after Nvidia's board reinstated CEO Jensen Huang.\n\nInvestors piled back into the tech market following his return. In Taiwan, Nvidia-related shares traded near their price limits.\n\nWill Jensen Huang's return keep chip stocks rallying, or is this a temporary jump?\n\n#nvidia #tech #stocks #chips #ai",
+    "question": "Will Jensen Huang's return keep chip stocks rallying, or is this a temporary jump?",
+    "topic_tag": "Nvidia",
+    "broll_query": "stock market trading floor",
+    "facts": [
+      "Nvidia's board reinstated CEO Jensen Huang.",
+      "Investors piled back into tech markets after the news.",
+      "Asian Nvidia-related stocks jumped, with Taiwan's near price limits."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text contains only one sentence and a article headline.",
+    "facts_used": [
+      "Investors piled back into the tech market, following the reinstatement of Nvidia CEO Jensen Huang by its board.",
+      "Asian Nvidia-related stocks jump after Huang's return, with Taiwan's near price limits"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source text is extremely brief (one sentence plus title). Verification needed on the context of Huang's reinstatement.",
+    "card": {
+      "category": "Business",
+      "headline": "Nvidia CEO Jensen Huang reinstated by board",
+      "highlight": "Jensen Huang reinstated",
+      "number": null
+    },
+    "fact_check_issues": [
+      "Asian Nvidia-related stocks jumped after Jensen Huang's reinstatement",
+      "Taiwanese Nvidia-related shares traded near their price limits"
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting.",
+    "Fact-check: not in the source: Asian Nvidia-related stocks jumped after Jensen Huang's reinstatement",
+    "Fact-check: not in the source: Taiwanese Nvidia-related shares traded near their price limits"
+  ],
+  "cover_image": "https://image.cnbcfm.com/api/v1/image/108547192-1794278392881-gettyimages-2285692291-TAIWAN_TSMC_EARNS.jpeg?v=1794278413&w=1920&h=1080",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/49fe75757113645c-asian-nvidia-related-stocks-jump-after-huang-s-ret-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/49fe75757113645c-asian-nvidia-related-stocks-jump-after-huang-s-ret-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/49fe75757113645c-asian-nvidia-related-stocks-jump-after-huang-s-ret-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/49fe75757113645c-asian-nvidia-related-stocks-jump-after-huang-s-ret-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/49fe75757113645c-asian-nvidia-related-stocks-jump-after-huang-s-ret-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/49fe75757113645c-asian-nvidia-related-stocks-jump-after-huang-s-ret-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
