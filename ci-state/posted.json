@@ -814,5 +814,32 @@
       "attempts": 1,
       "at": "2026-11-24T16:20:27+00:00"
     }
+  },
+  "86a92119212e80e4": {
+    "threads": {
+      "platform": "threads",
+      "ok": false,
+      "skipped": "daily cap 4",
+      "attempts": 3,
+      "at": "2026-11-24T16:54:13+00:00"
+    },
+    "instagram": {
+      "platform": "instagram",
+      "ok": false,
+      "skipped": "daily cap 4",
+      "attempts": 3,
+      "at": "2026-11-24T16:54:13+00:00"
+    },
+    "x": {
+      "platform": "x",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "2125271809918669144",
+      "url": "https://x.com/bayesly_ai/status/2125271809918669144",
+      "error": null,
+      "detail": "video",
+      "attempts": 1,
+      "at": "2026-11-24T16:54:20+00:00"
+    }
   }
 }
