@@ -1,0 +1,86 @@
+{
+  "id": "44b7a676d46f9d56",
+  "status": "published",
+  "created_at": "2026-11-24T18:03:30+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.bloomberg.com/news/articles/2026-11-24/xai-founders-unveil-new-ai-startup-to-predict-future-events",
+    "title": "Three xAI founding members launch Epochal to build AI agents that achieve \"superhuman prediction\"; source: co-founder Guodong Zhang personally invested $100M (Bloomberg)",
+    "published": "2026-11-24T17:25:02+00:00",
+    "text": "Bloomberg : Three xAI founding members launch Epochal to build AI agents that achieve “superhuman prediction”; source: co-founder Guodong Zhang personally invested $100M — Three founding members of Elon Musk's artificial intelligence business, xAI, have teamed up to build a new AI company …"
+  },
+  "score": 1.07,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "news_signal_bonus": 0.1,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Three xAI founding members launched Epochal to build predictive AI agents.",
+    "threads_post": "A co-founder of Elon Musk's xAI just put $100M of his own money into a new AI startup.\n\nThree founding members of xAI teamed up to launch Epochal. The new company is building AI agents designed to achieve \"superhuman prediction,\" backed by a $100 million personal investment from co-founder Guodong Zhang.\n\nWould you trust AI agents to make future predictions?",
+    "x_post": "A co-founder of xAI just personally invested $100M into a new startup.\n\nThree xAI founding members launched Epochal to build AI agents aimed at \"superhuman prediction.\"\n\nWould you trust AI to predict future events? #ai",
+    "instagram_caption": "A co-founder of xAI just put $100M of his own money into a new AI startup.\n\nThree founding members of Elon Musk's xAI have launched a new company called Epochal. Their stated goal is to build AI agents focused on \"superhuman prediction,\" with co-founder Guodong Zhang personally supplying $100M in funding.\n\nWould you trust AI agents to make future predictions?\n\n#ai #xai #aiagents #tech",
+    "question": "Would you trust AI agents to make future predictions?",
+    "topic_tag": "AI agents",
+    "broll_query": "stock market chart",
+    "facts": [
+      "Three xAI founding members launched a new AI startup named Epochal.",
+      "Co-founder Guodong Zhang personally invested $100M into Epochal.",
+      "Epochal aims to build AI agents focused on superhuman prediction."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source explicitly names the founders, company, investment, and goal.",
+    "facts_used": [
+      "Three xAI founding members launch Epochal to build AI agents that achieve 'superhuman prediction'",
+      "co-founder Guodong Zhang personally invested $100M",
+      "Three founding members of Elon Musk's artificial intelligence business, xAI, have teamed up to build a new AI company"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The $100M figure comes directly from Bloomberg's source citing co-founder Guodong Zhang.",
+    "card": {
+      "category": "Business",
+      "headline": "Three xAI founders launch Epochal with $100M",
+      "highlight": "$100M",
+      "number": {
+        "value": "$100M",
+        "caption": "Personally invested by co-founder Guodong Zhang",
+        "footnote": "Bloomberg report"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/44b7a676d46f9d56-three-xai-founding-members-launch-epochal-to-build-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/44b7a676d46f9d56-three-xai-founding-members-launch-epochal-to-build-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/44b7a676d46f9d56-three-xai-founding-members-launch-epochal-to-build-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/44b7a676d46f9d56-three-xai-founding-members-launch-epochal-to-build-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/44b7a676d46f9d56-three-xai-founding-members-launch-epochal-to-build-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/44b7a676d46f9d56-three-xai-founding-members-launch-epochal-to-build-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text",
+  "page_shot": null,
+  "broll": {
+    "credit": "Video: Pexels · Rafael Minguet Delgado",
+    "page": "https://www.pexels.com/video/dynamic-forex-trading-data-on-screens-38168755/",
+    "source_video": false
+  },
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/44b7a676d46f9d56-three-xai-founding-members-launch-epochal-to-build.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/44b7a676d46f9d56-three-xai-founding-members-launch-epochal-to-build.x.mp4",
+  "video_seconds": 23.3,
+  "video_voice": true,
+  "video_warnings": []
+}

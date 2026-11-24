@@ -1,0 +1,77 @@
+{
+  "id": "fdd5f51e8fafafb3",
+  "status": "pending_review",
+  "created_at": "2026-11-24T18:04:35+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "ars-ai",
+    "name": "Ars Technica AI",
+    "kind": "press",
+    "reliability": 0.8,
+    "url": "https://arstechnica.com/ai/2026/11/tidal-will-ban-fully-ai-generated-music-on-december-9/",
+    "title": "Tidal announces ban on AI-generated music; 27 million tracks will be deleted",
+    "published": "2026-11-24T17:34:34+00:00",
+    "text": "Most streaming music providers have opted to label AI-generated content on their platforms, and until now, Tidal was one of them. However, the company is about to take a harder stance. Tidal announced that in the coming weeks, it will fully ban AI music because of the harm it does to human artists. Tidal debuted its initial AI policy in July 2026, which included labeling and demonetizing all songs created entirely with AI. That wasn't enough to stem the tide of AI slop, though. Over the past 90 days, Tidal reports that 43 percent of new uploads were completely AI-generated. On November 6, new uploads to Tidal hit a whopping 60 percent AI-generated. As things stand, Tidal hosts 27 million tracks labeled as AI, all of which were obviously added in the past couple of years. That accounts for 6.3 percent of Tidal's total catalog. On December 9, Tidal will delete all those songs. The streamer notes this will have essentially no negative impact because 96 percent of AI-labeled tracks got zero plays in the past 90 days. Throughout its announcement, Tidal is careful to stipulate that it's only talking about music that has been fully created by AI. Artists can still use AI tools as long as the final product contains human elements. Read full article Comments"
+  },
+  "score": 1.0,
+  "score_breakdown": {
+    "reliability": 0.8,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "news_signal_bonus": 0.1,
+    "stakes_bonus": 0.08,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Tidal will delete 27 million fully AI-generated tracks on December 9.",
+    "threads_post": "Tidal is deleting 27 million fully AI-generated songs on December 9.\n\nTidal reports that 43 percent of new uploads over the past 90 days were completely made by AI. On November 6, that number hit 60 percent. But 96 percent of those AI tracks got zero plays in the past 90 days.\n\nMusicians can still use AI tools if the track includes human elements.\n\nShould streaming services ban fully AI music or stick to labeling it?",
+    "x_post": "Tidal will delete 27 million fully AI-generated tracks on December 9.\n\nTidal reports 43% of recent uploads were entirely AI-made, but 96% got zero plays in the last 90 days.\n\nShould apps ban AI music or just label it? #AI #music",
+    "instagram_caption": "Tidal is deleting 27 million fully AI-generated tracks on December 9.\n\nThe company says 43 percent of new uploads over the past 90 days were created entirely by AI, hitting 60 percent on November 6. The 27 million tracks make up 6.3 percent of Tidal's total catalog.\n\nTidal expects minimal impact: 96 percent of its AI-labeled songs received zero plays in the past 90 days. The ban only applies to music fully created by AI. Musicians can still use AI tools if the final product contains human elements.\n\nShould streaming services ban fully AI music or stick to labeling it?\n\n#ai #music #tidal #aimusic #streaming",
+    "question": "Should streaming services ban fully AI music or stick to labeling it?",
+    "topic_tag": "AI music",
+    "broll_query": "digital music waveform",
+    "facts": [
+      "Tidal will delete 27 million fully AI-generated tracks on December 9.",
+      "Tidal reports 43% of uploads over the past 90 days were fully AI-generated.",
+      "96% of AI-labeled tracks on Tidal received zero plays in the last 90 days.",
+      "Musicians can still use AI tools if the final track has human elements."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source provides specific numbers, dates, and clear policy details from Tidal.",
+    "facts_used": [
+      "Tidal announced that in the coming weeks, it will fully ban AI music",
+      "Over the past 90 days, Tidal reports that 43 percent of new uploads were completely AI-generated.",
+      "On November 6, new uploads to Tidal hit a whopping 60 percent AI-generated.",
+      "Tidal hosts 27 million tracks labeled as AI... On December 9, Tidal will delete all those songs.",
+      "96 percent of AI-labeled tracks got zero plays in the past 90 days.",
+      "Artists can still use AI tools as long as the final product contains human elements."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All stats attributed directly to Tidal's report. December 9 date confirmed in source text.",
+    "card": {
+      "category": "Policy",
+      "headline": "Tidal to delete 27 million AI tracks on Dec 9",
+      "highlight": "27 million AI tracks",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-1083228790-2560x1440.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/fdd5f51e8fafafb3-tidal-announces-ban-on-ai-generated-music-27-milli-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/fdd5f51e8fafafb3-tidal-announces-ban-on-ai-generated-music-27-milli-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/fdd5f51e8fafafb3-tidal-announces-ban-on-ai-generated-music-27-milli-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/fdd5f51e8fafafb3-tidal-announces-ban-on-ai-generated-music-27-milli-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/fdd5f51e8fafafb3-tidal-announces-ban-on-ai-generated-music-27-milli-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/fdd5f51e8fafafb3-tidal-announces-ban-on-ai-generated-music-27-milli-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 77 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}
