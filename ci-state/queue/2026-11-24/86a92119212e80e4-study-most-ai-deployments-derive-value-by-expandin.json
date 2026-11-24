@@ -1,0 +1,74 @@
+{
+  "id": "86a92119212e80e4",
+  "status": "pending_review",
+  "created_at": "2026-11-24T12:48:25+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.anthropic.com/research/working-with-ai",
+    "title": "Study: most AI deployments derive value by expanding and accelerating output rather than reducing costs, with 80% of 100 AI-built apps automating manual tasks (Anthropic)",
+    "published": "2026-11-24T11:40:00+00:00",
+    "text": "Anthropic : Study: most AI deployments derive value by expanding and accelerating output rather than reducing costs, with 80% of 100 AI-built apps automating manual tasks — How are businesses across the economy adopting AI? What bottlenecks and challenges have they faced?"
+  },
+  "score": 0.82,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "An Anthropic study found 80% of 100 AI-built apps automate manual tasks to speed up output rather than cut costs.",
+    "threads_post": "80% of 100 AI-built apps focus on automating manual tasks, according to a new Anthropic study.\n\nThe research shows most AI deployments derive value by expanding and accelerating output rather than cutting costs. Businesses are using AI to speed up work, while navigating adoption bottlenecks across the economy.\n\nShould companies focus AI on speeding up output or cutting costs?",
+    "x_post": "80% of 100 AI-built apps automate manual tasks, according to a study by Anthropic.\n\nMost AI deployments add value by accelerating output rather than cutting costs.\n\nShould companies use AI to speed up work or cut costs? #ai #tech",
+    "instagram_caption": "80% of 100 AI-built apps focus on automating manual tasks, according to a study by Anthropic.\n\nMost AI deployments derive value by expanding and accelerating output rather than reducing costs. The research examined how businesses across the economy adopt AI and the bottlenecks they face.\n\nShould companies use AI to speed up output or cut costs?\n\n#ai #anthropic #tech #automation #research",
+    "question": "Should companies focus AI on speeding up output or cutting costs?",
+    "topic_tag": "AI",
+    "broll_query": "office worker computer",
+    "facts": [
+      "80% of 100 AI-built apps in an Anthropic study automate manual tasks.",
+      "Most AI deployments add value by expanding and accelerating output.",
+      "Companies use AI to speed up work rather than reduce costs."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source title directly provides all statistics and research findings.",
+    "facts_used": [
+      "80% of 100 AI-built apps automating manual tasks",
+      "most AI deployments derive value by expanding and accelerating output rather than reducing costs",
+      "Anthropic study on how businesses across the economy adopt AI and face bottlenecks"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All details sourced from the Anthropic study summary.",
+    "card": {
+      "category": "Research",
+      "headline": "80% of AI-built apps automate manual tasks",
+      "highlight": "automate manual tasks",
+      "number": {
+        "value": "80%",
+        "caption": "of 100 AI-built apps automate manual tasks",
+        "footnote": "Anthropic study"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://assets.claude.com/cd30ce2e82eb423476801098073b39e025839018.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/86a92119212e80e4-study-most-ai-deployments-derive-value-by-expandin-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/86a92119212e80e4-study-most-ai-deployments-derive-value-by-expandin-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/86a92119212e80e4-study-most-ai-deployments-derive-value-by-expandin-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/86a92119212e80e4-study-most-ai-deployments-derive-value-by-expandin-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/86a92119212e80e4-study-most-ai-deployments-derive-value-by-expandin-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/86a92119212e80e4-study-most-ai-deployments-derive-value-by-expandin-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
