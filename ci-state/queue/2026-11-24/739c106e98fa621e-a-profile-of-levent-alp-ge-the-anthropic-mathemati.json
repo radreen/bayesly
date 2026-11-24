@@ -1,6 +1,6 @@
 {
   "id": "739c106e98fa621e",
-  "status": "pending_review",
+  "status": "published",
   "created_at": "2026-11-24T13:17:59+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -73,5 +73,16 @@
     "card.confidence_reason trimmed from 75 to 70 chars."
   ],
   "palette": "lime",
-  "layout": "text"
+  "layout": "text",
+  "page_shot": null,
+  "broll": {
+    "credit": "Video: Pexels · Yan Krukau, Pressmaster",
+    "page": "https://www.pexels.com/video/a-person-erasing-the-blackboard-8197218/",
+    "source_video": false
+  },
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/739c106e98fa621e-a-profile-of-levent-alp-ge-the-anthropic-mathemati.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/739c106e98fa621e-a-profile-of-levent-alp-ge-the-anthropic-mathemati.x.mp4",
+  "video_seconds": 24.0,
+  "video_voice": true,
+  "video_warnings": []
 }

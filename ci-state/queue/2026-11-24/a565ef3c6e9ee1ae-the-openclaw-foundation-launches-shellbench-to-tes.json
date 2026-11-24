@@ -1,0 +1,77 @@
+{
+  "id": "a565ef3c6e9ee1ae",
+  "status": "pending_review",
+  "created_at": "2026-11-24T15:48:55+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.thedeepview.com/articles/exclusive-openclaw-offers-an-agent-reality-check",
+    "title": "The OpenClaw Foundation launches ShellBench to test 13 frontier AI models across five harnesses on 100 tasks; top AI models hit only a ~60% completion rate (Nat Rubio-Licht/The Deep View)",
+    "published": "2026-11-24T13:25:01+00:00",
+    "text": "Nat Rubio-Licht / The Deep View : The OpenClaw Foundation launches ShellBench to test 13 frontier AI models across five harnesses on 100 tasks; top AI models hit only a ~60% completion rate — Though agents have become a massive part of the enterprise AI conversation, new research suggests that these systems aren't always dependable."
+  },
+  "score": 0.94,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "news_signal_bonus": 0.1,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Top AI models complete only about 60% of tasks on the new ShellBench benchmark.",
+    "threads_post": "Even the top frontier AI models hit only about a 60% completion rate on agent tasks.\n\nThe OpenClaw Foundation launched ShellBench to evaluate 13 frontier models across five harnesses on 100 tasks. The findings suggest AI agent systems still aren't always dependable.\n\nAre AI agents ready for enterprise work, or is 60% too low?",
+    "x_post": "Top frontier AI models hit only a ~60% completion rate on agent tasks.\n\nThe OpenClaw Foundation tested 13 models across 5 harnesses on 100 tasks with its new ShellBench benchmark.\n\nAre AI agents ready for enterprise work? #ai #aiagents",
+    "instagram_caption": "Top frontier AI models hit only about a 60% completion rate when tested on agent tasks.\n\nThe OpenClaw Foundation launched ShellBench to evaluate 13 frontier AI models across five harnesses on 100 tasks. While agents are a massive topic in enterprise AI, this research indicates these systems aren't always dependable.\n\nAre AI agents ready for enterprise work, or is a 60% completion rate too low?\n\n#ai #aiagents #tech #research",
+    "question": "Are AI agents ready for enterprise work, or is 60% too low?",
+    "topic_tag": "AI agents",
+    "broll_query": "computer terminal code",
+    "facts": [
+      "The OpenClaw Foundation launched the ShellBench benchmark.",
+      "ShellBench tests 13 frontier AI models across 5 harnesses on 100 tasks.",
+      "Top AI models hit only a ~60% completion rate on the tasks."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source provides explicit details on model count, tasks, and completion rate.",
+    "facts_used": [
+      "The OpenClaw Foundation launches ShellBench",
+      "test 13 frontier AI models across five harnesses on 100 tasks",
+      "top AI models hit only a ~60% completion rate",
+      "research suggests that these systems aren't always dependable"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All details sourced directly from Nat Rubio-Licht's report for The Deep View.",
+    "card": {
+      "category": "Research",
+      "headline": "Top AI models hit only a ~60% completion rate on agent tasks",
+      "highlight": "~60% completion rate",
+      "number": {
+        "value": "~60%",
+        "caption": "completion rate hit by top frontier AI models on ShellBench",
+        "footnote": "OpenClaw Foundation research"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://cdn.sanity.io/images/0no9te5e/production/833cf9a9eaf86cc9a9386d1a0d710845abec80df-1676x939.png?rect=0,32,1676,876&w=1200&h=627&fit=crop&auto=format",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/a565ef3c6e9ee1ae-the-openclaw-foundation-launches-shellbench-to-tes-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/a565ef3c6e9ee1ae-the-openclaw-foundation-launches-shellbench-to-tes-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/a565ef3c6e9ee1ae-the-openclaw-foundation-launches-shellbench-to-tes-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/a565ef3c6e9ee1ae-the-openclaw-foundation-launches-shellbench-to-tes-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/a565ef3c6e9ee1ae-the-openclaw-foundation-launches-shellbench-to-tes-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/a565ef3c6e9ee1ae-the-openclaw-foundation-launches-shellbench-to-tes-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 76 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}
