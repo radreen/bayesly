@@ -366,6 +366,14 @@ window.__seek = function (t) {{
 
 
 # -- capture + encode -------------------------------------------------------------------------
+def _run_ffmpeg(cmd: list[str], timeout: float = 420) -> subprocess.CompletedProcess:
+    """Never let ffmpeg hang a run: no stdin, hard timeout -> RenderError (the post goes out as a carousel)."""
+    try:
+        return subprocess.run(cmd, capture_output=True, text=True, stdin=subprocess.DEVNULL, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        raise RenderError(f"ffmpeg timed out after {timeout:.0f}s") from None
+
+
 def _ffmpeg() -> str:
     exe = shutil.which("ffmpeg")
     if not exe:
@@ -398,6 +406,18 @@ def capture(page_path: Path, frames_dir: Path, total: float, fps: int = FPS, tim
     return warnings
 
 
+def normalise_clip(src: Path, out: Path, start: float, seg: float, fps: int = FPS) -> Path:
+    """One clean footage segment: `seg` seconds from `start` (looped if the clip is shorter)."""
+    cmd = [_ffmpeg(), "-nostdin", "-y", "-loglevel", "error", "-fflags", "+genpts",
+           *(["-ss", f"{start:.2f}"] if start else []), "-stream_loop", "-1", "-i", str(src), "-t", f"{seg:.2f}",
+           "-vf", f"scale={W}:800:force_original_aspect_ratio=increase,crop={W}:800,setsar=1,fps={fps}",
+           "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", str(out)]
+    done = _run_ffmpeg(cmd, timeout=180)
+    if done.returncode != 0 or not out.exists():
+        raise RenderError(f"ffmpeg (clip) failed: {done.stderr.strip()[:300]}")
+    return out
+
+
 def broll_graph(n: int, seg: float, fps: int = FPS) -> str:
     """n clips, `seg` seconds each, cut one after another into the footage zone (800 px high at y=800),
     then our transparent frames on top. Inputs: 0 canvas, 1..n clips, n+1 frames."""
@@ -410,38 +430,43 @@ def broll_graph(n: int, seg: float, fps: int = FPS) -> str:
 
 
 def encode(frames_dir: Path, wav: Path, out: Path, fps: int = FPS, broll: list[Path] | Path | None = None,
-           total: float = 0) -> None:
+           total: float = 0, starts: list[float] | None = None) -> None:
     if broll:
         clips = [broll] if isinstance(broll, Path) else list(broll)
+        starts = list(starts or []) + [0.0] * len(clips)
         seg = total / len(clips) + 0.1          # a hair longer so the concat never runs short
+        # Normalise every clip first (exact length, 1080x800, 30 fps, no audio, clean timestamps). Clips cut
+        # by yt-dlp can carry broken timestamps that stalled the one-pass concat forever (2026-11-24).
+        clips = [normalise_clip(c, frames_dir.parent / f"seg{i}.mp4", ss, seg, fps)
+                 for i, (c, ss) in enumerate(zip(clips, starts))]
         inputs = ["-f", "lavfi", "-i", f"color=c=0x0d0d0e:s={W}x{H}:r={fps}"]
-        for c in clips:                          # loop short clips so each fills its slot
-            inputs += ["-stream_loop", "-1", "-t", f"{seg:.2f}", "-i", str(c)]
+        for c in clips:
+            inputs += ["-i", str(c)]
         inputs += ["-framerate", str(fps), "-i", str(frames_dir / "%05d.png"), "-i", str(wav)]
         graph = broll_graph(len(clips), seg, fps)
-        cmd = [_ffmpeg(), "-y", "-loglevel", "error", *inputs, "-filter_complex", graph, "-map", "[v]",
+        cmd = [_ffmpeg(), "-nostdin", "-y", "-loglevel", "error", *inputs, "-filter_complex", graph, "-map", "[v]",
                "-map", f"{len(clips) + 2}:a",
                "-t", f"{total:.2f}", "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p", "-crf", "20",
                "-preset", "medium", "-g", str(fps * 2), "-c:a", "aac", "-b:a", "128k", "-ar", "48000",
                "-movflags", "+faststart", str(out)]
-        done = subprocess.run(cmd, capture_output=True, text=True)
+        done = _run_ffmpeg(cmd)
         if done.returncode != 0:
             raise RenderError(f"ffmpeg (b-roll) failed: {done.stderr.strip()[:300]}")
         return
-    cmd = [_ffmpeg(), "-y", "-loglevel", "error", "-framerate", str(fps), "-i", str(frames_dir / "%05d.jpg"),
+    cmd = [_ffmpeg(), "-nostdin", "-y", "-loglevel", "error", "-framerate", str(fps), "-i", str(frames_dir / "%05d.jpg"),
            "-i", str(wav), "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p", "-crf", "20",
            "-preset", "medium", "-g", str(fps * 2), "-c:a", "aac", "-b:a", "128k", "-ar", "48000",
            "-movflags", "+faststart", "-shortest", str(out)]
-    done = subprocess.run(cmd, capture_output=True, text=True)
+    done = _run_ffmpeg(cmd)
     if done.returncode != 0:
         raise RenderError(f"ffmpeg failed: {done.stderr.strip()[:300]}")
 
 
 def scale_for_x(src: Path, out: Path) -> None:
     """X's hard limit is 1280x1024 per side pair; it recommends 720x1280 portrait (docs, 2026-11-20)."""
-    cmd = [_ffmpeg(), "-y", "-loglevel", "error", "-i", str(src), "-vf", "scale=720:1280", "-c:v", "libx264",
+    cmd = [_ffmpeg(), "-nostdin", "-y", "-loglevel", "error", "-i", str(src), "-vf", "scale=720:1280", "-c:v", "libx264",
            "-profile:v", "high", "-pix_fmt", "yuv420p", "-b:v", "5M", "-c:a", "copy", "-movflags", "+faststart", str(out)]
-    done = subprocess.run(cmd, capture_output=True, text=True)
+    done = _run_ffmpeg(cmd)
     if done.returncode != 0:
         raise RenderError(f"ffmpeg (X copy) failed: {done.stderr.strip()[:300]}")
 
@@ -463,11 +488,20 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
     shot = capture_article(record["source"]["url"], shot_path) or capture_article(record["source"]["url"], shot_path)
     record["page_shot"] = str(shot) if shot else None
     broll = None
-    if not record.get("cover_image") and not shot:   # LAST resort: the source gave us nothing to show
+    starts: list[float] = []
+    # 1) The news' own footage (embedded demo/promo/keynote clips): what competitors show. Owner 2026-11-24.
+    from bayesly.source_video import find_source_video
+    real = find_source_video(record["source"]["url"], json_path.with_suffix(".src.mp4"))
+    if real:
+        from bayesly.broll import Broll
+        broll = Broll([c.path for c in real.clips], real.credit, record["source"]["url"])
+        starts = [c.start for c in real.clips]
+    # 2) source photo / page scroll (no broll), 3) Pexels as the LAST resort: the source gave us nothing.
+    elif not record.get("cover_image") and not shot:
         from bayesly.broll import find_broll, queries_for
         broll = find_broll(queries_for(record.get("draft") or {}, card.category), os.getenv("PEXELS_API_KEY", "").strip(),
                            json_path.with_suffix(".broll.mp4"))
-    record["broll"] = {"credit": broll.credit, "page": broll.page} if broll else None
+    record["broll"] = {"credit": broll.credit, "page": broll.page, "source_video": bool(real)} if broll else None
     warnings: list[str] = []
     log.info("video: voice", extra={"path": str(json_path.name)})
     if voice and settings.gemini_api_key:
@@ -481,14 +515,16 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
     with tempfile.TemporaryDirectory(prefix="bayesly-video-") as tmp:
         tmpd = Path(tmp)
         page = tmpd / "video.html"
-        page.write_text(build_video_page(card, record, segs, total, broll.credit if broll else None), encoding="utf-8")
+        # with a clip, the footage zone must stay see-through: no photo / page scroll drawn over it
+        page_rec = {**record, "cover_image": None, "page_shot": None} if broll else record
+        page.write_text(build_video_page(card, page_rec, segs, total, broll.credit if broll else None), encoding="utf-8")
         (tmpd / "frames").mkdir()
         log.info("video: capture frames", extra={"seconds": total})
         warnings += capture(page, tmpd / "frames", total, transparent=bool(broll))
         log.info("video: encode")
         wav = tmpd / "voice.wav"
         wav.write_bytes(mix_audio(segs, total))
-        encode(tmpd / "frames", wav, out, broll=broll.paths if broll else None, total=total)
+        encode(tmpd / "frames", wav, out, broll=broll.paths if broll else None, total=total, starts=starts)
     x_out = json_path.with_suffix(".x.mp4")
     scale_for_x(out, x_out)
     record["video"] = str(out)
