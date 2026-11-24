@@ -1,6 +1,6 @@
 {
   "id": "def41b9598d68a15",
-  "status": "pending_review",
+  "status": "published",
   "created_at": "2026-11-23T20:37:22+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -65,5 +65,12 @@
   ],
   "image_warnings": [],
   "palette": "lime",
-  "layout": "photo"
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/def41b9598d68a15-amazon-to-acquire-ai-startup-decart-s-chip-softwar.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/def41b9598d68a15-amazon-to-acquire-ai-startup-decart-s-chip-softwar.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-23/def41b9598d68a15-amazon-to-acquire-ai-startup-decart-s-chip-softwar.x.mp4",
+  "video_seconds": 20.0,
+  "video_voice": true,
+  "video_warnings": []
 }
