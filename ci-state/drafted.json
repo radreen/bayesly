@@ -238,5 +238,29 @@
   "f04eb1d6ee4b2dd7": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f04eb1d6ee4b2dd7-signal-joins-united-airlines-banks-in-limiting-ai.json",
     "drafted_at": "2026-11-24T08:10:55+00:00"
+  },
+  "92c709b4dedffefa": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-24T11:32:44+00:00"
+  },
+  "9986080c472745ef": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-24T11:32:44+00:00"
+  },
+  "37c715b363fccf82": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-24T11:32:44+00:00"
+  },
+  "00cedad7d3f446c7": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/00cedad7d3f446c7-nvidia-shares-fall-over-5-in-premarket-after-huang.json",
+    "drafted_at": "2026-11-24T11:33:39+00:00"
+  },
+  "f4b6cf75fcfbbf13": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f4b6cf75fcfbbf13-jensen-huang-is-too-big-to-fire-putting-nvidia-s-g.json",
+    "drafted_at": "2026-11-24T11:34:13+00:00"
+  },
+  "c7267c9dcbe289ea": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/c7267c9dcbe289ea-release-v5-23-0.json",
+    "drafted_at": "2026-11-24T11:35:03+00:00"
   }
 }

@@ -1,0 +1,80 @@
+{
+  "id": "f4b6cf75fcfbbf13",
+  "status": "held",
+  "created_at": "2026-11-24T11:34:13+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "cnbc-tech",
+    "name": "CNBC Technology",
+    "kind": "press",
+    "reliability": 0.8,
+    "url": "https://www.cnbc.com/2026/11/24/nvidia-jensen-huang-governance.html",
+    "title": "Jensen Huang is ‘too big to fire,’ putting Nvidia’s governance in focus: analysts",
+    "published": "2026-11-24T10:56:56+00:00",
+    "text": "Jensen Huang’s return has underscored Nvidia’s deep reliance on its founder, putting the company's board oversight and corporate governance under scrutiny."
+  },
+  "score": 0.77,
+  "score_breakdown": {
+    "reliability": 0.8,
+    "relevance": 0.0,
+    "novelty": 1.0,
+    "thin_text_penalty": -0.1,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Analysts say Nvidia CEO Jensen Huang is 'too big to fire.'",
+    "threads_post": "Analysts say Nvidia CEO Jensen Huang is 'too big to fire.'\n\nHuang's return has underscored Nvidia's deep reliance on its founder. The move is putting the company's board oversight and corporate governance under scrutiny.\n\nIs deep reliance on a founder a strength or a risk?",
+    "x_post": "Analysts say Jensen Huang is 'too big to fire.'\n\nHuang's return highlights Nvidia's deep reliance on its founder, putting board oversight and corporate governance under scrutiny.\n\nIs founder reliance a strength or a risk?",
+    "instagram_caption": "Analysts say Jensen Huang is 'too big to fire.'\n\nHuang's return has underscored Nvidia's deep reliance on its founder. Now, analysts are putting the company's board oversight and corporate governance under scrutiny.\n\nIs deep reliance on a founder a strength or a risk?\n\n#nvidia #tech #governance #business #ai",
+    "question": "Is deep reliance on a founder a strength or a risk?",
+    "topic_tag": "Nvidia",
+    "broll_query": "corporate board meeting",
+    "facts": [
+      "Analysts say Jensen Huang is 'too big to fire.'",
+      "Huang's return underscores Nvidia's deep reliance on its founder.",
+      "Nvidia's board oversight and corporate governance are under scrutiny."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is only one sentence and a headline.",
+    "facts_used": [
+      "Jensen Huang is ‘too big to fire,’ putting Nvidia’s governance in focus: analysts",
+      "Jensen Huang’s return has underscored Nvidia’s deep reliance on its founder",
+      "putting the company's board oversight and corporate governance under scrutiny."
+    ],
+    "insufficient_source": true,
+    "editor_notes": "The source snippet is only one sentence long. Check full CNBC article for additional context before publishing.",
+    "card": {
+      "category": "Business",
+      "headline": "Analysts say Jensen Huang is 'too big to fire'",
+      "highlight": "too big to fire",
+      "number": null
+    },
+    "fact_check_issues": [
+      "That analysts say Jensen Huang is 'too big to fire'",
+      "That Jensen Huang is the CEO of Nvidia",
+      "That analysts are the ones putting board oversight and corporate governance under scrutiny"
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting.",
+    "Fact-check: not in the source: That analysts say Jensen Huang is 'too big to fire'",
+    "Fact-check: not in the source: That Jensen Huang is the CEO of Nvidia",
+    "Fact-check: not in the source: That analysts are the ones putting board oversight and corporate governance under scrutiny"
+  ],
+  "cover_image": "https://image.cnbcfm.com/api/v1/image/108558111-1795509261630-gettyimages-2300714586-GERMANY_NVIDIA.jpeg?v=1795509280&w=1920&h=1080",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f4b6cf75fcfbbf13-jensen-huang-is-too-big-to-fire-putting-nvidia-s-g-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f4b6cf75fcfbbf13-jensen-huang-is-too-big-to-fire-putting-nvidia-s-g-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f4b6cf75fcfbbf13-jensen-huang-is-too-big-to-fire-putting-nvidia-s-g-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f4b6cf75fcfbbf13-jensen-huang-is-too-big-to-fire-putting-nvidia-s-g-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f4b6cf75fcfbbf13-jensen-huang-is-too-big-to-fire-putting-nvidia-s-g-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f4b6cf75fcfbbf13-jensen-huang-is-too-big-to-fire-putting-nvidia-s-g-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
