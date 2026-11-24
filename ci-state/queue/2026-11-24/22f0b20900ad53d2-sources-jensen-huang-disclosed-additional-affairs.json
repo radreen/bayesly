@@ -1,0 +1,74 @@
+{
+  "id": "22f0b20900ad53d2",
+  "status": "pending_review",
+  "created_at": "2026-11-24T03:38:26+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.wsj.com/business/nvidia-jensen-huang-white-house-9ad03961?st=HzeUyV",
+    "title": "Sources: Jensen Huang disclosed additional affairs beyond the two already reported during his Sunday meeting with Nvidia's board, but was remorseful about them (Wall Street Journal)",
+    "published": "2026-11-24T03:15:00+00:00",
+    "text": "Wall Street Journal : Sources: Jensen Huang disclosed additional affairs beyond the two already reported during his Sunday meeting with Nvidia's board, but was remorseful about them — Trump made clear he wanted the Nvidia CEO reinstated; on Monday he touted the decision, saying the market proved it was right"
+  },
+  "score": 0.83,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.0,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Jensen Huang disclosed additional affairs to Nvidia's board, WSJ reports.",
+    "threads_post": "Jensen Huang disclosed additional personal affairs to Nvidia's board during a Sunday meeting, according to Wall Street Journal sources.\n\nThe Nvidia CEO expressed remorse during the meeting over disclosures beyond two previously reported affairs. Donald Trump made clear he wanted Huang reinstated. On Monday, Trump touted the decision, saying the market proved it was right.\n\nDoes market performance justify keeping a CEO after personal misconduct?",
+    "x_post": "Jensen Huang disclosed additional affairs to Nvidia's board on Sunday, WSJ reports.\n\nThe board heard he was remorseful. Trump pushed for the CEO's reinstatement and touted the decision Monday, saying the market proved it right.\n\nShould boards prioritize market response over CEO conduct? #nvidia",
+    "instagram_caption": "Jensen Huang disclosed additional personal affairs during a Sunday meeting with Nvidia's board, according to Wall Street Journal sources.\n\nHuang reportedly expressed remorse over affairs beyond the two already reported. Donald Trump made clear he wanted the Nvidia CEO reinstated to his role. On Monday, Trump touted the reinstatement decision, stating that market performance proved the move was right.\n\nDoes market performance justify keeping a CEO after personal misconduct?\n\n#nvidia #tech #business #ai #leadership",
+    "question": "Does market performance justify keeping a CEO after personal misconduct?",
+    "topic_tag": "Nvidia",
+    "broll_query": "boardroom executive meeting",
+    "facts": [
+      "Jensen Huang disclosed extra affairs beyond two already reported.",
+      "Huang expressed remorse during a Sunday meeting with Nvidia's board.",
+      "Trump made clear he wanted the Nvidia CEO reinstated.",
+      "Trump touted the decision Monday, saying the market proved it right."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source clearly outlines all cited facts from WSJ report.",
+    "facts_used": [
+      "Jensen Huang disclosed additional affairs beyond the two already reported during his Sunday meeting with Nvidia's board",
+      "Huang was remorseful about them",
+      "Trump made clear he wanted the Nvidia CEO reinstated",
+      "On Monday Trump touted the decision, saying the market proved it was right"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Verify if further details regarding Huang's reinstatement timeline or board votes emerge.",
+    "card": {
+      "category": "Business",
+      "headline": "Jensen Huang disclosed additional affairs to Nvidia board",
+      "highlight": "disclosed additional affairs",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "X post is 295 chars (> 280)."
+  ],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/22f0b20900ad53d2-sources-jensen-huang-disclosed-additional-affairs-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/22f0b20900ad53d2-sources-jensen-huang-disclosed-additional-affairs-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/22f0b20900ad53d2-sources-jensen-huang-disclosed-additional-affairs-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/22f0b20900ad53d2-sources-jensen-huang-disclosed-additional-affairs-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/22f0b20900ad53d2-sources-jensen-huang-disclosed-additional-affairs-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/22f0b20900ad53d2-sources-jensen-huang-disclosed-additional-affairs-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}
