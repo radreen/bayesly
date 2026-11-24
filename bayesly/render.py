@@ -77,7 +77,8 @@ def _foot(left: str, right: str) -> str:
 
 
 def _brand_row() -> str:
-    return '<div class="s-brand"><div class="wordmark">bayesly<i></i></div><span>@bayesly.ai</span></div>'
+    # Logo only: the handle appears ONCE per image (in the footer, or the Follow pill on the last slide).
+    return '<div class="s-brand"><div class="wordmark">bayesly<i></i></div></div>'
 
 
 def slide_cover(card: Card, record: dict[str, Any], idx: int, total: int) -> str:
@@ -145,7 +146,7 @@ def slide_ask(card: Card, record: dict[str, Any], idx: int, total: int) -> str:
   <p class="s-kicker">Your call</p>
   <p class="s-question" data-fit="700">{e(question_for(card, record))}</p>
   <div class="s-ask"><p class="cta">Tell us in the comments ↓</p><span class="pill fill">Follow @bayesly.ai</span></div>
-  {_foot("@bayesly.ai", f"{idx} / {total}")}
+  {_foot("", f"{idx} / {total}")}
 </article>"""
 
 

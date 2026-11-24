@@ -326,7 +326,7 @@ def build_video_page(card: Card, record: dict[str, Any], segs: list[Segment], to
 </head><body>
 <div class="v {layout}">
   <div class="v-progress"></div>
-  <div class="v-brand"><div class="wordmark">bayesly<i></i></div><span class="handle">@bayesly.ai</span></div>
+  <div class="v-brand"><div class="wordmark">bayesly<i></i></div></div>
   <section class="story" data-in="0" data-out="{facts_end:.2f}">
     {f'<div class="media">{"".join(media)}<div class="credit">{credit}</div></div>' if media else ''}
     {f'<div class="band-top"></div><div class="media see-through"><div class="credit">{credit}</div></div><div class="band-bottom"></div>' if broll_credit and not media else ''}

@@ -81,13 +81,7 @@
       el.insertBefore(svg, el.firstChild);
     });
 
-    // Crop marks on every post
-    document.querySelectorAll(".post").forEach(function (p) {
-      var c = document.createElement("div");
-      c.className = "crop";
-      c.innerHTML = "<i></i><i></i><i></i><i></i>";
-      p.appendChild(c);
-    });
+    // (Corner crop marks removed 2026-11-24: owner found them visual noise.)
   }
 
   // Shrink text in [data-fit="<max height px>"] until it fits (down to 55% of its size).
