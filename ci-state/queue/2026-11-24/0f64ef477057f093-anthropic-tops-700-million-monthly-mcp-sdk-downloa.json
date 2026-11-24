@@ -1,0 +1,82 @@
+{
+  "id": "0f64ef477057f093",
+  "status": "published",
+  "created_at": "2026-11-24T19:35:48+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/anthropic-tops-700-million-monthly-mcp-sdk-downloads-and-expands-the-protocol-for-more-autonomous-ai-agents/",
+    "title": "Anthropic tops 700 million monthly MCP SDK downloads and expands the protocol for more autonomous AI agents",
+    "published": "2026-11-24T19:23:41+00:00",
+    "text": "Two years after launch, Anthropic reports more than 700 million monthly downloads for its MCP interface standard. New features such as background tasks, follow-up questions for users, and file uploads are meant to let Claude work more independently. The article Anthropic tops 700 million monthly MCP SDK downloads and expands the protocol for more autonomous AI agents appeared first on The Decoder ."
+  },
+  "score": 1.14,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "stakes_bonus": 0.08,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Anthropic reports over 700 million monthly downloads for its MCP interface standard.",
+    "threads_post": "Anthropic says its MCP interface standard now tops 700 million monthly downloads two years after launch.\n\nTo help Claude work more independently, the company is expanding the protocol with new features. Updates include background tasks, follow-up questions for users, and file uploads.\n\nWould you let an AI agent handle tasks in the background, or do you prefer manual control?",
+    "x_post": "Anthropic reports over 700M monthly downloads for its MCP standard two years after launch. New features like background tasks, file uploads, and follow-up questions aim to let Claude operate more independently.\n\nWould you let AI run background tasks?",
+    "instagram_caption": "Anthropic reports more than 700 million monthly downloads for its MCP interface standard, two years after its launch.\n\nThe company is introducing new features to help Claude work more independently. Updates include background tasks, follow-up questions for users, and file uploads.\n\nWould you let an AI agent run tasks in the background, or do you prefer step-by-step control?\n\n#ai #aiagents #anthropic #claude #tech",
+    "question": "Would you let an AI agent run tasks in the background, or do you prefer manual control?",
+    "topic_tag": "AI agents",
+    "broll_query": "ai code interface",
+    "facts": [
+      "Anthropic reports over 700M monthly downloads for its MCP interface standard.",
+      "The MCP standard is expanding two years after its initial launch.",
+      "New features include background tasks, file uploads, and follow-up questions.",
+      "The updates are designed to let Claude operate more independently."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source provides clear facts, metrics, and feature lists.",
+    "facts_used": [
+      "Two years after launch, Anthropic reports more than 700 million monthly downloads for its MCP interface standard.",
+      "New features such as background tasks, follow-up questions for users, and file uploads are meant to let Claude work more independently."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All details sourced directly from the provided text.",
+    "card": {
+      "category": "Tools",
+      "headline": "Anthropic reports 700 million monthly MCP downloads",
+      "highlight": "700 million monthly MCP",
+      "number": {
+        "value": "700M",
+        "caption": "Monthly MCP interface standard downloads reported by Anthropic",
+        "footnote": "Company-reported"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/anthropic_claude_logo.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0f64ef477057f093-anthropic-tops-700-million-monthly-mcp-sdk-downloa-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0f64ef477057f093-anthropic-tops-700-million-monthly-mcp-sdk-downloa-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0f64ef477057f093-anthropic-tops-700-million-monthly-mcp-sdk-downloa-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0f64ef477057f093-anthropic-tops-700-million-monthly-mcp-sdk-downloa-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0f64ef477057f093-anthropic-tops-700-million-monthly-mcp-sdk-downloa-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0f64ef477057f093-anthropic-tops-700-million-monthly-mcp-sdk-downloa-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0f64ef477057f093-anthropic-tops-700-million-monthly-mcp-sdk-downloa.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0f64ef477057f093-anthropic-tops-700-million-monthly-mcp-sdk-downloa.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0f64ef477057f093-anthropic-tops-700-million-monthly-mcp-sdk-downloa.x.mp4",
+  "video_seconds": 28.4,
+  "video_voice": true,
+  "video_warnings": []
+}
