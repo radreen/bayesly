@@ -1,0 +1,82 @@
+{
+  "id": "9e93bc8cda8321d2",
+  "status": "published",
+  "created_at": "2026-11-24T04:49:52+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://thenewstack.io/aws-strands-decider-v2/",
+    "title": "AWS debuts Strands Decider v2, a family of five open decision models based on Google's Gemma 4, ranging from 2B to 31B parameters, under the Apache 2.0 license (Frederic Lardinois/The New Stack)",
+    "published": "2026-11-24T04:25:01+00:00",
+    "text": "Frederic Lardinois / The New Stack : AWS debuts Strands Decider v2, a family of five open decision models based on Google's Gemma 4, ranging from 2B to 31B parameters, under the Apache 2.0 license — AWS on Monday launched Strands Decider v2, a family of five open decision models. — The release comes only seven weeks after Strands Labs …"
+  },
+  "score": 0.97,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "AWS launched Strands Decider v2, a family of five open decision models based on Google's Gemma 4.",
+    "threads_post": "AWS just launched Strands Decider v2, a family of five open decision models built on Google's Gemma 4.\n\nThe models range from 2B to 31B parameters and are available under the Apache 2.0 license. The launch comes seven weeks after Strands Labs' previous update.\n\nWould you run open decision models like these or stick to closed APIs?",
+    "x_post": "AWS launched Strands Decider v2: five open decision models based on Google's Gemma 4.\n\n• Sizes range from 2B to 31B parameters\n• Released under Apache 2.0 license\n\nWould you run open decision models or stick to closed APIs? #AI #AWS",
+    "instagram_caption": "AWS launched Strands Decider v2, a family of five open decision models based on Google's Gemma 4.\n\nThe new models range from 2B to 31B parameters and are released under the open Apache 2.0 license. The release comes seven weeks after Strands Labs.\n\nWould you run open decision models like these or stick to closed APIs?\n\n#ai #aws #google #gemma #opensource",
+    "question": "Would you run open decision models like these or stick to closed APIs?",
+    "topic_tag": "AWS",
+    "broll_query": "data center servers",
+    "facts": [
+      "AWS launched Strands Decider v2, a family of five open decision models.",
+      "The models are based on Google's Gemma 4, ranging from 2B to 31B parameters.",
+      "AWS released the models under the open Apache 2.0 license."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Clear model specs, license details, and lineage in source text.",
+    "facts_used": [
+      "AWS debuts Strands Decider v2, a family of five open decision models",
+      "based on Google's Gemma 4, ranging from 2B to 31B parameters",
+      "under the Apache 2.0 license",
+      "comes only seven weeks after Strands Labs"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Double check exact details on Strands Labs connection if needed.",
+    "card": {
+      "category": "Models",
+      "headline": "AWS launches 5 open decision models based on Gemma 4",
+      "highlight": "5 open decision models",
+      "number": {
+        "value": "31B",
+        "caption": "Largest model size in the Strands Decider v2 family",
+        "footnote": "Company announcement"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/9e93bc8cda8321d2-aws-debuts-strands-decider-v2-a-family-of-five-ope-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/9e93bc8cda8321d2-aws-debuts-strands-decider-v2-a-family-of-five-ope-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/9e93bc8cda8321d2-aws-debuts-strands-decider-v2-a-family-of-five-ope-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/9e93bc8cda8321d2-aws-debuts-strands-decider-v2-a-family-of-five-ope-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/9e93bc8cda8321d2-aws-debuts-strands-decider-v2-a-family-of-five-ope-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/9e93bc8cda8321d2-aws-debuts-strands-decider-v2-a-family-of-five-ope-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/9e93bc8cda8321d2-aws-debuts-strands-decider-v2-a-family-of-five-ope.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/9e93bc8cda8321d2-aws-debuts-strands-decider-v2-a-family-of-five-ope.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/9e93bc8cda8321d2-aws-debuts-strands-decider-v2-a-family-of-five-ope.x.mp4",
+  "video_seconds": 27.3,
+  "video_voice": true,
+  "video_warnings": []
+}

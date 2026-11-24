@@ -1,0 +1,72 @@
+{
+  "id": "0892ee16e7b786f6",
+  "status": "pending_review",
+  "created_at": "2026-11-24T04:51:58+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "zdnet-ai",
+    "name": "ZDNet AI",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.zdnet.com/innovation/ai-chatbots-terrorist-attack-plans-us-government-test/",
+    "title": "Can AI plan terrorist attacks? The US tested ChatGPT, Claude, Gemini, and Grok",
+    "published": "2026-11-23T13:29:04+00:00",
+    "text": "Investigators tried to bypass AI safeguards to generate plans. The results exposed security gaps and raised questions about preventing misuse."
+  },
+  "score": 0.76,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "thin_text_penalty": -0.1,
+    "names_bonus": 0.12
+  },
+  "draft": {
+    "headline": "US investigators tested ChatGPT, Claude, Gemini, and Grok to see if AI can generate attack plans.",
+    "threads_post": "US investigators tried bypassing guardrails on ChatGPT, Claude, Gemini, and Grok to generate attack plans.\n\nThe government tests exposed security gaps across the AI chatbots. The findings raise new questions about preventing model misuse.\n\nCan guardrails ever fully prevent misuse, or will security gaps always remain?",
+    "x_post": "US investigators tried bypassing guardrails on ChatGPT, Claude, Gemini, and Grok to generate attack plans.\n\nThe tests exposed security gaps across the chatbots.\n\nCan guardrails ever fully prevent misuse, or will gaps remain? #aisafety",
+    "instagram_caption": "US investigators tried bypassing guardrails on ChatGPT, Claude, Gemini, and Grok to generate attack plans.\n\nGovernment testers attempted to bypass existing safety safeguards during the evaluation. The results exposed security gaps across the AI chatbots and raised questions about how to prevent misuse.\n\nCan AI guardrails ever fully prevent misuse, or will security gaps always exist?\n\n#ai #aisafety #tech #government",
+    "question": "Can guardrails ever fully prevent misuse, or will security gaps always exist?",
+    "topic_tag": "AI Safety",
+    "broll_query": "cybersecurity computer shield",
+    "facts": [
+      "US tested ChatGPT, Claude, Gemini, and Grok for attack planning.",
+      "Investigators tried to bypass AI safeguards to generate plans.",
+      "The results exposed security gaps across major AI chatbots."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is only a headline and two-sentence summary snippet.",
+    "facts_used": [
+      "The US tested ChatGPT, Claude, Gemini, and Grok on whether AI can plan terrorist attacks.",
+      "Investigators tried to bypass AI safeguards to generate plans.",
+      "The results exposed security gaps and raised questions about preventing misuse."
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source text is very brief (only headline and snippet). Verify full article details if available before publishing.",
+    "card": {
+      "category": "Safety",
+      "headline": "US tests reveal security gaps in major AI chatbots",
+      "highlight": "security gaps",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": "https://www.zdnet.com/wp-content/uploads/sites/3/GettyImages-2263696087.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0892ee16e7b786f6-can-ai-plan-terrorist-attacks-the-us-tested-chatgp-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0892ee16e7b786f6-can-ai-plan-terrorist-attacks-the-us-tested-chatgp-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0892ee16e7b786f6-can-ai-plan-terrorist-attacks-the-us-tested-chatgp-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0892ee16e7b786f6-can-ai-plan-terrorist-attacks-the-us-tested-chatgp-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0892ee16e7b786f6-can-ai-plan-terrorist-attacks-the-us-tested-chatgp-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/0892ee16e7b786f6-can-ai-plan-terrorist-attacks-the-us-tested-chatgp-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
