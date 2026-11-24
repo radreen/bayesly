@@ -1,0 +1,81 @@
+{
+  "id": "588a3c956daeca0b",
+  "status": "published",
+  "created_at": "2026-11-24T08:06:18+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.politico.eu/article/meta-ai-agent-muse-launch-uk/",
+    "title": "Meta rolls out its personal AI agent Muse to UK adults to help with everyday tasks, the first AI agent product launched by a Big Tech company in the UK (Mizy Clifton/Politico)",
+    "published": "2026-11-24T07:50:01+00:00",
+    "text": "Mizy Clifton / Politico : Meta rolls out its personal AI agent Muse to UK adults to help with everyday tasks, the first AI agent product launched by a Big Tech company in the UK — Regulators will be watching the U.K. rollout of Muse carefully. — LONDON — Meta rolled out its personal AI agent Muse to the U.K. adults on Tuesday …"
+  },
+  "score": 1.07,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "news_signal_bonus": 0.1,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Meta launched personal AI agent Muse for UK adults to assist with everyday tasks.",
+    "threads_post": "Meta launched its personal AI agent Muse for UK adults on Tuesday.\n\nIt is the first AI agent product from a Big Tech company to launch in the UK. The tool is designed to assist users with everyday tasks, while UK regulators watch the rollout carefully.\n\nWould you trust an AI agent with your daily tasks?",
+    "x_post": "Meta launched Muse for UK adults on Tuesday, the first AI agent product from a Big Tech company in the UK.\n\nIt assists with everyday tasks while regulators watch the rollout carefully.\n\nWould you trust an AI agent with your daily tasks? #ai #meta",
+    "instagram_caption": "Meta launched its personal AI agent Muse for UK adults on Tuesday.\n\nIt is the first AI agent product launched by a Big Tech company in the UK. Meta designed Muse to assist people with everyday tasks. Meanwhile, UK regulators plan to watch the rollout carefully as it reaches users.\n\nWould you trust an AI agent with your daily tasks?\n\n#ai #meta #aiagents #uk #tech",
+    "question": "Would you trust an AI agent with your daily tasks?",
+    "topic_tag": "AI agents",
+    "broll_query": "person using smartphone",
+    "facts": [
+      "Meta rolled out its personal AI agent Muse to UK adults.",
+      "It is the first AI agent product launched by a Big Tech company in the UK.",
+      "The agent is designed to help users with everyday tasks.",
+      "UK regulators will be watching the rollout carefully."
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Source text is brief but explicitly provides key factual details.",
+    "facts_used": [
+      "Meta rolled out its personal AI agent Muse to UK adults",
+      "to help with everyday tasks",
+      "the first AI agent product launched by a Big Tech company in the UK",
+      "Regulators will be watching the U.K. rollout of Muse carefully",
+      "Meta rolled out its personal AI agent Muse to the U.K. adults on Tuesday"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Source text is short (Politico snippet via Techmeme). Post strictly adheres to provided text.",
+    "card": {
+      "category": "Tools",
+      "headline": "Meta launches Muse personal AI agent in the UK",
+      "highlight": "personal AI agent",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://www.politico.eu/cdn-cgi/image/width=1200,height=630,fit=crop,quality=80,onerror=redirect/wp-content/uploads/2026/11/23/GettyImages-2192359273-scaled.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/588a3c956daeca0b-meta-rolls-out-its-personal-ai-agent-muse-to-uk-ad-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/588a3c956daeca0b-meta-rolls-out-its-personal-ai-agent-muse-to-uk-ad-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/588a3c956daeca0b-meta-rolls-out-its-personal-ai-agent-muse-to-uk-ad-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/588a3c956daeca0b-meta-rolls-out-its-personal-ai-agent-muse-to-uk-ad-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/588a3c956daeca0b-meta-rolls-out-its-personal-ai-agent-muse-to-uk-ad-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/588a3c956daeca0b-meta-rolls-out-its-personal-ai-agent-muse-to-uk-ad-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": null,
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/588a3c956daeca0b-meta-rolls-out-its-personal-ai-agent-muse-to-uk-ad.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/588a3c956daeca0b-meta-rolls-out-its-personal-ai-agent-muse-to-uk-ad.x.mp4",
+  "video_seconds": 22.6,
+  "video_voice": true,
+  "video_warnings": []
+}

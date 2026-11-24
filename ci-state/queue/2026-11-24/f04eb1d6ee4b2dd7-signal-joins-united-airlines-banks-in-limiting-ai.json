@@ -1,0 +1,74 @@
+{
+  "id": "f04eb1d6ee4b2dd7",
+  "status": "pending_review",
+  "created_at": "2026-11-24T08:10:55+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "cnbc-tech",
+    "name": "CNBC Technology",
+    "kind": "press",
+    "reliability": 0.8,
+    "url": "https://www.cnbc.com/2026/11/24/signal-airlines-banks-ai-limit.html",
+    "title": "Signal joins United Airlines, banks in limiting AI agents over customer risks",
+    "published": "2026-11-24T07:25:41+00:00",
+    "text": "Privacy-focused messaging application Signal has joined United Airlines and JPMorgan Chase in implementing restrictions around artificial intelligence agents."
+  },
+  "score": 0.79,
+  "score_breakdown": {
+    "reliability": 0.8,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "thin_text_penalty": -0.1,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Signal is joining United Airlines and JPMorgan Chase in restricting AI agents.",
+    "threads_post": "Signal is restricting artificial intelligence agents on its platform.\n\nThe privacy-focused messaging app joins United Airlines and JPMorgan Chase in setting limits on AI agents over potential customer risks.\n\nAre companies right to restrict AI agents, or does it hold back useful tools?",
+    "x_post": "Signal is restricting AI agents, joining United Airlines and JPMorgan Chase over customer risk concerns.\n\nAre companies right to restrict AI agents, or does it hold back useful tools? #ai #tech",
+    "instagram_caption": "Signal is restricting artificial intelligence agents on its platform.\n\nThe privacy-focused messaging app joins United Airlines and JPMorgan Chase in setting limits on AI agents over potential customer risks.\n\nAre companies right to restrict AI agents, or does it hold back useful tools?\n\n#ai #tech #privacy #security #aiagents",
+    "question": "Are companies right to restrict AI agents, or does it hold back useful tools?",
+    "topic_tag": "AI agents",
+    "broll_query": "cybersecurity digital lock",
+    "facts": [
+      "Signal is implementing restrictions around AI agents.",
+      "United Airlines and JPMorgan Chase have also limited AI agents.",
+      "The restrictions follow concerns over customer risks."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is only a single sentence with limited details.",
+    "facts_used": [
+      "Privacy-focused messaging application Signal has joined United Airlines and JPMorgan Chase in implementing restrictions around artificial intelligence agents.",
+      "Signal joins United Airlines, banks in limiting AI agents over customer risks"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source text is a single sentence lead; wait for full article for details on specific restrictions.",
+    "card": {
+      "category": "Safety",
+      "headline": "Signal joins major firms in restricting AI agents",
+      "highlight": "restricting AI agents",
+      "number": null
+    },
+    "fact_check_issues": [
+      "The restrictions were implemented due to potential customer risks or customer risk concerns."
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting.",
+    "Fact-check: not in the source: The restrictions were implemented due to potential customer risks or customer risk concerns."
+  ],
+  "cover_image": "https://image.cnbcfm.com/api/v1/image/108121787-1743022694548-gettyimages-2206472434-porzycki-signalan250326_npuvO.jpeg?v=1743022732&w=1920&h=1080",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f04eb1d6ee4b2dd7-signal-joins-united-airlines-banks-in-limiting-ai-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f04eb1d6ee4b2dd7-signal-joins-united-airlines-banks-in-limiting-ai-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f04eb1d6ee4b2dd7-signal-joins-united-airlines-banks-in-limiting-ai-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f04eb1d6ee4b2dd7-signal-joins-united-airlines-banks-in-limiting-ai-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f04eb1d6ee4b2dd7-signal-joins-united-airlines-banks-in-limiting-ai-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/f04eb1d6ee4b2dd7-signal-joins-united-airlines-banks-in-limiting-ai-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

@@ -1,0 +1,83 @@
+{
+  "id": "8137ad5996f2ec29",
+  "status": "pending_review",
+  "created_at": "2026-11-24T08:09:00+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.ft.com/content/1e5a9d70-221d-461d-ae03-dc235b1db340",
+    "title": "Novartis CEO and Anthropic board member Vas Narasimhan doubts AI will cure cancer in 5-10 years, arguing tech's \"engineering mindset\" overlooks human biology (Financial Times)",
+    "published": "2026-11-24T07:30:08+00:00",
+    "text": "Financial Times : Novartis CEO and Anthropic board member Vas Narasimhan doubts AI will cure cancer in 5-10 years, arguing tech's “engineering mindset” overlooks human biology — Comments from pharma CEO follow ambitious claims from Anthropic chief and DeepMind founder"
+  },
+  "score": 0.9,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Novartis CEO Vas Narasimhan doubts AI will cure cancer in 5-10 years",
+    "threads_post": "Novartis CEO Vas Narasimhan doubts AI will cure cancer in the next 5 to 10 years.\n\nNarasimhan, who also serves as an Anthropic board member, says tech's \"engineering mindset\" overlooks complex human biology. His comments push back against ambitious claims recently made by leaders at DeepMind and Anthropic.\n\nIs tech's engineering mindset overestimating what AI can do in biology?",
+    "x_post": "Novartis CEO Vas Narasimhan doubts AI will cure cancer in 5-10 years.\n\nThe Anthropic board member says tech's \"engineering mindset\" overlooks human biology, responding to claims from DeepMind and Anthropic leaders.\n\nIs pharma right about AI? #ai",
+    "instagram_caption": "Novartis CEO Vas Narasimhan doubts AI will cure cancer in the next 5 to 10 years.\n\nNarasimhan, who is also an Anthropic board member, argues that tech leaders bring an \"engineering mindset\" that overlooks human biology.\n\nHis comments follow ambitious claims from Anthropic's chief and DeepMind's founder.\n\nIs tech's engineering mindset overestimating what AI can do in biology?\n\n#ai #biotech #health #tech #anthropic",
+    "question": "Is tech's engineering mindset overestimating what AI can do in biology?",
+    "topic_tag": "AI",
+    "broll_query": "cancer research laboratory",
+    "facts": [
+      "Novartis CEO Vas Narasimhan doubts AI will cure cancer in 5-10 years.",
+      "Narasimhan also serves on Anthropic's board of directors.",
+      "He argues tech's engineering mindset overlooks human biology.",
+      "His remarks push back against claims by DeepMind and Anthropic leaders."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source text directly provides the CEO's identity, quotes, and timeline.",
+    "facts_used": [
+      "Novartis CEO and Anthropic board member Vas Narasimhan doubts AI will cure cancer in 5-10 years",
+      "Arguing tech's 'engineering mindset' overlooks human biology",
+      "Follows ambitious claims from Anthropic chief and DeepMind founder"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Source text is brief (headline summary from FT/Techmeme), but core facts are clear and well-attributed.",
+    "card": {
+      "category": "Research",
+      "headline": "Novartis CEO doubts AI will cure cancer in 5-10 years",
+      "highlight": "doubts AI will cure cancer",
+      "number": {
+        "value": "5-10",
+        "caption": "Years timeline doubted for AI to cure cancer",
+        "footnote": "Novartis CEO Vas Narasimhan via Financial Times"
+      }
+    },
+    "fact_check_issues": [
+      "That the ambitious claims by DeepMind and Anthropic leaders were 'recently' made",
+      "That Narasimhan specifically described human biology as 'complex'"
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: That the ambitious claims by DeepMind and Anthropic leaders were 'recently' made",
+    "Fact-check: not in the source: That Narasimhan specifically described human biology as 'complex'"
+  ],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8137ad5996f2ec29-novartis-ceo-and-anthropic-board-member-vas-narasi-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8137ad5996f2ec29-novartis-ceo-and-anthropic-board-member-vas-narasi-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8137ad5996f2ec29-novartis-ceo-and-anthropic-board-member-vas-narasi-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8137ad5996f2ec29-novartis-ceo-and-anthropic-board-member-vas-narasi-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8137ad5996f2ec29-novartis-ceo-and-anthropic-board-member-vas-narasi-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-24/8137ad5996f2ec29-novartis-ceo-and-anthropic-board-member-vas-narasi-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 71 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "text"
+}
