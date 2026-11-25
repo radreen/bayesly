@@ -1,0 +1,72 @@
+{
+  "id": "de2d936167133ae8",
+  "status": "held",
+  "created_at": "2026-11-25T19:17:24+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "cnbc-tech",
+    "name": "CNBC Technology",
+    "kind": "press",
+    "reliability": 0.8,
+    "url": "https://www.cnbc.com/2026/11/25/nvidia-china-ai-chip-remote-access.html",
+    "title": "Nvidia sellers seek new buyers as U.S. curbs China AI chip access, sources tell CNBC",
+    "published": "2026-11-25T17:28:24+00:00",
+    "text": "Nvidia GPU sellers are seeking new buyers after new U.S. rules tightened remote access to advanced AI chips for China-linked customers"
+  },
+  "score": 0.9,
+  "score_breakdown": {
+    "reliability": 0.8,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "thin_text_penalty": -0.1,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "U.S. rules tighten remote access to advanced AI chips for China-linked customers",
+    "threads_post": "Nvidia GPU sellers are looking for new buyers after new U.S. rules kicked in.\n\nThe updated regulations tighten remote access to advanced AI chips for China-linked customers. As a result, GPU vendors now need to find replacement clients.\n\nWill remote access limits work, or will buyers find workarounds?",
+    "x_post": "Nvidia GPU sellers are seeking new buyers after new U.S. rules tightened remote access to advanced AI chips for China-linked customers.\n\nWill remote access limits work, or will buyers find workarounds? #Nvidia #AI",
+    "instagram_caption": "Nvidia GPU sellers are seeking new buyers after new U.S. rules kicked in.\n\nThe updated regulations restrict remote access to advanced AI chips for China-linked customers. Because access is limited, sellers are searching for replacement clients.\n\nWill remote access limits work, or will buyers find workarounds?\n\n#nvidia #aichips #techpolicy #semiconductors",
+    "question": "Will remote access limits work, or will buyers find workarounds?",
+    "topic_tag": "Nvidia",
+    "broll_query": "data center server rack",
+    "facts": [
+      "New U.S. rules tightened remote access to advanced AI chips.",
+      "The restrictions target China-linked customers.",
+      "Nvidia GPU sellers are actively seeking new buyers."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is a single summary sentence with minimal detail.",
+    "facts_used": [
+      "Nvidia GPU sellers are seeking new buyers",
+      "new U.S. rules tightened remote access to advanced AI chips for China-linked customers"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source text contains only one sentence. Verify the full CNBC report for specific policy names, effective dates, or vendor reactions.",
+    "card": {
+      "category": "Policy",
+      "headline": "U.S. limits remote access to advanced AI chips",
+      "highlight": "limits remote access",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": "https://image.cnbcfm.com/api/v1/image/108558280-1795524153938-gettyimages-2306090565-NVIDIA_HQ.jpeg?v=1795524192&w=1920&h=1080",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/de2d936167133ae8-nvidia-sellers-seek-new-buyers-as-u-s-curbs-china-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/de2d936167133ae8-nvidia-sellers-seek-new-buyers-as-u-s-curbs-china-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/de2d936167133ae8-nvidia-sellers-seek-new-buyers-as-u-s-curbs-china-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/de2d936167133ae8-nvidia-sellers-seek-new-buyers-as-u-s-curbs-china-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/de2d936167133ae8-nvidia-sellers-seek-new-buyers-as-u-s-curbs-china-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/de2d936167133ae8-nvidia-sellers-seek-new-buyers-as-u-s-curbs-china-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

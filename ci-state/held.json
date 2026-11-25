@@ -281,5 +281,16 @@
     ],
     "held_at": "2026-11-25T18:51:38+00:00",
     "message_id": 114
+  },
+  "de2d936167133ae8": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/de2d936167133ae8-nvidia-sellers-seek-new-buyers-as-u-s-curbs-china.json",
+    "reasons": [
+      "model said the source text is insufficient",
+      "confidence is 'low'",
+      "lint: Model flagged the source text as insufficient. Check the source before posting."
+    ],
+    "held_at": "2026-11-25T19:18:07+00:00",
+    "message_id": 115
   }
 }
