@@ -1,6 +1,6 @@
 # REVIEW: Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store.
 
-- Status: **pending_review** (nothing is published automatically)
+- Status: **held** (nothing is published automatically)
 - Source: The Decoder (press, reliability 0.75)
 - Link: https://the-decoder.com/amazon-and-meta-are-in-talks-to-end-the-block-on-metas-ai-shopping-agent-muse-in-amazons-online-store/
 - Published: 2026-11-25T16:44:37+00:00

@@ -1,0 +1,71 @@
+{
+  "id": "0571dc5571a462f3",
+  "status": "pending_review",
+  "created_at": "2026-11-25T21:18:29+00:00",
+  "model": "gemini-3.8-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.reuters.com/business/us-justice-department-did-not-open-probe-into-jensen-huang-before-reinstatement-2026-11-25/",
+    "title": "Sources: the DOJ didn't formally investigate Jensen Huang before his reinstatement; AG Todd Blanche cleared him based on probes into Super Micro and Megaspeed (Reuters)",
+    "published": "2026-11-25T21:01:00+00:00",
+    "text": "Reuters : Sources: the DOJ didn't formally investigate Jensen Huang before his reinstatement; AG Todd Blanche cleared him based on probes into Super Micro and Megaspeed — The US Justice Department did not conduct a formal investigation into Jensen Huang before US President Donald Trump pushed …"
+  },
+  "score": 0.83,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.0,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "The DOJ did not formally investigate Jensen Huang before his reinstatement, according to Reuters sources.",
+    "threads_post": "The DOJ did not conduct a formal investigation into Jensen Huang before his reinstatement, Reuters reports.\n\nAttorney General Todd Blanche reportedly cleared Huang based on existing probes into Super Micro and Megaspeed instead of opening a direct inquiry.\n\nDoes clearing an executive based on outside probes set a good precedent?",
+    "x_post": "Reuters reports the DOJ never opened a formal probe into Jensen Huang before his reinstatement. AG Todd Blanche cleared him using existing inquiries into Super Micro and Megaspeed.\n\nDoes this set a fair precedent?",
+    "instagram_caption": "The US Justice Department did not formally investigate Jensen Huang before his reinstatement, according to sources cited by Reuters.\n\nAttorney General Todd Blanche reportedly cleared Huang based on previous inquiries into Super Micro and Megaspeed, rather than launching an investigation into Huang himself.\n\nDoes clearing an executive using related probes make sense, or should there have been a direct review?\n\n#tech #nvidia #business #policy",
+    "question": "Does clearing an executive using related probes set a good precedent?",
+    "topic_tag": "Nvidia",
+    "broll_query": "government legal building pillars",
+    "facts": [
+      "DOJ did not formally investigate Jensen Huang before reinstatement",
+      "AG Todd Blanche cleared Huang based on other probes",
+      "DOJ relied on inquiries into Super Micro and Megaspeed"
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is truncated to the headline and opening fragment.",
+    "facts_used": [
+      "the DOJ didn't formally investigate Jensen Huang before his reinstatement",
+      "AG Todd Blanche cleared him based on probes into Super Micro and Megaspeed"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source snippet was cut off mid-sentence; verify full Reuters report for full context.",
+    "card": {
+      "category": "Policy",
+      "headline": "DOJ cleared Jensen Huang without a formal probe",
+      "highlight": "without a formal probe",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/0571dc5571a462f3-sources-the-doj-didn-t-formally-investigate-jensen-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/0571dc5571a462f3-sources-the-doj-didn-t-formally-investigate-jensen-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/0571dc5571a462f3-sources-the-doj-didn-t-formally-investigate-jensen-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/0571dc5571a462f3-sources-the-doj-didn-t-formally-investigate-jensen-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/0571dc5571a462f3-sources-the-doj-didn-t-formally-investigate-jensen-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/0571dc5571a462f3-sources-the-doj-didn-t-formally-investigate-jensen-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}

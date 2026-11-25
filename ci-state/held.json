@@ -272,7 +272,7 @@
     "message_id": 113
   },
   "3a2027e2694465cf": {
-    "status": "approved",
+    "status": "published",
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m.json",
     "reasons": [
       "lint: Fact-check: not in the source: That the sticking point involves ad revenue sharing",

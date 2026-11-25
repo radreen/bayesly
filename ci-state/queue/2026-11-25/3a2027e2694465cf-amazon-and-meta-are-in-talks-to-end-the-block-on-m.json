@@ -1,6 +1,6 @@
 {
   "id": "3a2027e2694465cf",
-  "status": "held",
+  "status": "published",
   "created_at": "2026-11-25T18:51:02+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -80,5 +80,12 @@
     "card.number '51 per…' not found in the source text; number slide dropped."
   ],
   "palette": "lime",
-  "layout": "photo"
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m.x.mp4",
+  "video_seconds": 21.8,
+  "video_voice": true,
+  "video_warnings": []
 }
