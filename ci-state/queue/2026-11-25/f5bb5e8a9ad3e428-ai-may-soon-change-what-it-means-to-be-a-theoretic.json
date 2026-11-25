@@ -1,6 +1,6 @@
 {
   "id": "f5bb5e8a9ad3e428",
-  "status": "pending_review",
+  "status": "published",
   "created_at": "2026-11-25T13:05:06+00:00",
   "model": "gemini-3.5-flash",
   "source": {
@@ -69,5 +69,12 @@
     "card.confidence_reason trimmed from 73 to 70 chars."
   ],
   "palette": "lime",
-  "layout": "photo"
+  "layout": "photo",
+  "page_shot": null,
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/f5bb5e8a9ad3e428-ai-may-soon-change-what-it-means-to-be-a-theoretic.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/f5bb5e8a9ad3e428-ai-may-soon-change-what-it-means-to-be-a-theoretic.x.mp4",
+  "video_seconds": 21.8,
+  "video_voice": true,
+  "video_warnings": []
 }

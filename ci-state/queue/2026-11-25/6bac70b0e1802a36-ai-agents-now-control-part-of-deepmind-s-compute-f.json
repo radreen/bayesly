@@ -1,0 +1,74 @@
+{
+  "id": "6bac70b0e1802a36",
+  "status": "held",
+  "created_at": "2026-11-25T13:32:47+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant/",
+    "title": "AI agents now control part of Deepmind's compute for Gemini experiments, but recursive self-improvement remains distant",
+    "published": "2026-11-25T13:23:36+00:00",
+    "text": "Google Deepmind uses AI agents to run experiments on their own for upcoming Gemini models. Research chief Koray Kavukcuoglu says the lab is still far from recursive self-improvement. For oversight, Deepmind intentionally leaves the agents' internal chains of thought untrained so they can be reviewed. Kavukcuoglu measures AGI by everyday user trust rather than benchmarks. The article AI agents now control part of Deepmind's compute for Gemini experiments, but recursive self-improvement remains distant appeared first on The Decoder ."
+  },
+  "score": 1.13,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.8,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Google Deepmind uses AI agents to run research experiments on upcoming Gemini models",
+    "threads_post": "Google Deepmind is letting AI agents run experiments on their own for upcoming Gemini models.\n\nResearch chief Koray Kavukcuoglu says the lab is still far from recursive self-improvement. To maintain oversight, Deepmind intentionally leaves the agents' internal chains of thought untrained so reviewers can read them. He also measures AGI by everyday user trust rather than benchmarks.\n\nIs user trust a better measure of AGI than benchmark scores?",
+    "x_post": "Google Deepmind is letting AI agents run experiments for upcoming Gemini models.\n\nResearch chief Koray Kavukcuoglu says self-improvement is still far off. Deepmind leaves agent chains of thought untrained for safety oversight.\n\nIs user trust better than benchmarks? #AI",
+    "instagram_caption": "Google Deepmind is letting AI agents run experiments on their own for upcoming Gemini models.\n\nResearch chief Koray Kavukcuoglu says the lab is still far from recursive self-improvement. For oversight, Deepmind intentionally leaves the agents' internal chains of thought untrained so they can be reviewed.\n\nKavukcuoglu also measures AGI progress by everyday user trust rather than traditional benchmark scores.\n\nIs everyday user trust a better measure of AGI than benchmark scores?\n\n#ai #deepmind #gemini #tech #research",
+    "question": "Is everyday user trust a better measure of AGI than benchmark scores?",
+    "topic_tag": "AI agents",
+    "broll_query": "server rack glowing",
+    "facts": [
+      "Google Deepmind uses AI agents to run experiments for upcoming Gemini models.",
+      "Research chief Koray Kavukcuoglu says recursive self-improvement is still far off.",
+      "Deepmind leaves agent chains of thought untrained so reviewers can check them.",
+      "Kavukcuoglu measures AGI by everyday user trust rather than benchmarks."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source text is concise but provides clear facts for drafting.",
+    "facts_used": [
+      "Google Deepmind uses AI agents to run experiments on their own for upcoming Gemini models.",
+      "Research chief Koray Kavukcuoglu says the lab is still far from recursive self-improvement.",
+      "For oversight, Deepmind intentionally leaves the agents' internal chains of thought untrained so they can be reviewed.",
+      "Kavukcuoglu measures AGI by everyday user trust rather than benchmarks."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "No explicit numbers or benchmarks provided in the source text, so card.number is set to null.",
+    "card": {
+      "category": "Research",
+      "headline": "AI agents now run Deepmind compute for Gemini experiments",
+      "highlight": "run Deepmind compute",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/gemini-4-neon__blog-header__sm.width-1600.format-webp.webp",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/6bac70b0e1802a36-ai-agents-now-control-part-of-deepmind-s-compute-f-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/6bac70b0e1802a36-ai-agents-now-control-part-of-deepmind-s-compute-f-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/6bac70b0e1802a36-ai-agents-now-control-part-of-deepmind-s-compute-f-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/6bac70b0e1802a36-ai-agents-now-control-part-of-deepmind-s-compute-f-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/6bac70b0e1802a36-ai-agents-now-control-part-of-deepmind-s-compute-f-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/6bac70b0e1802a36-ai-agents-now-control-part-of-deepmind-s-compute-f-03.jpg"
+  ],
+  "image_warnings": [
+    "Some text was too long to fit a slide even after shrinking. Shorten it."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}

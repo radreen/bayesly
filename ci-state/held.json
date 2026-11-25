@@ -250,5 +250,14 @@
     ],
     "held_at": "2026-11-25T11:04:10+00:00",
     "message_id": 108
+  },
+  "6bac70b0e1802a36": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/6bac70b0e1802a36-ai-agents-now-control-part-of-deepmind-s-compute-f.json",
+    "reasons": [
+      "image: Some text was too long to fit a slide even after shrinking. Shorten it."
+    ],
+    "held_at": "2026-11-25T13:33:34+00:00",
+    "message_id": 111
   }
 }
