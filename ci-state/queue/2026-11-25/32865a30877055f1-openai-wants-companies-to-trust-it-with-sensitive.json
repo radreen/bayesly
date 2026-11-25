@@ -1,0 +1,72 @@
+{
+  "id": "32865a30877055f1",
+  "status": "held",
+  "created_at": "2026-11-25T18:49:44+00:00",
+  "model": "gemini-3.8-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/openai-wants-companies-to-trust-it-with-sensitive-work-by-promising-not-to-look-at-their-data/",
+    "title": "OpenAI wants companies to trust it with sensitive work by promising not to look at their data",
+    "published": "2026-11-25T18:22:02+00:00",
+    "text": "OpenAI is testing a new feature called \"Private Inference\" that lets companies run queries on its most powerful models without OpenAI being able to access the data. The article OpenAI wants companies to trust it with sensitive work by promising not to look at their data appeared first on The Decoder ."
+  },
+  "score": 0.99,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "OpenAI is testing Private Inference to run queries without seeing user data",
+    "threads_post": "OpenAI is testing a new feature called Private Inference.\n\nIt allows companies to run queries on its most powerful models without OpenAI being able to access the data. The goal is to let organizations use top models for sensitive work.\n\nWould you trust OpenAI's privacy promise, or keep sensitive data in-house?",
+    "x_post": "OpenAI is testing Private Inference, a feature letting companies query its most powerful models without OpenAI accessing the data.\n\nWould you trust this promise, or keep sensitive data in-house?",
+    "instagram_caption": "OpenAI is testing a new feature called Private Inference.\n\nThe feature lets companies run queries on OpenAI's most powerful models without OpenAI being able to access the data. The move is aimed at getting businesses to trust OpenAI with sensitive work.\n\nWould you trust OpenAI's privacy promise, or keep sensitive data in-house?\n\n#openai #privacy #ai #cybersecurity",
+    "question": "Would you trust OpenAI's privacy promise, or keep sensitive data in-house?",
+    "topic_tag": "OpenAI",
+    "broll_query": "data center servers",
+    "facts": [
+      "OpenAI is testing a feature called Private Inference",
+      "Companies can query top models without OpenAI accessing the data",
+      "The tool targets businesses handling sensitive work"
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is a single-sentence snippet",
+    "facts_used": [
+      "OpenAI is testing a new feature called 'Private Inference'",
+      "Lets companies run queries on its most powerful models without OpenAI being able to access the data",
+      "OpenAI wants companies to trust it with sensitive work"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source is an RSS preview snippet with only one substantive sentence. Check the full article for technical implementation details.",
+    "card": {
+      "category": "Tools",
+      "headline": "OpenAI is testing Private Inference for sensitive data",
+      "highlight": "testing Private Inference",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/10/openai_logo-1.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/32865a30877055f1-openai-wants-companies-to-trust-it-with-sensitive-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/32865a30877055f1-openai-wants-companies-to-trust-it-with-sensitive-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/32865a30877055f1-openai-wants-companies-to-trust-it-with-sensitive-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/32865a30877055f1-openai-wants-companies-to-trust-it-with-sensitive-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/32865a30877055f1-openai-wants-companies-to-trust-it-with-sensitive-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/32865a30877055f1-openai-wants-companies-to-trust-it-with-sensitive-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

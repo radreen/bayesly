@@ -259,5 +259,27 @@
     ],
     "held_at": "2026-11-25T13:33:34+00:00",
     "message_id": 111
+  },
+  "32865a30877055f1": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/32865a30877055f1-openai-wants-companies-to-trust-it-with-sensitive.json",
+    "reasons": [
+      "model said the source text is insufficient",
+      "confidence is 'low'",
+      "lint: Model flagged the source text as insufficient. Check the source before posting."
+    ],
+    "held_at": "2026-11-25T18:51:37+00:00",
+    "message_id": 113
+  },
+  "3a2027e2694465cf": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m.json",
+    "reasons": [
+      "lint: Fact-check: not in the source: That the sticking point involves ad revenue sharing",
+      "lint: Fact-check: not in the source: That search placement remains a major battleground",
+      "image: card.number '51 per…' not found in the source text; number slide dropped."
+    ],
+    "held_at": "2026-11-25T18:51:38+00:00",
+    "message_id": 114
   }
 }

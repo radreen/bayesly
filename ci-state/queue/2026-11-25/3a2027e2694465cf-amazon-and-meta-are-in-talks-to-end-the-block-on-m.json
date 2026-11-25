@@ -1,0 +1,84 @@
+{
+  "id": "3a2027e2694465cf",
+  "status": "held",
+  "created_at": "2026-11-25T18:51:02+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/amazon-and-meta-are-in-talks-to-end-the-block-on-metas-ai-shopping-agent-muse-in-amazons-online-store/",
+    "title": "Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store.",
+    "published": "2026-11-25T16:44:37+00:00",
+    "text": "Amazon and Meta are in talks to bring back Muse, Meta's AI shopping agent that Amazon kicked off its platform in September. The two sides are stuck on ad revenue and who gets to control search results. That matters because Amazon's ad business generates $68.6 billion a year, and Muse already commands 51 percent of all agentic shopping orders. The article Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store. appeared first on The Decoder ."
+  },
+  "score": 0.91,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Meta's AI agent Muse commands 51 percent of all agentic shopping orders as Meta and Amazon negotiate its return.",
+    "threads_post": "Meta's AI shopping agent Muse commands 51 percent of all agentic shopping orders.\n\nAmazon kicked Muse off its platform in September, but the two companies are now in talks to bring it back. Negotiations are currently stuck over ad revenue and who controls search results inside Amazon's store, where ad revenue reaches $68.6 billion a year.\n\nShould online stores be allowed to block rival AI shopping agents?",
+    "x_post": "Meta's AI agent Muse commands 51 percent of agentic shopping orders. Amazon blocked it in September, but the two are now in talks to bring it back. They remain stuck on ad revenue and search control.\n\nShould platforms block rival AI agents? #ai #tech",
+    "instagram_caption": "Meta's AI shopping agent Muse commands 51 percent of all agentic shopping orders.\n\nAmazon kicked Muse off its platform back in September. Now, the two companies are in talks to end the block and bring the shopping agent back to Amazon's online store.\n\nThe main sticking points are ad revenue sharing and control over search results. With Amazon's ad business generating $68.6 billion a year, search placement remains a major battleground.\n\nWho should control search results: the store platform or the AI agent?\n\n#ai #meta #amazon #ecommerce #tech",
+    "question": "Should online stores be allowed to block rival AI shopping agents?",
+    "topic_tag": "AI agents",
+    "broll_query": "online shopping checkout",
+    "facts": [
+      "Muse commands 51 percent of all agentic shopping orders.",
+      "Amazon booted Meta's Muse off its platform in September.",
+      "Amazon's ad business generates $68.6 billion a year."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source provides clear facts, figures, and context for the posts.",
+    "facts_used": [
+      "Amazon and Meta are in talks to bring back Muse, Meta's AI shopping agent that Amazon kicked off its platform in September.",
+      "The two sides are stuck on ad revenue and who gets to control search results.",
+      "Amazon's ad business generates $68.6 billion a year",
+      "Muse already commands 51 percent of all agentic shopping orders."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All details are grounded directly in the provided text snippet.",
+    "card": {
+      "category": "Business",
+      "headline": "Meta and Amazon in talks over AI shopping agent Muse",
+      "highlight": "AI shopping agent Muse",
+      "number": {
+        "value": "51 percent",
+        "caption": "share of all agentic shopping orders commanded by Muse",
+        "footnote": "Reported by The Decoder"
+      }
+    },
+    "fact_check_issues": [
+      "That the sticking point involves ad revenue sharing",
+      "That search placement remains a major battleground"
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: That the sticking point involves ad revenue sharing",
+    "Fact-check: not in the source: That search placement remains a major battleground"
+  ],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/10/met_muse_gadget_logo.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m-03.jpg"
+  ],
+  "image_warnings": [
+    "card.number.value trimmed from 10 to 7 chars.",
+    "card.number '51 per…' not found in the source text; number slide dropped."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}
