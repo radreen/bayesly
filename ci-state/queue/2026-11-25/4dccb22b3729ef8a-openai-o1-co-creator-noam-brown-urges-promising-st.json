@@ -1,0 +1,76 @@
+{
+  "id": "4dccb22b3729ef8a",
+  "status": "pending_review",
+  "created_at": "2026-11-25T10:18:51+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/openai-o1-co-creator-noam-brown-urges-promising-students-to-drop-out-as-ai-enters-a-very-steep-rate-of-progress/",
+    "title": "OpenAI o1 co-creator Noam Brown urges promising students to drop out as AI enters a \"very steep rate of progress\"",
+    "published": "2026-11-24T17:58:44+00:00",
+    "text": "OpenAI researcher Noam Brown is urging promising students to drop out, saying it's \"not a great time to sit on the sidelines.\" The o1 co-creator says AI is still in a \"centaur period\" and struggles with planning and self-correction, though he expects a \"very steep rate of progress\" soon. According to Brown, language models are already being used to build the next generation of models. The article OpenAI o1 co-creator Noam Brown urges promising students to drop out as AI enters a \"very steep rate of progress\" appeared first on The Decoder ."
+  },
+  "score": 0.81,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "names_bonus": 0.12
+  },
+  "draft": {
+    "headline": "OpenAI o1 co-creator Noam Brown urges promising students to drop out as AI progress accelerates.",
+    "threads_post": "OpenAI o1 co-creator Noam Brown is urging promising students to drop out, saying it is not a great time to sit on the sidelines.\n\nHe says AI is still in a \"centaur period\" and struggles with planning and self-correction. But he expects a steep rate of progress soon.\n\nBrown also notes that language models are already being used to build the next generation of models.\n\nShould students drop out of university to work on AI right now?",
+    "x_post": "OpenAI o1 co-creator Noam Brown is urging top students to drop out, saying it's not the time to sit on the sidelines.\n\nHe says AI still struggles with planning, but expects rapid progress as models build next-gen AI.\n\nDrop out or stay in school? #ai",
+    "instagram_caption": "OpenAI o1 co-creator Noam Brown is urging promising students to drop out, saying it is \"not a great time to sit on the sidelines.\"\n\nAccording to Brown, AI is currently in a \"centaur period\" and still struggles with planning and self-correction. However, he expects a very steep rate of progress soon.\n\nHe also shared that language models are already being used to help build the next generation of AI models.\n\nShould students drop out of school to join the AI boom?\n\n#ai #openai #llm #tech",
+    "question": "Should students drop out of school to join the AI boom?",
+    "topic_tag": "OpenAI",
+    "broll_query": "college campus students",
+    "facts": [
+      "OpenAI o1 co-creator Noam Brown urges top students to drop out.",
+      "He says AI is currently in a centaur period.",
+      "Current AI models still struggle with planning and self-correction.",
+      "Language models are already being used to build next-gen models."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Clear quotes and statements attributed directly to Noam Brown.",
+    "facts_used": [
+      "OpenAI researcher Noam Brown is urging promising students to drop out",
+      "saying it's 'not a great time to sit on the sidelines'",
+      "AI is still in a 'centaur period' and struggles with planning and self-correction",
+      "expects a 'very steep rate of progress' soon",
+      "language models are already being used to build the next generation of models"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The source contains no concrete numbers or dates, so card.number is set to null.",
+    "card": {
+      "category": "Research",
+      "headline": "OpenAI o1 co-creator urges top students to drop out",
+      "highlight": "urges top students to drop out",
+      "number": null
+    },
+    "fact_check_issues": [
+      "Noam Brown is urging 'top students' to drop out (the source text states he is urging 'promising students')."
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: Noam Brown is urging 'top students' to drop out (the source text states he is urging 'promising students')."
+  ],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/openai_driscoll.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/4dccb22b3729ef8a-openai-o1-co-creator-noam-brown-urges-promising-st-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/4dccb22b3729ef8a-openai-o1-co-creator-noam-brown-urges-promising-st-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/4dccb22b3729ef8a-openai-o1-co-creator-noam-brown-urges-promising-st-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/4dccb22b3729ef8a-openai-o1-co-creator-noam-brown-urges-promising-st-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/4dccb22b3729ef8a-openai-o1-co-creator-noam-brown-urges-promising-st-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/4dccb22b3729ef8a-openai-o1-co-creator-noam-brown-urges-promising-st-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

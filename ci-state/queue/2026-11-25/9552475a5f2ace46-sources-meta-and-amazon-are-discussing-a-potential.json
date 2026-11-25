@@ -1,0 +1,77 @@
+{
+  "id": "9552475a5f2ace46",
+  "status": "published",
+  "created_at": "2026-11-25T10:18:07+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://fortune.com/2026/11/25/exclusive-amazon-meta-talks-deal-muse-ai-shopping-agent-blockade/",
+    "title": "Sources: Meta and Amazon are discussing a potential deal to connect Muse to Amazon, ending Amazon's block; any deal would require a sign-off from both CEOs (Sebastian Herrera/Fortune)",
+    "published": "2026-11-25T10:15:01+00:00",
+    "text": "Sebastian Herrera / Fortune : Sources: Meta and Amazon are discussing a potential deal to connect Muse to Amazon, ending Amazon's block; any deal would require a sign-off from both CEOs — Amazon and Meta Platforms are in ongoing discussions over a potential deal to connect Meta's popular Muse AI agent …"
+  },
+  "score": 0.97,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Meta and Amazon are in talks to connect Meta's Muse AI agent to Amazon, ending a block on the tool.",
+    "threads_post": "Meta and Amazon are in talks to connect Meta's Muse AI agent directly to Amazon.\n\nSources tell Fortune the deal would end Amazon's current block on the AI assistant. Any final agreement will require sign-off from both companies' CEOs.\n\nShould Amazon let rival AI agents handle shopping on its store?",
+    "x_post": "Meta and Amazon are in talks to connect Meta's Muse AI agent to Amazon, ending Amazon's block on the tool. Sources say any deal will require sign-off from both CEOs.\n\nShould Amazon let rival AI agents shop its store? #ai #tech",
+    "instagram_caption": "Meta and Amazon are in talks to connect Meta's Muse AI agent directly to Amazon.\n\nSources tell Fortune that the potential deal would end Amazon's block on the AI tool. Negotiations are ongoing, and any final agreement will require official sign-off from both companies' CEOs.\n\nShould Amazon let rival AI agents handle shopping on its store?\n\n#ai #meta #amazon #tech",
+    "question": "Should Amazon let rival AI agents handle shopping on its store?",
+    "topic_tag": "AI agents",
+    "broll_query": "online shopping app",
+    "facts": [
+      "Meta and Amazon are discussing a deal to connect Meta's Muse AI agent to Amazon.",
+      "The agreement would end Amazon's current block on Muse.",
+      "Any final deal will require sign-off from both CEOs."
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Source snippet provides core deal facts but lacks deep terms.",
+    "facts_used": [
+      "Meta Platforms and Amazon are in ongoing discussions over a potential deal to connect Meta's Muse AI agent to Amazon",
+      "The deal would end Amazon's block on Muse",
+      "Any deal would require a sign-off from both CEOs"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The source snippet is brief; confirm terms if full article becomes available.",
+    "card": {
+      "category": "Business",
+      "headline": "Meta and Amazon discuss ending block on Muse AI agent",
+      "highlight": "ending block on Muse",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://fortune.com/img-assets/wp-content/uploads/2026/11/GettyImages-2296209094_cc3633-e1795590650418.jpg?resize=1200,600",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/9552475a5f2ace46-sources-meta-and-amazon-are-discussing-a-potential-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/9552475a5f2ace46-sources-meta-and-amazon-are-discussing-a-potential-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/9552475a5f2ace46-sources-meta-and-amazon-are-discussing-a-potential-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/9552475a5f2ace46-sources-meta-and-amazon-are-discussing-a-potential-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/9552475a5f2ace46-sources-meta-and-amazon-are-discussing-a-potential-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/9552475a5f2ace46-sources-meta-and-amazon-are-discussing-a-potential-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/9552475a5f2ace46-sources-meta-and-amazon-are-discussing-a-potential.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/9552475a5f2ace46-sources-meta-and-amazon-are-discussing-a-potential.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/9552475a5f2ace46-sources-meta-and-amazon-are-discussing-a-potential.x.mp4",
+  "video_seconds": 22.7,
+  "video_voice": true,
+  "video_warnings": []
+}
