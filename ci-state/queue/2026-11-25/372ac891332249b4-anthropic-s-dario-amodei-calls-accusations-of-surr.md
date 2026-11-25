@@ -1,6 +1,6 @@
 # REVIEW: Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’
 
-- Status: **pending_review** (nothing is published automatically)
+- Status: **held** (nothing is published automatically)
 - Source: TechCrunch AI (press, reliability 0.75)
 - Link: https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/
 - Published: 2026-11-25T19:44:24+00:00

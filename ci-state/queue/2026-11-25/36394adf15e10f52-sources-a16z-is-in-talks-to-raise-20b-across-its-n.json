@@ -1,0 +1,74 @@
+{
+  "id": "36394adf15e10f52",
+  "status": "pending_review",
+  "created_at": "2026-11-25T20:49:15+00:00",
+  "model": "gemini-3.8-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.axios.com/pro/all-deals/2026/11/25/andreessen-horowitz-20b-fundraise",
+    "title": "Sources: a16z is in talks to raise ~$20B across its next set of funds; its last set, announced in January at $15B+, later grew to $20B+ with three add-ons (Lucinda Shen/Axios)",
+    "published": "2026-11-25T20:30:00+00:00",
+    "text": "Lucinda Shen / Axios : Sources: a16z is in talks to raise ~$20B across its next set of funds; its last set, announced in January at $15B+, later grew to $20B+ with three add-ons — Venture capital firm Andreessen Horowitz is in talks to raise about $20 billion across its next set of funds, Axios Pro has learned from three sources familiar."
+  },
+  "score": 0.81,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.0,
+    "novelty": 1.0,
+    "news_signal_bonus": 0.1,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Andreessen Horowitz is in talks to raise about $20 billion across its next set of funds.",
+    "threads_post": "Venture capital firm Andreessen Horowitz is in talks to raise about $20 billion for its next set of funds, according to Axios sources.\n\nIts previous set of funds was announced in January at $15B+. That total later expanded to over $20B after adding three extra funds.\n\nAre mega-funds over $20B good or bad for the tech startup ecosystem?",
+    "x_post": "Andreessen Horowitz is in talks to raise about $20B across its next set of funds, per Axios.\n\nIts previous fund set was announced in January at $15B+ and grew to $20B+ with three add-ons.\n\nAre mega-funds over $20B good or bad for tech? #venturecapital #tech",
+    "instagram_caption": "Andreessen Horowitz is in talks to raise about $20 billion across its next set of funds, according to sources familiar with the matter.\n\nThe venture capital firm's previous set of funds was announced in January at $15B+. That round eventually grew to more than $20B following three add-on funds.\n\nAre mega-funds over $20B good or bad for the tech ecosystem?\n\n#venturecapital #a16z #tech #investing #startups",
+    "question": "Are mega-funds over $20B good or bad for the tech startup ecosystem?",
+    "topic_tag": "Venture Capital",
+    "broll_query": "skyscraper office buildings",
+    "facts": [
+      "a16z is in talks to raise ~$20B for its next set of funds.",
+      "Its last fund set was announced in January at $15B+.",
+      "The previous set grew to $20B+ after three add-ons."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Clear report details directly from Axios sources in short snippet.",
+    "facts_used": [
+      "a16z is in talks to raise ~$20B across its next set of funds",
+      "its last set, announced in January at $15B+, later grew to $20B+ with three add-ons",
+      "Axios Pro has learned from three sources familiar"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All details come directly from Axios Pro report cited by Techmeme.",
+    "card": {
+      "category": "Business",
+      "headline": "a16z in talks to raise ~$20B across next fund set",
+      "highlight": "raise ~$20B across next",
+      "number": {
+        "value": "$20B",
+        "caption": "Target raise across Andreessen Horowitz's next fund set",
+        "footnote": "Reported by Axios"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/36394adf15e10f52-sources-a16z-is-in-talks-to-raise-20b-across-its-n-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/36394adf15e10f52-sources-a16z-is-in-talks-to-raise-20b-across-its-n-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/36394adf15e10f52-sources-a16z-is-in-talks-to-raise-20b-across-its-n-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/36394adf15e10f52-sources-a16z-is-in-talks-to-raise-20b-across-its-n-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/36394adf15e10f52-sources-a16z-is-in-talks-to-raise-20b-across-its-n-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/36394adf15e10f52-sources-a16z-is-in-talks-to-raise-20b-across-its-n-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}

@@ -374,5 +374,13 @@
   "372ac891332249b4": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr.json",
     "drafted_at": "2026-11-25T19:48:58+00:00"
+  },
+  "9656a61fb78e3b65": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-25T20:47:39+00:00"
+  },
+  "36394adf15e10f52": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/36394adf15e10f52-sources-a16z-is-in-talks-to-raise-20b-across-its-n.json",
+    "drafted_at": "2026-11-25T20:49:15+00:00"
   }
 }

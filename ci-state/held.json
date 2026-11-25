@@ -272,7 +272,7 @@
     "message_id": 113
   },
   "3a2027e2694465cf": {
-    "status": "pending",
+    "status": "approved",
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/3a2027e2694465cf-amazon-and-meta-are-in-talks-to-end-the-block-on-m.json",
     "reasons": [
       "lint: Fact-check: not in the source: That the sticking point involves ad revenue sharing",
@@ -280,7 +280,8 @@
       "image: card.number '51 per…' not found in the source text; number slide dropped."
     ],
     "held_at": "2026-11-25T18:51:38+00:00",
-    "message_id": 114
+    "message_id": 114,
+    "decided_at": "2026-11-25T20:53:51+00:00"
   },
   "de2d936167133ae8": {
     "status": "pending",
@@ -294,13 +295,14 @@
     "message_id": 115
   },
   "372ac891332249b4": {
-    "status": "pending",
+    "status": "published",
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr.json",
     "reasons": [
       "lint: Fact-check: not in the source: The claim that Dario Amodei called or described the accusations as 'absurd'",
       "lint: Fact-check: not in the source: The claim that rivals 'recently' accused Amodei"
     ],
     "held_at": "2026-11-25T19:49:39+00:00",
-    "message_id": 116
+    "message_id": 116,
+    "decided_at": "2026-11-25T20:53:51+00:00"
   }
 }
