@@ -1,0 +1,73 @@
+{
+  "id": "1a17ac52c0de7410",
+  "status": "held",
+  "created_at": "2026-11-25T11:03:08+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://apnews.com/article/australia-digital-duty-care-law-tech-harm-b3f044575e9d8106f30a14eee2b89a81",
+    "title": "Australia passes the Digital Duty of Care Act, an online safety law that exposes Big Tech to multibillion-dollar fines for failing to prevent foreseeable harms (Rod McGuirk/Associated Press)",
+    "published": "2026-11-25T10:05:02+00:00",
+    "text": "Rod McGuirk / Associated Press : Australia passes the Digital Duty of Care Act, an online safety law that exposes Big Tech to multibillion-dollar fines for failing to prevent foreseeable harms — Australia's Parliament on Wednesday passed online safety laws that could expose tech giants to multibillion-dollar fines for failing to prevent foreseeable online harms."
+  },
+  "score": 0.78,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Australia passes the Digital Duty of Care Act, exposing Big Tech to multibillion-dollar fines for failing to prevent foreseeable online harms.",
+    "threads_post": "Australia just passed the Digital Duty of Care Act.\n\nParliament passed the online safety law on Wednesday. It targets tech giants operating in the country. Under the new rules, companies face multibillion-dollar fines if they fail to prevent foreseeable online harms.\n\nWill multibillion-dollar fines force Big Tech to change, or will they just pay up?",
+    "x_post": "Australia's Parliament passed the Digital Duty of Care Act on Wednesday.\n\nThe online safety law exposes tech giants to multibillion-dollar fines if they fail to prevent foreseeable online harms.\n\nWill heavy fines fix online safety, or will tech giants fight back?",
+    "instagram_caption": "Australia just passed the Digital Duty of Care Act.\n\nParliament passed the online safety laws on Wednesday. The regulations expose Big Tech to multibillion-dollar fines if companies fail to prevent foreseeable online harms.\n\nWill multibillion-dollar fines force Big Tech to change, or will they just pay up?\n\n#australia #bigtech #techpolicy #onlinesafety #techlaw",
+    "question": "Will multibillion-dollar fines force Big Tech to change, or will they just pay up?",
+    "topic_tag": "Tech policy",
+    "broll_query": "parliament building exterior",
+    "facts": [
+      "Australia's Parliament passed the Digital Duty of Care Act on Wednesday.",
+      "The online safety law targets Big Tech and tech giants.",
+      "Companies face multibillion-dollar fines for failing to prevent foreseeable harms."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source clearly states Parliament passed the act and details the fines.",
+    "facts_used": [
+      "Australia's Parliament on Wednesday passed online safety laws",
+      "Australia passes the Digital Duty of Care Act",
+      "exposes Big Tech to multibillion-dollar fines for failing to prevent foreseeable online harms"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Source mentions multibillion-dollar fines generally; keep phrasing as stated until specific percentages or figures are detailed.",
+    "card": {
+      "category": "Policy",
+      "headline": "Australia passes new Digital Duty of Care Act",
+      "highlight": "Digital Duty of Care",
+      "number": null
+    },
+    "fact_check_issues": [
+      "That the law targets tech giants operating in the country"
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: That the law targets tech giants operating in the country"
+  ],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/1a17ac52c0de7410-australia-passes-the-digital-duty-of-care-act-an-o-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/1a17ac52c0de7410-australia-passes-the-digital-duty-of-care-act-an-o-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/1a17ac52c0de7410-australia-passes-the-digital-duty-of-care-act-an-o-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/1a17ac52c0de7410-australia-passes-the-digital-duty-of-care-act-an-o-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/1a17ac52c0de7410-australia-passes-the-digital-duty-of-care-act-an-o-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/1a17ac52c0de7410-australia-passes-the-digital-duty-of-care-act-an-o-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}

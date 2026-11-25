@@ -203,5 +203,52 @@
     ],
     "held_at": "2026-11-24T22:06:20+00:00",
     "message_id": 94
+  },
+  "6d2775bbc9cabcdd": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/6d2775bbc9cabcdd-mit-team-discovers-that-unrealistic-training-data.json",
+    "reasons": [
+      "lint: Fact-check: not in the source: The claim that the algorithm creates extreme CO2 and methane swings (the source text specifies extreme CO2 or methane swings)."
+    ],
+    "held_at": "2026-11-25T11:04:03+00:00",
+    "message_id": 104
+  },
+  "fb7a1ad02384f987": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/fb7a1ad02384f987-amazon-says-hackers-ai-agents-found-and-exploited.json",
+    "reasons": [
+      "image: Some text was too long to fit a slide even after shrinking. Shorten it."
+    ],
+    "held_at": "2026-11-25T11:04:05+00:00",
+    "message_id": 105
+  },
+  "4dccb22b3729ef8a": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/4dccb22b3729ef8a-openai-o1-co-creator-noam-brown-urges-promising-st.json",
+    "reasons": [
+      "lint: Fact-check: not in the source: Noam Brown is urging 'top students' to drop out (the source text states he is urging 'promising students')."
+    ],
+    "held_at": "2026-11-25T11:04:09+00:00",
+    "message_id": 106
+  },
+  "1a17ac52c0de7410": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/1a17ac52c0de7410-australia-passes-the-digital-duty-of-care-act-an-o.json",
+    "reasons": [
+      "lint: Fact-check: not in the source: That the law targets tech giants operating in the country"
+    ],
+    "held_at": "2026-11-25T11:04:10+00:00",
+    "message_id": 107
+  },
+  "f9da5aedcbdba5ef": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/f9da5aedcbdba5ef-saudi-national-charged-in-openai-bugging-to-be-rel.json",
+    "reasons": [
+      "lint: Fact-check: not in the source: Abdulrahman Alfozan is a Saudi national",
+      "lint: Fact-check: not in the source: Abdulrahman Alfozan was charged in connection with the bugging incident",
+      "lint: Fact-check: not in the source: Abdulrahman Alfozan will be or is set to be released on a $1 million bond"
+    ],
+    "held_at": "2026-11-25T11:04:10+00:00",
+    "message_id": 108
   }
 }

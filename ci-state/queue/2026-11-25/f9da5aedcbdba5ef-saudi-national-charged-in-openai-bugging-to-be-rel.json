@@ -1,0 +1,79 @@
+{
+  "id": "f9da5aedcbdba5ef",
+  "status": "held",
+  "created_at": "2026-11-25T11:03:27+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "cnbc-tech",
+    "name": "CNBC Technology",
+    "kind": "press",
+    "reliability": 0.8,
+    "url": "https://www.cnbc.com/2026/11/24/openai-bugging-aflozan-release-saudi.html",
+    "title": "Saudi national charged in OpenAI bugging to be released on $1 million bond",
+    "published": "2026-11-24T22:03:01+00:00",
+    "text": "Abdulrahman Alfozan is accused of planting a recording device in an executive conference room at OpenAI's headquarters."
+  },
+  "score": 0.77,
+  "score_breakdown": {
+    "reliability": 0.8,
+    "relevance": 0.0,
+    "novelty": 1.0,
+    "thin_text_penalty": -0.1,
+    "news_signal_bonus": 0.1,
+    "names_bonus": 0.12,
+    "stakes_bonus": 0.08
+  },
+  "draft": {
+    "headline": "A man accused of planting a recording device at OpenAI's headquarters will be released on a $1 million bond.",
+    "threads_post": "Abdulrahman Alfozan is accused of planting a recording device in an executive conference room at OpenAI's headquarters.\n\nThe Saudi national was charged in connection with the bugging incident and is set to be released on a $1 million bond.\n\nIs a $1 million bond appropriate for corporate spying charges?",
+    "x_post": "Abdulrahman Alfozan is accused of planting a recording device in an executive conference room at OpenAI's headquarters.\n\nThe Saudi national will be released on a $1 million bond.\n\nIs a $1 million bond enough for tech spying charges?",
+    "instagram_caption": "Abdulrahman Alfozan is accused of planting a recording device in an executive conference room at OpenAI's headquarters.\n\nThe Saudi national was charged over the OpenAI bugging incident and is set to be released on a $1 million bond.\n\nIs a $1 million bond appropriate for tech espionage charges?\n\n#openai #security #tech #cybersecurity",
+    "question": "Is a $1 million bond appropriate for tech espionage charges?",
+    "topic_tag": "OpenAI",
+    "broll_query": "corporate conference room security",
+    "facts": [
+      "Abdulrahman Alfozan is accused of bugging OpenAI's headquarters.",
+      "The recording device was placed in an executive conference room.",
+      "The Saudi national will be released on a $1 million bond."
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Source text is brief but supplies all core facts of the story.",
+    "facts_used": [
+      "Abdulrahman Alfozan is accused of planting a recording device in an executive conference room at OpenAI's headquarters.",
+      "Saudi national charged in OpenAI bugging to be released on $1 million bond"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The source is a single sentence plus title; double-check if court filings reveal additional details before publishing.",
+    "card": {
+      "category": "Safety",
+      "headline": "Saudi national charged in OpenAI headquarters bugging",
+      "highlight": "OpenAI headquarters bugging",
+      "number": null
+    },
+    "fact_check_issues": [
+      "Abdulrahman Alfozan is a Saudi national",
+      "Abdulrahman Alfozan was charged in connection with the bugging incident",
+      "Abdulrahman Alfozan will be or is set to be released on a $1 million bond"
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: Abdulrahman Alfozan is a Saudi national",
+    "Fact-check: not in the source: Abdulrahman Alfozan was charged in connection with the bugging incident",
+    "Fact-check: not in the source: Abdulrahman Alfozan will be or is set to be released on a $1 million bond"
+  ],
+  "cover_image": "https://image.cnbcfm.com/api/v1/image/108405226-1792009363242-2026-10-13T224936Z_547248141_RC2F2OAXO3WE_RTRMADP_3_OPENAI-SPYING-FBI.JPG?v=1792415233&w=1920&h=1080",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/f9da5aedcbdba5ef-saudi-national-charged-in-openai-bugging-to-be-rel-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/f9da5aedcbdba5ef-saudi-national-charged-in-openai-bugging-to-be-rel-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/f9da5aedcbdba5ef-saudi-national-charged-in-openai-bugging-to-be-rel-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/f9da5aedcbdba5ef-saudi-national-charged-in-openai-bugging-to-be-rel-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/f9da5aedcbdba5ef-saudi-national-charged-in-openai-bugging-to-be-rel-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/f9da5aedcbdba5ef-saudi-national-charged-in-openai-bugging-to-be-rel-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
