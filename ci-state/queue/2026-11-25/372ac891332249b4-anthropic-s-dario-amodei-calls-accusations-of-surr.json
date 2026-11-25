@@ -1,0 +1,77 @@
+{
+  "id": "372ac891332249b4",
+  "status": "held",
+  "created_at": "2026-11-25T19:48:58+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techcrunch-ai",
+    "name": "TechCrunch AI",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/",
+    "title": "Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’",
+    "published": "2026-11-25T19:44:24+00:00",
+    "text": "Anthropic CEO Dario Amodei pushes back against rivals’ accusations that he favors surrendering human agency to AI, even as leading AI companies increasingly automate their own research and model development."
+  },
+  "score": 0.99,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Anthropic CEO Dario Amodei called accusations that he favors surrendering human agency to AI absurd.",
+    "threads_post": "Anthropic CEO Dario Amodei says accusations that he favors surrendering human control to AI are absurd.\n\nRivals accused Amodei of supporting a shift away from human agency. He pushed back against the claims, even as leading AI companies automate more of their own research and model development.\n\nShould AI companies automate their own research, or should humans stay in charge?",
+    "x_post": "Anthropic CEO Dario Amodei says accusations that he favors surrendering human control to AI are absurd.\n\nRivals accused him of giving up human agency, even as top AI labs automate their own research.\n\nWill humans stay in control? #AI",
+    "instagram_caption": "Anthropic CEO Dario Amodei is calling accusations that he favors surrendering human agency to AI absurd.\n\nRivals recently accused Amodei of supporting a shift toward giving up human control to artificial intelligence. Amodei strongly pushed back against those claims.\n\nAt the same time, leading AI companies are increasingly automating their own internal research and model development.\n\nWill humans keep full control as AI companies automate model development?\n\n#ai #anthropic #technology #aisafety #tech",
+    "question": "Should AI companies automate their own research, or should humans stay in charge?",
+    "topic_tag": "Anthropic",
+    "broll_query": "artificial intelligence lab servers",
+    "facts": [
+      "Dario Amodei is the CEO of Anthropic.",
+      "Rivals accused Amodei of favoring surrendering human agency to AI.",
+      "Amodei called accusations of giving up human control absurd.",
+      "Leading AI companies are automating their research and development."
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Source text is very brief (title plus one summary sentence).",
+    "facts_used": [
+      "Anthropic CEO Dario Amodei pushes back against rivals’ accusations that he favors surrendering human agency to AI",
+      "calls accusations of surrendering human control to AI ‘absurd’",
+      "leading AI companies increasingly automate their own research and model development"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Source text is a single sentence summary from TechCrunch. All details are grounded directly in that summary.",
+    "card": {
+      "category": "Safety",
+      "headline": "Anthropic CEO rejects claims of surrendering control to AI",
+      "highlight": "surrendering control to AI",
+      "number": null
+    },
+    "fact_check_issues": [
+      "The claim that Dario Amodei called or described the accusations as 'absurd'",
+      "The claim that rivals 'recently' accused Amodei"
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: The claim that Dario Amodei called or described the accusations as 'absurd'",
+    "Fact-check: not in the source: The claim that rivals 'recently' accused Amodei"
+  ],
+  "cover_image": "https://techcrunch.com/wp-content/uploads/2026/03/Dario-Amodei-Anthropic-viva-tech.jpg?w=1024",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

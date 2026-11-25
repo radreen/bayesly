@@ -358,5 +358,21 @@
   "de2d936167133ae8": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/de2d936167133ae8-nvidia-sellers-seek-new-buyers-as-u-s-curbs-china.json",
     "drafted_at": "2026-11-25T19:17:24+00:00"
+  },
+  "340d26e36711c60d": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-25T19:47:45+00:00"
+  },
+  "2136a8e159c4791b": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-25T19:47:45+00:00"
+  },
+  "e3007f25728eea61": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-25T19:47:45+00:00"
+  },
+  "372ac891332249b4": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr.json",
+    "drafted_at": "2026-11-25T19:48:58+00:00"
   }
 }

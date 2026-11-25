@@ -292,5 +292,15 @@
     ],
     "held_at": "2026-11-25T19:18:07+00:00",
     "message_id": 115
+  },
+  "372ac891332249b4": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/372ac891332249b4-anthropic-s-dario-amodei-calls-accusations-of-surr.json",
+    "reasons": [
+      "lint: Fact-check: not in the source: The claim that Dario Amodei called or described the accusations as 'absurd'",
+      "lint: Fact-check: not in the source: The claim that rivals 'recently' accused Amodei"
+    ],
+    "held_at": "2026-11-25T19:49:39+00:00",
+    "message_id": 116
   }
 }
