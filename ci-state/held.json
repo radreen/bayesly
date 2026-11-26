@@ -304,5 +304,16 @@
     "held_at": "2026-11-25T19:49:39+00:00",
     "message_id": 116,
     "decided_at": "2026-11-25T20:53:51+00:00"
+  },
+  "0571dc5571a462f3": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/0571dc5571a462f3-sources-the-doj-didn-t-formally-investigate-jensen.json",
+    "reasons": [
+      "model said the source text is insufficient",
+      "confidence is 'low'",
+      "lint: Model flagged the source text as insufficient. Check the source before posting."
+    ],
+    "held_at": "2026-11-26T02:32:20+00:00",
+    "message_id": 121
   }
 }

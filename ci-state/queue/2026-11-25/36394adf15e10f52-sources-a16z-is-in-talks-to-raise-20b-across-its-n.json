@@ -1,6 +1,6 @@
 {
   "id": "36394adf15e10f52",
-  "status": "pending_review",
+  "status": "published",
   "created_at": "2026-11-25T20:49:15+00:00",
   "model": "gemini-3.8-flash",
   "source": {
@@ -70,5 +70,16 @@
   ],
   "image_warnings": [],
   "palette": "lime",
-  "layout": "text"
+  "layout": "text",
+  "page_shot": null,
+  "broll": {
+    "credit": "Video: Pexels · Jakub Zerdzicki, LayG Traveller, Sergey  Meshkov",
+    "page": "https://www.pexels.com/video/modern-urban-skyline-featuring-skyscrapers-36498256/",
+    "source_video": false
+  },
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/36394adf15e10f52-sources-a16z-is-in-talks-to-raise-20b-across-its-n.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-25/36394adf15e10f52-sources-a16z-is-in-talks-to-raise-20b-across-its-n.x.mp4",
+  "video_seconds": 26.7,
+  "video_voice": true,
+  "video_warnings": []
 }
