@@ -315,5 +315,16 @@
     ],
     "held_at": "2026-11-26T02:32:20+00:00",
     "message_id": 121
+  },
+  "17a805c0d69ce858": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-26/17a805c0d69ce858-microsoft-says-state-backed-hacking-groups-in-chin.json",
+    "reasons": [
+      "model said the source text is insufficient",
+      "confidence is 'low'",
+      "lint: Model flagged the source text as insufficient. Check the source before posting."
+    ],
+    "held_at": "2026-11-26T08:31:54+00:00",
+    "message_id": 126
   }
 }

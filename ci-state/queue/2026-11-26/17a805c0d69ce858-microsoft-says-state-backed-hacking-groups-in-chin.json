@@ -1,0 +1,72 @@
+{
+  "id": "17a805c0d69ce858",
+  "status": "held",
+  "created_at": "2026-11-26T08:29:32+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://therecord.media/microsoft-china-salt-typhoon-using-artex-ai-tool",
+    "title": "Microsoft says state-backed hacking groups in China and North Korea, including Salt Typhoon, have added AI penetration testing tool ARTEX to their arsenals (Jonathan Greig/The Record)",
+    "published": "2026-11-26T06:00:48+00:00",
+    "text": "Jonathan Greig / The Record : Microsoft says state-backed hacking groups in China and North Korea, including Salt Typhoon, have added AI penetration testing tool ARTEX to their arsenals — State-backed hacking groups in China and North Korea are using a powerful AI hacking tool in attacks, according to a new report from Microsoft."
+  },
+  "score": 0.9,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "stakes_bonus": 0.08,
+    "fresh_bonus": 0.1
+  },
+  "draft": {
+    "headline": "Microsoft says state-backed hackers in China and North Korea are using AI penetration testing tool ARTEX.",
+    "threads_post": "Microsoft says state-backed hackers in China and North Korea have added the AI penetration testing tool ARTEX to their arsenals.\n\nAccording to a new Microsoft report, groups including Salt Typhoon are using the tool in active attacks.\n\nShould AI security tools be open-source or strictly restricted?",
+    "x_post": "Microsoft says state-backed hackers in China and North Korea, including Salt Typhoon, are using AI penetration testing tool ARTEX in attacks.\n\nShould AI security tools be open-source or strictly restricted? #cybersecurity",
+    "instagram_caption": "Microsoft says state-backed hackers in China and North Korea have added the AI penetration testing tool ARTEX to their arsenals.\n\nAccording to a new report from Microsoft, groups including Salt Typhoon are using the AI tool in live attacks. ARTEX is built for AI penetration testing, but state-sponsored groups are now adopting it for attacks.\n\nShould AI security tools be open-source or strictly restricted?\n\n#ai #cybersecurity #tech #security #microsoft",
+    "question": "Should AI security tools be open-source or strictly restricted?",
+    "topic_tag": "Cybersecurity",
+    "broll_query": "cybersecurity code screen",
+    "facts": [
+      "Microsoft says hackers in China and North Korea are using AI tool ARTEX.",
+      "Hacking group Salt Typhoon is among those using ARTEX in attacks.",
+      "ARTEX is designed as an AI penetration testing tool."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is limited to a single title and short summary.",
+    "facts_used": [
+      "Microsoft says state-backed hacking groups in China and North Korea, including Salt Typhoon, have added AI penetration testing tool ARTEX to their arsenals",
+      "State-backed hacking groups in China and North Korea are using a powerful AI hacking tool in attacks, according to a new report from Microsoft."
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source text was limited to a single title and snippet. Confirm full report details before publishing.",
+    "card": {
+      "category": "Safety",
+      "headline": "State-backed hackers adopt AI testing tool ARTEX",
+      "highlight": "adopt AI testing tool",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": "https://cms.therecord.media/uploads/microsoft_sign_pexels_altabena_efbc5ae4db.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-26/17a805c0d69ce858-microsoft-says-state-backed-hacking-groups-in-chin-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-26/17a805c0d69ce858-microsoft-says-state-backed-hacking-groups-in-chin-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-26/17a805c0d69ce858-microsoft-says-state-backed-hacking-groups-in-chin-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-26/17a805c0d69ce858-microsoft-says-state-backed-hacking-groups-in-chin-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-26/17a805c0d69ce858-microsoft-says-state-backed-hacking-groups-in-chin-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-26/17a805c0d69ce858-microsoft-says-state-backed-hacking-groups-in-chin-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
