@@ -1,0 +1,71 @@
+{
+  "id": "5320f5d21a0968a3",
+  "status": "held",
+  "created_at": "2026-11-27T12:32:24+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/after-openai-and-anthropic-shut-the-door-on-their-data-a-chinese-ai-developer-is-turning-to-google-and-meta-instead/",
+    "title": "After OpenAI and Anthropic shut the door on their data, a Chinese AI developer is turning to Google and Meta instead",
+    "published": "2026-11-26T15:45:08+00:00",
+    "text": "Chinese AI companies Z.AI and Moonshot AI have to delay their next flagship models and are looking for new sources of training data. The article After OpenAI and Anthropic shut the door on their data, a Chinese AI developer is turning to Google and Meta instead appeared first on The Decoder ."
+  },
+  "score": 0.88,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "names_bonus": 0.12
+  },
+  "draft": {
+    "headline": "OpenAI and Anthropic cut off data access, forcing Z.AI and Moonshot AI to delay flagship models.",
+    "threads_post": "OpenAI and Anthropic have shut the door on their training data for Chinese AI developers.\n\nBecause of the cutoff, companies Z.AI and Moonshot AI are delaying their next flagship models. With their primary sources blocked, developers are turning to Google and Meta for new training data.\n\nWill switching to Google and Meta data be enough to keep these labs on track?",
+    "x_post": "OpenAI and Anthropic blocked Chinese AI labs from their training data.\n\nZ.AI and Moonshot AI must now delay their next flagship models. Developers are turning to Google and Meta for new data instead.\n\nWill Google and Meta data be enough?",
+    "instagram_caption": "OpenAI and Anthropic have shut the door on their training data for Chinese AI developers.\n\nThe cutoff is forcing Chinese AI companies Z.AI and Moonshot AI to delay their next flagship models. With their previous sources blocked, developers are now searching for new training data and turning toward Google and Meta instead.\n\nShould AI companies be allowed to block competitors from using their data?\n\n#ai #tech #openai #meta #google",
+    "question": "Should AI companies be allowed to block competitors from using their data?",
+    "topic_tag": "AI",
+    "broll_query": "data center server racks",
+    "facts": [
+      "Z.AI and Moonshot AI must delay their next flagship models",
+      "OpenAI and Anthropic shut off access to their training data",
+      "Chinese AI developers are turning to Google and Meta for data"
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Source is brief, but key company names and actions are explicit.",
+    "facts_used": [
+      "Chinese AI companies Z.AI and Moonshot AI have to delay their next flagship models",
+      "OpenAI and Anthropic shut the door on their data",
+      "a Chinese AI developer is turning to Google and Meta instead"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Source text is a short excerpt/summary. No specific dates, model names, or numerical metrics were provided in the source.",
+    "card": {
+      "category": "Models",
+      "headline": "OpenAI and Anthropic block data access for Chinese AI labs",
+      "highlight": "block data access",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "X post contains a link or domain (costs $0.20 instead of $0.015)."
+  ],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/us_china-1200x675.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/5320f5d21a0968a3-after-openai-and-anthropic-shut-the-door-on-their-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/5320f5d21a0968a3-after-openai-and-anthropic-shut-the-door-on-their-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/5320f5d21a0968a3-after-openai-and-anthropic-shut-the-door-on-their-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/5320f5d21a0968a3-after-openai-and-anthropic-shut-the-door-on-their-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/5320f5d21a0968a3-after-openai-and-anthropic-shut-the-door-on-their-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/5320f5d21a0968a3-after-openai-and-anthropic-shut-the-door-on-their-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
