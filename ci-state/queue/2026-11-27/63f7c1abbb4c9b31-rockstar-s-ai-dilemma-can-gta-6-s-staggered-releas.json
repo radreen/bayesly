@@ -1,0 +1,82 @@
+{
+  "id": "63f7c1abbb4c9b31",
+  "status": "published",
+  "created_at": "2026-11-27T15:47:59+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/rockstars-ai-dilemma-can-gta-6s-staggered-release-model-survive-coding-agents/",
+    "title": "Rockstar's AI dilemma: Can GTA 6's staggered release model survive coding agents?",
+    "published": "2026-11-27T15:37:47+00:00",
+    "text": "More than 40 projects are working to bring a leaked Xbox build of GTA 6 to PC through reverse engineering just days after its $3.79 billion record console launch. AI coding agents like Claude Code are speeding up the process so much that an early unofficial multiplayer mode is already running. Rockstar's delayed PC business model is coming under pressure. The article Rockstar's AI dilemma: Can GTA 6's staggered release model survive coding agents? appeared first on The Decoder ."
+  },
+  "score": 1.08,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 1.0,
+    "novelty": 1.0,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "More than 40 community projects are using AI coding agents to reverse engineer a leaked Xbox build of GTA 6 to PC.",
+    "threads_post": "More than 40 projects are using AI coding agents to port a leaked Xbox build of GTA 6 to PC through reverse engineering.\n\nDevelopers are using tools like Claude Code to accelerate the work. An unofficial multiplayer mode is already running, just days after the game's record $3.79 billion console launch.\n\nThis puts heavy pressure on Rockstar's traditional model of staggering PC releases.\n\nWill AI force game studios to launch on PC day one?",
+    "x_post": "More than 40 projects are using AI coding agents like Claude Code to reverse engineer a leaked Xbox build of GTA 6 to PC.\n\nAn unofficial multiplayer mode is already running after its $3.79 billion launch.\n\nWill AI force studios to release on PC day one? #ai",
+    "instagram_caption": "More than 40 projects are using AI coding agents to reverse engineer a leaked Xbox build of GTA 6 for PC.\n\nTools like Claude Code are speeding up the process so much that an early unofficial multiplayer mode is already running. This comes just days after GTA 6 set a record with a $3.79 billion console launch.\n\nRockstar has historically relied on a staggered release model, delaying PC versions well after console launches. Now, AI-assisted community efforts are putting that business model under serious pressure.\n\nWill AI coding agents force game studios to launch PC versions on day one?\n\n#ai #gta6 #claude #gaming #tech",
+    "question": "Will AI coding agents force game studios to launch PC versions on day one?",
+    "topic_tag": "AI agents",
+    "broll_query": "computer code screen",
+    "facts": [
+      "Over 40 projects are using AI to reverse engineer a leaked Xbox build of GTA 6.",
+      "AI agents like Claude Code helped get an early unofficial multiplayer mode running.",
+      "The leak comes days after GTA 6 achieved a record $3.79 billion console launch."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source provides clear facts about GTA 6 leak, revenue, and AI agents.",
+    "facts_used": [
+      "More than 40 projects are working to bring a leaked Xbox build of GTA 6 to PC through reverse engineering",
+      "just days after its $3.79 billion record console launch",
+      "AI coding agents like Claude Code are speeding up the process",
+      "an early unofficial multiplayer mode is already running",
+      "Rockstar's delayed PC business model is coming under pressure"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All details are sourced directly from the provided text. GTA 6 launch figure ($3.79B) and Claude Code reference are explicitly stated.",
+    "card": {
+      "category": "Business",
+      "headline": "AI agents are fast-tracking a leaked GTA 6 PC port",
+      "highlight": "GTA 6 PC port",
+      "number": {
+        "value": "40",
+        "caption": "Projects using AI coding agents to reverse engineer GTA 6 to PC",
+        "footnote": "Reported by The Decoder"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/Rockstar-logo-reihe.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/63f7c1abbb4c9b31-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/63f7c1abbb4c9b31-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/63f7c1abbb4c9b31-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/63f7c1abbb4c9b31-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/63f7c1abbb4c9b31-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/63f7c1abbb4c9b31-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/63f7c1abbb4c9b31-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/63f7c1abbb4c9b31-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/63f7c1abbb4c9b31-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas.x.mp4",
+  "video_seconds": 28.4,
+  "video_voice": true,
+  "video_warnings": []
+}
