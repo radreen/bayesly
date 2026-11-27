@@ -354,5 +354,14 @@
       "lint: Model flagged the source text as insufficient. Check the source before posting."
     ],
     "held_at": "2026-11-27T13:18:37+00:00"
+  },
+  "cc2646aaf0510698": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/cc2646aaf0510698-android-s-diy-widgets-are-a-bit-of-vibe-coding-fun.json",
+    "reasons": [
+      "lint: Fact-check: not in the source: Instagram post claim that creating custom widgets is now built into Android"
+    ],
+    "held_at": "2026-11-27T14:17:50+00:00",
+    "message_id": 136
   }
 }

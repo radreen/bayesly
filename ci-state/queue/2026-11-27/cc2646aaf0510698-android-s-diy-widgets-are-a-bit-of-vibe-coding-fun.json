@@ -1,0 +1,73 @@
+{
+  "id": "cc2646aaf0510698",
+  "status": "held",
+  "created_at": "2026-11-27T14:17:16+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "verge-ai",
+    "name": "The Verge AI",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://www.theverge.com/tech/1041801/android-intelligence-create-my-widget-gemini",
+    "title": "Android’s DIY widgets are a bit of vibe-coding fun",
+    "published": "2026-11-27T14:00:00+00:00",
+    "text": "Widgets, your way. | Photo: Allison Johnson / The Verge Aside from dealing with my calendar , there's one thing I want AI to do: tell me if I'm about to miss the bus. What I need is a widget. It needs to tell me real-time arrivals for the bus stop near my house. Tapping around on my phone screen to open the right app and select my stop will slow me down enough to miss a bus. I need glanceable information, and I hoped that Android's vibe-coded widget feature could help me out here. It hasn't, to my disappointment, but I still had a good time cooking up other widgets. Google announced the ability to create custom widgets using AI back at I/O in the spring. It's called Create My Widget, and it's pa … Read the full story at The Verge."
+  },
+  "score": 0.8,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Google allows Android users to build custom phone widgets using AI with Create My Widget.",
+    "threads_post": "Google announced Create My Widget to let Android users build custom screen widgets using AI. First revealed at Google I/O in the spring, the tool lets people design glanceable home screen widgets. While early testing showed it struggled with real-time bus tracking, cooking up custom widgets is still possible.\n\nWould you use AI to build your own phone widgets?",
+    "x_post": "Google announced Create My Widget to let Android users create custom widgets using AI. Revealed at I/O in the spring, it brings vibe-coded tools to your home screen.\n\nWould you use AI to build custom phone widgets? #android #google",
+    "instagram_caption": "Google announced Create My Widget to let Android users build custom home screen widgets using AI.\n\nFirst revealed at Google I/O in the spring, the feature allows users to generate glanceable tools for their phones. While testing showed it struggled with real-time data like bus arrivals, creating custom widgets is now built into Android.\n\nWould you use AI to design your own home screen widgets?\n\n#android #google #ai #tech #widgets",
+    "question": "Would you use AI to build custom home screen widgets?",
+    "topic_tag": "Android",
+    "broll_query": "smartphone home screen",
+    "facts": [
+      "Google announced Create My Widget to let users build custom widgets using AI.",
+      "The feature was first revealed at Google I/O in the spring.",
+      "It allows Android users to generate glanceable home screen widgets."
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Source text is truncated mid-sentence, but main facts are clear.",
+    "facts_used": [
+      "Google announced the ability to create custom widgets using AI back at I/O in the spring.",
+      "It's called Create My Widget",
+      "Android's vibe-coded widget feature"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Source snippet cuts off at the end. Verify full story details if necessary.",
+    "card": {
+      "category": "Tools",
+      "headline": "Google Create My Widget brings AI widgets to Android",
+      "highlight": "Create My Widget",
+      "number": null
+    },
+    "fact_check_issues": [
+      "Instagram post claim that creating custom widgets is now built into Android"
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: Instagram post claim that creating custom widgets is now built into Android"
+  ],
+  "cover_image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/DSC04405_processed.jpg?quality=90&strip=all&crop=0%2C10.723165084465%2C100%2C78.55366983107&w=1200",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/cc2646aaf0510698-android-s-diy-widgets-are-a-bit-of-vibe-coding-fun-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/cc2646aaf0510698-android-s-diy-widgets-are-a-bit-of-vibe-coding-fun-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/cc2646aaf0510698-android-s-diy-widgets-are-a-bit-of-vibe-coding-fun-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/cc2646aaf0510698-android-s-diy-widgets-are-a-bit-of-vibe-coding-fun-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/cc2646aaf0510698-android-s-diy-widgets-are-a-bit-of-vibe-coding-fun-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/cc2646aaf0510698-android-s-diy-widgets-are-a-bit-of-vibe-coding-fun-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}
