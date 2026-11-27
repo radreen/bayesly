@@ -1,0 +1,78 @@
+{
+  "id": "a1266fb70a1b1d70",
+  "status": "held",
+  "created_at": "2026-11-27T05:32:20+00:00",
+  "model": "gemini-3-flash-preview",
+  "source": {
+    "id": "arxiv-cs-cl",
+    "name": "arXiv cs.CL (Computation and Language)",
+    "kind": "research",
+    "reliability": 0.7,
+    "url": "https://arxiv.org/abs/2611.33197",
+    "title": "Extraneous Cognitive Load in Large Language Models",
+    "published": "2026-11-27T05:00:00+00:00",
+    "text": "arXiv:2611.33197v1 Announce Type: new Abstract: Cognitive Load Theory (CLT) shows that human problem-solving is affected by both intrinsic load, arising from task difficulty, and extraneous load, arising from how task information is presented. Large language models (LLMs) show analogous effects: presentation alone can affect model performance, but these effects have not yet been systematically isolated from task difficulty. To address this gap, we introduce CogLoadBench, a controlled benchmark that varies five CLT-inspired presentation factors across three reasoning task families. Across models, we find that higher extraneous load conditions often reduce accuracy by either adding competition or complicating the reasoning path. To support diagnosis and mitigation of load-related effects, we propose the Extraneous Load Score (ELS), a prompt-time metric computed from activations that estimates a model's extraneous load, and show that it generalizes across reasoning task types and load levels. We further show that shifting model representations toward lower-load directions at inference time can improve average model performance without changing prompt content."
+  },
+  "score": 0.91,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 1.0,
+    "novelty": 1.0,
+    "fresh_bonus": 0.18,
+    "niche_research_penalty": -0.15
+  },
+  "draft": {
+    "headline": "Changing how a task is presented can confuse an AI even when the underlying logic remains the same.",
+    "threads_post": "Changing how a task is presented can confuse an AI even when the difficulty stays the same. Researchers just launched CogLoadBench to measure this \"extraneous load\" across three reasoning tasks. They found that models perform worse when the presentation is complicated. By shifting a model’s internal representations during inference, performance improved without changing a single word of the prompt.\n\nShould we focus on better prompting or fixing model focus internally?",
+    "x_post": "Researchers found that how a task is presented can tank AI accuracy even if the logic stays the same. They created the Extraneous Load Score to track this. Performance even improved by shifting model internal states at inference. #ai #research",
+    "instagram_caption": "Changing how you ask a question can confuse an AI just as much as the question's difficulty. Researchers found that \"extraneous load\"—how info is presented—often reduces model accuracy.\n\nThe team introduced CogLoadBench to test this across five presentation factors. They also developed the Extraneous Load Score (ELS), a metric that estimates load from a model's internal activations at prompt-time.\n\nThe most interesting part: they found they could improve model performance by shifting internal representations toward \"lower-load\" directions during inference. This works without changing the actual text of the prompt.\n\nDoes prompt engineering matter if we can fix the model's focus internally?\n\n#ai #llm #research #machinelearning #cogloadbench",
+    "question": "Should we focus on better prompting or fixing model focus internally?",
+    "topic_tag": "AI Research",
+    "broll_query": "person reading complex diagram",
+    "facts": [
+      "Higher extraneous load (presentation style) can reduce LLM accuracy.",
+      "CogLoadBench tests 5 presentation factors across 3 reasoning task families.",
+      "The Extraneous Load Score (ELS) estimates load from a model's activations."
+    ],
+    "confidence": "high",
+    "confidence_reason": "The source provides a clear title, benchmark name, and specific findings.",
+    "facts_used": [
+      "presentation alone can affect model performance",
+      "CogLoadBench... varies five CLT-inspired presentation factors across three reasoning task families",
+      "Extraneous Load Score (ELS), a prompt-time metric computed from activations that estimates a model's extraneous load",
+      "shifting model representations toward lower-load directions at inference time can improve average model performance without changing prompt content"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The research is based on Cognitive Load Theory. The 'shifting model representations' is a technical inference-time intervention mentioned in the abstract.",
+    "card": {
+      "category": "Research",
+      "headline": "Presentation style can tank LLM accuracy",
+      "highlight": "Presentation style",
+      "number": {
+        "value": "5",
+        "caption": "presentation factors tested in the new CogLoadBench",
+        "footnote": "arXiv:2611.33197"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/a1266fb70a1b1d70-extraneous-cognitive-load-in-large-language-models-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/a1266fb70a1b1d70-extraneous-cognitive-load-in-large-language-models-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/a1266fb70a1b1d70-extraneous-cognitive-load-in-large-language-models-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/a1266fb70a1b1d70-extraneous-cognitive-load-in-large-language-models-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/a1266fb70a1b1d70-extraneous-cognitive-load-in-large-language-models-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/a1266fb70a1b1d70-extraneous-cognitive-load-in-large-language-models-03.jpg"
+  ],
+  "image_warnings": [
+    "card.number '5' not found in the source text; number slide dropped.",
+    "card.confidence_reason trimmed from 73 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "text"
+}

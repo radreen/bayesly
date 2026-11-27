@@ -326,5 +326,14 @@
     ],
     "held_at": "2026-11-26T08:31:54+00:00",
     "message_id": 126
+  },
+  "a1266fb70a1b1d70": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/a1266fb70a1b1d70-extraneous-cognitive-load-in-large-language-models.json",
+    "reasons": [
+      "image: card.number '5' not found in the source text; number slide dropped."
+    ],
+    "held_at": "2026-11-27T05:32:36+00:00",
+    "message_id": 128
   }
 }

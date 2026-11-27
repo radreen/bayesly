@@ -394,5 +394,9 @@
   "2b24e3ecac251fec": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/2b24e3ecac251fec-openai-says-it-corrected-a-gpt-6-2-astra-and-sol-l.json",
     "drafted_at": "2026-11-27T00:17:21+00:00"
+  },
+  "a1266fb70a1b1d70": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/a1266fb70a1b1d70-extraneous-cognitive-load-in-large-language-models.json",
+    "drafted_at": "2026-11-27T05:32:20+00:00"
   }
 }
