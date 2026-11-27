@@ -95,3 +95,17 @@ def test_platform_cap_lifts_for_breaking_news():
     assert is_breaking(1.1, NOW - timedelta(hours=2), NOW, Rules()) and not is_breaking(0.9, NOW, NOW, Rules())
     assert is_breaking(0.98, NOW - timedelta(hours=1), NOW, Rules())     # bonus shrank since check: still hot
     assert not is_breaking(1.1, NOW - timedelta(hours=5), NOW, Rules())
+
+
+def test_watchdog_alerts_once_when_quiet_in_daytime(tmp_path):
+    import json
+    from bayesly.watchdog import check_quiet
+    now = datetime(2026, 11, 26, 14, tzinfo=timezone.utc)
+    (tmp_path / "posted.json").write_text(json.dumps({"a": {"x": {"ok": True, "at": (now - timedelta(hours=9)).isoformat()}}}))
+    (tmp_path / "gemini_quota.json").write_text(json.dumps({"gemini-3.5-flash": (now + timedelta(hours=5)).isoformat()}))
+    sent = []
+    assert check_quiet(tmp_path, "nothing hot", lambda t, b: sent.append(t), now=now)
+    assert "No post for 9 h" in sent[0] and "gemini-3.5-flash until 19:00 UTC" in sent[0]
+    assert check_quiet(tmp_path, "x", lambda t, b: sent.append(t), now=now + timedelta(hours=1)) is None   # once per 6 h
+    assert check_quiet(tmp_path, "x", lambda t, b: sent.append(t), now=now.replace(hour=3)) is None        # nights quiet
+    assert check_quiet(tmp_path, "x", lambda t, b: sent.append(t), now=now + timedelta(hours=7), paused=True) is None

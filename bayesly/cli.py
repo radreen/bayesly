@@ -330,6 +330,14 @@ def main(argv: list[str] | None = None) -> int:
             if args.live:
                 for line in owner_reports(settings, cfg, ranked):
                     print(f"owner: {line}")
+                if cfg.telegram_token:
+                    from bayesly.watchdog import check_quiet
+                    try:
+                        alert = check_quiet(settings.state_dir, why, _tg_sender(cfg), paused=is_paused(settings, cfg))
+                        if alert:
+                            print(f"owner: {alert}")
+                    except Exception as exc:  # noqa: BLE001 - the watchdog must never break check
+                        print(f"owner: watchdog failed: {exc}")
                 from bayesly import weekly
                 from bayesly.review import DraftStore
                 if settings.gemini_api_key and weekly.due(settings.state_dir):

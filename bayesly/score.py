@@ -80,6 +80,12 @@ _STAKES_RE = re.compile(
 STAKES_BONUS = 0.08
 FRESH_BONUS = ((1, 0.18), (3, 0.10))   # (published within N hours, bonus)
 NICHE_RESEARCH_PENALTY = 0.15          # arXiv papers without a known name rarely reach a wide audience
+# Our own numbers (Threads views, 2026-11-19..26): enterprise cloud plumbing got 0-7 views while
+# surprising, human stories got 75-130. Dry B2B infrastructure news drops down the queue.
+ENTERPRISE_DRY_PENALTY = 0.15
+_ENTERPRISE_DRY_RE = re.compile(
+    r"\b(sagemaker|bedrock|agentcore|strands|cross-region|inference routing|kubernetes|azure (?:ai )?foundry|"
+    r"vertex ai|data ?lake|observability|enterprise networks?|managed (?:cluster|service)|harness)\b", re.I)
 
 
 def release_kind(item: Item) -> str | None:
@@ -149,6 +155,8 @@ def score_item(item: Item, now: datetime | None = None) -> float:
                 break
     if item.source.id.startswith("arxiv") and not named:
         adjustments["niche_research_penalty"] = -NICHE_RESEARCH_PENALTY
+    if _ENTERPRISE_DRY_RE.search(item.title):
+        adjustments["enterprise_dry_penalty"] = -ENTERPRISE_DRY_PENALTY
     total += sum(adjustments.values())
     parts.update(adjustments)
     item.score = round(max(total, 0.0), 4)
