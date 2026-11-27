@@ -1,0 +1,81 @@
+{
+  "id": "2b24e3ecac251fec",
+  "status": "published",
+  "created_at": "2026-11-27T00:17:21+00:00",
+  "model": "gemini-3-flash-preview",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.techradar.com/ai-platforms-assistants/chatgpt/weve-fixed-this-now-so-the-same-work-will-use-more-of-your-plans-usage-allowance-openai-admits-it-made-a-mistake-when-launching-gpt-6-2-and-now-paying-chatgpt-users-could-hit-their-usage-limits-up-to-40-percent-faster",
+    "title": "OpenAI says it corrected a GPT-6.2 Astra and Sol launch billing mistake that had incorrectly discounted usage; Astra users will now hit their limits 40% faster (Graham Barlow/TechRadar)",
+    "published": "2026-11-26T13:01:08+00:00",
+    "text": "Graham Barlow / TechRadar : OpenAI says it corrected a GPT-6.2 Astra and Sol launch billing mistake that had incorrectly discounted usage; Astra users will now hit their limits 40% faster — Too little, too late? … - OpenAI has admitted to a billing mistake with its new GPT-6.2 models — You'll now hit your usage limits up to 40% faster"
+  },
+  "score": 0.89,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.4,
+    "novelty": 1.0,
+    "news_signal_bonus": 0.1,
+    "names_bonus": 0.12
+  },
+  "draft": {
+    "headline": "OpenAI says GPT-6.2 Astra users will hit usage limits up to 40% faster after a billing correction.",
+    "threads_post": "GPT-6.2 Astra users will now hit their usage limits up to 40% faster. OpenAI says it corrected a billing mistake that had incorrectly discounted usage during the model’s launch. The change affects both Astra and Sol models. Is a 40% limit reduction a dealbreaker, or is the model still worth it?",
+    "x_post": "Astra users will hit their limits up to 40% faster. OpenAI says it fixed a billing mistake that incorrectly discounted usage for GPT-6.2 models. The change affects both Astra and Sol. Is a 40% limit cut a dealbreaker or still worth it? #AI #OpenAI",
+    "instagram_caption": "GPT-6.2 Astra users will hit their limits up to 40% faster. OpenAI says it fixed a billing mistake that occurred during the launch of its Astra and Sol models. The company claims usage was previously being incorrectly discounted. \n\nIs a 40% limit reduction a dealbreaker, or is the model still worth it?\n\n#ai #openai #chatgpt #gpt6 #tech",
+    "question": "Is a 40% limit reduction a dealbreaker, or is the model still worth it?",
+    "topic_tag": "OpenAI",
+    "broll_query": "billing statement on screen",
+    "facts": [
+      "Astra users will hit their usage limits up to 40% faster.",
+      "OpenAI corrected a billing mistake for GPT-6.2 Astra and Sol.",
+      "The company says it had previously \"incorrectly discounted usage.\""
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source provides the company name, specific models, and the percentage.",
+    "facts_used": [
+      "OpenAI says it corrected a GPT-6.2 Astra and Sol launch billing mistake",
+      "Astra users will now hit their limits 40% faster",
+      "incorrectly discounted usage"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The 40% figure is a cap ('up to'), so I ensured 'up to' was included in all posts to maintain factual accuracy.",
+    "card": {
+      "category": "Models",
+      "headline": "Astra users will hit limits up to 40% faster",
+      "highlight": "40% faster",
+      "number": {
+        "value": "40%",
+        "caption": "Faster reach to usage limits for Astra users",
+        "footnote": "OpenAI-reported"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://cdn.mos.cms.futurecdn.net/sgNC3MbaR7RbcasFNpEHA-2560-80.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/2b24e3ecac251fec-openai-says-it-corrected-a-gpt-6-2-astra-and-sol-l-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/2b24e3ecac251fec-openai-says-it-corrected-a-gpt-6-2-astra-and-sol-l-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/2b24e3ecac251fec-openai-says-it-corrected-a-gpt-6-2-astra-and-sol-l-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/2b24e3ecac251fec-openai-says-it-corrected-a-gpt-6-2-astra-and-sol-l-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/2b24e3ecac251fec-openai-says-it-corrected-a-gpt-6-2-astra-and-sol-l-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/2b24e3ecac251fec-openai-says-it-corrected-a-gpt-6-2-astra-and-sol-l-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": null,
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/2b24e3ecac251fec-openai-says-it-corrected-a-gpt-6-2-astra-and-sol-l.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/2b24e3ecac251fec-openai-says-it-corrected-a-gpt-6-2-astra-and-sol-l.x.mp4",
+  "video_seconds": 22.3,
+  "video_voice": true,
+  "video_warnings": []
+}

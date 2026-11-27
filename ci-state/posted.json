@@ -1202,5 +1202,40 @@
       "attempts": 1,
       "at": "2026-11-26T02:36:38+00:00"
     }
+  },
+  "2b24e3ecac251fec": {
+    "threads": {
+      "platform": "threads",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "18161151700465722",
+      "url": "https://www.threads.com/@bayesly.ai/post/DgOYKmAoFxj",
+      "error": null,
+      "detail": null,
+      "attempts": 1,
+      "at": "2026-11-27T00:20:32+00:00"
+    },
+    "instagram": {
+      "platform": "instagram",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "18029073083941180",
+      "url": "https://www.instagram.com/reel/DgOYQ2_iIHQ/",
+      "error": null,
+      "detail": "video",
+      "attempts": 1,
+      "at": "2026-11-27T00:21:24+00:00"
+    },
+    "x": {
+      "platform": "x",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "2126109113285537871",
+      "url": "https://x.com/bayesly_ai/status/2126109113285537871",
+      "error": null,
+      "detail": "video",
+      "attempts": 1,
+      "at": "2026-11-27T00:21:28+00:00"
+    }
   }
 }
