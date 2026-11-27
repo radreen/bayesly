@@ -32,7 +32,7 @@ on:
       draft:
         description: "How many NEW drafts to write first (0 = publish from the existing queue)"
         type: string
-        default: "3"
+        default: "1"
 
 permissions:
   contents: write                 # to commit ci-state/ back
@@ -142,7 +142,7 @@ jobs:
 
       - name: Autopost
         if: steps.cmd.outputs.name == 'autopost' || steps.check.outputs.go == 'true'
-        run: python -m bayesly autopost --draft ${{ inputs.draft || '3' }} $LIVE_FLAG
+        run: python -m bayesly autopost --draft ${{ inputs.draft || '1' }} $LIVE_FLAG   # 1: Gemini free tier is 20 req/day/model
 
       - name: Save state
         if: always()

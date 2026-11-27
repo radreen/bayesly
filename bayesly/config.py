@@ -43,7 +43,7 @@ def load_settings() -> Settings:
     return Settings(
         gemini_api_key=os.getenv("GEMINI_API_KEY", "").strip(),
         gemini_model=os.getenv("GEMINI_MODEL", "gemini-3.5-flash").strip(),
-        gemini_fallback_models=[m.strip() for m in os.getenv("GEMINI_FALLBACK_MODELS", "gemini-3.8-flash,gemini-2.5-flash").split(",") if m.strip()],
+        gemini_fallback_models=[m.strip() for m in os.getenv("GEMINI_FALLBACK_MODELS", "gemini-3.8-flash,gemini-3-flash-preview,gemini-3.7-flash").split(",") if m.strip()],
         gemini_api_revision=os.getenv("GEMINI_API_REVISION", "2026-05-20").strip(),
         http_timeout=float(os.getenv("HTTP_TIMEOUT_SECONDS", "20")),
         gemini_timeout=float(os.getenv("GEMINI_TIMEOUT_SECONDS", "120")),

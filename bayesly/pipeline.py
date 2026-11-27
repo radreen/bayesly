@@ -85,7 +85,7 @@ def run_draft(
     voice, template = load_prompts(settings.prompts_dir)
     picked = select(ranked, limit * 2 if generator else limit, max_per_source)
     if generator is not None and picked:
-        dupes = find_duplicates(picked, recent_headlines(settings.out_dir), generator)
+        dupes = find_duplicates(picked, recent_headlines(settings.out_dir), helper_of(generator))
         for item in dupes:   # remember them, so the 15-min check doesn't fire on them again
             store.mark_skipped(item_key(item), "duplicate of a recent story")
             log.info("duplicate skipped", extra={"title": item.title[:100]})
@@ -105,8 +105,8 @@ def run_draft(
             continue
         draft = parse_draft_json(raw)
         if draft:
-            draft = shorten_if_needed(draft, generator, item.url)
-            draft["fact_check_issues"] = fact_check(draft, item.text, generator)
+            draft = shorten_if_needed(draft, helper_of(generator), item.url)
+            draft["fact_check_issues"] = fact_check(draft, item.text, helper_of(generator))
         path = store.write(item, item_id, draft, raw, model=generator.model)
         log.info("draft written", extra={"item_id": item_id, "path": str(path), "parsed": draft is not None})
         result.written.append(path)
@@ -117,6 +117,13 @@ def run_draft(
 # "be first" race). One cheap repair call shortens just the offending texts.
 TEXT_LIMITS = {"threads_post": 500, "x_post": 280, "instagram_caption": 2200}
 REPAIR_TARGET = {"threads_post": 440, "x_post": 260, "instagram_caption": 2000}
+
+
+def helper_of(generator):
+    """Small tasks (dedupe, shorten, fact-check) run on the lite models: each Gemini model has its own
+    free daily quota (20 requests), so drafts keep the stronger models."""
+    util = getattr(generator, "utility", None)
+    return util() if callable(util) else generator
 
 
 def shorten_if_needed(draft: dict, generator, source_url: str) -> dict:

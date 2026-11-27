@@ -44,7 +44,10 @@ def request(
                 raise ExternalCallError(
                     f"{method} {url} -> HTTP {resp.status_code}: {resp.text[:500]}"
                 )
-            last_err = f"HTTP {resp.status_code}"
+            last_err = f"HTTP {resp.status_code}: {resp.text[:300]}"
+            if resp.status_code == 429 and "per day" in resp.text.lower():
+                # a daily quota does not clear by waiting seconds: fail now, the caller switches model
+                raise ExternalCallError(f"{method} {url} -> {last_err}")
         if attempt <= max_retries:
             delay = backoff_base * (2 ** (attempt - 1))
             log.warning(

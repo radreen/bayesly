@@ -109,14 +109,15 @@ def owner_reports(settings, cfg, ranked=None) -> list[str]:
     lines: list[str] = []
     send = _tg_sender(cfg)
     gen = make_generator(settings) if settings.gemini_api_key else None
-    drafter = (lambda h, t, c: engage.reply_draft(gen.generate, h, t, c)) if gen else None
+    helper = gen.utility() if gen else None      # lite models: keep the drafting quota for posts
+    drafter = (lambda h, t, c: engage.reply_draft(helper.generate, h, t, c)) if helper else None
     try:
         lines += metrics.poll_comments(settings, cfg, send, drafter=drafter)
     except Exception as exc:  # noqa: BLE001
         lines.append(f"comments failed: {exc}")
     if gen and ranked:
         try:
-            lines += engage.comment_ideas(settings, ranked, gen.generate, send, key=item_key)
+            lines += engage.comment_ideas(settings, ranked, helper.generate, send, key=item_key)
         except Exception as exc:  # noqa: BLE001
             lines.append(f"ideas failed: {exc}")
     try:
@@ -159,7 +160,8 @@ def make_generator(settings) -> GeminiClient:
         settings.gemini_api_revision,
         timeout=settings.gemini_timeout,
         fallback_models=settings.gemini_fallback_models,
-        max_retries=settings.http_max_retries,
+        max_retries=min(settings.http_max_retries, 1),   # 503 once more; daily 429s fail fast in net
+        quota_path=settings.state_dir / "gemini_quota.json",
     )
 
 
@@ -309,6 +311,9 @@ def main(argv: list[str] | None = None) -> int:
         else:
             ranked: list = []
             go, why = check(settings, keep=ranked)
+            if go and "approved post" not in why and settings.gemini_api_key                     and not make_generator(settings).available():
+                # every drafting model is out of today's free quota: GO would only burn runs (2026-11-26)
+                go, why = False, "Gemini free quota used up for today; approved posts still go out"
             if args.live:
                 for line in owner_reports(settings, cfg, ranked):
                     print(f"owner: {line}")
