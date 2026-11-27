@@ -364,5 +364,19 @@
     "held_at": "2026-11-27T14:17:50+00:00",
     "message_id": 136,
     "decided_at": "2026-11-27T15:01:31+00:00"
+  },
+  "4d4018e508b60f14": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/4d4018e508b60f14-three-studies-from-meta-and-ami-labs-back-yann-lec.json",
+    "reasons": [
+      "lint: Fact-check: not in the source: AMI Labs released three studies (source states 'Three new studies' from Meta and AMI Labs, but does not state AMI Labs alone released them, or who released them collectively)",
+      "lint: Fact-check: not in the source: World models beat LLMs at understanding cause and effect",
+      "lint: Fact-check: not in the source: World models will eventually replace language models",
+      "lint: Fact-check: not in the source: Should AI learn from language or physical laws",
+      "lint: Fact-check: not in the source: Goal is to give machines an internal model of the physical world",
+      "image: card.number '3' not found in the source text; number slide dropped."
+    ],
+    "held_at": "2026-11-27T17:05:06+00:00",
+    "message_id": 143
   }
 }
