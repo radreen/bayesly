@@ -491,7 +491,13 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
     starts: list[float] = []
     # 1) The news' own footage (embedded demo/promo/keynote clips): what competitors show. Owner 2026-11-24.
     from bayesly.source_video import find_source_video
-    real = find_source_video(record["source"]["url"], json_path.with_suffix(".src.mp4"))
+    from bayesly.engage import company_of
+    from bayesly.source_video import story_terms
+    d = record.get("draft") or {}
+    head = d.get("headline") or record["source"].get("title", "")
+    company = company_of(f"{head} {d.get('topic_tag', '')}")
+    real = find_source_video(record["source"]["url"], json_path.with_suffix(".src.mp4"),
+                             company=company, terms=story_terms(head, company))
     if real:
         from bayesly.broll import Broll
         broll = Broll([c.path for c in real.clips], real.credit, record["source"]["url"])

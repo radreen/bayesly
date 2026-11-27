@@ -18,6 +18,7 @@ import logging
 import re
 import subprocess
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin, urlsplit
@@ -100,7 +101,7 @@ def _credit(info: dict, url: str, page_url: str) -> str:
     return urlsplit(page_url).netloc.lower().removeprefix("www.")
 
 
-def download(url: str, out: Path, page_url: str, *, timeout: float = 120) -> Clip | None:
+def download(url: str, out: Path, page_url: str, *, timeout: float = 120, min_date: str = "") -> Clip | None:
     try:
         import yt_dlp
     except ImportError:
@@ -110,7 +111,8 @@ def download(url: str, out: Path, page_url: str, *, timeout: float = 120) -> Cli
         "outtmpl": f"{out}.%(ext)s",   # out has no extension: <draft>.src<i> "quiet": True, "no_warnings": True, "noplaylist": True,
         "format": "bv*[ext=mp4][height<=1080]/b[ext=mp4][height<=1080]/bv*[height<=1080]/b",
         "max_filesize": MAX_FILESIZE, "socket_timeout": 30, "retries": 1,
-        "match_filter": yt_dlp.utils.match_filter_func(f"duration <? {MAX_SOURCE_SECONDS}"),
+        "match_filter": yt_dlp.utils.match_filter_func(f"duration <? {MAX_SOURCE_SECONDS}"
+                                                       + (f" & upload_date >=? {min_date}" if min_date else "")),
         "download_ranges": yt_dlp.utils.download_range_func(None, [(0, 90)]),   # never pull a whole keynote
         "http_headers": {"Referer": page_url},
     }
@@ -131,23 +133,128 @@ def download(url: str, out: Path, page_url: str, *, timeout: float = 120) -> Cli
     return Clip(path, _credit(info, url, page_url), secs, start)
 
 
-def find_source_video(page_url: str, out: Path, *, html: str | None = None, session: Any = None) -> SourceVideo | None:
-    """Up to CLIPS real clips from the article at page_url, saved next to `out` (out.0.mp4, ...)."""
+# Official sites: when an article links to the company's own announcement, that page usually carries
+# the launch video (what competitors post). One hop only.
+OFFICIAL_DOMAINS = (
+    "openai.com", "anthropic.com", "blog.google", "deepmind.google", "ai.google.dev", "nvidia.com",
+    "apple.com", "about.fb.com", "ai.meta.com", "meta.com", "microsoft.com", "x.ai", "mistral.ai",
+    "huggingface.co", "aboutamazon.com", "aws.amazon.com", "tesla.com", "figure.ai", "perplexity.ai",
+    "runwayml.com", "higgsfield.ai", "elevenlabs.io", "stability.ai", "deepseek.com", "qwen.ai", "z.ai",
+    "bostondynamics.com", "samsung.com", "adobe.com", "notion.com", "cursor.com", "github.blog",
+)
+# Official YouTube channels (exact channel names). A search result from anyone else is ignored.
+OFFICIAL_CHANNELS = {
+    "openai", "google", "google deepmind", "google for developers", "nvidia", "nvidia developer", "anthropic",
+    "meta", "ai at meta", "microsoft", "microsoft developer", "apple", "tesla", "xai", "figure", "boston dynamics",
+    "hugging face", "mistral ai", "perplexity", "runway", "elevenlabs", "samsung", "amazon", "amazon web services",
+    "adobe", "github", "cursor", "higgsfield ai", "deepseek", "qwen", "alibaba cloud", "zhipu ai", "z.ai",
+}
+YT_MAX_AGE_DAYS = 10
+_HREF = re.compile(r"""href=["'](https?://[^"'#]+)["']""", re.I)
+
+
+def official_links(html: str, page_url: str, limit: int = 3) -> list[str]:
+    here = urlsplit(page_url).netloc.lower().removeprefix("www.")
+    out = []
+    for m in _HREF.finditer(html):
+        u = m.group(1)
+        parts = urlsplit(u)
+        host = parts.netloc.lower().removeprefix("www.")
+        if host == here or len(parts.path.strip("/")) < 3:
+            continue
+        if any(host == d or host.endswith("." + d) for d in OFFICIAL_DOMAINS) and u not in out:
+            out.append(u)
+        if len(out) >= limit:
+            break
+    return out
+
+
+def youtube_official(query: str, terms: list[str], *, limit: int = 2) -> list[str]:
+    """Recent videos from official company channels matching the story (title shares a key term)."""
+    try:
+        import yt_dlp
+    except ImportError:
+        return []
+    try:
+        from urllib.parse import quote
+        url = f"https://www.youtube.com/results?search_query={quote(query)}&sp=CAI%253D"   # sorted by upload date
+        with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True, "extract_flat": "in_playlist",
+                               "playlistend": 15, "socket_timeout": 20}) as ydl:
+            res = ydl.extract_info(url, download=False) or {}
+    except Exception as exc:  # noqa: BLE001 - YouTube may block CI runners: just no clip
+        log.info("youtube search failed", extra={"error": str(exc)[:160]})
+        return []
+    keys = [t.lower() for t in terms if len(t) > 2]
+    out = []
+    for e in res.get("entries") or []:
+        channel = (e.get("channel") or e.get("uploader") or "").strip().lower()
+        title = (e.get("title") or "").lower()
+        if channel in OFFICIAL_CHANNELS and any(k in title for k in keys) and e.get("id"):
+            out.append(f"https://www.youtube.com/watch?v={e['id']}")
+        if len(out) >= limit:
+            break
+    return out
+
+
+def _page(url: str, session: Any = None) -> str:
+    try:
+        return net.request("GET", url, timeout=20, max_retries=1, session=session,
+                           headers={"User-Agent": "Mozilla/5.0 (compatible; BayeslyBot/1.0)"}).text[:2_000_000]
+    except Exception:  # noqa: BLE001
+        return ""
+
+
+def find_source_video(page_url: str, out: Path, *, html: str | None = None, session: Any = None,
+                      company: str = "", terms: list[str] | None = None) -> SourceVideo | None:
+    """Up to CLIPS real clips for the story, saved next to `out`. Where we look, in order:
+    1. videos embedded in the article; 2. the company's own pages the article links to;
+    3. recent videos on the company's official YouTube channel (needs `company` + `terms`)."""
     if not page_url:
         return None
-    if html is None:
-        try:
-            html = net.request("GET", page_url, timeout=20, max_retries=1, session=session,
-                               headers={"User-Agent": "Mozilla/5.0 (compatible; BayeslyBot/1.0)"}).text[:2_000_000]
-        except Exception:  # noqa: BLE001
-            return None
+    html = _page(page_url, session) if html is None else html
+    urls = candidates(html, page_url) if html else []
+    for link in official_links(html, page_url) if html else []:
+        if len(urls) >= CANDIDATES:
+            break
+        sub = _page(link, session)
+        urls += [u for u in candidates(sub, link) if u not in urls] if sub else []
+    yt_new: set[str] = set()
+    if company and terms and len(urls) < CLIPS:
+        found = youtube_official(f"{company} {' '.join(terms[:3])}", terms)
+        yt_new.update(found)
+        urls += [u for u in found if u not in urls]
     got = SourceVideo()
-    for i, url in enumerate(candidates(html, page_url)):
+    since = (datetime.now(timezone.utc) - timedelta(days=YT_MAX_AGE_DAYS)).strftime("%Y%m%d")
+    for i, url in enumerate(urls[: CANDIDATES + 2]):
         if len(got.clips) >= CLIPS:
             break
-        clip = download(url, out.parent / f"{out.name.split('.')[0]}.src{i}", page_url)
+        clip = download(url, out.parent / f"{out.name.split('.')[0]}.src{i}", page_url,
+                        min_date=since if url in yt_new else "")   # searched videos must be recent
         if clip:
             got.clips.append(clip)
     if got.clips:
         log.info("source video", extra={"clips": len(got.clips), "credit": got.credit})
+    else:
+        log.info("source video: none", extra={"looked_at": len(urls)})
     return got if got.clips else None
+
+
+STOP = {"says", "said", "with", "from", "that", "this", "will", "into", "over", "their", "after", "about", "new",
+        "launches", "unveils", "announces", "releases", "adds", "gets", "report", "could", "would", "more", "than",
+        "and", "are", "the", "for", "its", "has", "have", "how", "why", "what", "now", "can", "not", "but", "you",
+        "employees", "company", "companies", "model", "models", "users", "tools", "people", "ceo", "inc"}
+
+
+def story_terms(headline: str, company: str = "") -> list[str]:
+    """Product-like words of a headline (GPT-6.2, Astra, Muse, Inkling...): capitalised or with a digit,
+    not a stop word and not a company name. Generic words never trigger a YouTube search."""
+    from bayesly.engage import COMPANIES
+    words = [w.strip(".,:;!?'\"()") for w in headline.split()[1:]]      # skip the sentence-initial capital
+    keep = []
+    for w in words:
+        lw = w.lower().removesuffix("'s")
+        if len(w) < 3 or lw in STOP or lw in COMPANIES or lw in company.lower():
+            continue
+        if w[:1].isupper() or any(c.isdigit() for c in w):
+            keep.append(w.removesuffix("'s"))
+    return list(dict.fromkeys(keep))[:4]

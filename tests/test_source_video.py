@@ -17,3 +17,12 @@ def test_candidates_in_page_order_and_normalised():
 def test_credit_names_the_owners():
     sv = SourceVideo([Clip(Path("a"), "@OpenAI", 10), Clip(Path("b"), "@OpenAI", 8), Clip(Path("c"), "NVIDIA", 30)])
     assert sv.credit == "Video: @OpenAI, NVIDIA"
+
+
+def test_official_links_and_product_terms():
+    from bayesly.source_video import official_links, story_terms
+    html = ('<a href="https://openai.com/index/gpt-6-2/">x</a><a href="https://openai.com/">home</a>'
+            '<a href="https://news.example.com/other">same site</a><a href="https://random.blog/post">no</a>')
+    assert official_links(html, "https://news.example.com/a") == ["https://openai.com/index/gpt-6-2/"]
+    assert story_terms("OpenAI releases new prompt tips for GPT-6.2 Astra and Sol", "OpenAI") == ["GPT-6.2", "Astra", "Sol"]
+    assert story_terms("Employees at OpenAI and Anthropic say unreleased AI models pose risks", "OpenAI") == []
