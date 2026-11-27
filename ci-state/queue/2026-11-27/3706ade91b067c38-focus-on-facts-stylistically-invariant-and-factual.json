@@ -1,0 +1,83 @@
+{
+  "id": "3706ade91b067c38",
+  "status": "published",
+  "created_at": "2026-11-27T05:47:18+00:00",
+  "model": "gemini-3-flash-preview",
+  "source": {
+    "id": "arxiv-cs-cl",
+    "name": "arXiv cs.CL (Computation and Language)",
+    "kind": "research",
+    "reliability": 0.7,
+    "url": "https://arxiv.org/abs/2611.33250",
+    "title": "Focus On Facts: Stylistically Invariant and Factually Sensitive Text Embeddings",
+    "published": "2026-11-27T05:00:00+00:00",
+    "text": "arXiv:2611.33250v1 Announce Type: new Abstract: Text embedding models can conflate surface-form similarity with factual identity. Given an altered near-copy with one corrupted fact and a differently worded fact-preserving rewrite, the base model prefers the altered near-copy. We test whether hard-negative contrastive supervision can reduce this surface-similarity shortcut. We construct FOF-Bench, an 83,263-triplet benchmark spanning five domains. Each anchor is paired with an LLM-generated, fact-preserving stylistic rewrite and a matched fact-altered near-copy. We fine-tune FOF-80M (Focus On Facts), an 80M-parameter embedding model, with a triplet contrastive objective that ranks the rewrite above the factual alteration. On 8,327 held-out test triplets, the base model chooses the factually altered text in 99.58% of cases (0.42% factual preference rate; mean separation -0.1650). After fine-tuning, mean positive--negative separation is +0.0329, 98.5% of individual margins move in the intended direction, and the preference rate reaches 29.37%. On DiSC, an external style-transfer corpus, mean cross-style similarity increases from 0.7905 to 0.9559. The model also penalizes omission and transfers poorly to directional tasks such as NLI and summarization. We characterize FOF-80M as a soft factual fingerprint for studying factual retention under stylistic variation, not as a general-purpose factuality metric."
+  },
+  "score": 0.91,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 1.0,
+    "novelty": 1.0,
+    "fresh_bonus": 0.18,
+    "niche_research_penalty": -0.15
+  },
+  "draft": {
+    "headline": "Standard AI models prefer a copy with a wrong fact over a rewritten version with the truth 99.58% of the time.",
+    "threads_post": "Standard AI models prefer a copy with a wrong fact over a rewritten version with the truth 99.58% of the time.\n\nResearchers built FOF-Bench, a dataset of 83,263 triplets, to test if embeddings could prioritize facts over style. By fine-tuning an 80M-parameter model, the factual preference rate rose from 0.42% to 29.37%.\n\nIs style or factual accuracy more important for AI embeddings?",
+    "x_post": "Standard AI models choose a text with wrong facts over a true rewrite 99.58% of the time. Researchers trained FOF-80M to prioritize facts. The factual preference rate rose from 0.42% to 29.37%. \n\nIs style or factual accuracy more important for AI? #ai",
+    "instagram_caption": "Standard AI models prefer a copy with a wrong fact over a rewritten version with the truth 99.58% of the time.\n\nMost text embedding models get distracted by how a sentence looks. If you change one fact but keep the structure, the model thinks it is a better match than a true fact written in a new way. \n\nA new study used a dataset of 83,263 examples across five domains to fix this. After training, the FOF-80M model increased its factual preference rate to 29.37%. While it is better at spotting facts, the model still struggles with tasks like summarization.\n\nIs style or factual accuracy more important for AI embeddings?\n\n#ai #research #llm #data #machinelearning",
+    "question": "Is style or factual accuracy more important for AI embeddings?",
+    "topic_tag": "AI research",
+    "broll_query": "digital document scan",
+    "facts": [
+      "Standard models prefer factual errors over true rewrites 99.58% of the time.",
+      "FOF-Bench is a new benchmark featuring 83,263 triplets across five domains.",
+      "The FOF-80M model's factual preference rate improved from 0.42% to 29.37%."
+    ],
+    "confidence": "high",
+    "confidence_reason": "All facts and numbers are directly sourced from the paper abstract.",
+    "facts_used": [
+      "the base model chooses the factually altered text in 99.58% of cases",
+      "FOF-Bench, an 83,263-triplet benchmark spanning five domains",
+      "fine-tune FOF-80M (Focus On Facts), an 80M-parameter embedding model",
+      "the preference rate reaches 29.37%",
+      "transfers poorly to directional tasks such as NLI and summarization"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The research is from a late 2026 arXiv announcement as per the prompt's source text date.",
+    "card": {
+      "category": "Research",
+      "headline": "Models choose factual errors over true rewrites 99.58% of the time",
+      "highlight": "factual errors",
+      "number": {
+        "value": "99.58%",
+        "caption": "How often standard models prefer a factually wrong copy",
+        "footnote": "arXiv:2611.33250"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/3706ade91b067c38-focus-on-facts-stylistically-invariant-and-factual-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/3706ade91b067c38-focus-on-facts-stylistically-invariant-and-factual-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/3706ade91b067c38-focus-on-facts-stylistically-invariant-and-factual-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/3706ade91b067c38-focus-on-facts-stylistically-invariant-and-factual-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/3706ade91b067c38-focus-on-facts-stylistically-invariant-and-factual-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/3706ade91b067c38-focus-on-facts-stylistically-invariant-and-factual-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/3706ade91b067c38-focus-on-facts-stylistically-invariant-and-factual.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/3706ade91b067c38-focus-on-facts-stylistically-invariant-and-factual.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/3706ade91b067c38-focus-on-facts-stylistically-invariant-and-factual.x.mp4",
+  "video_seconds": 30.8,
+  "video_voice": true,
+  "video_warnings": []
+}
