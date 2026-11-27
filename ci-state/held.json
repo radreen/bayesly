@@ -344,5 +344,15 @@
     ],
     "held_at": "2026-11-27T12:32:40+00:00",
     "message_id": 133
+  },
+  "eba636be1474fd82": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/eba636be1474fd82-serial-numbers-in-chinese-filings-reveal-that-nvid.json",
+    "reasons": [
+      "model said the source text is insufficient",
+      "confidence is 'low'",
+      "lint: Model flagged the source text as insufficient. Check the source before posting."
+    ],
+    "held_at": "2026-11-27T13:18:37+00:00"
   }
 }

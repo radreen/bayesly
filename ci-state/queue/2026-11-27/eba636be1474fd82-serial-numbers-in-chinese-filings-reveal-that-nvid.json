@@ -1,0 +1,72 @@
+{
+  "id": "eba636be1474fd82",
+  "status": "held",
+  "created_at": "2026-11-27T13:18:20+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.bloomberg.com/news/articles/2026-11-27/nvidia-blackwell-chips-turn-up-at-china-site-tied-to-alice-huang",
+    "title": "Serial numbers in Chinese filings reveal that Nvidia's restricted Blackwell chips were installed at a Shanghai data center linked to Alice Huang and Megaspeed (Bloomberg)",
+    "published": "2026-11-27T13:05:01+00:00",
+    "text": "Bloomberg : Serial numbers in Chinese filings reveal that Nvidia's restricted Blackwell chips were installed at a Shanghai data center linked to Alice Huang and Megaspeed — A pair of Chinese firms installed Nvidia Corp.'s powerful Blackwell semiconductors in a Shanghai data center linked to Alice Huang …"
+  },
+  "score": 0.83,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.0,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Serial numbers in Chinese filings reveal Nvidia's restricted Blackwell chips were installed at a Shanghai data center.",
+    "threads_post": "Serial numbers in Chinese filings show Nvidia's restricted Blackwell chips were installed at a Shanghai data center.\n\nA pair of Chinese firms installed the semiconductors. Filings link the Shanghai site to Alice Huang and Megaspeed.\n\nCan chip export rules ever be fully enforced?",
+    "x_post": "Serial numbers in filings show Nvidia's restricted Blackwell chips were installed at a Shanghai data center linked to Megaspeed and Alice Huang.\n\nCan chip export rules ever be fully enforced? #nvidia #ai",
+    "instagram_caption": "Serial numbers in Chinese filings show Nvidia's restricted Blackwell chips were installed at a Shanghai data center.\n\nA pair of Chinese firms installed the semiconductors at the facility. Filings link the Shanghai site to Alice Huang and Megaspeed.\n\nCan chip export rules ever be fully enforced?\n\n#nvidia #ai #chips #hardware #tech",
+    "question": "Can chip export rules ever be fully enforced?",
+    "topic_tag": "Nvidia",
+    "broll_query": "data center servers",
+    "facts": [
+      "Serial numbers in filings reveal restricted Nvidia Blackwell chips in Shanghai.",
+      "A pair of Chinese firms installed the Blackwell semiconductors.",
+      "The Shanghai data center is linked to Alice Huang and Megaspeed."
+    ],
+    "confidence": "low",
+    "confidence_reason": "Source text is only a short snippet headline with limited details.",
+    "facts_used": [
+      "Serial numbers in Chinese filings reveal that Nvidia's restricted Blackwell chips were installed at a Shanghai data center",
+      "A pair of Chinese firms installed Nvidia Corp.'s powerful Blackwell semiconductors",
+      "Shanghai data center linked to Alice Huang and Megaspeed"
+    ],
+    "insufficient_source": true,
+    "editor_notes": "Source text is an abbreviated headline snippet from Bloomberg via Techmeme. Full details on chip quantities, dates, and specific company responses are missing.",
+    "card": {
+      "category": "Chips",
+      "headline": "Restricted Nvidia Blackwell chips found in Shanghai data center",
+      "highlight": "Nvidia Blackwell chips",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Model flagged the source text as insufficient. Check the source before posting."
+  ],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/eba636be1474fd82-serial-numbers-in-chinese-filings-reveal-that-nvid-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/eba636be1474fd82-serial-numbers-in-chinese-filings-reveal-that-nvid-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/eba636be1474fd82-serial-numbers-in-chinese-filings-reveal-that-nvid-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/eba636be1474fd82-serial-numbers-in-chinese-filings-reveal-that-nvid-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/eba636be1474fd82-serial-numbers-in-chinese-filings-reveal-that-nvid-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/eba636be1474fd82-serial-numbers-in-chinese-filings-reveal-that-nvid-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}

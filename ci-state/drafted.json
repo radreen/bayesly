@@ -410,5 +410,13 @@
   "5320f5d21a0968a3": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/5320f5d21a0968a3-after-openai-and-anthropic-shut-the-door-on-their.json",
     "drafted_at": "2026-11-27T12:32:24+00:00"
+  },
+  "fa2f0df7cd764ef2": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-27T13:17:02+00:00"
+  },
+  "eba636be1474fd82": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/eba636be1474fd82-serial-numbers-in-chinese-filings-reveal-that-nvid.json",
+    "drafted_at": "2026-11-27T13:18:20+00:00"
   }
 }
