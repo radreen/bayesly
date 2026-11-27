@@ -1,0 +1,78 @@
+{
+  "id": "1cbafb2225ea483d",
+  "status": "published",
+  "created_at": "2026-11-27T16:18:40+00:00",
+  "model": "gemini-3-flash-preview",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/openai-is-building-athena-data-platform-to-cut-down-on-ai-agent-guesswork/",
+    "title": "OpenAI is building \"Athena\" data platform to cut down on AI agent guesswork",
+    "published": "2026-11-27T16:05:23+00:00",
+    "text": "Customers say OpenAI's data agent in ChatGPT Work still isn't accurate enough. Under the codename \"Athena,\" the company is building a semantic layer that gives agents standardized definitions for business metrics. The tool could also put OpenAI in direct competition with Snowflake and Databricks. The article OpenAI is building \"Athena\" data platform to cut down on AI agent guesswork appeared first on The Decoder ."
+  },
+  "score": 1.06,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "OpenAI is building a data platform codenamed Athena to stop AI agents from guessing business metrics.",
+    "threads_post": "OpenAI is building a data platform codenamed Athena to stop AI agents from guessing business metrics.\n\nThe system creates a semantic layer with standardized definitions for company data. OpenAI is building this because customers say current tools aren't accurate enough. This move could put the company in direct competition with data giants like Snowflake and Databricks.\n\nShould OpenAI build its own data stack?",
+    "x_post": "OpenAI is building Athena to stop AI agents from guessing business metrics. It uses a semantic layer to standardize data definitions. The move could put them in direct competition with Snowflake and Databricks.\n\nShould OpenAI build its own data stack?",
+    "instagram_caption": "OpenAI is building a data platform codenamed Athena to stop AI agents from guessing business metrics.\n\nThe system creates a semantic layer to provide standardized definitions for business data. OpenAI is developing the tool because some customers say current data agents in ChatGPT Work aren't accurate enough. The move could put the company in direct competition with Snowflake and Databricks.\n\nShould OpenAI build its own data stack or keep partnering with others?\n\n#ai #openai #data #business #tech",
+    "question": "Should OpenAI build its own data stack or keep partnering with existing platforms?",
+    "topic_tag": "AI agents",
+    "broll_query": "data center servers",
+    "facts": [
+      "Codenamed Athena, the platform stops AI agents from guessing business metrics.",
+      "A semantic layer gives agents standardized definitions for business data.",
+      "The tool could put OpenAI in direct competition with Snowflake and Databricks."
+    ],
+    "confidence": "high",
+    "confidence_reason": "The source is brief but contains specific names and functionality.",
+    "facts_used": [
+      "OpenAI is building 'Athena' data platform to cut down on AI agent guesswork",
+      "Customers say OpenAI's data agent in ChatGPT Work still isn't accurate enough.",
+      "the company is building a semantic layer that gives agents standardized definitions for business metrics.",
+      "The tool could also put OpenAI in direct competition with Snowflake and Databricks."
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The source text is short but contains a specific codename and target competitors. No specific release date or pricing was mentioned in the source.",
+    "card": {
+      "category": "Tools",
+      "headline": "OpenAI builds Athena to stop AI agent guesswork",
+      "highlight": "stop AI agent guesswork",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/10/openai_logo-1.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/1cbafb2225ea483d-openai-is-building-athena-data-platform-to-cut-dow-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/1cbafb2225ea483d-openai-is-building-athena-data-platform-to-cut-dow-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/1cbafb2225ea483d-openai-is-building-athena-data-platform-to-cut-dow-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/1cbafb2225ea483d-openai-is-building-athena-data-platform-to-cut-dow-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/1cbafb2225ea483d-openai-is-building-athena-data-platform-to-cut-dow-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/1cbafb2225ea483d-openai-is-building-athena-data-platform-to-cut-dow-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/1cbafb2225ea483d-openai-is-building-athena-data-platform-to-cut-dow.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/1cbafb2225ea483d-openai-is-building-athena-data-platform-to-cut-dow.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/1cbafb2225ea483d-openai-is-building-athena-data-platform-to-cut-dow.x.mp4",
+  "video_seconds": 24.9,
+  "video_voice": true,
+  "video_warnings": []
+}
