@@ -6,6 +6,7 @@ import argparse
 import json
 import logging
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 from bayesly.config import load_settings
@@ -44,6 +45,7 @@ def build_parser() -> argparse.ArgumentParser:
     auto.add_argument("--count", type=int, default=None, help="max posts this run (default POSTS_PER_RUN)")
     auto.add_argument("--draft", type=int, default=0, metavar="N", help="first fetch news and write up to N new drafts")
     auto.add_argument("--palette", choices=["lime", "blue"], default="lime")
+    auto.add_argument("--stories-only", action="store_true", help="only post due Instagram Stories (no drafting, no feed posts)")
 
     tg = sub.add_parser("telegram-sync", help="apply Publish/Skip taps and /pause /resume from Telegram")
     tg.add_argument("--live", action="store_true", help="required: consumes updates and changes state")
@@ -271,6 +273,15 @@ def run_publishing(args, settings) -> int:
     if is_paused(settings, cfg):
         print("paused (kill switch). Nothing done.")
         return 0
+    helper = make_generator(settings).utility() if settings.gemini_api_key else None
+    if getattr(args, "stories_only", False):
+        from bayesly.autopost import RunReport
+        report = RunReport()
+        for line in poster.stories_run(report, helper.generate if helper else None):
+            print(f"  {line}")
+        for line in report.errors:
+            print(f"  error: {line}")
+        return 1 if report.errors else 0
     if args.draft:
         try:
             result = run_draft(settings, limit=args.draft, generator=make_generator(settings))
@@ -283,6 +294,8 @@ def run_publishing(args, settings) -> int:
     print(("LIVE" if live else "DRY-RUN") + f": up to {count} post(s) -> {', '.join(cfg.platforms)}")
     report = poster.run(count)
     for line in report.lines():
+        print(f"  {line}")
+    for line in poster.stories_run(report, helper.generate if helper else None):   # due story slots too
         print(f"  {line}")
     failed = any(not r.ok for _, results in report.published for r in results)
     return 1 if failed or report.errors else 0
@@ -329,10 +342,17 @@ def main(argv: list[str] | None = None) -> int:
                     except Exception as exc:  # noqa: BLE001
                         print(f"owner: weekly failed: {exc}")
         print(f"{'GO' if go else 'skip'}: {why}")
+        mode = "post"
+        if not go and args.live and not is_paused(settings, cfg):
+            from bayesly.stories import StoryLog, due_slots
+            slots = due_slots(StoryLog(settings.state_dir), datetime.now(timezone.utc))
+            if slots and "instagram" in cfg.platforms:
+                go, why, mode = True, f"story slot(s) due: {', '.join(slots)}", "stories"
+                print(f"GO (stories only): {why}")
         out = os.getenv("GITHUB_OUTPUT")
         if out:
             with open(out, "a", encoding="utf-8") as fh:
-                fh.write(f"go={'true' if go else 'false'}\n")
+                fh.write(f"go={'true' if go else 'false'}\nmode={mode}\n")
         return 0
     if args.command == "metrics":
         from bayesly import metrics

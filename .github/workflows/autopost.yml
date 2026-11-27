@@ -142,7 +142,12 @@ jobs:
 
       - name: Autopost
         if: steps.cmd.outputs.name == 'autopost' || steps.check.outputs.go == 'true'
-        run: python -m bayesly autopost --draft ${{ inputs.draft || '1' }} $LIVE_FLAG   # 1: Gemini free tier is 20 req/day/model
+        run: |
+          if [ "${{ steps.check.outputs.mode }}" = "stories" ]; then
+            python -m bayesly autopost --stories-only $LIVE_FLAG          # a story slot is due, no feed post
+          else
+            python -m bayesly autopost --draft ${{ inputs.draft || '1' }} $LIVE_FLAG   # 1: Gemini free tier is 20 req/day/model
+          fi
 
       - name: Save state
         if: always()

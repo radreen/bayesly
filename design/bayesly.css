@@ -308,3 +308,17 @@ body[data-palette="blue"] .unknown .take-block .kicker { color: #8c8fff; }
 .s-story-list p { font-weight: 700; font-size: 58px; line-height: 1.08; letter-spacing: -0.025em; }
 .s-story-foot { position: absolute; left: var(--pad); bottom: 300px; }
 .s-story-foot .pill { font-size: 26px; padding: 18px 30px; }
+
+/* story formats: number of the day, quiz question / answer */
+.s-big { position: absolute; left: var(--pad); right: var(--pad); top: 440px; font-weight: 800; font-size: 300px; line-height: .9; letter-spacing: -0.06em; color: var(--accent); }
+.s-big-cap { position: absolute; left: var(--pad); right: var(--pad); top: 800px; font-weight: 700; font-size: 66px; line-height: 1.06; letter-spacing: -0.025em; }
+.s-story-src { position: absolute; left: var(--pad); right: var(--pad); top: 1200px; font: 500 26px var(--mono); line-height: 1.35; opacity: .6; }
+.s-quiz-q { position: absolute; left: var(--pad); right: var(--pad); top: 430px; font-weight: 800; font-size: 82px; line-height: 1.02; letter-spacing: -0.035em; }
+.s-quiz-opts { position: absolute; left: var(--pad); right: var(--pad); top: 920px; list-style: none; display: grid; gap: 30px; }
+.s-quiz-opts li { display: grid; grid-template-columns: 84px 1fr; gap: 24px; align-items: center; padding: 26px 30px; border-radius: 26px; border: 3px solid rgba(255,255,255,.22); }
+.s-quiz-opts .n { width: 70px; height: 70px; border-radius: 50%; background: var(--white); color: var(--ink); display: grid; place-items: center; font: 800 34px "Inter Tight"; }
+.s-quiz-opts p { font-weight: 700; font-size: 50px; line-height: 1.05; }
+.s-quiz-opts li.ok { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+.s-quiz-opts li.ok .n { background: var(--ink); color: var(--accent); }
+.s-quiz-opts li.no { opacity: .35; }
+.s-quiz-why { position: absolute; left: var(--pad); right: var(--pad); top: 1340px; font-weight: 600; font-size: 40px; line-height: 1.2; opacity: .85; }

@@ -516,14 +516,28 @@ def test_instagram_story_container_and_publish():
     assert create["media_type"] == "STORIES" and create["video_url"] == "https://v/x.mp4"
 
 
-def test_story_log_caps_and_digest_once(tmp_path, monkeypatch):
+def test_story_slots_daily_and_capped(tmp_path, monkeypatch):
     from bayesly import stories
-    monkeypatch.setenv("STORIES_PER_DAY", "2")
-    now = datetime(2026, 11, 24, 18, tzinfo=timezone.utc)
+    monkeypatch.setenv("STORIES_PER_DAY", "4")
+    day = datetime(2026, 11, 27, tzinfo=timezone.utc)
     log = stories.StoryLog(tmp_path)
-    assert stories.digest_due(log, now, posts_today=3) and not stories.digest_due(log, now.replace(hour=12), 3)
-    assert not stories.digest_due(log, now, posts_today=1)
-    log.note(now, draft_id="a")
-    log.note(now, digest=True)
-    assert not log.room(now) and not stories.digest_due(log, now, 3)
-    assert log.room(now + timedelta(days=1))                                  # new day, new budget
+    assert stories.due_slots(log, day.replace(hour=9)) == []
+    assert stories.due_slots(log, day.replace(hour=15)) == ["number", "quiz"]   # a missed 10:00 slot is caught up
+    log.note(day, "number")
+    log.note(day, "quiz", used=2)
+    assert stories.due_slots(log, day.replace(hour=18)) == ["digest"]
+    log.skip(day, "digest")
+    assert stories.due_slots(log, day.replace(hour=23)) == []
+    assert stories.due_slots(log, (day + timedelta(days=1)).replace(hour=11)) == ["number"]   # new day
+
+
+def test_quiz_is_validated_and_built_only_from_our_facts():
+    from bayesly import stories
+    recs = [{"draft": {"facts": ["Muse handles 51 percent of agentic shopping orders", "Muse launched in the UK"]}},
+            {"draft": {"facts": ["Astra is OpenAI's new model"]}}]
+    prompts = []
+    good = '{"question": "Share of Muse?", "options": ["21%", "51%", "75%"], "answer": 1, "why": "51 percent."}'
+    q = stories.make_quiz(recs, lambda p: (prompts.append(p), good)[1])
+    assert q["answer"] == 1 and "51 percent" in prompts[0] and "ONLY the facts" in prompts[0]
+    assert stories.make_quiz(recs, lambda p: '{"question": "x", "options": ["a", "b"], "answer": 3}') is None
+    assert stories.number_of_the_day([{"draft": {"card": {"number": {"value": "51%", "caption": "of orders"}}}}])["value"] == "51%"

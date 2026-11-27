@@ -114,3 +114,4 @@ Record what was checked, when, and the link.
 ## The news' own video (since 2026-11-24)
 - Reels prefer clips embedded in the source article (MP4, X, YouTube, Vimeo) via yt-dlp: up to 3 clips, first 90 s each, ≤1080p, audio dropped, credited on screen. Then source photo / page scroll, then Pexels. In a sample of 30 recent articles ~1 in 6 had a usable embed.
 - YouTube and X may block downloads from GitHub's servers; that only means a fallback to photo/screenshot.
+- **Update 2026-11-27:** Stories are their own content, not Reel reposts: 10:00 UTC "Number of the day", 14:00 a 2-story quiz (question, then answer), 17:00 "Today in AI". All built from our last-24h posts only. `check` triggers a stories-only run when a slot is due.
