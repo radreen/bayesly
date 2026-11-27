@@ -1,0 +1,73 @@
+{
+  "id": "bad7b4e320a32d28",
+  "status": "pending_review",
+  "created_at": "2026-11-27T15:03:08+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/sap-plans-to-cut-at-least-10000-jobs-as-it-pivots-to-ai/",
+    "title": "SAP plans to cut at least 10,000 jobs as it pivots to AI",
+    "published": "2026-11-27T14:57:25+00:00",
+    "text": "SAP is preparing to eliminate at least 10,000 positions as part of a sweeping AI restructuring, Bloomberg reports, citing people familiar with the matter. The article SAP plans to cut at least 10,000 jobs as it pivots to AI appeared first on The Decoder ."
+  },
+  "score": 0.8,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.2,
+    "novelty": 1.0,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "SAP is preparing to eliminate at least 10,000 positions in a sweeping AI restructuring.",
+    "threads_post": "SAP is preparing to eliminate at least 10,000 positions as it pivots to AI.\n\nAccording to Bloomberg, the job cuts are part of a sweeping AI restructuring at the software company. The report cites people familiar with the matter.\n\nWill AI restructurings actually boost productivity, or are they just cost-cutting?",
+    "x_post": "SAP is preparing to cut at least 10,000 jobs as part of a sweeping AI restructuring.\n\nBloomberg reports the plan, citing people familiar with the matter.\n\nWill AI pivots like this boost long-term productivity, or are they mainly about cutting costs?",
+    "instagram_caption": "SAP is preparing to eliminate at least 10,000 positions as part of a sweeping AI restructuring.\n\nBloomberg reported the news, citing people familiar with the matter. The move comes as the enterprise software firm reorganizes around artificial intelligence.\n\nWill AI restructuring actually boost tech productivity, or is it just about cutting costs?\n\n#ai #tech #business #sap",
+    "question": "Will AI restructurings actually boost productivity, or are they just cost-cutting?",
+    "topic_tag": "AI",
+    "broll_query": "corporate office workers",
+    "facts": [
+      "SAP is preparing to eliminate at least 10,000 positions.",
+      "The job cuts are part of a sweeping AI restructuring.",
+      "Bloomberg reported the plan, citing people familiar with the matter."
+    ],
+    "confidence": "medium",
+    "confidence_reason": "Based on a single Bloomberg report summary cited by The Decoder.",
+    "facts_used": [
+      "SAP is preparing to eliminate at least 10,000 positions",
+      "part of a sweeping AI restructuring",
+      "Bloomberg reports, citing people familiar with the matter"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Source text is a short brief based on a Bloomberg report. No further details on timelines or specific divisions were provided in the source text.",
+    "card": {
+      "category": "Business",
+      "headline": "SAP plans 10,000 job cuts in AI pivot",
+      "highlight": "10,000 job cuts",
+      "number": {
+        "value": "10,000",
+        "caption": "positions SAP is preparing to eliminate in AI pivot",
+        "footnote": "Reported by Bloomberg, citing sources familiar"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/05/SAP-Logo-Silouette.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/bad7b4e320a32d28-sap-plans-to-cut-at-least-10-000-jobs-as-it-pivots-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/bad7b4e320a32d28-sap-plans-to-cut-at-least-10-000-jobs-as-it-pivots-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/bad7b4e320a32d28-sap-plans-to-cut-at-least-10-000-jobs-as-it-pivots-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/bad7b4e320a32d28-sap-plans-to-cut-at-least-10-000-jobs-as-it-pivots-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/bad7b4e320a32d28-sap-plans-to-cut-at-least-10-000-jobs-as-it-pivots-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/bad7b4e320a32d28-sap-plans-to-cut-at-least-10-000-jobs-as-it-pivots-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "photo"
+}

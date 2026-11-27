@@ -1,6 +1,6 @@
 # REVIEW: Android’s DIY widgets are a bit of vibe-coding fun
 
-- Status: **pending_review** (nothing is published automatically)
+- Status: **held** (nothing is published automatically)
 - Source: The Verge AI (press, reliability 0.75)
 - Link: https://www.theverge.com/tech/1041801/android-intelligence-create-my-widget-gemini
 - Published: 2026-11-27T14:00:00+00:00
