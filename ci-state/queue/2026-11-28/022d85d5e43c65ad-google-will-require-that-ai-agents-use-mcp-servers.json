@@ -1,0 +1,71 @@
+{
+  "id": "022d85d5e43c65ad",
+  "status": "pending_review",
+  "created_at": "2026-11-28T19:49:16+00:00",
+  "model": "gemini-3.8-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://www.theinformation.com/articles/google-triggers-backlash-changes-agent-access-gmail-apps",
+    "title": "Google will require that AI agents use MCP servers, not the REST API, to access Workspace apps starting in February, drawing developer backlash (The Information)",
+    "published": "2026-11-28T19:30:01+00:00",
+    "text": "The Information : Google will require that AI agents use MCP servers, not the REST API, to access Workspace apps starting in February, drawing developer backlash — Two days before Thanksgiving, Google unveiled new controls on how AI assistants access Gmail and other Google-run productivity applications."
+  },
+  "score": 1.04,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Google will require AI agents to use MCP servers instead of REST APIs to access Workspace apps starting in February.",
+    "threads_post": "Starting in February, Google will require AI agents to use MCP servers instead of REST APIs to access Workspace apps.\n\nThe update affects AI assistant access to Gmail and other Google productivity applications. Google unveiled the rule two days before Thanksgiving, and the decision is already drawing developer backlash.\n\nGood move for agent control, or unnecessary friction for developers?",
+    "x_post": "Starting in February, Google will require AI agents to use MCP servers instead of REST APIs to access Gmail and Workspace apps.\n\nThe rule is already drawing developer backlash.\n\nGood move for control, or unnecessary friction for developers?",
+    "instagram_caption": "Starting in February, Google will require AI agents to use MCP servers instead of the REST API to access Workspace apps.\n\nThe new controls change how AI assistants access Gmail and other Google-run productivity tools. Google unveiled the policy two days before Thanksgiving, and it is already triggering developer backlash.\n\nGood move for agent control, or unnecessary friction for developers?\n\n#ai #google #gmail #developers #tech",
+    "question": "Good move for agent control, or unnecessary friction for developers?",
+    "topic_tag": "AI agents",
+    "footage_query": "",
+    "broll_query": "software developer typing",
+    "facts": [
+      "AI agents must use MCP servers instead of REST APIs starting in February",
+      "Applies to AI assistant access to Gmail and other Google Workspace apps",
+      "Google unveiled the rules two days before Thanksgiving, prompting developer backlash"
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source text directly supports the requirement, timeline, and backlash",
+    "facts_used": [
+      "Google will require that AI agents use MCP servers, not the REST API, to access Workspace apps starting in February",
+      "Google unveiled new controls on how AI assistants access Gmail and other Google-run productivity applications two days before Thanksgiving",
+      "Drawing developer backlash"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Source snippet is very short, but provides clear specifics on the requirement, apps affected, deadline, and developer reaction.",
+    "card": {
+      "category": "Policy",
+      "headline": "Google will require AI agents to use MCP servers",
+      "highlight": "require AI agents",
+      "number": null
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": null,
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/022d85d5e43c65ad-google-will-require-that-ai-agents-use-mcp-servers-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/022d85d5e43c65ad-google-will-require-that-ai-agents-use-mcp-servers-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/022d85d5e43c65ad-google-will-require-that-ai-agents-use-mcp-servers-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/022d85d5e43c65ad-google-will-require-that-ai-agents-use-mcp-servers-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/022d85d5e43c65ad-google-will-require-that-ai-agents-use-mcp-servers-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/022d85d5e43c65ad-google-will-require-that-ai-agents-use-mcp-servers-03.jpg"
+  ],
+  "image_warnings": [],
+  "palette": "lime",
+  "layout": "text"
+}
