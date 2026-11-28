@@ -61,6 +61,9 @@ def build_parser() -> argparse.ArgumentParser:
     vid.add_argument("--force", action="store_true", help="re-render even if the MP4 exists")
     met = sub.add_parser("metrics", help="read-only: send the stats summary to Telegram now (or --print)")
     met.add_argument("--print", action="store_true", help="print the summary instead of sending it")
+    fh = sub.add_parser("footage-helper", help="run on the home phone: answer live-footage requests (YouTube)")
+    fh.add_argument("--once", action="store_true", help="one pass, then exit")
+    fh.add_argument("--every", type=float, default=300, help="seconds between passes (default 300)")
     sub.add_parser("telegram-setup", help="set the bot's command menu and short description (one-off)")
     sub.add_parser("accounts", help="read-only: show which Threads/Instagram accounts the tokens in .env belong to")
     sub.add_parser("pause", help="kill switch: stop all publishing (creates state/PAUSED)")
@@ -351,6 +354,12 @@ def main(argv: list[str] | None = None) -> int:
                         print(f"owner: weekly failed: {exc}")
         print(f"{'GO' if go else 'skip'}: {why}")
         mode = "post"
+        if not go and args.live and not is_paused(settings, cfg) and os.getenv("FOOTAGE_PHONE", "0") == "1":
+            from bayesly.footage_handoff import MediaRepo, followups_due
+            due = followups_due(settings.state_dir, MediaRepo(cfg.media_repo, cfg.media_token, cfg.media_branch),
+                                cfg.video_platforms)
+            if due:
+                go, why = True, f"footage follow-up for {len(due)} post(s)"
         if not go and args.live and not is_paused(settings, cfg):
             from bayesly.stories import StoryLog, due_slots
             slots = due_slots(StoryLog(settings.state_dir), datetime.now(timezone.utc))
@@ -371,6 +380,10 @@ def main(argv: list[str] | None = None) -> int:
             print(metrics.summary_message(snap, None, 0, None))
             return 0
         print(metrics.morning_summary(settings, cfg, _tg_sender(cfg), force=True))
+        return 0
+    if args.command == "footage-helper":
+        from bayesly.footage_handoff import helper_loop
+        helper_loop(settings, every=args.every, once=args.once)
         return 0
     if args.command == "video":
         from bayesly.render import RenderError

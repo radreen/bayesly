@@ -498,7 +498,14 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
     company = company_of(f"{head} {d.get('topic_tag', '')}")
     real = find_source_video(record["source"]["url"], json_path.with_suffix(".src.mp4"),
                              company=company, terms=story_terms(head, company))
-    if not real and (d.get("footage_query") or "").strip():
+    if not real:
+        # clips the home phone found for this story (see footage_handoff.py)
+        from bayesly.footage_handoff import MediaRepo, fetch_clips
+        repo = os.getenv("MEDIA_GITHUB_REPO", "").strip()
+        if repo:
+            real = fetch_clips(MediaRepo(repo, os.getenv("MEDIA_GITHUB_TOKEN", "")), record["id"], json_path.parent)
+    in_ci = os.getenv("GITHUB_ACTIONS") == "true"          # YouTube refuses GitHub's servers: the phone does it
+    if not real and not in_ci and (d.get("footage_query") or "").strip():
         # the subject in action (gameplay, robot, product demo) from this week's YouTube uploads
         from bayesly.source_video import find_footage, footage_terms
         fq = d["footage_query"].strip()

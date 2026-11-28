@@ -272,8 +272,10 @@ class Autoposter:
         for path, rec in first:
             if published >= count:
                 break
-            report.published.append((rec["id"], self.publish_record(path, rec)))
-            published += 1
+            results = self.publish_record(path, rec)
+            if results:                 # nothing posted (still waiting for footage): not a post this run
+                report.published.append((rec["id"], results))
+                published += 1
         for path, rec in fresh:
             if published >= count:
                 break
@@ -283,8 +285,10 @@ class Autoposter:
             if reasons:
                 self.hold(path, rec, reasons, report)
                 continue
-            report.published.append((rec["id"], self.publish_record(path, rec)))
-            published += 1
+            results = self.publish_record(path, rec)
+            if results:
+                report.published.append((rec["id"], results))
+                published += 1
         if self.live and self.telegram.enabled:
             self._notify(report)
         return report
@@ -333,10 +337,36 @@ class Autoposter:
         except TelegramError as exc:
             report.errors.append(f"telegram hold {rec['id']}: {exc}")
 
-    def _video_for(self, path: Path, rec: dict, draft_id: str, day: str) -> tuple[str, str]:
+    def _defer_for_footage(self, rec: dict) -> set[str]:
+        """Video platforms that should wait (max WAIT_MINUTES) for clips from the home phone.
+        Only for visual stories (footage_query), only when the phone helper is on (FOOTAGE_PHONE=1),
+        and only when the article itself has no video we could use right away."""
+        if os.getenv("FOOTAGE_PHONE", "0") != "1" or not self.live:
+            return set()
+        draft = rec.get("draft") or {}
+        query = (draft.get("footage_query") or "").strip()
+        vids = {p for p in self._pending_platforms(rec["id"]) if p in self.cfg.video_platforms}
+        if not query or not vids or _video_ready(rec):
+            return set()
+        from bayesly.footage_handoff import FootageRequests, MediaRepo
+        media = MediaRepo(self.cfg.media_repo, self.cfg.media_token, self.cfg.media_branch)
+        if media.manifest(rec["id"]):
+            return set()                                  # the phone answered: build the Reel now
+        reqs = FootageRequests(self.settings.state_dir)
+        if reqs.age_minutes(rec["id"]) is None:
+            from bayesly.source_video import _page, candidates
+            url = (rec.get("source") or {}).get("url", "")
+            html = _page(url) if url else ""
+            if html and candidates(html, url):
+                return set()                              # the article has its own video: no wait
+            reqs.ask(rec["id"], query, draft.get("headline") or "")
+            return vids
+        return vids if reqs.waiting(rec["id"]) else set()
+
+    def _video_for(self, path: Path, rec: dict, draft_id: str, day: str, skip: set[str] | None = None) -> tuple[str, str]:
         """Render + host the video when a pending platform wants one. Any failure -> ("", "") and
         the platforms simply post the carousel; video never blocks a post."""
-        wants = [p for p in self._pending_platforms(draft_id) if p in self.cfg.video_platforms]
+        wants = [p for p in self._pending_platforms(draft_id) if p in self.cfg.video_platforms and p not in (skip or set())]
         if not wants or not self.render_video:
             return "", ""
         try:
@@ -366,7 +396,8 @@ class Autoposter:
                     for i, p in enumerate(rec.get("images_jpg") or [], start=1)]
         except Exception as exc:  # noqa: BLE001 - hosting failure: nothing was posted, retry next run
             return [PublishResult("media", ok=False, error=str(exc)[:300])]
-        video_url, video_path = self._video_for(path, rec, draft_id, day)
+        deferred = self._defer_for_footage(rec)      # Instagram/X wait for the phone's live footage
+        video_url, video_path = self._video_for(path, rec, draft_id, day, skip=deferred)
         post = PublishPost(draft_id=draft_id, image_urls=urls, source_url=(rec.get("source") or {}).get("url", ""),
                            texts={p: draft.get(k, "") or "" for p, k in TEXT_KEYS.items()},
                            video_url=video_url, video_path=video_path,
@@ -378,6 +409,9 @@ class Autoposter:
                     or is_breaking(float(rec.get("score") or 0), datetime.fromisoformat(published) if published else None, now))
         results = []
         for platform in self._pending_platforms(draft_id):
+            if platform in deferred:
+                log.info("waiting for footage", extra={"draft": draft_id, "platform": platform})
+                continue
             cap = platform_cap(platform, now, breaking)
             if posted_today(self.ledger, platform, now) >= cap:
                 log.info("daily cap", extra={"draft": draft_id, "platform": platform, "cap": cap})

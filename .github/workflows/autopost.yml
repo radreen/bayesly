@@ -60,6 +60,7 @@ env:
   MAX_POSTS_PER_DAY_THREADS: ${{ vars.MAX_POSTS_PER_DAY_THREADS }}      # empty = use the ramp
   MAX_POSTS_PER_DAY_INSTAGRAM: ${{ vars.MAX_POSTS_PER_DAY_INSTAGRAM }}
   MAX_POSTS_PER_DAY_X: ${{ vars.MAX_POSTS_PER_DAY_X }}
+  FOOTAGE_PHONE: ${{ vars.FOOTAGE_PHONE || '0' }}          # 1 = Instagram/X wait up to 30 min for clips from the home phone
   STORIES: ${{ vars.STORIES || '1' }}                     # Instagram Stories: Reel copies + evening 'Today in AI'
   STORIES_PER_DAY: ${{ vars.STORIES_PER_DAY || '4' }}
   HARD_MAX_PER_DAY: ${{ vars.HARD_MAX_PER_DAY || '12' }}   # ceiling incl. breaking news (caps above are for routine posts)
