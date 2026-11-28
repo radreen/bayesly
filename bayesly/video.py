@@ -502,7 +502,11 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
         # the subject in action (gameplay, robot, product demo) from this week's YouTube uploads
         from bayesly.source_video import find_footage, footage_terms
         fq = d["footage_query"].strip()
-        real = find_footage(fq, footage_terms(fq), json_path.with_suffix(".src.mp4"))
+        judge = None
+        if settings.gemini_api_key:
+            from bayesly.cli import make_generator
+            judge = make_generator(settings).utility().generate     # 1 lite vision call per Reel
+        real = find_footage(fq, footage_terms(fq), json_path.with_suffix(".src.mp4"), judge=judge)
     if not real and os.getenv("REELS_ONLY_WITH_FOOTAGE", "1").lower() not in {"0", "false", "no"}:
         # No live footage = no Reel: the post goes out as a photo carousel instead (owner 2026-11-28:
         # a Reel of a still photo or a page scroll is boring; mix formats instead).

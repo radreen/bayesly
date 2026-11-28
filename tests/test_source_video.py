@@ -47,3 +47,21 @@ def test_footage_search_keeps_the_subject_and_drops_talk(monkeypatch):
     monkeypatch.setitem(sys.modules, "yt_dlp", types.SimpleNamespace(YoutubeDL=Y))
     hits = sv.footage_search("GTA 6 PC gameplay", sv.footage_terms("GTA 6 PC gameplay"))
     assert [h["url"][-1] for h in hits] == ["a", "e"]          # GTA VI counts too; most watched first
+
+
+def test_vision_judge_needs_both_frames_of_a_cut(tmp_path, monkeypatch):
+    from bayesly import source_video as sv
+    cuts = []
+    for name in ("x.live.10.mp4", "x.live.20.mp4"):
+        (tmp_path / name).write_bytes(b"v")
+        cuts.append(tmp_path / name)
+
+    def fake_run(cmd, **kw):
+        Path(cmd[-1]).write_bytes(b"jpg")
+    monkeypatch.setattr(sv.subprocess, "run", fake_run)
+    monkeypatch.setattr("bayesly.video._ffmpeg", lambda: "ffmpeg")
+    seen = []
+    verdict = sv.judge_cuts(cuts, "GTA 6", lambda parts: (seen.append(parts), '{"1": true, "2": true, "3": true, "4": false}')[1])
+    assert verdict == {"x.live.10.mp4": True, "x.live.20.mp4": False}        # 2nd cut turned into an ad
+    assert sum(1 for p in seen[0] if p.get("type") == "image") == 4 and "GTA 6" in seen[0][0]["text"]
+    assert sv.judge_cuts(cuts, "GTA 6", lambda parts: (_ for _ in ()).throw(RuntimeError("429"))) is None

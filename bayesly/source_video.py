@@ -266,7 +266,7 @@ def story_terms(headline: str, company: str = "") -> list[str]:
 # scroll. The draft's `footage_query` says what the viewer should SEE; we search YouTube uploads of
 # THIS WEEK, keep videos whose title names the subject, pick the most watched, and cut 3 short
 # moments from its middle (no intros, no talking heads at the start). Credited on screen.
-FOOTAGE_CUTS = (0.22, 0.36, 0.5, 0.64, 0.78)   # 5 candidate moments; the 3 liveliest are kept
+FOOTAGE_CUTS = (0.18, 0.29, 0.4, 0.51, 0.62, 0.73, 0.84)   # 7 candidate moments; the best 3 are kept
 CUT_SECONDS = 9
 _TALKY = re.compile(r"\b(podcast|reaction|reacts|explained|interview|news|livestream|live stream|tier list|"
                     r"q&a|shorts?|#shorts|top \d+|ranking|rumou?rs?)\b", re.I)
@@ -320,7 +320,7 @@ def footage_search(query: str, terms: list[str], *, limit: int = 12) -> list[dic
     return sorted(hits, key=lambda h: h["views"], reverse=True)
 
 
-def cut_footage(hit: dict, out: Path) -> list[Clip]:
+def cut_footage(hit: dict, out: Path, judge=None, subject: str = "") -> list[Clip]:
     """Download only CUT_SECONDS windows from the middle of the video (not the whole file)."""
     try:
         import yt_dlp
@@ -339,23 +339,64 @@ def cut_footage(hit: dict, out: Path) -> list[Clip]:
     except Exception as exc:  # noqa: BLE001
         log.info("footage download failed", extra={"url": hit["url"], "error": str(exc)[:160]})
         return []
-    scored = []
+    cuts = []
     for path in sorted(out.parent.glob(out.name + ".*")):
-        if path.suffix.lower() in {".mp4", ".webm", ".mkv", ".mov"}:
-            secs = _probe_seconds(path)
-            motion, bright = liveliness(path)
-            # a static page / slide (little change, mostly white) is not "the thing in action"
-            if secs >= MIN_SECONDS and motion >= MIN_MOTION and bright <= MAX_BRIGHT:
-                scored.append((motion, Clip(path, hit["channel"], secs, 0.0)))
+        if path.suffix.lower() in {".mp4", ".webm", ".mkv", ".mov"} and _probe_seconds(path) >= MIN_SECONDS:
+            cuts.append(path)
+    verdict = judge_cuts(cuts, subject, judge) if judge else None
+    scored = []
+    for path in cuts:
+        motion, bright = liveliness(path)
+        if verdict is not None:
+            ok = verdict.get(path.name, False)      # Gemini looked at a frame: the subject in action?
+        else:                                       # no vision (quota): motion/brightness heuristic
+            ok = motion >= MIN_MOTION and bright <= MAX_BRIGHT
+        if ok:
+            scored.append((motion, Clip(path, hit["channel"], _probe_seconds(path), 0.0)))
     keep = [c for _, c in sorted(scored, key=lambda x: -x[0])[:CLIPS]]
     return sorted(keep, key=lambda c: int(c.path.name.split('.')[-2]))   # play in time order
 
 
-def find_footage(query: str, terms: list[str], out: Path) -> SourceVideo | None:
+def judge_cuts(cuts: list[Path], subject: str, judge) -> dict[str, bool] | None:
+    """One vision call: a middle frame of every cut -> does it show `subject` in action? None on failure."""
+    import base64
+    from bayesly.gemini import parse_draft_json
+    from bayesly.video import _ffmpeg
+    parts: list[dict] = [{"type": "text", "text": (
+        f"For each numbered frame from a video about {subject}: true if it shows the subject IN ACTION "
+        "(gameplay, the product or robot working, real footage), false if it shows mostly text, a web page, "
+        "a document, a slide, a chart, a menu, a logo card or a person talking to camera. "
+        'Return ONLY JSON like {"1": true, "2": false}.')}]
+    frames: dict[str, list[str]] = {}         # cut name -> its frame numbers (2 per cut: early and late)
+    n = 0
+    for path in cuts:
+        for at in ("1.5", "7"):                # a cut can switch to an ad or a talking head halfway
+            frame = path.with_name(f"{path.stem}.f{at}.jpg")
+            try:
+                subprocess.run([_ffmpeg(), "-nostdin", "-y", "-v", "error", "-ss", at, "-i", str(path), "-frames:v", "1",
+                                "-vf", "scale=400:-1", "-q:v", "6", str(frame)], timeout=30, stdin=subprocess.DEVNULL)
+                data = base64.b64encode(frame.read_bytes()).decode()
+            except (OSError, subprocess.TimeoutExpired):
+                continue
+            n += 1
+            parts += [{"type": "text", "text": f"Frame {n}:"}, {"type": "image", "data": data, "mime_type": "image/jpeg"}]
+            frames.setdefault(path.name, []).append(str(n))
+    if not frames:
+        return None
+    try:
+        raw = parse_draft_json(judge(parts)) or {}
+    except Exception as exc:  # noqa: BLE001 - quota or outage: fall back to the heuristic
+        log.info("footage vision check failed", extra={"error": str(exc)[:160]})
+        return None
+    return {name: all(bool(raw.get(i)) for i in nums) for name, nums in frames.items()}
+
+
+def find_footage(query: str, terms: list[str], out: Path, judge=None) -> SourceVideo | None:
+    """judge(parts) -> text: a (lite) Gemini call with images, used to keep only real action shots."""
     if not query.strip():
         return None
     for hit in footage_search(query, terms)[:2]:
-        clips = cut_footage(hit, out.parent / f"{out.name.split('.')[0]}.live")
+        clips = cut_footage(hit, out.parent / f"{out.name.split('.')[0]}.live", judge, subject=query)
         if clips:
             log.info("live footage", extra={"title": hit["title"][:80], "channel": hit["channel"], "cuts": len(clips)})
             return SourceVideo(clips)

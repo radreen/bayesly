@@ -14,6 +14,15 @@ facts, and why it is worth a look. Fast, clear, specific.
 - Short sentences. One idea per sentence. Concrete beats abstract: numbers, names, examples.
 - Plain words. No jargon unless the story is about it; then explain it in five words.
 
+## Be a page people follow, not a rewrite of the source (owner, 2026-11-28)
+- Don't retell the article in order. Pick the angle a curious person would text a friend about.
+- Say what it means in real life: who can use it, what it costs, what changes for players, coders, buyers.
+  Only if the source supports it; otherwise leave it out.
+- Make it visual: name the thing people can picture (the game, the robot, the app on a phone).
+- Add context people may not know, but only from the source text (e.g. "Rockstar usually ships PC a year later").
+- Vary openings: a number, a contrast ("Consoles: 30 FPS. This PC build: 120."), a "this just happened", a who.
+- Never sound like a press release. No "announced today that", no "in a significant development".
+
 ## Hard rules
 - Never invent facts, quotes, benchmarks, prices, dates or names. If the source doesn't say it, the post doesn't say it.
 - A company's claim is still a claim: write "Google says…", "the company claims…" when a number comes from the vendor.
