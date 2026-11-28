@@ -1,0 +1,83 @@
+{
+  "id": "866f2e8ff9945934",
+  "status": "published",
+  "created_at": "2026-11-28T06:03:48+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "kind": "press",
+    "reliability": 0.7,
+    "url": "https://embo.com/introducing-embo",
+    "title": "Embo, which is developing world models for robotics trained on massive amounts of internet video, emerges from stealth with a $110M seed led by a16z (Embo)",
+    "published": "2026-11-28T05:50:02+00:00",
+    "text": "Embo : Embo, which is developing world models for robotics trained on massive amounts of internet video, emerges from stealth with a $110M seed led by a16z — Embo is building the next generation of frontier AI models, with a deep understanding of physical reality and fine-grained motor skills."
+  },
+  "score": 0.92,
+  "score_breakdown": {
+    "reliability": 0.7,
+    "relevance": 0.6,
+    "novelty": 1.0,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Robotics startup Embo emerged from stealth with $110M in seed funding led by a16z.",
+    "threads_post": "Embo just emerged from stealth with a $110M seed round led by a16z. The startup is building world models for robotics by training them on internet video. The company claims its models will give robots a deep understanding of physical reality and fine-grained motor skills. Will training AI on web videos be enough to master physical movement?",
+    "x_post": "Robotics startup Embo emerged from stealth with a $110M seed round led by a16z. Embo trains world models for robots on internet video to teach physical reality and motor skills. Can web video teach robots how physical reality works? #robotics #ai",
+    "instagram_caption": "Embo emerged from stealth with a $110M seed round led by venture firm a16z.\n\nThe startup is developing world models for robotics by training AI on massive amounts of internet video. Embo says its models are designed to give robots a deep understanding of physical reality and fine-grained motor skills.\n\nCan training AI on web videos accurately teach robots real-world physics?\n\n#robotics #ai #tech #venturecapital #worldmodels",
+    "question": "Can training AI on web videos accurately teach robots real-world physics?",
+    "topic_tag": "Robotics",
+    "broll_query": "robot arm moving",
+    "facts": [
+      "Embo emerged from stealth with a $110M seed round.",
+      "The seed round was led by venture firm a16z.",
+      "Embo trains robotics world models on internet video.",
+      "Embo claims its models learn physical reality and motor skills."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source text covers the stealth exit, seed round, investor, and tech details.",
+    "facts_used": [
+      "Embo emerged from stealth with a $110M seed led by a16z",
+      "developing world models for robotics trained on massive amounts of internet video",
+      "building next generation of frontier AI models with a deep understanding of physical reality and fine-grained motor skills"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "Physical capability claims are properly attributed to Embo.",
+    "card": {
+      "category": "Models",
+      "headline": "Embo exits stealth with $110M seed led by a16z for robotics AI",
+      "highlight": "$110M seed",
+      "number": {
+        "value": "$110M",
+        "caption": "Seed round led by a16z for robotics startup Embo",
+        "footnote": "Company announcement"
+      }
+    },
+    "fact_check_issues": []
+  },
+  "raw_model_output": null,
+  "lint_warnings": [],
+  "cover_image": "https://embo.com/images/posts/introducing-embo/banner.jpg",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 76 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics.page.jpg",
+  "broll": null,
+  "video": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics.mp4",
+  "video_x": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics.x.mp4",
+  "video_seconds": 27.0,
+  "video_voice": true,
+  "video_warnings": []
+}
