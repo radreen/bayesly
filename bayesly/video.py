@@ -406,11 +406,31 @@ def capture(page_path: Path, frames_dir: Path, total: float, fps: int = FPS, tim
     return warnings
 
 
+def black_bars(src: Path, start: float = 0.0) -> str:
+    """ffmpeg crop filter that removes letterbox / pillarbox bars baked into a clip ('' if none)."""
+    import re
+    cmd = [_ffmpeg(), "-nostdin", "-hide_banner", *(["-ss", f"{start:.2f}"] if start else []), "-i", str(src),
+           "-t", "4", "-vf", "fps=2,cropdetect=limit=24:round=2:reset=0", "-an", "-f", "null", "-"]
+    try:
+        done = subprocess.run(cmd, capture_output=True, text=True, timeout=60, stdin=subprocess.DEVNULL)
+    except (OSError, subprocess.TimeoutExpired):
+        return ""
+    found = re.findall(r"crop=(\d+):(\d+):(\d+):(\d+)", done.stderr)
+    if not found:
+        return ""
+    w, h, x, y = (int(v) for v in found[-1])
+    size = re.search(r"(\d{3,5})x(\d{3,5})", done.stderr)
+    if size and (w < int(size.group(1)) * 0.95 or h < int(size.group(2)) * 0.95) and w > 200 and h > 200:
+        return f"crop={w}:{h}:{x}:{y},"
+    return ""
+
+
 def normalise_clip(src: Path, out: Path, start: float, seg: float, fps: int = FPS) -> Path:
     """One clean footage segment: `seg` seconds from `start` (looped if the clip is shorter)."""
+    bars = black_bars(src, start)        # some uploads carry black bars inside the frame (2026-11-28)
     cmd = [_ffmpeg(), "-nostdin", "-y", "-loglevel", "error", "-fflags", "+genpts",
            *(["-ss", f"{start:.2f}"] if start else []), "-stream_loop", "-1", "-i", str(src), "-t", f"{seg:.2f}",
-           "-vf", f"scale={W}:800:force_original_aspect_ratio=increase,crop={W}:800,setsar=1,fps={fps}",
+           "-vf", f"{bars}scale={W}:800:force_original_aspect_ratio=increase,crop={W}:800,setsar=1,fps={fps}",
            "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", str(out)]
     done = _run_ffmpeg(cmd, timeout=180)
     if done.returncode != 0 or not out.exists():
