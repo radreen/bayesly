@@ -1,6 +1,6 @@
 # REVIEW: New study casts doubt on how AI companies test the safety systems meant to keep their agents in check
 
-- Status: **pending_review** (nothing is published automatically)
+- Status: **held** (nothing is published automatically)
 - Source: The Decoder (press, reliability 0.75)
 - Link: https://the-decoder.com/new-study-casts-doubt-on-how-ai-companies-test-the-safety-systems-meant-to-keep-their-agents-in-check/
 - Published: 2026-11-28T18:46:09+00:00

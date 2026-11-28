@@ -413,16 +413,17 @@
     "message_id": 156
   },
   "53ed084752fdeb33": {
-    "status": "pending",
+    "status": "published",
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/53ed084752fdeb33-new-study-casts-doubt-on-how-ai-companies-test-the.json",
     "reasons": [
       "image: card.number '23%' not found in the source text; number slide dropped."
     ],
     "held_at": "2026-11-28T19:05:49+00:00",
-    "message_id": 160
+    "message_id": 160,
+    "decided_at": "2026-11-28T19:20:31+00:00"
   },
   "eb35ff7f0def1417": {
-    "status": "pending",
+    "status": "approved",
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/eb35ff7f0def1417-uk-parliament-demands-unredacted-metr-safety-repor.json",
     "reasons": [
       "lint: Fact-check: not in the source: It’s a standoff over transparency vs trade secrets.",
@@ -430,6 +431,7 @@
       "lint: Fact-check: not in the source: This move shows the growing tension between government oversight and the voluntary safety checks used by major US AI labs"
     ],
     "held_at": "2026-11-28T19:05:54+00:00",
-    "message_id": 161
+    "message_id": 161,
+    "decided_at": "2026-11-28T19:20:30+00:00"
   }
 }

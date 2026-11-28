@@ -1,0 +1,83 @@
+{
+  "id": "7a8cc6af6d532241",
+  "status": "pending_review",
+  "created_at": "2026-11-28T19:20:05+00:00",
+  "model": "gemini-3-flash-preview",
+  "source": {
+    "id": "verge-ai",
+    "name": "The Verge AI",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://www.theverge.com/tech/1045337/samsung-recompose-ai-camera",
+    "title": "Samsung is testing a feature that changes the angle of photos you’ve already taken",
+    "published": "2026-11-28T18:54:58+00:00",
+    "text": "Android Authority found code in the beta for One UI 9.5 referring to a feature called Recompose that might let you change the angle of a photo after you've taken it. The code is part of Samsung's Photo Editor app and builds on the existing Move tool. Users would be able to toggle between Move and Recompose, the latter of which is associated with text strings reading: Drag with one finger to change the perspective. Use two fingers to pan, zoom, and rotate. And: Move this slider to make background objects appear closer or farther away. The Photo Assistant's move and erase settings also say you can \"change the angle and perspective of y … Read the full story at The Verge."
+  },
+  "score": 0.85,
+  "score_breakdown": {
+    "reliability": 0.75,
+    "relevance": 0.0,
+    "novelty": 1.0,
+    "names_bonus": 0.12,
+    "fresh_bonus": 0.18
+  },
+  "draft": {
+    "headline": "Samsung is testing a feature that changes the photo perspective after it's taken.",
+    "threads_post": "Samsung is testing a feature that lets you change the camera angle of a photo after you’ve already taken it.\n\nCode found in the One UI 9.5 beta shows a new tool called Recompose. It allows you to drag one finger to shift perspective and use a slider to move background objects closer or farther away. The tool builds on the existing Move tool inside Samsung’s Photo Editor app.\n\nDoes shifting the perspective of a photo make it feel less real?",
+    "x_post": "Samsung is testing a tool to change a photo's camera angle after it's taken.\n\nCode in the One UI 9.5 beta shows a Recompose feature. You can drag one finger to shift perspective or slide background objects closer.\n\nIs this useful or is it too fake? #samsung",
+    "instagram_caption": "Samsung is testing a way to change the camera angle of a photo after you’ve already taken it.\n\nNew code found in the One UI 9.5 beta reveals a tool called Recompose. Unlike a simple crop, this tool lets you drag one finger to change the perspective of the shot. You can also use a slider to make objects in the background appear closer or farther away.\n\nThe feature is part of the Samsung Photo Editor app and expands on the existing Move tool. It uses pan, zoom, and rotate controls to give users more control over a finished image.\n\nDoes shifting the perspective of a photo make it feel less real?\n\n#samsung #android #photography #oneui #ai",
+    "question": "Does shifting the camera perspective after a shot make it feel less like a real photo?",
+    "topic_tag": "Samsung AI",
+    "footage_query": "Samsung Photo Editor Move tool demo",
+    "broll_query": "person editing mobile photo",
+    "facts": [
+      "Samsung is testing a Recompose tool to change photo angles after the shot.",
+      "One finger drags change perspective while two fingers pan, zoom, and rotate.",
+      "A new slider can make background objects appear closer or farther away."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source provides specific text strings and feature names found in beta code.",
+    "facts_used": [
+      "code in the beta for One UI 9.5 referring to a feature called Recompose",
+      "change the angle of a photo after you've taken it",
+      "Drag with one finger to change the perspective",
+      "Use two fingers to pan, zoom, and rotate",
+      "Move this slider to make background objects appear closer or farther away"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "The feature was found in beta code by Android Authority; Samsung has not officially released it yet.",
+    "card": {
+      "category": "Tools",
+      "headline": "Samsung Recompose lets you change the camera angle after the shot",
+      "highlight": "change the camera angle",
+      "number": null
+    },
+    "fact_check_issues": [
+      "Samsung is testing a Recompose tool (the source text states code was found referring to a feature that might let you do this, but does not state Samsung is officially testing it)",
+      "Unlike a simple crop, this tool lets you drag one finger to change the perspective of the shot",
+      "It uses pan, zoom, and rotate controls to give users more control over a finished image"
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: Samsung is testing a Recompose tool (the source text states code was found referring to a feature that might let you do this, but does not state Samsung is officially testing it)",
+    "Fact-check: not in the source: Unlike a simple crop, this tool lets you drag one finger to change the perspective of the shot",
+    "Fact-check: not in the source: It uses pan, zoom, and rotate controls to give users more control over a finished image"
+  ],
+  "cover_image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/samsung-galaxy-s26-plus-7.jpg?quality=90&strip=all&crop=0%2C10.741906587151%2C100%2C78.516186825698&w=1200",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/7a8cc6af6d532241-samsung-is-testing-a-feature-that-changes-the-angl-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/7a8cc6af6d532241-samsung-is-testing-a-feature-that-changes-the-angl-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/7a8cc6af6d532241-samsung-is-testing-a-feature-that-changes-the-angl-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/7a8cc6af6d532241-samsung-is-testing-a-feature-that-changes-the-angl-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/7a8cc6af6d532241-samsung-is-testing-a-feature-that-changes-the-angl-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/7a8cc6af6d532241-samsung-is-testing-a-feature-that-changes-the-angl-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 75 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo"
+}
