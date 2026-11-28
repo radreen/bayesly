@@ -482,5 +482,13 @@
   "022d85d5e43c65ad": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/022d85d5e43c65ad-google-will-require-that-ai-agents-use-mcp-servers.json",
     "drafted_at": "2026-11-28T19:49:16+00:00"
+  },
+  "51c822d383ea9734": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-28T20:02:03+00:00"
+  },
+  "d697659cc3771124": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/d697659cc3771124-release-v5-21-0.json",
+    "drafted_at": "2026-11-28T20:05:26+00:00"
   }
 }

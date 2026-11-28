@@ -423,7 +423,7 @@
     "decided_at": "2026-11-28T19:20:31+00:00"
   },
   "eb35ff7f0def1417": {
-    "status": "approved",
+    "status": "published",
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/eb35ff7f0def1417-uk-parliament-demands-unredacted-metr-safety-repor.json",
     "reasons": [
       "lint: Fact-check: not in the source: It’s a standoff over transparency vs trade secrets.",

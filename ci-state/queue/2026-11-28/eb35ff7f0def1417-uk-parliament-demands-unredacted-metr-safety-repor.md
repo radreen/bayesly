@@ -1,6 +1,6 @@
 # REVIEW: UK Parliament demands unredacted METR safety report after Anthropic redacts most of the evidence
 
-- Status: **pending_review** (nothing is published automatically)
+- Status: **held** (nothing is published automatically)
 - Source: The Decoder (press, reliability 0.75)
 - Link: https://the-decoder.com/uk-parliament-demands-unredacted-metr-safety-report-after-anthropic-redacts-most-of-the-evidence/
 - Published: 2026-11-28T13:42:00+00:00
