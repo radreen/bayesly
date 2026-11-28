@@ -56,5 +56,23 @@
   "raw_model_output": null,
   "lint_warnings": [
     "Fact-check: not in the source: GTA 6 set a record with a $3.79 billion console launch before the Xbox leak."
-  ]
+  ],
+  "cover_image": "https://the-decoder.com/wp-content/uploads/2026/11/Rockstar-logo-reihe.png",
+  "images": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/63f7c1abbb4cr2v2-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-01.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/63f7c1abbb4cr2v2-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-02.png",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/63f7c1abbb4cr2v2-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-03.png"
+  ],
+  "images_jpg": [
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/63f7c1abbb4cr2v2-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-01.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/63f7c1abbb4cr2v2-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-02.jpg",
+    "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/63f7c1abbb4cr2v2-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas-03.jpg"
+  ],
+  "image_warnings": [
+    "card.confidence_reason trimmed from 72 to 70 chars."
+  ],
+  "palette": "lime",
+  "layout": "photo",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/63f7c1abbb4cr2v2-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas.page.jpg",
+  "video_skipped": "no live footage"
 }
