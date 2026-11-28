@@ -38,17 +38,27 @@ def _setup(tmp_path, monkeypatch):
 def test_comments_first_run_records_then_alerts_only_new(tmp_path, monkeypatch):
     settings, cfg = _setup(tmp_path, monkeypatch)
     replies = {"data": [{"id": "c1", "text": "nice", "username": "ann"}]}
-    reader = FakeReader({"T1/replies": lambda: replies, "I1/comments": {"data": []}})
+    reader = FakeReader({"T1/replies": lambda: replies, "I1/comments": {"data": []},
+                         "iu/media": {"data": [{"id": "I1", "comments_count": 0}]}})
+
+    def next_hour():
+        st = json.loads((tmp_path / "comments.json").read_text())
+        st.pop("last_poll", None)
+        (tmp_path / "comments.json").write_text(json.dumps(st))
     sent = []
     metrics.poll_comments(settings, cfg, lambda t, b: sent.append((t, b)), reader=reader)
     assert sent == []                                  # first run: no flood of old comments
     replies["data"] += [{"id": "c2", "text": "<b>is it open?</b>", "username": "bob"},
                         {"id": "c3", "text": "thanks", "username": "bayesly.ai"}]   # our own reply: ignored
+    assert metrics.poll_comments(settings, cfg, lambda t, b: sent.append((t, b)), reader=reader) == []   # < 1 h: skipped
+    next_hour()
     metrics.poll_comments(settings, cfg, lambda t, b: sent.append((t, b)), reader=reader)
     assert len(sent) == 1
     text, buttons = sent[0]
     assert "@bob" in text and "&lt;b&gt;" in text and "Big chip news" in text
     assert buttons == [[("Open post", "https://threads/p")]]
+    assert not any(path.endswith("I1/comments") for _, path in reader.calls)   # IG count unchanged: no fetch
+    next_hour()
     metrics.poll_comments(settings, cfg, lambda t, b: sent.append((t, b)), reader=reader)
     assert len(sent) == 1                              # never twice
 

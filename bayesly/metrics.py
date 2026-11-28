@@ -32,7 +32,8 @@ from bayesly.publish.base import PublishConfig, scrub
 log = logging.getLogger(__name__)
 
 THREADS_METRICS = ["views", "likes", "replies", "reposts", "quotes", "shares"]
-COMMENT_DAYS = 7         # watch comments on posts from the last week
+COMMENT_DAYS = 4         # watch comments on posts from the last few days
+POLL_EVERY_MIN = 55      # comment polling at most hourly (Meta app rate limits)
 STATS_DAYS = 14
 OWN_HANDLES = {"bayesly.ai", "bayesly_ai"}
 
@@ -144,12 +145,33 @@ def poll_comments(settings: Any, cfg: PublishConfig, send: Callable[[str, list],
     path = settings.state_dir / "comments.json"
     state = _load(path)
     first_run = not state
+    now = datetime.now(timezone.utc)
+    last = state.get("last_poll")
+    # Meta's app rate limit for a small account is low: an Instagram publish failed with "Application
+    # request limit reached" (2026-11-28) while we polled every 15 min. Poll hourly, and on Instagram
+    # ask once for all comment counts, then fetch comments only where the count went up.
+    if last and now - datetime.fromisoformat(last) < timedelta(minutes=POLL_EVERY_MIN):
+        return []
+    state["last_poll"] = now.isoformat(timespec="seconds")
     seen: dict[str, list[str]] = state.get("seen") or {}
+    counts: dict[str, int] = state.get("counts") or {}
     report = []
     for platform in ("threads", "instagram"):
         if platform not in cfg.platforms or not reader.ready(platform):
             continue
-        for post in recent_posts(settings.state_dir, platform, COMMENT_DAYS):
+        posts = recent_posts(settings.state_dir, platform, COMMENT_DAYS)
+        if platform == "instagram" and posts:
+            try:
+                media = reader.get("instagram", f"{cfg.instagram_user_id}/media", fields="id,comments_count", limit=30)
+                live = {str(m["id"]): int(m.get("comments_count") or 0) for m in media.get("data") or []}
+            except RuntimeError as exc:
+                log.warning("instagram comment counts: %s", exc)
+                continue
+            changed = [p for p in posts if live.get(p["post_id"], 0) > counts.get(p["post_id"], 0)]
+            for p in posts:
+                counts[p["post_id"]] = live.get(p["post_id"], counts.get(p["post_id"], 0))
+            posts = changed
+        for post in posts:
             try:
                 comments = fetch_comments(reader, platform, post["post_id"])
             except RuntimeError as exc:
@@ -175,6 +197,7 @@ def poll_comments(settings: Any, cfg: PublishConfig, send: Callable[[str, list],
                 report.append(f"{platform}: comment {c['id']}" + (" (recorded)" if first_run else ""))
             seen[post["post_id"]] = sorted(known)
     state["seen"] = seen
+    state["counts"] = counts
     _save(path, state)
     return report
 

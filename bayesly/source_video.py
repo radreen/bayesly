@@ -15,6 +15,7 @@ Rights: clips are short excerpts used for news reporting, always credited on scr
 from __future__ import annotations
 
 import logging
+import os
 import re
 import subprocess
 from dataclasses import dataclass, field
@@ -411,3 +412,4 @@ _GENERIC = {"gameplay", "demo", "footage", "live", "video", "official", "trailer
 def footage_terms(query: str) -> list[str]:
     """Words of a footage query that must appear in a video title (the subject's name, not 'gameplay')."""
     return [w for w in query.replace(",", " ").split() if w.lower() not in _GENERIC and (len(w) > 2 or w.isdigit())][:3]         or query.split()[:1]
+
