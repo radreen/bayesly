@@ -498,6 +498,17 @@ def render_video(json_path: Path, settings: Settings, *, voice: bool = True, for
     company = company_of(f"{head} {d.get('topic_tag', '')}")
     real = find_source_video(record["source"]["url"], json_path.with_suffix(".src.mp4"),
                              company=company, terms=story_terms(head, company))
+    if not real and (d.get("footage_query") or "").strip():
+        # the subject in action (gameplay, robot, product demo) from this week's YouTube uploads
+        from bayesly.source_video import find_footage, footage_terms
+        fq = d["footage_query"].strip()
+        real = find_footage(fq, footage_terms(fq), json_path.with_suffix(".src.mp4"))
+    if not real and os.getenv("REELS_ONLY_WITH_FOOTAGE", "1").lower() not in {"0", "false", "no"}:
+        # No live footage = no Reel: the post goes out as a photo carousel instead (owner 2026-11-28:
+        # a Reel of a still photo or a page scroll is boring; mix formats instead).
+        record["video_skipped"] = "no live footage"
+        json_path.write_text(json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8")
+        raise RenderError("no live footage for this story: posting a carousel instead of a Reel")
     if real:
         from bayesly.broll import Broll
         broll = Broll([c.path for c in real.clips], real.credit, record["source"]["url"])

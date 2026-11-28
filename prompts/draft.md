@@ -47,6 +47,7 @@ Return ONLY a JSON object, no markdown fences, with exactly these keys:
   "instagram_caption": "full caption for Instagram, no link",
   "question": "the comment question, max 90 characters",
   "topic_tag": "one Threads topic people follow, 1-3 words, no dots or &, e.g. AI, OpenAI, Nvidia, Apple, AI agents",
+  "footage_query": "3-6 word YouTube search for footage of the SUBJECT ITSELF IN ACTION, what a viewer should SEE (e.g. GTA 6 PC gameplay, Figure 03 robot folding laundry, Gemini 4 live demo, Starship launch). Use the real names. Empty string if the story has nothing visual (funding, lawsuits, policy, earnings)",
   "broll_query": "2-4 word stock-footage search a viewer would instantly connect to THIS story's subject, no brand or person names (e.g. maths proof -> chalkboard equations; chip export rules -> semiconductor wafer; data center deal -> data center servers). Empty string if nothing fits: off-topic footage is worse than none",
   "facts": ["max 90 characters", "max 90 characters", "max 90 characters"],
   "confidence": "low | medium | high (internal only: how well the source supports the post)",

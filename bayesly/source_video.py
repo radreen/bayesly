@@ -108,7 +108,8 @@ def download(url: str, out: Path, page_url: str, *, timeout: float = 120, min_da
         log.info("yt-dlp not installed: no source video")
         return None
     opts = {
-        "outtmpl": f"{out}.%(ext)s",   # out has no extension: <draft>.src<i> "quiet": True, "no_warnings": True, "noplaylist": True,
+        "outtmpl": f"{out}.%(ext)s",   # out has no extension: <draft>.src<i>
+        "quiet": True, "no_warnings": True, "noplaylist": True, "noprogress": True,
         "format": "bv*[ext=mp4][height<=1080]/b[ext=mp4][height<=1080]/bv*[height<=1080]/b",
         "max_filesize": MAX_FILESIZE, "socket_timeout": 30, "retries": 1,
         "match_filter": yt_dlp.utils.match_filter_func(f"duration <? {MAX_SOURCE_SECONDS}"
@@ -258,3 +259,114 @@ def story_terms(headline: str, company: str = "") -> list[str]:
         if w[:1].isupper() or any(c.isdigit() for c in w):
             keep.append(w.removesuffix("'s"))
     return list(dict.fromkeys(keep))[:4]
+
+
+# -- live footage: the subject itself in action (gameplay, robot, product demo) ------------------
+# Owner, 2026-11-28: competitors show GTA 6 gameplay for a GTA 6 story, not a photo or an article
+# scroll. The draft's `footage_query` says what the viewer should SEE; we search YouTube uploads of
+# THIS WEEK, keep videos whose title names the subject, pick the most watched, and cut 3 short
+# moments from its middle (no intros, no talking heads at the start). Credited on screen.
+FOOTAGE_CUTS = (0.22, 0.36, 0.5, 0.64, 0.78)   # 5 candidate moments; the 3 liveliest are kept
+CUT_SECONDS = 9
+_TALKY = re.compile(r"\b(podcast|reaction|reacts|explained|interview|news|livestream|live stream|tier list|"
+                    r"q&a|shorts?|#shorts|top \d+|ranking|rumou?rs?)\b", re.I)
+
+
+MIN_MOTION = 14.0     # mean luma difference between frames at 2 fps (gameplay ~18-21, a web page ~13)
+MAX_BRIGHT = 175.0    # mean luma; documents and web pages sit near white
+
+
+def liveliness(path: Path) -> tuple[float, float]:
+    """(mean frame-to-frame luma change, mean brightness) via ffmpeg signalstats at 2 fps."""
+    from bayesly.video import _ffmpeg
+    try:
+        r = subprocess.run([_ffmpeg(), "-nostdin", "-v", "error", "-i", str(path), "-vf",
+                            "fps=2,signalstats,metadata=print:file=-", "-an", "-f", "null", "-"],
+                           capture_output=True, text=True, timeout=60, stdin=subprocess.DEVNULL)
+    except (OSError, subprocess.TimeoutExpired):
+        return 0.0, 255.0
+    ydif = [float(x) for x in re.findall(r"lavfi\.signalstats\.YDIF=([\d.]+)", r.stdout)]
+    yavg = [float(x) for x in re.findall(r"lavfi\.signalstats\.YAVG=([\d.]+)", r.stdout)]
+    mean = lambda v: sum(v) / len(v) if v else 0.0   # noqa: E731
+    return mean(ydif[1:]), mean(yavg) if yavg else 255.0
+
+
+def footage_search(query: str, terms: list[str], *, limit: int = 12) -> list[dict]:
+    """YouTube uploads of this week for `query`, best first. Each: {url, title, channel, duration, views}."""
+    try:
+        import yt_dlp
+        from urllib.parse import quote
+    except ImportError:
+        return []
+    url = f"https://www.youtube.com/results?search_query={quote(query)}&sp=EgIIAw%253D%253D"   # this week
+    try:
+        with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True, "extract_flat": "in_playlist",
+                               "playlistend": limit, "socket_timeout": 20}) as ydl:
+            res = ydl.extract_info(url, download=False) or {}
+    except Exception as exc:  # noqa: BLE001 - YouTube can block CI runners: no clip, carousel instead
+        log.info("footage search failed", extra={"error": str(exc)[:160]})
+        return []
+    keys = [t.lower() for t in terms if len(t) > 1]
+    hits = []
+    for e in res.get("entries") or []:
+        title, dur = (e.get("title") or ""), e.get("duration") or 0
+        if not e.get("id") or not 45 <= dur <= 4 * 3600 or _TALKY.search(title):
+            continue
+        low = title.lower()
+        if keys and (keys[0] not in low or (len(keys) > 2 and not any(k in low for k in keys[1:]))):
+            continue                     # the subject's name must be in the title
+        hits.append({"url": f"https://www.youtube.com/watch?v={e['id']}", "title": title, "duration": dur,
+                     "channel": (e.get("channel") or e.get("uploader") or "YouTube")[:40], "views": e.get("view_count") or 0})
+    return sorted(hits, key=lambda h: h["views"], reverse=True)
+
+
+def cut_footage(hit: dict, out: Path) -> list[Clip]:
+    """Download only CUT_SECONDS windows from the middle of the video (not the whole file)."""
+    try:
+        import yt_dlp
+    except ImportError:
+        return []
+    dur = float(hit["duration"])
+    windows = [(max(30.0, dur * f), max(30.0, dur * f) + CUT_SECONDS) for f in FOOTAGE_CUTS]
+    windows = [(a, min(b, dur)) for a, b in windows if a + 3 < dur]
+    opts = {"outtmpl": f"{out}.%(section_start)d.%(ext)s", "quiet": True, "no_warnings": True, "noprogress": True,
+            "noplaylist": True, "format": "bv*[ext=mp4][height<=1080]/bv*[height<=1080]/b[height<=1080]",
+            "socket_timeout": 30, "retries": 1, "download_ranges": yt_dlp.utils.download_range_func(None, windows),
+            "force_keyframes_at_cuts": False}
+    try:
+        with yt_dlp.YoutubeDL(opts) as ydl:
+            ydl.extract_info(hit["url"], download=True)
+    except Exception as exc:  # noqa: BLE001
+        log.info("footage download failed", extra={"url": hit["url"], "error": str(exc)[:160]})
+        return []
+    scored = []
+    for path in sorted(out.parent.glob(out.name + ".*")):
+        if path.suffix.lower() in {".mp4", ".webm", ".mkv", ".mov"}:
+            secs = _probe_seconds(path)
+            motion, bright = liveliness(path)
+            # a static page / slide (little change, mostly white) is not "the thing in action"
+            if secs >= MIN_SECONDS and motion >= MIN_MOTION and bright <= MAX_BRIGHT:
+                scored.append((motion, Clip(path, hit["channel"], secs, 0.0)))
+    keep = [c for _, c in sorted(scored, key=lambda x: -x[0])[:CLIPS]]
+    return sorted(keep, key=lambda c: int(c.path.name.split('.')[-2]))   # play in time order
+
+
+def find_footage(query: str, terms: list[str], out: Path) -> SourceVideo | None:
+    if not query.strip():
+        return None
+    for hit in footage_search(query, terms)[:2]:
+        clips = cut_footage(hit, out.parent / f"{out.name.split('.')[0]}.live")
+        if clips:
+            log.info("live footage", extra={"title": hit["title"][:80], "channel": hit["channel"], "cuts": len(clips)})
+            return SourceVideo(clips)
+    log.info("live footage: none", extra={"query": query})
+    return None
+
+
+_GENERIC = {"gameplay", "demo", "footage", "live", "video", "official", "trailer", "pc", "launch", "test",
+            "hands-on", "hands", "on", "first", "look", "new", "the", "of", "in", "and", "with", "robot", "4k"}
+
+
+def footage_terms(query: str) -> list[str]:
+    """Words of a footage query that must appear in a video title (the subject's name, not 'gameplay')."""
+    return [w for w in query.replace(",", " ").split() if w.lower() not in _GENERIC and (len(w) > 2 or w.isdigit())][:3]         or query.split()[:1]
