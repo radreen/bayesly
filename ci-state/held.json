@@ -402,5 +402,14 @@
     "path": "D:\\Bayesly\\ci-state\\queue\\2026-11-28\\63f7c1abbb4cr2v2-rockstar-s-ai-dilemma-can-gta-6-s-staggered-releas.json",
     "decided_at": "2026-11-28T09:59:43+00:00",
     "note": "owner asked to re-post the GTA 6 story with live footage"
+  },
+  "2d66b9a2f223d46e": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/2d66b9a2f223d46e-google-deepmind-s-humanity-s-first-exam-shows-top.json",
+    "reasons": [
+      "image: card.number '73%' not found in the source text; number slide dropped."
+    ],
+    "held_at": "2026-11-28T11:17:18+00:00",
+    "message_id": 156
   }
 }

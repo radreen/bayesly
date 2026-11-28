@@ -75,5 +75,7 @@
     "card.confidence_reason trimmed from 88 to 70 chars."
   ],
   "palette": "lime",
-  "layout": "text"
+  "layout": "text",
+  "page_shot": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/fb0dc092962c92f4-v5-22-0-mistral-large-4-le-chonk.page.jpg",
+  "video_skipped": "no live footage"
 }

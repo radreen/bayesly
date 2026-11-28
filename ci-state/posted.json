@@ -1474,5 +1474,40 @@
       "attempts": 1,
       "at": "2026-11-28T10:03:00+00:00"
     }
+  },
+  "fb0dc092962c92f4": {
+    "threads": {
+      "platform": "threads",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "18010771301788352",
+      "url": "https://www.threads.com/@bayesly.ai/post/DgSIQhNmwZO",
+      "error": null,
+      "detail": null,
+      "attempts": 1,
+      "at": "2026-11-28T11:18:28+00:00"
+    },
+    "instagram": {
+      "platform": "instagram",
+      "ok": false,
+      "dry_run": false,
+      "post_id": null,
+      "url": null,
+      "error": "POST https://graph.facebook.com/v27.0/17841465454805775/media_publish -> HTTP 403: {\"error\":{\"message\":\"Application request limit reached\",\"code\":4,\"type\":\"OAuthException\",\"error_subcode\":2207051,\"is_transient\":false,\"error_user_msg\":\"Щоб захистити нашу спільноту, ми обмежуємо деяку активність. Повідомте нам, якщо вважаєте, що ми зробили помилку.\",\"error_user_title\":\"Дію заблоковано\",\"fbtrace_id\":\"A7QC6HV2W5Ys35unyJpCcKS\"}}",
+      "detail": null,
+      "attempts": 1,
+      "at": "2026-11-28T11:18:52+00:00"
+    },
+    "x": {
+      "platform": "x",
+      "ok": true,
+      "dry_run": false,
+      "post_id": "2126636943156932682",
+      "url": "https://x.com/bayesly_ai/status/2126636943156932682",
+      "error": null,
+      "detail": null,
+      "attempts": 1,
+      "at": "2026-11-28T11:18:53+00:00"
+    }
   }
 }

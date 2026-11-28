@@ -462,5 +462,9 @@
   "fb0dc092962c92f4": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/fb0dc092962c92f4-v5-22-0-mistral-large-4-le-chonk.json",
     "drafted_at": "2026-11-28T11:02:16+00:00"
+  },
+  "2d66b9a2f223d46e": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/2d66b9a2f223d46e-google-deepmind-s-humanity-s-first-exam-shows-top.json",
+    "drafted_at": "2026-11-28T11:16:52+00:00"
   }
 }
