@@ -454,5 +454,13 @@
   "866f2e8ff9945934": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/866f2e8ff9945934-embo-which-is-developing-world-models-for-robotics.json",
     "drafted_at": "2026-11-28T06:03:48+00:00"
+  },
+  "964c87b5f05255b6": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-28T11:02:00+00:00"
+  },
+  "fb0dc092962c92f4": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/fb0dc092962c92f4-v5-22-0-mistral-large-4-le-chonk.json",
+    "drafted_at": "2026-11-28T11:02:16+00:00"
   }
 }
