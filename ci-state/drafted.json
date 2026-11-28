@@ -442,5 +442,13 @@
   "ac4f7a89be07b93b": {
     "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-27/ac4f7a89be07b93b-some-users-claim-claude-is-silently-sabotaging-pro.json",
     "drafted_at": "2026-11-27T22:17:23+00:00"
+  },
+  "908640080e2e89d4": {
+    "path": "skipped: duplicate of a recent story",
+    "drafted_at": "2026-11-28T03:36:55+00:00"
+  },
+  "7bb959aaf52e6002": {
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/7bb959aaf52e6002-google-s-patent-for-custom-ai-video-feeds-paints-a.json",
+    "drafted_at": "2026-11-28T03:38:43+00:00"
   }
 }

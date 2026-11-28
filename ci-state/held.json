@@ -387,5 +387,14 @@
     ],
     "held_at": "2026-11-27T22:17:48+00:00",
     "message_id": 146
+  },
+  "7bb959aaf52e6002": {
+    "status": "pending",
+    "path": "/home/runner/work/bayesly/bayesly/ci-state/queue/2026-11-28/7bb959aaf52e6002-google-s-patent-for-custom-ai-video-feeds-paints-a.json",
+    "reasons": [
+      "image: Some text was too long to fit a slide even after shrinking. Shorten it."
+    ],
+    "held_at": "2026-11-28T03:38:54+00:00",
+    "message_id": 148
   }
 }
