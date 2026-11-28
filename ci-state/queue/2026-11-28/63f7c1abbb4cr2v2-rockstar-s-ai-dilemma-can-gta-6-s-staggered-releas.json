@@ -1,0 +1,60 @@
+{
+  "id": "63f7c1abbb4cr2v2",
+  "status": "pending_review",
+  "created_at": "2026-11-28T09:59:43+00:00",
+  "model": "gemini-3.5-flash",
+  "source": {
+    "id": "the-decoder",
+    "name": "The Decoder",
+    "kind": "press",
+    "reliability": 0.75,
+    "url": "https://the-decoder.com/rockstars-ai-dilemma-can-gta-6s-staggered-release-model-survive-coding-agents/",
+    "title": "Rockstar's AI dilemma: Can GTA 6's staggered release model survive coding agents?",
+    "published": "2026-11-28T09:59:23.219143+00:00",
+    "text": "More than 40 projects are working to bring a leaked Xbox build of GTA 6 to PC through reverse engineering just days after its $3.79 billion record console launch. AI coding agents like Claude Code are speeding up the process so much that an early unofficial multiplayer mode is already running. Rockstar's delayed PC business model is coming under pressure. The article Rockstar's AI dilemma: Can GTA 6's staggered release model survive coding agents? appeared first on The Decoder ."
+  },
+  "score": 1.08,
+  "score_breakdown": {},
+  "draft": {
+    "headline": "AI coding agents are accelerating a community effort to reverse-engineer a leaked GTA 6 Xbox build for PC.",
+    "threads_post": "Over 40 community projects are using AI coding agents like Claude Code to port a leaked Xbox build of GTA 6 to PC.\n\nAn unofficial multiplayer mode is already running, just days after GTA 6 made a record $3.79 billion console launch. Rockstar usually delays its PC releases, but rapid AI-assisted reverse engineering is putting that business model under pressure.\n\nWill AI coding tools force studios to ship PC games on day one?",
+    "x_post": "AI coding agents like Claude Code are helping reverse-engineer a leaked Xbox build of GTA 6 to PC.\n\nOver 40 projects are on it, and an unofficial multiplayer mode is already running.\n\nWill AI end delayed PC releases? #gta6 #ai",
+    "instagram_caption": "Over 40 community projects are reverse engineering a leaked Xbox build of GTA 6 to bring it to PC, coming right after its $3.79 billion console launch.\n\nAI coding agents like Claude Code are speeding up development so fast that an early unofficial multiplayer mode is already running. Rockstar traditionally staggers its PC releases, but AI-powered reverse engineering is putting that delayed launch model under serious pressure.\n\nWill AI agents force game studios to stop delaying PC releases?\n\n#gta6 #aiagents #gaming #gamedev #ai",
+    "question": "Will AI agents force game studios to stop delaying PC releases?",
+    "topic_tag": "GTA 6",
+    "footage_query": "GTA 6 gameplay reverse engineering PC",
+    "broll_query": "programmer coding monitor screen",
+    "facts": [
+      "Over 40 projects are porting a leaked GTA 6 Xbox build to PC.",
+      "AI agents like Claude Code helped get an unofficial multiplayer mode running already.",
+      "GTA 6 set a record with a $3.79 billion console launch before the Xbox leak."
+    ],
+    "confidence": "high",
+    "confidence_reason": "Source explicitly details the 40+ projects, AI tools, and revenue stats.",
+    "facts_used": [
+      "More than 40 projects are working to bring a leaked Xbox build of GTA 6 to PC through reverse engineering",
+      "just days after its $3.79 billion record console launch",
+      "AI coding agents like Claude Code are speeding up the process so much that an early unofficial multiplayer mode is already running",
+      "Rockstar's delayed PC business model is coming under pressure"
+    ],
+    "insufficient_source": false,
+    "editor_notes": "All claims are grounded in the provided report on GTA 6 leak reverse-engineering.",
+    "card": {
+      "category": "Business",
+      "headline": "AI coding agents speed up GTA 6 reverse engineering to PC",
+      "highlight": "GTA 6 reverse engineering",
+      "number": {
+        "value": "40",
+        "caption": "Projects using AI agents to port GTA 6 to PC",
+        "footnote": "Reported by The Decoder"
+      }
+    },
+    "fact_check_issues": [
+      "GTA 6 set a record with a $3.79 billion console launch before the Xbox leak."
+    ]
+  },
+  "raw_model_output": null,
+  "lint_warnings": [
+    "Fact-check: not in the source: GTA 6 set a record with a $3.79 billion console launch before the Xbox leak."
+  ]
+}
